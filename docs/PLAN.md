@@ -46,7 +46,7 @@ Work top to bottom. Each task is sized for one Claude Code session and follows t
   Refs: PRD §6.2, §6.3
 - [x] **1.2 Repeat rules.** Implement `nextOccurrence(rule, dueDate)` in `core/repeat` (pure Dart). Exhaustive unit tests: daily, weekdays across weekends, weekly with one and several days, monthly on the 15th, 29th, 30th and 31st (short months and leap years), custom every N days, weeks and months for N 1 and 12, end dates.
   Refs: PRD §6.4
-- [ ] **1.3 Database schema v1.** Drift database in `core/db` with Task, Subtask, Tag, TaskTag, Link, Project, RepeatRule, FocusSession and a key-value Preferences table (schemaVersion 1). Provide it through Riverpod; use an in-memory database in tests.
+- [x] **1.3 Database schema v1.** Drift database in `core/db` with Task, Subtask, Tag, TaskTag, Link, Project, RepeatRule, FocusSession and a key-value Preferences table (schemaVersion 1). Provide it through Riverpod; use an in-memory database in tests.
   Refs: PRD §8
 - [ ] **1.4 Domain entities.** freezed entities for every table, enums for priority, status, board column, reminder, colour key and icon key, and mappers to and from Drift rows.
   Refs: PRD §8, DESIGN §3.4, §8
