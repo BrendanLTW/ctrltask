@@ -3,7 +3,10 @@ import 'package:flutter/material.dart';
 
 // shortcut: placeholder screen; built in its own task.
 class TaskFormScreen extends StatelessWidget {
-  const new({super.key});
+  const new({this.initialTitle, super.key});
+
+  /// Prefilled from S08's suggestion chips.
+  final String? initialTitle;
 
   @override
   Widget build(BuildContext context) {

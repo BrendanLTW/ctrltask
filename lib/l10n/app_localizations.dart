@@ -214,11 +214,11 @@ abstract class AppLocalizations {
   /// **'{count, plural, =1{1 day left} other{{count} days left}}'**
   String daysLeft(int count);
 
-  /// No description provided for @durationHoursMinutes.
+  /// Minutes are zero-padded: "2h 05m".
   ///
   /// In en, this message translates to:
   /// **'{hours}h {minutes}m'**
-  String durationHoursMinutes(int hours, int minutes);
+  String durationHoursMinutes(int hours, String minutes);
 
   /// No description provided for @durationHours.
   ///
@@ -891,6 +891,84 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Project deadline'**
   String get projectDeadline;
+
+  /// No description provided for @greetingWelcome.
+  ///
+  /// In en, this message translates to:
+  /// **'Welcome'**
+  String get greetingWelcome;
+
+  /// No description provided for @blankPageTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Your day is a blank page'**
+  String get blankPageTitle;
+
+  /// No description provided for @blankPageBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Add the first thing you want to get done today. A title is all you need.'**
+  String get blankPageBody;
+
+  /// No description provided for @addATask.
+  ///
+  /// In en, this message translates to:
+  /// **'Add a task'**
+  String get addATask;
+
+  /// No description provided for @startWithThese.
+  ///
+  /// In en, this message translates to:
+  /// **'OR START WITH ONE OF THESE'**
+  String get startWithThese;
+
+  /// No description provided for @createAProject.
+  ///
+  /// In en, this message translates to:
+  /// **'Create a project'**
+  String get createAProject;
+
+  /// No description provided for @dayDoneTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Day done. Nice work.'**
+  String get dayDoneTitle;
+
+  /// No description provided for @dayDoneTasks.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{1 task finished} other{{count} tasks finished}} and {focus} of focus.'**
+  String dayDoneTasks(int count, String focus);
+
+  /// No description provided for @dayDoneTasksOnly.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{1 task finished.} other{{count} tasks finished.}}'**
+  String dayDoneTasksOnly(int count);
+
+  /// No description provided for @dayDoneStreak.
+  ///
+  /// In en, this message translates to:
+  /// **'Your streak is now {days}.'**
+  String dayDoneStreak(String days);
+
+  /// No description provided for @planTomorrow.
+  ///
+  /// In en, this message translates to:
+  /// **'Plan tomorrow'**
+  String get planTomorrow;
+
+  /// No description provided for @tomorrowSection.
+  ///
+  /// In en, this message translates to:
+  /// **'TOMORROW · {day}'**
+  String tomorrowSection(String day);
+
+  /// No description provided for @anyTime.
+  ///
+  /// In en, this message translates to:
+  /// **'Any time'**
+  String get anyTime;
 }
 
 class _AppLocalizationsDelegate

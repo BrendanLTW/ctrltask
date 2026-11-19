@@ -10,6 +10,7 @@ class TaskRow extends StatelessWidget {
     required this.data,
     required this.onToggle,
     required this.onTap,
+    this.trailingTag = true,
     super.key,
   });
 
@@ -18,6 +19,10 @@ class TaskRow extends StatelessWidget {
 
   /// Opens the task (S12).
   final VoidCallback onTap;
+
+  /// The priority tag on the right (S19); false puts it in the meta line,
+  /// as S09's tomorrow list.
+  final bool trailingTag;
 
   @override
   Widget build(BuildContext context) => InkWell(
@@ -30,8 +35,10 @@ class TaskRow extends StatelessWidget {
       child: TaskContent(
         data: data,
         onToggle: onToggle,
-        tagInMeta: false,
-        trailing: data.showsTag ? PriorityTag(data.priority) : null,
+        tagInMeta: !trailingTag,
+        trailing: trailingTag && data.showsTag
+            ? PriorityTag(data.priority)
+            : null,
       ),
     ),
   );

@@ -50,6 +50,7 @@ void main() {
 
   test('durationLabel', () {
     expect(l10n.durationLabel(const Duration(minutes: 75)), '1h 15m');
+    expect(l10n.durationLabel(const Duration(minutes: 125)), '2h 05m');
     expect(l10n.durationLabel(const Duration(hours: 2)), '2h');
     expect(l10n.durationLabel(const Duration(minutes: 25)), '25m');
     expect(l10n.durationLabel(Duration.zero), '0m');

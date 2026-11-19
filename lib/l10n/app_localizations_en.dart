@@ -82,7 +82,7 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
-  String durationHoursMinutes(int hours, int minutes) {
+  String durationHoursMinutes(int hours, String minutes) {
     return '${hours}h ${minutes}m';
   }
 
@@ -499,4 +499,64 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get projectDeadline => 'Project deadline';
+
+  @override
+  String get greetingWelcome => 'Welcome';
+
+  @override
+  String get blankPageTitle => 'Your day is a blank page';
+
+  @override
+  String get blankPageBody =>
+      'Add the first thing you want to get done today. A title is all you need.';
+
+  @override
+  String get addATask => 'Add a task';
+
+  @override
+  String get startWithThese => 'OR START WITH ONE OF THESE';
+
+  @override
+  String get createAProject => 'Create a project';
+
+  @override
+  String get dayDoneTitle => 'Day done. Nice work.';
+
+  @override
+  String dayDoneTasks(int count, String focus) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count tasks finished',
+      one: '1 task finished',
+    );
+    return '$_temp0 and $focus of focus.';
+  }
+
+  @override
+  String dayDoneTasksOnly(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count tasks finished.',
+      one: '1 task finished.',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String dayDoneStreak(String days) {
+    return 'Your streak is now $days.';
+  }
+
+  @override
+  String get planTomorrow => 'Plan tomorrow';
+
+  @override
+  String tomorrowSection(String day) {
+    return 'TOMORROW · $day';
+  }
+
+  @override
+  String get anyTime => 'Any time';
 }

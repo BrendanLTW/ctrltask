@@ -73,7 +73,7 @@ Work top to bottom. Each task is sized for one Claude Code session and follows t
   Refs: S01–S06, PRD §5.1, FR-01
 - [x] **2.4 Home.** S07 with header (date, greeting by time of day, search, avatar → Settings), the progress hero, stat tiles, overdue banner, Due today cards with completion and Undo, and Upcoming deadlines. Figures update live.
   Refs: S07, PRD §5.2, FR-02
-- [ ] **2.5 Home states.** S08 first run (empty state and suggestion chips that prefill quick add) and S09 all done (celebration card, Plan tomorrow, tomorrow's list).
+- [x] **2.5 Home states.** S08 first run (empty state and suggestion chips that prefill quick add) and S09 all done (celebration card, Plan tomorrow, tomorrow's list).
   Refs: S08, S09, PRD §5.2, FR-02
 - [ ] **2.6 Quick add.** S10 sheet: title and send, When chips, Priority chips, project chip (S17 comes in 2.10; use Inbox until then), More → S11 with values carried over. Opens from the quick-add button on every tab.
   Refs: S10, PRD §5.3, FR-03

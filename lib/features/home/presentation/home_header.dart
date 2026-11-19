@@ -25,6 +25,7 @@ class HomeHeader extends StatelessWidget {
     required this.name,
     required this.onSearch,
     required this.onAvatar,
+    this.showSearch = true,
     super.key,
   });
 
@@ -34,6 +35,9 @@ class HomeHeader extends StatelessWidget {
   final String name;
   final VoidCallback onSearch;
   final VoidCallback onAvatar;
+
+  /// S08 has nothing to search yet.
+  final bool showSearch;
 
   @override
   Widget build(BuildContext context) {
@@ -71,17 +75,19 @@ class HomeHeader extends StatelessWidget {
               ],
             ),
           ),
-          IconButton(
-            onPressed: onSearch,
-            tooltip: l10n.searchTasks,
-            style: IconButton.styleFrom(
-              fixedSize: const Size(48, 48),
-              backgroundColor: colors.raised,
-              foregroundColor: colors.ink,
+          if (showSearch) ...[
+            IconButton(
+              onPressed: onSearch,
+              tooltip: l10n.searchTasks,
+              style: IconButton.styleFrom(
+                fixedSize: const Size(48, 48),
+                backgroundColor: colors.raised,
+                foregroundColor: colors.ink,
+              ),
+              icon: const AppIconView(AppIcon.search, size: 22),
             ),
-            icon: const AppIconView(AppIcon.search, size: 22),
-          ),
-          const SizedBox(width: 10),
+            const SizedBox(width: 10),
+          ],
           Tooltip(
             message: l10n.settings,
             excludeFromSemantics: true,

@@ -140,10 +140,8 @@ void main() {
     expect(title('Projects'), findsOneWidget);
   });
 
-  for (final (tooltip, screen) in [
-    ('Search tasks', 'Search'),
-    ('Settings', 'Settings'),
-  ]) {
+  // With no tasks Home is S08, which has no search; Home's tests cover it.
+  for (final (tooltip, screen) in [('Settings', 'Settings')]) {
     testWidgets('$tooltip on Home opens $screen and back returns', (
       tester,
     ) async {

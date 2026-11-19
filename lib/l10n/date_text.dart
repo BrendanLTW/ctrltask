@@ -28,12 +28,12 @@ extension DateText on AppLocalizations {
   String daysLeftLabel(DateTime deadline, {required DateTime today}) =>
       daysLeft(DateLabels.daysBetween(today, deadline));
 
-  /// "1h 15m", "2h" or "25m".
+  /// "1h 15m", "2h 05m", "2h" or "25m".
   String durationLabel(Duration duration) {
     final hours = duration.inHours;
     final minutes = duration.inMinutes % 60;
     if (hours == 0) return durationMinutes(minutes);
     if (minutes == 0) return durationHours(hours);
-    return durationHoursMinutes(hours, minutes);
+    return durationHoursMinutes(hours, '$minutes'.padLeft(2, '0'));
   }
 }

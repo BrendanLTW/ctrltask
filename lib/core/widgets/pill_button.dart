@@ -1,5 +1,6 @@
 import 'package:ctrltask/core/theme/app_colors.dart';
 import 'package:ctrltask/core/theme/app_typography.dart';
+import 'package:ctrltask/core/widgets/app_icon.dart';
 import 'package:flutter/material.dart';
 
 /// A pill button (DESIGN §7): 48 high, padding 0 22, 15/600 on `ink`; or
@@ -10,6 +11,7 @@ class PillButton extends StatelessWidget {
     required this.onPressed,
     this.soft = false,
     this.small = false,
+    this.icon,
     super.key,
   });
 
@@ -17,6 +19,9 @@ class PillButton extends StatelessWidget {
   final VoidCallback onPressed;
   final bool soft;
   final bool small;
+
+  /// A leading icon, as S08's "+ Add a task".
+  final AppIcon? icon;
 
   @override
   Widget build(BuildContext context) {
@@ -45,12 +50,27 @@ class PillButton extends StatelessWidget {
               child: Center(
                 widthFactor: 1,
                 heightFactor: 1,
-                child: Text(
-                  label,
-                  textAlign: TextAlign.center,
-                  style: style.copyWith(
-                    color: soft ? colors.ink : colors.onInk,
-                  ),
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    if (icon case final icon?) ...[
+                      AppIconView(
+                        icon,
+                        size: 20,
+                        color: soft ? colors.ink : colors.onInk,
+                      ),
+                      const SizedBox(width: 10),
+                    ],
+                    Flexible(
+                      child: Text(
+                        label,
+                        textAlign: TextAlign.center,
+                        style: style.copyWith(
+                          color: soft ? colors.ink : colors.onInk,
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               ),
             ),

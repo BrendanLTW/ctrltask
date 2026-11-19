@@ -1,7 +1,6 @@
 import 'package:ctrltask/core/theme/app_colors.dart';
 import 'package:ctrltask/core/theme/app_radius.dart';
 import 'package:ctrltask/core/theme/app_typography.dart';
-import 'package:ctrltask/core/widgets/app_chip.dart';
 import 'package:ctrltask/core/widgets/app_icon.dart';
 import 'package:ctrltask/core/widgets/pill_button.dart';
 import 'package:flutter/material.dart';
@@ -10,7 +9,7 @@ import 'package:flutter/material.dart';
 enum StateTone { neutral, success, error }
 
 /// An empty, done or error state (DESIGN §6, §7): a 96 px circle icon, a
-/// title, muted copy, one pill action and optional suggestion chips.
+/// title, muted copy, one pill action and an optional [footer].
 /// [card] puts it on a `surface` card, as S09's "Day done" (StateCard).
 class EmptyState extends StatelessWidget {
   const new({
@@ -20,9 +19,9 @@ class EmptyState extends StatelessWidget {
     this.tone = StateTone.neutral,
     this.bodySpan,
     this.actionLabel,
+    this.actionIcon,
     this.onAction,
-    this.suggestions = const [],
-    this.onSuggestion,
+    this.footer,
     this.card = false,
     super.key,
   }) : assert((actionLabel == null) == (onAction == null), 'label + action');
@@ -37,11 +36,11 @@ class EmptyState extends StatelessWidget {
   final InlineSpan? bodySpan;
   final StateTone tone;
   final String? actionLabel;
+  final AppIcon? actionIcon;
   final VoidCallback? onAction;
 
-  /// Chips under the action, e.g. S08's "Plan my week".
-  final List<String> suggestions;
-  final ValueChanged<String>? onSuggestion;
+  /// Under the action, e.g. S08's suggestion chips.
+  final Widget? footer;
   final bool card;
 
   @override
@@ -59,8 +58,9 @@ class EmptyState extends StatelessWidget {
       children: [
         ExcludeSemantics(
           child: Container(
-            width: 96,
-            height: 96,
+            // 80 on S09's card, 96 elsewhere, as the designs show.
+            width: card ? 80 : 96,
+            height: card ? 80 : 96,
             decoration: BoxDecoration(color: circle, shape: BoxShape.circle),
             child: AppIconView(icon, size: 40, stroke: 1.7, color: glyph),
           ),
@@ -86,28 +86,14 @@ class EmptyState extends StatelessWidget {
         ),
         if ((actionLabel, onAction) case (final label?, final onTap?)) ...[
           const SizedBox(height: 22),
-          PillButton(label: label, onPressed: onTap),
+          PillButton(label: label, icon: actionIcon, onPressed: onTap),
         ],
-        if (suggestions.isNotEmpty) ...[
-          const SizedBox(height: 16),
-          Wrap(
-            alignment: WrapAlignment.center,
-            spacing: 8,
-            children: [
-              for (final s in suggestions)
-                AppChip(
-                  label: s,
-                  small: true,
-                  onTap: () => onSuggestion?.call(s),
-                ),
-            ],
-          ),
-        ],
+        if (footer case final footer?) ...[const SizedBox(height: 28), footer],
       ],
     );
     if (!card) {
       return Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 24),
+        padding: const EdgeInsets.symmetric(horizontal: 8),
         child: content,
       );
     }

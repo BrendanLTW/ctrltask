@@ -83,7 +83,8 @@ GoRouter appRouter(Ref ref) {
       // Listed before /task/:id so "new" isn't read as an id.
       GoRoute(
         path: Routes.newTask,
-        builder: (context, state) => const TaskFormScreen(),
+        builder: (context, state) =>
+            TaskFormScreen(initialTitle: state.uri.queryParameters['title']),
       ),
       GoRoute(
         path: '/task/:id',

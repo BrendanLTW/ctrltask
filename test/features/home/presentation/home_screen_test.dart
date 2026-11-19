@@ -8,8 +8,11 @@ import 'package:ctrltask/core/widgets/task_card.dart';
 import 'package:ctrltask/core/widgets/task_checkbox.dart';
 import 'package:ctrltask/features/focus/domain/focus_session.dart';
 import 'package:ctrltask/features/focus/domain/focus_session_repository.dart';
+import 'package:ctrltask/features/home/presentation/home_all_done.dart';
+import 'package:ctrltask/features/home/presentation/home_first_run.dart';
 import 'package:ctrltask/features/home/presentation/home_header.dart';
 import 'package:ctrltask/features/home/presentation/home_screen.dart';
+import 'package:ctrltask/features/home/presentation/home_stats.dart';
 import 'package:ctrltask/features/projects/domain/project.dart';
 import 'package:ctrltask/features/projects/domain/project_keys.dart';
 import 'package:ctrltask/features/projects/domain/project_repository.dart';
@@ -20,6 +23,7 @@ import 'package:ctrltask/features/tasks/domain/task.dart';
 import 'package:ctrltask/features/tasks/domain/task_details.dart';
 import 'package:ctrltask/features/tasks/domain/task_priority.dart';
 import 'package:ctrltask/features/tasks/domain/task_repository.dart';
+import 'package:ctrltask/l10n/date_text.dart';
 import 'package:ctrltask/l10n/l10n.dart';
 import 'package:ctrltask/main.dart';
 import 'package:flutter/material.dart';
@@ -343,6 +347,94 @@ void main() {
     expect(
       find.descendant(of: find.byType(AppBar), matching: find.text('Settings')),
       findsOneWidget,
+    );
+  });
+
+  group('states', () {
+    Finder appBarTitle(String text) =>
+        find.descendant(of: find.byType(AppBar), matching: find.text(text));
+
+    testWidgets('no tasks at all is the S08 blank page', (tester) async {
+      today.value = [];
+      all.value = [];
+      await pumpHome(tester);
+
+      expect(find.byType(HomeFirstRun), findsOneWidget);
+      expect(find.text('Welcome, Alex'), findsOneWidget);
+      expect(find.byTooltip('Search tasks'), findsNothing);
+      expect(find.text('Nothing planned'), findsOneWidget);
+      expect(find.byType(HomeStats), findsNothing);
+
+      await tester.tap(find.text('Plan my week'));
+      await tester.pumpAndSettle();
+      expect(appBarTitle('New task'), findsOneWidget);
+    });
+
+    testWidgets('Create a project opens Projects', (tester) async {
+      today.value = [];
+      all.value = [];
+      await pumpHome(tester);
+      await tester.tap(find.text('Create a project'));
+      await tester.pumpAndSettle();
+      expect(appBarTitle('Projects'), findsOneWidget);
+    });
+
+    testWidgets('tasks on other days keep the normal layout', (tester) async {
+      today.value = [];
+      all.value = [hero];
+      await pumpHome(tester);
+      expect(find.byType(HomeFirstRun), findsNothing);
+      expect(find.byType(HomeStats), findsOneWidget);
+      expect(find.text('Good morning, Alex'), findsOneWidget);
+    });
+
+    testWidgets('every task done is S09, with tomorrow below', (tester) async {
+      final finished = [
+        bill,
+        slides.copyWith(
+          status: TaskStatus.done,
+          boardColumn: BoardColumn.done,
+          completedAt: DateTime(2026, 11, 17, 8).toUtc(),
+        ),
+      ];
+      final tomorrow = _task(30, 'Order tiles', due: DateTime(2026, 11, 18));
+      today.value = finished;
+      all.value = [...finished, tomorrow];
+      await pumpHome(tester);
+
+      expect(find.byType(DayDoneCard), findsOneWidget);
+      expect(find.byType(HomeStats), findsNothing);
+      expect(find.text('Day done. Nice work.'), findsOneWidget);
+      expect(
+        find.text(
+          '2 tasks finished. Your streak is now 1 day.',
+          findRichText: true,
+        ),
+        findsOneWidget,
+      );
+      expect(find.text('TOMORROW · WED 18'), findsOneWidget);
+      expect(find.text('Order tiles'), findsOneWidget);
+      expect(
+        find.textContaining('Any time', findRichText: true),
+        findsOneWidget,
+      );
+
+      await tester.tap(find.text('Plan tomorrow'));
+      await tester.pumpAndSettle();
+      expect(appBarTitle('Tasks'), findsOneWidget);
+    });
+  });
+
+  test('the day-done summary reads naturally', () {
+    final l10n = lookupAppLocalizations(const Locale('en'));
+    expect(
+      l10n.dayDoneTasks(6, l10n.durationLabel(const Duration(minutes: 125))),
+      '6 tasks finished and 2h 05m of focus.',
+    );
+    expect(l10n.dayDoneTasksOnly(1), '1 task finished.');
+    expect(
+      l10n.dayDoneStreak(l10n.dayCount(13)),
+      'Your streak is now 13 days.',
     );
   });
 

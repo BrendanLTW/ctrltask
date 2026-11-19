@@ -89,7 +89,7 @@ class ProgressHero extends StatelessWidget {
                               l10n.nothingPlanned,
                               style: text.heroValue.copyWith(
                                 color: colors.onHero,
-                                fontSize: text.header.fontSize,
+                                fontSize: text.detailTitle.fontSize,
                               ),
                             )
                           else

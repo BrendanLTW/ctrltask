@@ -48,12 +48,13 @@
   },
   "durationHoursMinutes": "{hours}h {minutes}m",
   "@durationHoursMinutes": {
+    "description": "Minutes are zero-padded: \"2h 05m\".",
     "placeholders": {
       "hours": {
         "type": "int"
       },
       "minutes": {
-        "type": "int"
+        "type": "String"
       }
     }
   },
@@ -360,5 +361,49 @@
       }
     }
   },
-  "projectDeadline": "Project deadline"
+  "projectDeadline": "Project deadline",
+  "greetingWelcome": "Welcome",
+  "blankPageTitle": "Your day is a blank page",
+  "blankPageBody": "Add the first thing you want to get done today. A title is all you need.",
+  "addATask": "Add a task",
+  "startWithThese": "OR START WITH ONE OF THESE",
+  "createAProject": "Create a project",
+  "dayDoneTitle": "Day done. Nice work.",
+  "dayDoneTasks": "{count, plural, =1{1 task finished} other{{count} tasks finished}} and {focus} of focus.",
+  "@dayDoneTasks": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      },
+      "focus": {
+        "type": "String"
+      }
+    }
+  },
+  "dayDoneTasksOnly": "{count, plural, =1{1 task finished.} other{{count} tasks finished.}}",
+  "@dayDoneTasksOnly": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "dayDoneStreak": "Your streak is now {days}.",
+  "@dayDoneStreak": {
+    "placeholders": {
+      "days": {
+        "type": "String"
+      }
+    }
+  },
+  "planTomorrow": "Plan tomorrow",
+  "tomorrowSection": "TOMORROW · {day}",
+  "@tomorrowSection": {
+    "placeholders": {
+      "day": {
+        "type": "String"
+      }
+    }
+  },
+  "anyTime": "Any time"
 }

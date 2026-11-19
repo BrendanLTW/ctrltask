@@ -25,6 +25,7 @@ class TaskTileData {
     this.projectColor,
     this.subtasks,
     this.repeats = false,
+    this.untimedLabel,
   });
 
   final String title;
@@ -38,6 +39,9 @@ class TaskTileData {
   final String? overdueLabel;
   final String? projectName;
   final ProjectColorKey? projectColor;
+
+  /// Plain text where an untimed task has no time, S09's "Any time".
+  final String? untimedLabel;
 
   /// Ticked out of all subtasks; null without subtasks.
   final Progress? subtasks;
@@ -103,7 +107,9 @@ class TaskContent extends StatelessWidget {
       if (data.overdueLabel case final overdue?)
         Text(overdue, style: meta.copyWith(color: colors.negative))
       else if (data.timeLabel case final time?)
-        iconText(AppIcon.clock, time),
+        iconText(AppIcon.clock, time)
+      else if (data.untimedLabel case final untimed?)
+        Text(untimed, style: meta),
       if (data.projectName case final name?)
         Text.rich(
           TextSpan(

@@ -82,7 +82,7 @@ void main() {
     handle.dispose();
   });
 
-  testWidgets('empty state: title, action and suggestion chips', (
+  testWidgets('empty state: title, action with icon, and a footer', (
     tester,
   ) async {
     final handle = tester.ensureSemantics();
@@ -97,9 +97,14 @@ void main() {
           title: 'Your day is a blank page',
           body: 'Add the first thing you want to get done today.',
           actionLabel: 'Add a task',
+          actionIcon: AppIcon.add,
           onAction: () => adds++,
-          suggestions: const ['Plan my week', 'Clear my inbox'],
-          onSuggestion: picked.add,
+          footer: Wrap(
+            children: [
+              for (final s in ['Plan my week', 'Clear my inbox'])
+                AppChip(label: s, small: true, onTap: () => picked.add(s)),
+            ],
+          ),
         ),
       ),
     );
@@ -112,6 +117,13 @@ void main() {
     expect(adds, 1);
     expect(picked, ['Clear my inbox']);
     expect(find.byType(AppChip), findsNWidgets(2));
+    expect(
+      find.descendant(
+        of: find.byType(PillButton),
+        matching: find.byType(AppIconView),
+      ),
+      findsOneWidget,
+    );
     handle.dispose();
   });
 

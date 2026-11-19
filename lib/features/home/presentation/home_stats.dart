@@ -24,12 +24,15 @@ class HomeStats extends StatelessWidget {
     final l10n = context.l10n;
     final hours = focused.inHours;
     final minutes = focused.inMinutes % 60;
-    // "1h 15" + "m", "2" + "h" or "25" + "m": the last unit is drawn small.
+    // "1h 05" + "m", "2" + "h" or "25" + "m": the last unit is drawn small.
     final (focusValue, focusUnit) = hours == 0
         ? ('$minutes', l10n.unitMinutes)
         : minutes == 0
         ? ('$hours', l10n.unitHours)
-        : ('$hours${l10n.unitHours} $minutes', l10n.unitMinutes);
+        : (
+            '$hours${l10n.unitHours} ${'$minutes'.padLeft(2, '0')}',
+            l10n.unitMinutes,
+          );
     return PairOrStack(
       gap: 10,
       children: [
