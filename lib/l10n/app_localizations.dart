@@ -237,6 +237,30 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'{minutes}m'**
   String durationMinutes(int minutes);
+
+  /// No description provided for @completeToast.
+  ///
+  /// In en, this message translates to:
+  /// **'Nice. “{title}” is done'**
+  String completeToast(String title);
+
+  /// No description provided for @undo.
+  ///
+  /// In en, this message translates to:
+  /// **'Undo'**
+  String get undo;
+
+  /// Screen-reader label of an open task's checkbox.
+  ///
+  /// In en, this message translates to:
+  /// **'Complete: {title}'**
+  String checkboxComplete(String title);
+
+  /// Screen-reader label of a done task's checkbox.
+  ///
+  /// In en, this message translates to:
+  /// **'Mark not done: {title}'**
+  String checkboxReopen(String title);
 }
 
 class _AppLocalizationsDelegate

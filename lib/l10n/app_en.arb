@@ -73,5 +73,32 @@
         "type": "int"
       }
     }
+  },
+  "completeToast": "Nice. “{title}” is done",
+  "@completeToast": {
+    "placeholders": {
+      "title": {
+        "type": "String"
+      }
+    }
+  },
+  "undo": "Undo",
+  "checkboxComplete": "Complete: {title}",
+  "@checkboxComplete": {
+    "description": "Screen-reader label of an open task's checkbox.",
+    "placeholders": {
+      "title": {
+        "type": "String"
+      }
+    }
+  },
+  "checkboxReopen": "Mark not done: {title}",
+  "@checkboxReopen": {
+    "description": "Screen-reader label of a done task's checkbox.",
+    "placeholders": {
+      "title": {
+        "type": "String"
+      }
+    }
   }
 }

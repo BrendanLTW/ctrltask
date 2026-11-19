@@ -33,7 +33,7 @@ Work top to bottom. Each task is sized for one Claude Code session and follows t
   Refs: PRD §6.2
 - [x] **0.6 App shell.** Build `AppShell`: the floating pill bottom bar (four tabs, active tab expands with label), the separate round quick-add button and the bottom fade, with labels and the shadows from DESIGN §5. Widget tests in both themes; compare with `Home · Today (tap a circle to complete).png` and its `· Dark` version.
   Refs: PRD §4, DESIGN §6, §7
-- [ ] **0.7 Task checkbox and completion feedback.** `TaskCheckbox` (four priority rings, done state, 44 px target, spring animation, reduced motion), `CompleteToast` with Undo and a 3.5 s timer, and a `Haptics` wrapper. Widget tests for each state.
+- [x] **0.7 Task checkbox and completion feedback.** `TaskCheckbox` (four priority rings, done state, 44 px target, spring animation, reduced motion), `CompleteToast` with Undo and a 3.5 s timer, and a `Haptics` wrapper. Widget tests for each state.
   Refs: PRD §6.1, DESIGN §7, §9
 - [ ] **0.8 CI.** GitHub Actions on every push: set up Flutter, `pub get`, codegen, `flutter analyze`, `flutter test`. Add the status badge to `README.md`.
   Refs: PRD §10

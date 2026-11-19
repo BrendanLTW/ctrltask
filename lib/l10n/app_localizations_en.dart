@@ -98,4 +98,22 @@ class AppLocalizationsEn extends AppLocalizations {
   String durationMinutes(int minutes) {
     return '${minutes}m';
   }
+
+  @override
+  String completeToast(String title) {
+    return 'Nice. “$title” is done';
+  }
+
+  @override
+  String get undo => 'Undo';
+
+  @override
+  String checkboxComplete(String title) {
+    return 'Complete: $title';
+  }
+
+  @override
+  String checkboxReopen(String title) {
+    return 'Mark not done: $title';
+  }
 }
