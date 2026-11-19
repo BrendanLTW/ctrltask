@@ -333,6 +333,54 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'#{name}'**
   String tagLabel(String name);
+
+  /// No description provided for @close.
+  ///
+  /// In en, this message translates to:
+  /// **'Close'**
+  String get close;
+
+  /// No description provided for @clearSearch.
+  ///
+  /// In en, this message translates to:
+  /// **'Clear search'**
+  String get clearSearch;
+
+  /// No description provided for @cancel.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel'**
+  String get cancel;
+
+  /// No description provided for @previousMonth.
+  ///
+  /// In en, this message translates to:
+  /// **'Previous month'**
+  String get previousMonth;
+
+  /// No description provided for @nextMonth.
+  ///
+  /// In en, this message translates to:
+  /// **'Next month'**
+  String get nextMonth;
+
+  /// No description provided for @stepIndicator.
+  ///
+  /// In en, this message translates to:
+  /// **'Step {current} of {total}'**
+  String stepIndicator(int current, int total);
+
+  /// No description provided for @increase.
+  ///
+  /// In en, this message translates to:
+  /// **'Increase'**
+  String get increase;
+
+  /// No description provided for @decrease.
+  ///
+  /// In en, this message translates to:
+  /// **'Decrease'**
+  String get decrease;
 }
 
 class _AppLocalizationsDelegate

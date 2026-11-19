@@ -157,5 +157,23 @@
         "type": "String"
       }
     }
-  }
+  },
+  "close": "Close",
+  "clearSearch": "Clear search",
+  "cancel": "Cancel",
+  "previousMonth": "Previous month",
+  "nextMonth": "Next month",
+  "stepIndicator": "Step {current} of {total}",
+  "@stepIndicator": {
+    "placeholders": {
+      "current": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "increase": "Increase",
+  "decrease": "Decrease"
 }

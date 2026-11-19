@@ -8,6 +8,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 /// `assets/icons/`. Data stores project icon keys, never these.
 enum AppIcon {
   add('plus'),
+  alert('circle-alert'),
   arrowUpRight('arrow-up-right'),
   bag('shopping-bag'),
   book('book-open'),
@@ -15,8 +16,10 @@ enum AppIcon {
   briefcase('briefcase'),
   chart('chart-column-big'),
   check('check'),
+  chevronLeft('chevron-left'),
   chevronRight('chevron-right'),
   clock('clock'),
+  close('x'),
   code('code'),
   flag('flag'),
   flame('flame'),
@@ -25,13 +28,18 @@ enum AppIcon {
   globe('globe'),
   heart('heart'),
   home('house'),
+  info('info'),
+  minus('minus'),
   palette('palette'),
   plane('send'),
   repeat('repeat'),
+  search('search'),
   subtask('corner-down-right'),
+  success('circle-check'),
   tag('tag'),
   tasks('list-checks'),
   timer('timer'),
+  trash('trash-2'),
   warning('triangle-alert');
 
   new(this.file);

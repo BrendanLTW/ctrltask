@@ -162,4 +162,30 @@ class AppLocalizationsEn extends AppLocalizations {
   String tagLabel(String name) {
     return '#$name';
   }
+
+  @override
+  String get close => 'Close';
+
+  @override
+  String get clearSearch => 'Clear search';
+
+  @override
+  String get cancel => 'Cancel';
+
+  @override
+  String get previousMonth => 'Previous month';
+
+  @override
+  String get nextMonth => 'Next month';
+
+  @override
+  String stepIndicator(int current, int total) {
+    return 'Step $current of $total';
+  }
+
+  @override
+  String get increase => 'Increase';
+
+  @override
+  String get decrease => 'Decrease';
 }

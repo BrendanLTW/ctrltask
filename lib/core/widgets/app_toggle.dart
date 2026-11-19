@@ -1,0 +1,70 @@
+import 'package:ctrltask/core/theme/app_colors.dart';
+import 'package:ctrltask/core/theme/app_motion.dart';
+import 'package:ctrltask/core/theme/app_shadows.dart';
+import 'package:flutter/material.dart';
+
+/// A 52 × 32 pill switch (DESIGN §7): `control` with a white thumb off,
+/// `ink` with an `onInk` thumb on. Custom so it looks the same on iOS and
+/// Android; it still reads as a toggle. The touch area is 44 high. A null
+/// [onChanged] disables it.
+class AppToggle extends StatelessWidget {
+  const new({
+    required this.value,
+    required this.onChanged,
+    required this.semanticLabel,
+    super.key,
+  });
+
+  final bool value;
+  final ValueChanged<bool>? onChanged;
+  final String semanticLabel;
+
+  @override
+  Widget build(BuildContext context) {
+    final colors = context.colors;
+    final onTap = onChanged == null ? null : () => onChanged!(!value);
+    return Semantics(
+      toggled: value,
+      enabled: onChanged != null,
+      label: semanticLabel,
+      excludeSemantics: true,
+      onTap: onTap,
+      child: GestureDetector(
+        behavior: HitTestBehavior.opaque,
+        onTap: onTap,
+        child: SizedBox(
+          width: 52,
+          height: 44,
+          child: Center(
+            child: AnimatedContainer(
+              duration: AppMotion.of(context).toggle,
+              curve: AppMotion.easeOut,
+              width: 52,
+              height: 32,
+              padding: const EdgeInsets.all(3),
+              alignment: value ? Alignment.centerRight : Alignment.centerLeft,
+              decoration: ShapeDecoration(
+                color: onChanged == null
+                    ? colors.disabled
+                    : value
+                    ? colors.ink
+                    : colors.control,
+                shape: const StadiumBorder(),
+              ),
+              child: Container(
+                width: 26,
+                height: 26,
+                decoration: BoxDecoration(
+                  // White when off in both themes (DESIGN §7).
+                  color: value ? colors.onInk : Colors.white,
+                  shape: BoxShape.circle,
+                  boxShadow: context.shadows.toggleKnob,
+                ),
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
