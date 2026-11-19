@@ -1,0 +1,77 @@
+{
+  "@@locale": "en",
+  "appName": "ctrlTask",
+  "tabHome": "Home",
+  "tabTasks": "Tasks",
+  "tabProjects": "Projects",
+  "tabFocus": "Focus",
+  "quickAddTask": "Quick add task",
+  "searchTasks": "Search tasks",
+  "settings": "Settings",
+  "newTask": "New task",
+  "search": "Search",
+  "insights": "Insights",
+  "task": "Task",
+  "project": "Project",
+  "finishOnboarding": "Finish onboarding",
+  "relativeToday": "Today",
+  "relativeYesterday": "Yesterday",
+  "relativeTomorrow": "Tomorrow",
+  "dayWithTime": "{day}, {time}",
+  "@dayWithTime": {
+    "description": "\"Today, 10:00 AM\" or \"Thu, 19 Nov, 3:00 PM\".",
+    "placeholders": {
+      "day": {
+        "type": "String"
+      },
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "overdueOn": "Overdue · {day}",
+  "@overdueOn": {
+    "description": "Meta line of an overdue task; day is the short weekday.",
+    "placeholders": {
+      "day": {
+        "type": "String"
+      }
+    }
+  },
+  "wasDueYesterday": "was due yesterday",
+  "daysLeft": "{count, plural, =1{1 day left} other{{count} days left}}",
+  "@daysLeft": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "durationHoursMinutes": "{hours}h {minutes}m",
+  "@durationHoursMinutes": {
+    "placeholders": {
+      "hours": {
+        "type": "int"
+      },
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
+  "durationHours": "{hours}h",
+  "@durationHours": {
+    "placeholders": {
+      "hours": {
+        "type": "int"
+      }
+    }
+  },
+  "durationMinutes": "{minutes}m",
+  "@durationMinutes": {
+    "placeholders": {
+      "minutes": {
+        "type": "int"
+      }
+    }
+  }
+}

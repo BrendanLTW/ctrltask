@@ -1,13 +1,14 @@
+import 'package:ctrltask/l10n/l10n.dart';
 import 'package:flutter/material.dart';
 
-// shortcut: placeholder screen with a hard-coded title; built in its own task.
+// shortcut: placeholder screen; built in its own task.
 class InsightsScreen extends StatelessWidget {
   const new({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Insights')),
+      appBar: AppBar(title: Text(context.l10n.insights)),
       body: const Center(child: Text('Insights')),
     );
   }

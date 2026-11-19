@@ -10,6 +10,7 @@ import 'package:ctrltask/features/tasks/presentation/search_screen.dart';
 import 'package:ctrltask/features/tasks/presentation/task_detail_screen.dart';
 import 'package:ctrltask/features/tasks/presentation/task_form_screen.dart';
 import 'package:ctrltask/features/tasks/presentation/tasks_screen.dart';
+import 'package:ctrltask/l10n/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -99,8 +100,7 @@ StatefulShellBranch _branch(String path, Widget screen) => StatefulShellBranch(
 );
 
 // shortcut: stand-in bottom bar with hard-coded labels; task 0.6 replaces it
-// with AppShell, 0.5 moves the strings to ARB and 2.6 makes quick add the S10
-// sheet.
+// with AppShell and 2.6 makes quick add the S10 sheet.
 class _TempShell extends StatelessWidget {
   const new({required this.shell});
 
@@ -111,7 +111,7 @@ class _TempShell extends StatelessWidget {
     return Scaffold(
       body: shell,
       floatingActionButton: FloatingActionButton(
-        tooltip: 'Quick add task',
+        tooltip: context.l10n.quickAddTask,
         onPressed: () => context.push(Routes.newTask),
         child: const Icon(Icons.add),
       ),
@@ -119,16 +119,22 @@ class _TempShell extends StatelessWidget {
         selectedIndex: shell.currentIndex,
         onDestinationSelected: (i) =>
             shell.goBranch(i, initialLocation: i == shell.currentIndex),
-        destinations: const [
-          NavigationDestination(icon: Icon(Icons.home_outlined), label: 'Home'),
-          NavigationDestination(icon: Icon(Icons.checklist), label: 'Tasks'),
+        destinations: [
           NavigationDestination(
-            icon: Icon(Icons.folder_outlined),
-            label: 'Projects',
+            icon: const Icon(Icons.home_outlined),
+            label: context.l10n.tabHome,
           ),
           NavigationDestination(
-            icon: Icon(Icons.timer_outlined),
-            label: 'Focus',
+            icon: const Icon(Icons.checklist),
+            label: context.l10n.tabTasks,
+          ),
+          NavigationDestination(
+            icon: const Icon(Icons.folder_outlined),
+            label: context.l10n.tabProjects,
+          ),
+          NavigationDestination(
+            icon: const Icon(Icons.timer_outlined),
+            label: context.l10n.tabFocus,
           ),
         ],
       ),

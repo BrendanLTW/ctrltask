@@ -29,7 +29,7 @@ Work top to bottom. Each task is sized for one Claude Code session and follows t
   Refs: DESIGN §3, §12
 - [x] **0.4 Type, spacing, motion and theme.** Bundle Poppins 400–800 as assets. Build `AppTypography` (DESIGN §4, tabular figures), `AppSpacing`, `AppRadius`, `AppShadows`, `AppMotion`, and `buildLightTheme()` / `buildDarkTheme()`. Add a theme-mode provider (default System). Widget-test a sample screen in both themes.
   Refs: DESIGN §4, §5, §9, §12
-- [ ] **0.5 Localisation and dates.** Set up `flutter gen-l10n` with an English ARB file. Build `DateLabels` in `core/dates` (pure Dart): "Tue, 17 Nov", "10:00 AM", "Today, 10:00", "Yesterday", "Overdue · Mon", "13 days left", "1h 15m". Unit tests.
+- [x] **0.5 Localisation and dates.** Set up `flutter gen-l10n` with an English ARB file. Build `DateLabels` in `core/dates` (pure Dart): "Tue, 17 Nov", "10:00 AM", "Today, 10:00", "Yesterday", "Overdue · Mon", "13 days left", "1h 15m". Unit tests.
   Refs: PRD §6.2
 - [ ] **0.6 App shell.** Build `AppShell`: the floating pill bottom bar (four tabs, active tab expands with label), the separate round quick-add button and the bottom fade, with labels and the shadows from DESIGN §5. Widget tests in both themes; compare with `Home · Today (tap a circle to complete).png` and its `· Dark` version.
   Refs: PRD §4, DESIGN §6, §7

@@ -50,7 +50,7 @@ final class AppThemeModeProvider
   }
 }
 
-String _$appThemeModeHash() => r'05d2262311525c2b622d8ee79a919e8ff92e2c06';
+String _$appThemeModeHash() => r'8eb62941a6f4ce6731d18ba8823ca74434b44afc';
 
 /// The Theme setting (S36) as a [ThemeMode]. System by default.
 // shortcut: in-memory, resets on restart; task 1.7 reads the stored `theme`

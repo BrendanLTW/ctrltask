@@ -113,10 +113,10 @@ void main() {
     await pumpApp(tester);
 
     await go(tester, Routes.task('42'));
-    expect(find.text('Task 42'), findsOneWidget);
+    expect(find.text('42'), findsOneWidget);
 
     await go(tester, Routes.project('7'));
-    expect(find.text('Project 7'), findsOneWidget);
+    expect(find.text('7'), findsOneWidget);
   });
 
   testWidgets('Insights opens outside the shell', (tester) async {
