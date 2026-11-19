@@ -1,0 +1,136 @@
+import 'package:ctrltask/core/theme/app_colors.dart';
+import 'package:ctrltask/core/theme/app_radius.dart';
+import 'package:ctrltask/core/theme/app_typography.dart';
+import 'package:ctrltask/core/widgets/priority_tag.dart';
+import 'package:ctrltask/core/widgets/project_dot.dart';
+import 'package:ctrltask/core/widgets/tag_chip.dart';
+import 'package:ctrltask/core/widgets/task_checkbox.dart';
+import 'package:ctrltask/features/projects/domain/project.dart';
+import 'package:ctrltask/features/projects/domain/project_keys.dart';
+import 'package:ctrltask/features/tags/domain/tag.dart';
+import 'package:ctrltask/features/tasks/domain/task.dart';
+import 'package:ctrltask/features/tasks/domain/task_priority.dart';
+import 'package:ctrltask/l10n/l10n.dart';
+import 'package:flutter/material.dart';
+
+/// S12's top: a large checkbox and the title, the priority, project and
+/// tag chips, and the description.
+class DetailHeader extends StatelessWidget {
+  const new({
+    required this.task,
+    required this.project,
+    required this.tags,
+    required this.onToggle,
+    super.key,
+  });
+
+  final Task task;
+  final Project? project;
+  final List<Tag> tags;
+  final ValueChanged<bool> onToggle;
+
+  @override
+  Widget build(BuildContext context) {
+    final colors = context.colors;
+    final text = context.text;
+    final done = task.status == TaskStatus.done;
+    final urgentOrHigh =
+        task.priority == TaskPriority.urgent ||
+        task.priority == TaskPriority.high;
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            TaskCheckbox(
+              title: task.title,
+              priority: task.priority,
+              done: done,
+              size: 28,
+              onChanged: onToggle,
+            ),
+            const SizedBox(width: 8),
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.only(top: 4),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Semantics(
+                      header: true,
+                      child: Text(
+                        task.title,
+                        style: text.detailTitle.copyWith(
+                          color: done ? colors.muted : colors.ink,
+                          decoration: done ? TextDecoration.lineThrough : null,
+                          decorationColor: colors.muted,
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 10),
+                    Wrap(
+                      spacing: 8,
+                      runSpacing: 8,
+                      children: [
+                        if (urgentOrHigh) PriorityTag(task.priority),
+                        _ProjectChip(project),
+                        for (final tag in tags) TagChip(tag.name),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
+        if (task.description case final description?) ...[
+          const SizedBox(height: 16),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 8),
+            child: Text(
+              description,
+              style: text.body.copyWith(color: colors.ink),
+            ),
+          ),
+        ],
+      ],
+    );
+  }
+}
+
+/// The project as a pill with its dot, or Inbox.
+class _ProjectChip extends StatelessWidget {
+  const new(this.project);
+
+  final Project? project;
+
+  @override
+  Widget build(BuildContext context) {
+    final colors = context.colors;
+    // At least 24 high, taller with large text; the name shrinks to fit.
+    return Container(
+      constraints: const BoxConstraints(minHeight: 24),
+      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 2),
+      decoration: BoxDecoration(
+        color: colors.raised,
+        borderRadius: BorderRadius.circular(AppRadius.pill),
+      ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          ProjectDot(project?.colorKey ?? ProjectColorKey.grey),
+          const SizedBox(width: 6),
+          Flexible(
+            child: Text(
+              project?.name ?? context.l10n.inbox,
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+              style: context.text.tag.copyWith(color: colors.chipText),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}

@@ -1119,6 +1119,78 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Use a link that starts with http:// or https://'**
   String get linkUrlError;
+
+  /// No description provided for @taskScreenTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Task'**
+  String get taskScreenTitle;
+
+  /// No description provided for @edit.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit'**
+  String get edit;
+
+  /// No description provided for @whenNextWeek.
+  ///
+  /// In en, this message translates to:
+  /// **'Next week'**
+  String get whenNextWeek;
+
+  /// No description provided for @dueOn.
+  ///
+  /// In en, this message translates to:
+  /// **'DUE {when}'**
+  String dueOn(String when);
+
+  /// No description provided for @percent.
+  ///
+  /// In en, this message translates to:
+  /// **'{value}%'**
+  String percent(int value);
+
+  /// No description provided for @openLink.
+  ///
+  /// In en, this message translates to:
+  /// **'Open link'**
+  String get openLink;
+
+  /// No description provided for @linkFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Couldn\'t open this link'**
+  String get linkFailed;
+
+  /// No description provided for @deleteTaskTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete this task?'**
+  String get deleteTaskTitle;
+
+  /// No description provided for @deleteTaskBody.
+  ///
+  /// In en, this message translates to:
+  /// **'“{title}” and its {count, plural, =1{1 subtask} other{{count} subtasks}} will be removed from {project}. This can\'t be undone.'**
+  String deleteTaskBody(String title, int count, String project);
+
+  /// No description provided for @deleteTaskBodyNoSubtasks.
+  ///
+  /// In en, this message translates to:
+  /// **'“{title}” will be removed from {project}. This can\'t be undone.'**
+  String deleteTaskBodyNoSubtasks(String title, String project);
+
+  /// No description provided for @deleteTask.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete task'**
+  String get deleteTask;
+
+  /// No description provided for @markDoneInstead.
+  ///
+  /// In en, this message translates to:
+  /// **'Mark as done instead'**
+  String get markDoneInstead;
 }
 
 class _AppLocalizationsDelegate

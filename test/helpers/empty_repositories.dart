@@ -5,7 +5,13 @@ import 'package:ctrltask/features/tasks/domain/task_repository.dart';
 import 'package:flutter_riverpod/misc.dart';
 import 'package:mocktail/mocktail.dart';
 
-class EmptyTasks extends Mock implements TaskRepository;
+class EmptyTasks extends Mock implements TaskRepository {
+  /// No task by default; a test's own `watchDetails` stub, added later,
+  /// wins.
+  new() {
+    when(() => watchDetails(any())).thenAnswer((_) => Stream.value(null));
+  }
+}
 
 class _Projects extends Mock implements ProjectRepository;
 

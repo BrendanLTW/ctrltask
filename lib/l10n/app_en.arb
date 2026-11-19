@@ -447,5 +447,54 @@
   "linkTitleHint": "Title (optional)",
   "linkUrlHint": "https://",
   "removeLink": "Remove link",
-  "linkUrlError": "Use a link that starts with http:// or https://"
+  "linkUrlError": "Use a link that starts with http:// or https://",
+  "taskScreenTitle": "Task",
+  "edit": "Edit",
+  "whenNextWeek": "Next week",
+  "dueOn": "DUE {when}",
+  "@dueOn": {
+    "placeholders": {
+      "when": {
+        "type": "String"
+      }
+    }
+  },
+  "percent": "{value}%",
+  "@percent": {
+    "placeholders": {
+      "value": {
+        "type": "int"
+      }
+    }
+  },
+  "openLink": "Open link",
+  "linkFailed": "Couldn't open this link",
+  "deleteTaskTitle": "Delete this task?",
+  "deleteTaskBody": "“{title}” and its {count, plural, =1{1 subtask} other{{count} subtasks}} will be removed from {project}. This can't be undone.",
+  "@deleteTaskBody": {
+    "placeholders": {
+      "title": {
+        "type": "String"
+      },
+      "count": {
+        "type": "int"
+      },
+      "project": {
+        "type": "String"
+      }
+    }
+  },
+  "deleteTaskBodyNoSubtasks": "“{title}” will be removed from {project}. This can't be undone.",
+  "@deleteTaskBodyNoSubtasks": {
+    "placeholders": {
+      "title": {
+        "type": "String"
+      },
+      "project": {
+        "type": "String"
+      }
+    }
+  },
+  "deleteTask": "Delete task",
+  "markDoneInstead": "Mark as done instead"
 }

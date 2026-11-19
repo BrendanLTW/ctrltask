@@ -91,7 +91,7 @@ GoRouter appRouter(Ref ref) {
       GoRoute(
         path: '/task/:id',
         builder: (context, state) =>
-            TaskDetailScreen(taskId: state.pathParameters['id']!),
+            TaskDetailScreen(taskId: int.parse(state.pathParameters['id']!)),
         routes: [
           GoRoute(
             path: 'edit',

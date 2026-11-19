@@ -12,10 +12,18 @@ import 'package:flutter/material.dart';
 /// The toast (DESIGN §7): an `ink` pill with a green check, the message and
 /// an optional underlined Undo.
 class CompleteToast extends StatelessWidget {
-  const new({required this.message, this.onUndo, super.key});
+  const new({
+    required this.message,
+    this.onUndo,
+    this.success = true,
+    super.key,
+  });
 
   final String message;
   final VoidCallback? onUndo;
+
+  /// Leads with the green check; false for a plain notice.
+  final bool success;
 
   @override
   Widget build(BuildContext context) {
@@ -37,8 +45,11 @@ class CompleteToast extends StatelessWidget {
         ),
         child: Row(
           children: [
-            AppIconView(AppIcon.check, size: 22, color: other.positive),
-            const SizedBox(width: 12),
+            if (success) ...[
+              AppIconView(AppIcon.check, size: 22, color: other.positive),
+              const SizedBox(width: 12),
+            ] else
+              const SizedBox(width: 4),
             Expanded(
               child: Padding(
                 padding: const EdgeInsets.symmetric(vertical: 14),
@@ -85,6 +96,7 @@ void showCompleteToast(
   BuildContext context, {
   required String message,
   VoidCallback? onUndo,
+  bool success = true,
 }) {
   hideCompleteToast();
   final overlay = Overlay.of(context, rootOverlay: true);
@@ -104,6 +116,7 @@ void showCompleteToast(
           type: MaterialType.transparency,
           child: CompleteToast(
             message: message,
+            success: success,
             onUndo: onUndo == null
                 ? null
                 : () {

@@ -638,4 +638,54 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get linkUrlError => 'Use a link that starts with http:// or https://';
+
+  @override
+  String get taskScreenTitle => 'Task';
+
+  @override
+  String get edit => 'Edit';
+
+  @override
+  String get whenNextWeek => 'Next week';
+
+  @override
+  String dueOn(String when) {
+    return 'DUE $when';
+  }
+
+  @override
+  String percent(int value) {
+    return '$value%';
+  }
+
+  @override
+  String get openLink => 'Open link';
+
+  @override
+  String get linkFailed => 'Couldn\'t open this link';
+
+  @override
+  String get deleteTaskTitle => 'Delete this task?';
+
+  @override
+  String deleteTaskBody(String title, int count, String project) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count subtasks',
+      one: '1 subtask',
+    );
+    return '“$title” and its $_temp0 will be removed from $project. This can\'t be undone.';
+  }
+
+  @override
+  String deleteTaskBodyNoSubtasks(String title, String project) {
+    return '“$title” will be removed from $project. This can\'t be undone.';
+  }
+
+  @override
+  String get deleteTask => 'Delete task';
+
+  @override
+  String get markDoneInstead => 'Mark as done instead';
 }

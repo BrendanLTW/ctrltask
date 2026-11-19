@@ -14,16 +14,25 @@ class TagChip extends StatelessWidget {
   Widget build(BuildContext context) {
     final colors = context.colors;
     return Container(
-      height: 24,
-      padding: const EdgeInsets.symmetric(horizontal: 10),
-      alignment: Alignment.center,
+      constraints: const BoxConstraints(minHeight: 24),
+      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 2),
       decoration: BoxDecoration(
         color: colors.raised,
         borderRadius: BorderRadius.circular(AppRadius.pill),
       ),
-      child: Text(
-        context.l10n.tagLabel(name),
-        style: context.text.tag.copyWith(color: colors.chipText),
+      // A Row keeps the chip to its text's width; long names shrink.
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Flexible(
+            child: Text(
+              context.l10n.tagLabel(name),
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+              style: context.text.tag.copyWith(color: colors.chipText),
+            ),
+          ),
+        ],
       ),
     );
   }

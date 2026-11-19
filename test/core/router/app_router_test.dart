@@ -9,6 +9,7 @@ import 'package:ctrltask/features/onboarding/presentation/splash_screen.dart';
 import 'package:ctrltask/features/onboarding/presentation/welcome_screen.dart';
 import 'package:ctrltask/features/settings/domain/preferences.dart';
 import 'package:ctrltask/features/settings/domain/preferences_repository.dart';
+import 'package:ctrltask/features/tasks/presentation/task_detail_screen.dart';
 import 'package:ctrltask/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -161,7 +162,10 @@ void main() {
   testWidgets('detail routes receive their id', (tester) async {
     await pumpApp(tester);
     await go(tester, Routes.task('42'));
-    expect(find.text('42'), findsOneWidget);
+    expect(
+      tester.widget<TaskDetailScreen>(find.byType(TaskDetailScreen)).taskId,
+      42,
+    );
     await go(tester, Routes.project('7'));
     expect(find.text('7'), findsOneWidget);
   });
