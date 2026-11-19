@@ -40,6 +40,7 @@ enum AppIcon {
   tasks('list-checks'),
   timer('timer'),
   trash('trash-2'),
+  user('user'),
   warning('triangle-alert');
 
   new(this.file);

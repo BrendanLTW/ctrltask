@@ -71,7 +71,7 @@ Work top to bottom. Each task is sized for one Claude Code session and follows t
   Refs: DESIGN §7, §12
 - [x] **2.3 Onboarding.** S01 Splash (with "by BrendanLTW"), S02 Welcome (illustration panel), S03 Your name, S04 First task, S05 Reminders (saves choices only; the permission prompt comes in 3.7), S06 All set, and `OnboardingScaffold`. The onboarding redirect now uses `onboardingComplete`. Back keeps values on every step.
   Refs: S01–S06, PRD §5.1, FR-01
-- [ ] **2.4 Home.** S07 with header (date, greeting by time of day, search, avatar → Settings), the progress hero, stat tiles, overdue banner, Due today cards with completion and Undo, and Upcoming deadlines. Figures update live.
+- [x] **2.4 Home.** S07 with header (date, greeting by time of day, search, avatar → Settings), the progress hero, stat tiles, overdue banner, Due today cards with completion and Undo, and Upcoming deadlines. Figures update live.
   Refs: S07, PRD §5.2, FR-02
 - [ ] **2.5 Home states.** S08 first run (empty state and suggestion chips that prefill quick add) and S09 all done (celebration card, Plan tomorrow, tomorrow's list).
   Refs: S08, S09, PRD §5.2, FR-02

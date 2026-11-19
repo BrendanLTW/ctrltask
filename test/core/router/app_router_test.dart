@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:ctrltask/core/router/app_router.dart';
 import 'package:ctrltask/core/widgets/app_shell.dart';
 import 'package:ctrltask/core/widgets/app_shell_tab.dart';
+import 'package:ctrltask/features/home/presentation/home_screen.dart';
 import 'package:ctrltask/features/onboarding/presentation/splash_screen.dart';
 import 'package:ctrltask/features/onboarding/presentation/welcome_screen.dart';
 import 'package:ctrltask/features/settings/domain/preferences.dart';
@@ -12,6 +13,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 
+import '../../helpers/empty_repositories.dart';
 import '../../helpers/fake_preferences_repository.dart';
 
 /// Settings that never finish loading.
@@ -34,7 +36,10 @@ void main() {
         repository ??
         FakePreferencesRepository(Preferences(onboardingComplete: onboarded));
     container = ProviderContainer(
-      overrides: [preferencesRepositoryProvider.overrideWithValue(prefs)],
+      overrides: [
+        preferencesRepositoryProvider.overrideWithValue(prefs),
+        ...emptyRepositories(),
+      ],
     );
     addTearDown(container.dispose);
     await tester.pumpWidget(
@@ -43,8 +48,9 @@ void main() {
     if (settle) await tester.pumpAndSettle();
   }
 
-  Finder title(String text) =>
-      find.descendant(of: find.byType(AppBar), matching: find.text(text));
+  Finder title(String text) => text == 'Home'
+      ? find.byType(HomeScreen)
+      : find.descendant(of: find.byType(AppBar), matching: find.text(text));
 
   Finder tab(String label) =>
       find.byWidgetPredicate((w) => w is AppShellTab && w.label == label);
@@ -110,6 +116,7 @@ void main() {
   testWidgets('tabs switch between the four branches', (tester) async {
     await pumpApp(tester);
     for (final label in ['Tasks', 'Projects', 'Focus', 'Home']) {
+      // Home has no app bar; the others are placeholders with one.
       await tester.tap(tab(label));
       await tester.pumpAndSettle();
       expect(title(label), findsOneWidget);

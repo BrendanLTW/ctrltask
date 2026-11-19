@@ -21,13 +21,12 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 
+import '../../../helpers/empty_repositories.dart';
 import '../../../helpers/fake_preferences_repository.dart';
-
-class _MockTasks extends Mock implements TaskRepository;
 
 void main() {
   late FakePreferencesRepository prefs;
-  late _MockTasks tasks;
+  late EmptyTasks tasks;
   final now = DateTime(2026, 11, 17, 9, 41);
 
   Task taskFrom(TaskDraft d) => Task(
@@ -53,7 +52,7 @@ void main() {
     prefs = FakePreferencesRepository(
       const Preferences(defaultPriority: TaskPriority.high),
     );
-    tasks = _MockTasks();
+    tasks = EmptyTasks();
     when(() => tasks.add(any())).thenAnswer(
       (i) async => taskFrom(i.positionalArguments.single as TaskDraft),
     );
@@ -74,7 +73,7 @@ void main() {
       ProviderScope(
         overrides: [
           preferencesRepositoryProvider.overrideWithValue(prefs),
-          taskRepositoryProvider.overrideWithValue(tasks),
+          ...emptyRepositories(tasks: tasks),
           clockProvider.overrideWithValue(() => now),
         ],
         child: const MainApp(),

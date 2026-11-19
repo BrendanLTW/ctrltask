@@ -3,21 +3,47 @@ import 'package:ctrltask/core/dates/week.dart';
 import 'package:ctrltask/features/tasks/domain/progress.dart';
 import 'package:ctrltask/features/tasks/domain/task.dart';
 
-/// Today's list in display order (PRD §8): done last, then by time with
-/// untimed after timed, then priority, then `sortOrder`.
+/// Today's list in display order (S07): open tasks by priority, then time
+/// (untimed after timed), then `sortOrder`; done tasks last, in the order
+/// they were completed, so a newly done task drops to the bottom (§6.1).
 List<Task> orderToday(Iterable<Task> tasks) => [...tasks]
   ..sort((a, b) {
     final done = _isDone(a).compareTo(_isDone(b));
     if (done != 0) return done;
-    final (am, bm) = (a.dueMinute, b.dueMinute);
-    if (am != bm) {
-      if (am == null) return 1;
-      if (bm == null) return -1;
-      return am.compareTo(bm);
+    if (a.status == TaskStatus.done) {
+      return (a.completedAt ?? a.updatedAt).compareTo(
+        b.completedAt ?? b.updatedAt,
+      );
     }
     final priority = a.priority.index.compareTo(b.priority.index);
-    return priority != 0 ? priority : a.sortOrder.compareTo(b.sortOrder);
+    if (priority != 0) return priority;
+    final time = _byTime(a, b);
+    return time != 0 ? time : a.sortOrder.compareTo(b.sortOrder);
   });
+
+/// The open task due soonest today, for the hero's "next:" (S07): timed
+/// tasks by time, then untimed ones by priority.
+Task? nextTask(Iterable<Task> todayList) {
+  final open = [
+    for (final t in todayList)
+      if (t.status == TaskStatus.open) t,
+  ];
+  if (open.isEmpty) return null;
+  return (open..sort((a, b) {
+        final time = _byTime(a, b);
+        return time != 0 ? time : a.priority.index.compareTo(b.priority.index);
+      }))
+      .first;
+}
+
+/// Timed before untimed, earlier first.
+int _byTime(Task a, Task b) {
+  final (am, bm) = (a.dueMinute, b.dueMinute);
+  if (am == bm) return 0;
+  if (am == null) return 1;
+  if (bm == null) return -1;
+  return am.compareTo(bm);
+}
 
 /// Completed out of today's list (PRD §8).
 Progress todayProgress(Iterable<Task> todayList) => (

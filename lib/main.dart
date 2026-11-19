@@ -4,6 +4,8 @@ import 'package:ctrltask/core/dev/demo_seed.dart';
 import 'package:ctrltask/core/router/app_router.dart';
 import 'package:ctrltask/core/theme/app_theme.dart';
 import 'package:ctrltask/core/theme/theme_mode_controller.dart';
+import 'package:ctrltask/features/focus/data/drift_focus_session_repository.dart';
+import 'package:ctrltask/features/focus/domain/focus_session_repository.dart';
 import 'package:ctrltask/features/projects/data/drift_project_repository.dart';
 import 'package:ctrltask/features/projects/domain/project_repository.dart';
 import 'package:ctrltask/features/settings/data/drift_preferences_repository.dart';
@@ -67,6 +69,9 @@ List<Override> appOverrides() => [
   ),
   preferencesRepositoryProvider.overrideWith(
     (ref) => DriftPreferencesRepository(ref.watch(appDatabaseProvider)),
+  ),
+  focusSessionRepositoryProvider.overrideWith(
+    (ref) => DriftFocusSessionRepository(ref.watch(appDatabaseProvider)),
   ),
 ];
 

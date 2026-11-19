@@ -41,14 +41,15 @@ void main() {
     expect(
       [for (final t in list) t.title],
       [
+        'Finish Q4 revenue slides',
         'Review homepage wireframes',
         'Call contractor about bathroom tiles',
-        'Finish Q4 revenue slides',
         'Read Flutter state management chapter',
         'Morning run, 5 km',
         'Pay TNB electricity bill',
       ],
     );
+    expect(nextTask(list)?.title, 'Review homepage wireframes');
     expect(todayProgress(list), (done: 2, total: 6));
   });
 

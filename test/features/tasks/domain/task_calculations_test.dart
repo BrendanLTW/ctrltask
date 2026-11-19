@@ -14,30 +14,69 @@ void main() {
       DateTime(2026, 11, day, hour, minute).toUtc();
 
   group('orderToday', () {
-    test('done last, then time, untimed after timed', () {
+    test('open by priority, then time with untimed last', () {
       final ordered = orderToday([
-        task('done', dueMinute: 420, completedAt: at(17, 7)),
-        task('untimed'),
-        task('17:00', dueMinute: 1020),
-        task('10:00', dueMinute: 600),
+        task('low, untimed', priority: TaskPriority.low),
+        task('medium 14:30', dueMinute: 870),
+        task('high 10:00', priority: TaskPriority.high, dueMinute: 600),
+        task('urgent 17:00', priority: TaskPriority.urgent, dueMinute: 1020),
+        task('medium 9:00', dueMinute: 540),
+        task('medium untimed'),
       ]);
       expect(
         [for (final t in ordered) t.title],
-        ['10:00', '17:00', 'untimed', 'done'],
+        [
+          'urgent 17:00',
+          'high 10:00',
+          'medium 9:00',
+          'medium 14:30',
+          'medium untimed',
+          'low, untimed',
+        ],
       );
     });
 
-    test('then priority, then sortOrder', () {
+    test('then sortOrder', () {
       final ordered = orderToday([
-        task('low', priority: TaskPriority.low),
-        task('medium b', sortOrder: 2),
-        task('urgent', priority: TaskPriority.urgent),
-        task('medium a', sortOrder: 1),
+        task('b', sortOrder: 2),
+        task('a', sortOrder: 1),
+      ]);
+      expect([for (final t in ordered) t.title], ['a', 'b']);
+    });
+
+    test('done last, latest completion at the bottom', () {
+      final ordered = orderToday([
+        task('done 9:05', completedAt: at(17, 9, 5)),
+        task('open', priority: TaskPriority.low),
+        task('done 7:40', completedAt: at(17, 7, 40)),
       ]);
       expect(
         [for (final t in ordered) t.title],
-        ['urgent', 'medium a', 'medium b', 'low'],
+        ['open', 'done 7:40', 'done 9:05'],
       );
+    });
+  });
+
+  group('nextTask', () {
+    test('is the earliest timed open task', () {
+      final next = nextTask([
+        task('urgent 17:00', priority: TaskPriority.urgent, dueMinute: 1020),
+        task('high 10:00', priority: TaskPriority.high, dueMinute: 600),
+        task('done 7:00', dueMinute: 420, completedAt: at(17, 7)),
+        task('untimed', priority: TaskPriority.urgent),
+      ]);
+      expect(next?.title, 'high 10:00');
+    });
+
+    test('falls back to untimed by priority, or none', () {
+      expect(
+        nextTask([
+          task('low', priority: TaskPriority.low),
+          task('high', priority: TaskPriority.high),
+        ])?.title,
+        'high',
+      );
+      expect(nextTask([task('done', completedAt: at(17))]), isNull);
     });
   });
 

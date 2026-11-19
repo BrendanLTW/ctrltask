@@ -1,3 +1,4 @@
+import 'package:ctrltask/features/tasks/domain/progress.dart';
 import 'package:ctrltask/features/tasks/domain/task.dart';
 import 'package:ctrltask/features/tasks/domain/task_details.dart';
 import 'package:ctrltask/features/tasks/domain/task_draft.dart';
@@ -30,6 +31,9 @@ abstract interface class TaskRepository {
   /// Tasks whose title, description, subtasks, tags or project contain
   /// [query], ignoring case. Empty for a blank query.
   Stream<List<Task>> search(String query);
+
+  /// Ticked out of all subtasks, for every task that has any ("2/4").
+  Stream<Map<int, Progress>> watchSubtaskProgress();
 
   /// A task with its repeat rule, subtasks, tags and links; null once gone.
   Stream<TaskDetails?> watchDetails(int id);

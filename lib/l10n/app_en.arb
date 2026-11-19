@@ -247,5 +247,118 @@
   "setupDailyPlan": "Daily plan",
   "setupWeekStart": "Week starts on",
   "goToToday": "Go to Today",
-  "createProjectFirst": "Create a project first"
+  "createProjectFirst": "Create a project first",
+  "greetingMorning": "Good morning",
+  "greetingAfternoon": "Good afternoon",
+  "greetingEvening": "Good evening",
+  "greetingNamed": "{greeting}, {name}",
+  "@greetingNamed": {
+    "placeholders": {
+      "greeting": {
+        "type": "String"
+      },
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "dueToday": "DUE TODAY",
+  "allTasks": "All tasks",
+  "upcomingDeadlines": "UPCOMING DEADLINES",
+  "calendar": "Calendar",
+  "statStreak": "STREAK",
+  "statFocused": "FOCUSED",
+  "statThisWeek": "THIS WEEK",
+  "unitDays": "{count, plural, =1{ day} other{ days}}",
+  "@unitDays": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "unitDone": " done",
+  "unitHours": "h",
+  "unitMinutes": "m",
+  "streakSemantics": "Streak, {count, plural, =1{1 day} other{{count} days}}",
+  "@streakSemantics": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "focusedSemantics": "Focused today, {duration}",
+  "@focusedSemantics": {
+    "placeholders": {
+      "duration": {
+        "type": "String"
+      }
+    }
+  },
+  "thisWeekSemantics": "This week, {count} done",
+  "@thisWeekSemantics": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "overdueCount": "{count, plural, =1{1 overdue task} other{{count} overdue tasks}}",
+  "@overdueCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "wasDueOn": "was due {date}",
+  "@wasDueOn": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "wasDueAt": "was due at {time}",
+  "@wasDueAt": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "titleWithDetail": "{title} · {detail}",
+  "@titleWithDetail": {
+    "placeholders": {
+      "title": {
+        "type": "String"
+      },
+      "detail": {
+        "type": "String"
+      }
+    }
+  },
+  "heroLeftNext": "{left} left · next: {title}",
+  "@heroLeftNext": {
+    "placeholders": {
+      "left": {
+        "type": "int"
+      },
+      "title": {
+        "type": "String"
+      }
+    }
+  },
+  "heroEmpty": "Your ring fills as you tick things off",
+  "heroAllClear": "All clear. Enjoy your evening.",
+  "dayCount": "{count, plural, =1{1 day} other{{count} days}}",
+  "@dayCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "projectDeadline": "Project deadline"
 }

@@ -372,4 +372,131 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get createProjectFirst => 'Create a project first';
+
+  @override
+  String get greetingMorning => 'Good morning';
+
+  @override
+  String get greetingAfternoon => 'Good afternoon';
+
+  @override
+  String get greetingEvening => 'Good evening';
+
+  @override
+  String greetingNamed(String greeting, String name) {
+    return '$greeting, $name';
+  }
+
+  @override
+  String get dueToday => 'DUE TODAY';
+
+  @override
+  String get allTasks => 'All tasks';
+
+  @override
+  String get upcomingDeadlines => 'UPCOMING DEADLINES';
+
+  @override
+  String get calendar => 'Calendar';
+
+  @override
+  String get statStreak => 'STREAK';
+
+  @override
+  String get statFocused => 'FOCUSED';
+
+  @override
+  String get statThisWeek => 'THIS WEEK';
+
+  @override
+  String unitDays(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: ' days',
+      one: ' day',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get unitDone => ' done';
+
+  @override
+  String get unitHours => 'h';
+
+  @override
+  String get unitMinutes => 'm';
+
+  @override
+  String streakSemantics(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count days',
+      one: '1 day',
+    );
+    return 'Streak, $_temp0';
+  }
+
+  @override
+  String focusedSemantics(String duration) {
+    return 'Focused today, $duration';
+  }
+
+  @override
+  String thisWeekSemantics(int count) {
+    return 'This week, $count done';
+  }
+
+  @override
+  String overdueCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count overdue tasks',
+      one: '1 overdue task',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String wasDueOn(String date) {
+    return 'was due $date';
+  }
+
+  @override
+  String wasDueAt(String time) {
+    return 'was due at $time';
+  }
+
+  @override
+  String titleWithDetail(String title, String detail) {
+    return '$title · $detail';
+  }
+
+  @override
+  String heroLeftNext(int left, String title) {
+    return '$left left · next: $title';
+  }
+
+  @override
+  String get heroEmpty => 'Your ring fills as you tick things off';
+
+  @override
+  String get heroAllClear => 'All clear. Enjoy your evening.';
+
+  @override
+  String dayCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count days',
+      one: '1 day',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get projectDeadline => 'Project deadline';
 }

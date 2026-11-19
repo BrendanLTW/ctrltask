@@ -7,6 +7,7 @@ import 'package:ctrltask/features/tasks/data/repeat_rule_mapper.dart';
 import 'package:ctrltask/features/tasks/data/subtask_mapper.dart';
 import 'package:ctrltask/features/tasks/data/task_link_mapper.dart';
 import 'package:ctrltask/features/tasks/data/task_mapper.dart';
+import 'package:ctrltask/features/tasks/domain/progress.dart';
 import 'package:ctrltask/features/tasks/domain/task.dart';
 import 'package:ctrltask/features/tasks/domain/task_details.dart';
 import 'package:ctrltask/features/tasks/domain/task_draft.dart';
@@ -110,6 +111,24 @@ class DriftTaskRepository implements TaskRepository {
           ],
         );
   }
+
+  @override
+  Stream<Map<int, Progress>> watchSubtaskProgress() => _db
+      .customSelect(
+        'SELECT task_id, SUM(done) AS done, COUNT(*) AS total '
+        'FROM subtasks GROUP BY task_id',
+        readsFrom: {_db.subtasks},
+      )
+      .watch()
+      .map(
+        (rows) => {
+          for (final r in rows)
+            r.read<int>('task_id'): (
+              done: r.read<int>('done'),
+              total: r.read<int>('total'),
+            ),
+        },
+      );
 
   @override
   Stream<TaskDetails?> watchDetails(int id) => _db

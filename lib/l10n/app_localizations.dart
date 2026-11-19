@@ -729,6 +729,168 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Create a project first'**
   String get createProjectFirst;
+
+  /// No description provided for @greetingMorning.
+  ///
+  /// In en, this message translates to:
+  /// **'Good morning'**
+  String get greetingMorning;
+
+  /// No description provided for @greetingAfternoon.
+  ///
+  /// In en, this message translates to:
+  /// **'Good afternoon'**
+  String get greetingAfternoon;
+
+  /// No description provided for @greetingEvening.
+  ///
+  /// In en, this message translates to:
+  /// **'Good evening'**
+  String get greetingEvening;
+
+  /// No description provided for @greetingNamed.
+  ///
+  /// In en, this message translates to:
+  /// **'{greeting}, {name}'**
+  String greetingNamed(String greeting, String name);
+
+  /// No description provided for @dueToday.
+  ///
+  /// In en, this message translates to:
+  /// **'DUE TODAY'**
+  String get dueToday;
+
+  /// No description provided for @allTasks.
+  ///
+  /// In en, this message translates to:
+  /// **'All tasks'**
+  String get allTasks;
+
+  /// No description provided for @upcomingDeadlines.
+  ///
+  /// In en, this message translates to:
+  /// **'UPCOMING DEADLINES'**
+  String get upcomingDeadlines;
+
+  /// No description provided for @calendar.
+  ///
+  /// In en, this message translates to:
+  /// **'Calendar'**
+  String get calendar;
+
+  /// No description provided for @statStreak.
+  ///
+  /// In en, this message translates to:
+  /// **'STREAK'**
+  String get statStreak;
+
+  /// No description provided for @statFocused.
+  ///
+  /// In en, this message translates to:
+  /// **'FOCUSED'**
+  String get statFocused;
+
+  /// No description provided for @statThisWeek.
+  ///
+  /// In en, this message translates to:
+  /// **'THIS WEEK'**
+  String get statThisWeek;
+
+  /// No description provided for @unitDays.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{ day} other{ days}}'**
+  String unitDays(int count);
+
+  /// No description provided for @unitDone.
+  ///
+  /// In en, this message translates to:
+  /// **' done'**
+  String get unitDone;
+
+  /// No description provided for @unitHours.
+  ///
+  /// In en, this message translates to:
+  /// **'h'**
+  String get unitHours;
+
+  /// No description provided for @unitMinutes.
+  ///
+  /// In en, this message translates to:
+  /// **'m'**
+  String get unitMinutes;
+
+  /// No description provided for @streakSemantics.
+  ///
+  /// In en, this message translates to:
+  /// **'Streak, {count, plural, =1{1 day} other{{count} days}}'**
+  String streakSemantics(int count);
+
+  /// No description provided for @focusedSemantics.
+  ///
+  /// In en, this message translates to:
+  /// **'Focused today, {duration}'**
+  String focusedSemantics(String duration);
+
+  /// No description provided for @thisWeekSemantics.
+  ///
+  /// In en, this message translates to:
+  /// **'This week, {count} done'**
+  String thisWeekSemantics(int count);
+
+  /// No description provided for @overdueCount.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{1 overdue task} other{{count} overdue tasks}}'**
+  String overdueCount(int count);
+
+  /// No description provided for @wasDueOn.
+  ///
+  /// In en, this message translates to:
+  /// **'was due {date}'**
+  String wasDueOn(String date);
+
+  /// No description provided for @wasDueAt.
+  ///
+  /// In en, this message translates to:
+  /// **'was due at {time}'**
+  String wasDueAt(String time);
+
+  /// No description provided for @titleWithDetail.
+  ///
+  /// In en, this message translates to:
+  /// **'{title} · {detail}'**
+  String titleWithDetail(String title, String detail);
+
+  /// No description provided for @heroLeftNext.
+  ///
+  /// In en, this message translates to:
+  /// **'{left} left · next: {title}'**
+  String heroLeftNext(int left, String title);
+
+  /// No description provided for @heroEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'Your ring fills as you tick things off'**
+  String get heroEmpty;
+
+  /// No description provided for @heroAllClear.
+  ///
+  /// In en, this message translates to:
+  /// **'All clear. Enjoy your evening.'**
+  String get heroAllClear;
+
+  /// No description provided for @dayCount.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{1 day} other{{count} days}}'**
+  String dayCount(int count);
+
+  /// No description provided for @projectDeadline.
+  ///
+  /// In en, this message translates to:
+  /// **'Project deadline'**
+  String get projectDeadline;
 }
 
 class _AppLocalizationsDelegate

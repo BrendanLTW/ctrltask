@@ -493,6 +493,26 @@ void main() {
     });
   });
 
+  test('subtask progress counts ticked out of all, per task', () async {
+    final a = await repo.add(
+      const TaskDraft(title: 'A', subtasks: ['1', '2', '3', '4']),
+    );
+    await repo.add(const TaskDraft(title: 'No subtasks'));
+    final details = (await repo.watchDetails(a.id).first)!;
+    await repo.update(
+      details.copyWith(
+        subtasks: [
+          for (final (i, s) in details.subtasks.indexed)
+            s.copyWith(done: i < 2),
+        ],
+      ),
+    );
+
+    expect(await repo.watchSubtaskProgress().first, {
+      a.id: (done: 2, total: 4),
+    });
+  });
+
   test('uncomplete reopens a done task', () async {
     final task = await repo.add(const TaskDraft(title: 'T'));
     await repo.complete(task.id);
