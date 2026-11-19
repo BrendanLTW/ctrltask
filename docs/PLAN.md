@@ -31,7 +31,7 @@ Work top to bottom. Each task is sized for one Claude Code session and follows t
   Refs: DESIGN §4, §5, §9, §12
 - [x] **0.5 Localisation and dates.** Set up `flutter gen-l10n` with an English ARB file. Build `DateLabels` in `core/dates` (pure Dart): "Tue, 17 Nov", "10:00 AM", "Today, 10:00", "Yesterday", "Overdue · Mon", "13 days left", "1h 15m". Unit tests.
   Refs: PRD §6.2
-- [ ] **0.6 App shell.** Build `AppShell`: the floating pill bottom bar (four tabs, active tab expands with label), the separate round quick-add button and the bottom fade, with labels and the shadows from DESIGN §5. Widget tests in both themes; compare with `Home · Today (tap a circle to complete).png` and its `· Dark` version.
+- [x] **0.6 App shell.** Build `AppShell`: the floating pill bottom bar (four tabs, active tab expands with label), the separate round quick-add button and the bottom fade, with labels and the shadows from DESIGN §5. Widget tests in both themes; compare with `Home · Today (tap a circle to complete).png` and its `· Dark` version.
   Refs: PRD §4, DESIGN §6, §7
 - [ ] **0.7 Task checkbox and completion feedback.** `TaskCheckbox` (four priority rings, done state, 44 px target, spring animation, reduced motion), `CompleteToast` with Undo and a 3.5 s timer, and a `Haptics` wrapper. Widget tests for each state.
   Refs: PRD §6.1, DESIGN §7, §9

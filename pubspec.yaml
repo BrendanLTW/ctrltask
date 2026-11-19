@@ -45,6 +45,7 @@ flutter:
 
   assets:
     - assets/fonts/OFL.txt
+    - assets/icons/
 
   fonts:
     - family: Poppins

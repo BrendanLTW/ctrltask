@@ -1,3 +1,4 @@
+import 'package:ctrltask/core/widgets/app_shell.dart';
 import 'package:ctrltask/features/focus/presentation/focus_screen.dart';
 import 'package:ctrltask/features/home/presentation/home_screen.dart';
 import 'package:ctrltask/features/insights/presentation/insights_screen.dart';
@@ -10,7 +11,6 @@ import 'package:ctrltask/features/tasks/presentation/search_screen.dart';
 import 'package:ctrltask/features/tasks/presentation/task_detail_screen.dart';
 import 'package:ctrltask/features/tasks/presentation/task_form_screen.dart';
 import 'package:ctrltask/features/tasks/presentation/tasks_screen.dart';
-import 'package:ctrltask/l10n/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -50,7 +50,14 @@ GoRouter appRouter(Ref ref) {
     },
     routes: [
       StatefulShellRoute.indexedStack(
-        builder: (context, state, shell) => _TempShell(shell: shell),
+        builder: (context, state, shell) => AppShell(
+          currentIndex: shell.currentIndex,
+          onTabSelected: (i) =>
+              shell.goBranch(i, initialLocation: i == shell.currentIndex),
+          // shortcut: opens the New task screen; 2.6 makes it the S10 sheet.
+          onQuickAdd: () => context.push(Routes.newTask),
+          child: shell,
+        ),
         branches: [
           _branch(Routes.home, const HomeScreen()),
           _branch(Routes.tasks, const TasksScreen()),
@@ -98,46 +105,3 @@ GoRouter appRouter(Ref ref) {
 StatefulShellBranch _branch(String path, Widget screen) => StatefulShellBranch(
   routes: [GoRoute(path: path, builder: (context, state) => screen)],
 );
-
-// shortcut: stand-in bottom bar with hard-coded labels; task 0.6 replaces it
-// with AppShell and 2.6 makes quick add the S10 sheet.
-class _TempShell extends StatelessWidget {
-  const new({required this.shell});
-
-  final StatefulNavigationShell shell;
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: shell,
-      floatingActionButton: FloatingActionButton(
-        tooltip: context.l10n.quickAddTask,
-        onPressed: () => context.push(Routes.newTask),
-        child: const Icon(Icons.add),
-      ),
-      bottomNavigationBar: NavigationBar(
-        selectedIndex: shell.currentIndex,
-        onDestinationSelected: (i) =>
-            shell.goBranch(i, initialLocation: i == shell.currentIndex),
-        destinations: [
-          NavigationDestination(
-            icon: const Icon(Icons.home_outlined),
-            label: context.l10n.tabHome,
-          ),
-          NavigationDestination(
-            icon: const Icon(Icons.checklist),
-            label: context.l10n.tabTasks,
-          ),
-          NavigationDestination(
-            icon: const Icon(Icons.folder_outlined),
-            label: context.l10n.tabProjects,
-          ),
-          NavigationDestination(
-            icon: const Icon(Icons.timer_outlined),
-            label: context.l10n.tabFocus,
-          ),
-        ],
-      ),
-    );
-  }
-}

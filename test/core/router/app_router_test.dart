@@ -1,4 +1,6 @@
 import 'package:ctrltask/core/router/app_router.dart';
+import 'package:ctrltask/core/widgets/app_shell.dart';
+import 'package:ctrltask/core/widgets/app_shell_tab.dart';
 import 'package:ctrltask/features/onboarding/presentation/onboarding_controller.dart';
 import 'package:ctrltask/main.dart';
 import 'package:flutter/material.dart';
@@ -33,7 +35,7 @@ void main() {
       await pumpApp(tester, onboarded: false);
 
       expect(find.text('Finish onboarding'), findsOneWidget);
-      expect(find.byType(NavigationBar), findsNothing);
+      expect(find.byType(AppShell), findsNothing);
     });
 
     testWidgets('finishing onboarding lands on Home', (tester) async {
@@ -62,10 +64,7 @@ void main() {
 
     for (final tab in ['Tasks', 'Projects', 'Focus', 'Home']) {
       await tester.tap(
-        find.descendant(
-          of: find.byType(NavigationBar),
-          matching: find.text(tab),
-        ),
+        find.byWidgetPredicate((w) => w is AppShellTab && w.label == tab),
       );
       await tester.pumpAndSettle();
       expect(title(tab), findsOneWidget);
@@ -76,13 +75,15 @@ void main() {
     tester,
   ) async {
     await pumpApp(tester);
-    await tester.tap(find.text('Projects'));
+    await tester.tap(
+      find.byWidgetPredicate((w) => w is AppShellTab && w.label == 'Projects'),
+    );
     await tester.pumpAndSettle();
 
     await tester.tap(find.byTooltip('Quick add task'));
     await tester.pumpAndSettle();
     expect(title('New task'), findsOneWidget);
-    expect(find.byType(NavigationBar), findsNothing);
+    expect(find.byType(AppShell), findsNothing);
 
     await tester.tap(find.byType(BackButton));
     await tester.pumpAndSettle();
@@ -101,7 +102,7 @@ void main() {
       await tester.tap(find.byTooltip(tooltip));
       await tester.pumpAndSettle();
       expect(title(screen), findsOneWidget);
-      expect(find.byType(NavigationBar), findsNothing);
+      expect(find.byType(AppShell), findsNothing);
 
       await tester.tap(find.byType(BackButton));
       await tester.pumpAndSettle();
@@ -125,6 +126,6 @@ void main() {
     await go(tester, Routes.insights);
 
     expect(title('Insights'), findsOneWidget);
-    expect(find.byType(NavigationBar), findsNothing);
+    expect(find.byType(AppShell), findsNothing);
   });
 }
