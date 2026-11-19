@@ -16,6 +16,7 @@ import 'package:ctrltask/core/widgets/sub_screen_bar.dart';
 import 'package:ctrltask/core/widgets/title_field_card.dart';
 import 'package:ctrltask/features/home/presentation/home_providers.dart';
 import 'package:ctrltask/features/projects/domain/project_keys.dart';
+import 'package:ctrltask/features/projects/presentation/move_to_project_sheet.dart';
 import 'package:ctrltask/features/tasks/domain/subtask.dart';
 import 'package:ctrltask/features/tasks/domain/task.dart';
 import 'package:ctrltask/features/tasks/domain/task_details.dart';
@@ -188,6 +189,11 @@ class _TaskFormScreenState extends ConsumerState<TaskFormScreen> {
     });
   }
 
+  Future<void> _pickProject() async {
+    final pick = await showMoveToProject(context, current: _projectId);
+    if (pick != null && mounted) setState(() => _projectId = pick.projectId);
+  }
+
   Future<void> _addLink() async {
     final link = await showAddLinkSheet(context);
     if (link == null) return;
@@ -306,11 +312,11 @@ class _TaskFormScreenState extends ConsumerState<TaskFormScreen> {
                           ],
                         ),
                       ),
-                      // shortcut: S17 for the project comes with 2.10.
                       ListGroupRow(
                         title: l10n.project,
                         value: project?.name ?? l10n.inbox,
                         valueEmphasis: project != null,
+                        onTap: () => unawaited(_pickProject()),
                         leading: project == null
                             ? const IconTile(
                                 icon: AppIcon.inbox,

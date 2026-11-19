@@ -7,6 +7,8 @@ import 'package:ctrltask/core/widgets/app_shell_tab.dart';
 import 'package:ctrltask/features/home/presentation/home_screen.dart';
 import 'package:ctrltask/features/onboarding/presentation/splash_screen.dart';
 import 'package:ctrltask/features/onboarding/presentation/welcome_screen.dart';
+import 'package:ctrltask/features/projects/presentation/project_detail_screen.dart';
+import 'package:ctrltask/features/projects/presentation/projects_screen.dart';
 import 'package:ctrltask/features/settings/domain/preferences.dart';
 import 'package:ctrltask/features/settings/domain/preferences_repository.dart';
 import 'package:ctrltask/features/tasks/presentation/task_detail_screen.dart';
@@ -50,9 +52,11 @@ void main() {
     if (settle) await tester.pumpAndSettle();
   }
 
-  Finder title(String text) => text == 'Home'
-      ? find.byType(HomeScreen)
-      : find.descendant(of: find.byType(AppBar), matching: find.text(text));
+  Finder title(String text) => switch (text) {
+    'Home' => find.byType(HomeScreen),
+    'Projects' => find.byType(ProjectsScreen),
+    _ => find.descendant(of: find.byType(AppBar), matching: find.text(text)),
+  };
 
   Finder tab(String label) =>
       find.byWidgetPredicate((w) => w is AppShellTab && w.label == label);
@@ -118,7 +122,7 @@ void main() {
   testWidgets('tabs switch between the four branches', (tester) async {
     await pumpApp(tester);
     for (final label in ['Tasks', 'Projects', 'Focus', 'Home']) {
-      // Home has no app bar; the others are placeholders with one.
+      // Home and Projects have no app bar; the others are placeholders.
       await tester.tap(tab(label));
       await tester.pumpAndSettle();
       expect(title(label), findsOneWidget);
@@ -167,7 +171,12 @@ void main() {
       42,
     );
     await go(tester, Routes.project('7'));
-    expect(find.text('7'), findsOneWidget);
+    expect(
+      tester
+          .widget<ProjectDetailScreen>(find.byType(ProjectDetailScreen))
+          .projectId,
+      7,
+    );
   });
 
   testWidgets('Insights opens outside the shell', (tester) async {

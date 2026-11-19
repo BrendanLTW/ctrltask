@@ -5,6 +5,7 @@ import 'package:ctrltask/features/projects/domain/project.dart';
 import 'package:ctrltask/features/tasks/domain/progress.dart';
 import 'package:ctrltask/features/tasks/domain/task.dart';
 import 'package:ctrltask/l10n/app_localizations.dart';
+import 'package:ctrltask/l10n/date_text.dart';
 
 /// A task card or row's labels (PRD §6.1). Overdue tasks read
 /// "Overdue · Mon", or "Overdue · 10:00 AM" when due earlier today.
@@ -17,6 +18,7 @@ TaskTileData taskTileData(
   required Map<int, Project> projects,
   required Map<int, Progress> subtasks,
   String? untimedLabel,
+  bool showDay = false,
 }) {
   final project = projects[task.projectId];
   final due = task.dueDate;
@@ -30,7 +32,10 @@ TaskTileData taskTileData(
     title: task.title,
     priority: task.priority,
     done: task.status == TaskStatus.done,
-    timeLabel: minute == null ? null : labels.time(minute),
+    // S27 lists tasks from many days, so it names the day.
+    timeLabel: showDay && due != null
+        ? l10n.dayLabel(labels, due, today: now, minute: minute)
+        : (minute == null ? null : labels.time(minute)),
     untimedLabel: untimedLabel,
     overdueLabel: !overdue
         ? null

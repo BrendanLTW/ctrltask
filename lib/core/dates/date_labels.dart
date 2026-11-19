@@ -10,12 +10,16 @@ class DateLabels {
   new(String locale)
     : _date = DateFormat('EEE, d MMM', locale),
       _dateLong = DateFormat('EEE, d MMMM', locale),
+      _dateYear = DateFormat('EEE, d MMM y', locale),
+      _dayMonth = DateFormat('d MMM', locale),
       _weekday = DateFormat('EEE', locale),
       _time = DateFormat('h:mm a', locale),
       _hour = DateFormat('h a', locale);
 
   final DateFormat _date;
   final DateFormat _dateLong;
+  final DateFormat _dateYear;
+  final DateFormat _dayMonth;
   final DateFormat _weekday;
   final DateFormat _time;
   final DateFormat _hour;
@@ -25,6 +29,12 @@ class DateLabels {
 
   /// "Tue, 17 November", the Home header.
   String dateLong(DateTime date) => _dateLong.format(date);
+
+  /// "Fri, 5 Feb 2027", S28's deadline.
+  String dateYear(DateTime date) => _dateYear.format(date);
+
+  /// "2 Sep", S45's "finished" date.
+  String dayMonth(DateTime date) => _dayMonth.format(date);
 
   /// "Mon".
   String weekday(DateTime date) => _weekday.format(date);

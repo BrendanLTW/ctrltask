@@ -131,12 +131,16 @@ void main() {
       () async {
         final p = await add('Learn Flutter');
         await tasks.add(TaskDraft(title: 'Read chapter', projectId: p.id));
+        final before = await tasks.watchAll().first;
+        final project = (await repo.watchActive().first).single;
 
         await repo.archive(p.id);
         expect(await tasks.watchAll().first, isEmpty);
 
         await repo.restore(p.id);
-        expect((await tasks.watchAll().first).single.title, 'Read chapter');
+        // Exactly as they were (PRD §5.7).
+        expect(await tasks.watchAll().first, before);
+        expect((await repo.watchActive().first).single, project);
       },
     );
   });

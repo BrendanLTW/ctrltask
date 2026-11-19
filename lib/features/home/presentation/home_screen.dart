@@ -139,8 +139,8 @@ class HomeScreen extends ConsumerWidget {
                   if (firstRun)
                     HomeFirstRun(
                       onAddTask: addTask,
-                      // shortcut: the Projects tab until S28 (2.10).
-                      onCreateProject: () => context.go(Routes.projects),
+                      onCreateProject: () =>
+                          unawaited(context.push(Routes.newProject)),
                     )
                   else if (allDone) ...[
                     const SizedBox(height: 12),

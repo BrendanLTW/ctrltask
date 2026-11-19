@@ -8,15 +8,18 @@ import 'package:flutter/material.dart';
 
 /// A rounded card of rows with dividers between them (DESIGN §7).
 class ListGroup extends StatelessWidget {
-  const new({required this.children, super.key});
+  const new({required this.children, this.inSheet = false, super.key});
 
   final List<Widget> children;
+
+  /// On a sheet's `surface` the group sits on `ground` (S17).
+  final bool inSheet;
 
   @override
   Widget build(BuildContext context) {
     final colors = context.colors;
     return Material(
-      color: colors.surface,
+      color: inSheet ? colors.ground : colors.surface,
       borderRadius: BorderRadius.circular(AppRadius.r28),
       clipBehavior: Clip.antiAlias,
       child: Column(
@@ -38,6 +41,7 @@ class ListGroupRow extends StatelessWidget {
   const new({
     required this.title,
     this.subtitle,
+    this.subtitleMaxLines,
     this.leading,
     this.value,
     this.valueEmphasis = false,
@@ -53,6 +57,9 @@ class ListGroupRow extends StatelessWidget {
 
   /// A muted second line.
   final String? subtitle;
+
+  /// Ends a long subtitle with an ellipsis, as S27's Completed row.
+  final int? subtitleMaxLines;
   final Widget? leading;
   final String? value;
 
@@ -121,6 +128,10 @@ class ListGroupRow extends StatelessWidget {
                         const SizedBox(height: 2),
                         Text(
                           subtitle,
+                          maxLines: subtitleMaxLines,
+                          overflow: subtitleMaxLines == null
+                              ? null
+                              : TextOverflow.ellipsis,
                           style: text.caption.copyWith(color: colors.muted),
                         ),
                       ],

@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:ctrltask/core/dates/date_labels.dart';
 import 'package:ctrltask/core/router/app_router.dart';
 import 'package:ctrltask/core/theme/app_colors.dart';
@@ -66,9 +68,12 @@ class AllSetScreen extends ConsumerWidget {
       onPrimary: () => _finish(ref),
       secondaryLabel: l10n.createProjectFirst,
       onSecondary: () async {
+        final router = GoRouter.of(context);
         await _finish(ref);
-        // shortcut: opens the Projects tab; 2.10 opens S28 New project.
-        if (context.mounted) context.go(Routes.projects);
+        // S28 over the Projects tab, so Cancel or Create lands there.
+        router.go(Routes.projects);
+        await WidgetsBinding.instance.endOfFrame;
+        unawaited(router.push(Routes.newProject));
       },
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,

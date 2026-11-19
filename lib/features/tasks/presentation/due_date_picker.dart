@@ -17,24 +17,28 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 typedef DueChoice = ({DateTime date, int? minute});
 
 /// Opens S14 Due date on [date] (today when null) and [minute]. Resolves
-/// to the choice, or null if closed.
+/// to the choice, or null if closed. Without [showTime] (a project
+/// deadline) the time chips are hidden and the minute is always null.
 Future<DueChoice?> showDueDatePicker(
   BuildContext context, {
   DateTime? date,
   int? minute,
+  bool showTime = true,
+  String? title,
 }) => showAppSheet<DueChoice>(
   context,
-  title: context.l10n.dueDateTitle,
-  builder: (_) => DueDatePicker(date: date, minute: minute),
+  title: title ?? context.l10n.dueDateTitle,
+  builder: (_) => DueDatePicker(date: date, minute: minute, showTime: showTime),
 );
 
 /// S14's content (PRD §5.5): quick tiles, a month calendar on the user's
 /// week start, time chips, and a button that reads the choice back.
 class DueDatePicker extends ConsumerStatefulWidget {
-  const new({this.date, this.minute, super.key});
+  const new({this.date, this.minute, this.showTime = true, super.key});
 
   final DateTime? date;
   final int? minute;
+  final bool showTime;
 
   /// 9:00 AM, 12:00 PM, 3:00 PM and 6:00 PM.
   static const List<int> times = [9 * 60, 12 * 60, 15 * 60, 18 * 60];
@@ -107,38 +111,40 @@ class _DueDatePickerState extends ConsumerState<DueDatePicker> {
               onMonthChanged: (month) => setState(() => _month = month),
             ),
           ),
-          const SizedBox(height: 12),
-          SingleChildScrollView(
-            scrollDirection: Axis.horizontal,
-            clipBehavior: Clip.none,
-            child: Row(
-              children: [
-                ExcludeSemantics(
-                  child: AppIconView(
-                    AppIcon.clock,
-                    size: 22,
-                    color: colors.muted,
+          if (widget.showTime) ...[
+            const SizedBox(height: 12),
+            SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              clipBehavior: Clip.none,
+              child: Row(
+                children: [
+                  ExcludeSemantics(
+                    child: AppIconView(
+                      AppIcon.clock,
+                      size: 22,
+                      color: colors.muted,
+                    ),
                   ),
-                ),
-                const SizedBox(width: 12),
-                for (final time in times) ...[
+                  const SizedBox(width: 12),
+                  for (final time in times) ...[
+                    AppChip(
+                      label: labels.time(time),
+                      small: true,
+                      selected: _minute == time,
+                      onTap: () => setState(() => _minute = time),
+                    ),
+                    const SizedBox(width: 8),
+                  ],
                   AppChip(
-                    label: labels.time(time),
+                    label: l10n.noTime,
                     small: true,
-                    selected: _minute == time,
-                    onTap: () => setState(() => _minute = time),
+                    selected: _minute == null,
+                    onTap: () => setState(() => _minute = null),
                   ),
-                  const SizedBox(width: 8),
                 ],
-                AppChip(
-                  label: l10n.noTime,
-                  small: true,
-                  selected: _minute == null,
-                  onTap: () => setState(() => _minute = null),
-                ),
-              ],
+              ),
             ),
-          ),
+          ],
           const SizedBox(height: 14),
           PrimaryButton(
             label: l10n.setDue(when),

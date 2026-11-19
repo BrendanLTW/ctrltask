@@ -16,6 +16,7 @@ import 'package:ctrltask/core/widgets/priority_tag.dart';
 import 'package:ctrltask/core/widgets/project_dot.dart';
 import 'package:ctrltask/features/home/presentation/home_providers.dart';
 import 'package:ctrltask/features/projects/domain/project_keys.dart';
+import 'package:ctrltask/features/projects/presentation/move_to_project_sheet.dart';
 import 'package:ctrltask/features/settings/domain/preferences_repository.dart';
 import 'package:ctrltask/features/tasks/domain/task.dart';
 import 'package:ctrltask/features/tasks/domain/task_draft.dart';
@@ -76,6 +77,8 @@ class _QuickAddSheetState extends ConsumerState<QuickAddSheet> {
   /// A day and time picked on S14, shown as its own chip.
   DueChoice? _pickedDue;
 
+  late int? _projectId = widget.projectId;
+
   @override
   void dispose() {
     _title.dispose();
@@ -135,7 +138,7 @@ class _QuickAddSheetState extends ConsumerState<QuickAddSheet> {
       dueDate: when.date,
       dueMinute: when.minute,
       priority: _priority(),
-      projectId: widget.projectId,
+      projectId: _projectId,
     );
   }
 
@@ -153,6 +156,11 @@ class _QuickAddSheetState extends ConsumerState<QuickAddSheet> {
         DateLabels(Localizations.localeOf(context).toLanguageTag()),
       ).indexWhere((o) => o.date == choice.date && o.minute == choice.minute);
     });
+  }
+
+  Future<void> _pickProject() async {
+    final pick = await showMoveToProject(context, current: _projectId);
+    if (pick != null && mounted) setState(() => _projectId = pick.projectId);
   }
 
   Future<void> _send(List<_When> options) async {
@@ -180,7 +188,7 @@ class _QuickAddSheetState extends ConsumerState<QuickAddSheet> {
     final shown = _priority(watch: true);
     _when ??= _initialWhen(options);
     final projects = ref.watch(activeProjectsProvider).value ?? const [];
-    final project = projects.where((p) => p.id == widget.projectId).firstOrNull;
+    final project = projects.where((p) => p.id == _projectId).firstOrNull;
     final titleStyle = text.header.copyWith(
       color: colors.ink,
       fontWeight: FontWeight.w600,
@@ -289,13 +297,17 @@ class _QuickAddSheetState extends ConsumerState<QuickAddSheet> {
           const SizedBox(height: 16),
           Row(
             children: [
-              // shortcut: shows the project; the S17 picker comes with
-              // 2.10, and the tag, reminder and repeat buttons with 3.4–3.7.
-              AppChip(
-                label: project?.name ?? l10n.inbox,
-                small: true,
-                leading: ProjectDot(project?.colorKey ?? ProjectColorKey.grey),
-                onTap: () {},
+              // shortcut: the tag, reminder and repeat buttons come with
+              // 3.4–3.7.
+              Flexible(
+                child: AppChip(
+                  label: project?.name ?? l10n.inbox,
+                  small: true,
+                  leading: ProjectDot(
+                    project?.colorKey ?? ProjectColorKey.grey,
+                  ),
+                  onTap: () => unawaited(_pickProject()),
+                ),
               ),
               const Spacer(),
               TextButton(

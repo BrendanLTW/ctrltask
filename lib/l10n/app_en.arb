@@ -508,5 +508,206 @@
         "type": "String"
       }
     }
+  },
+  "deadlineOverdue": "Overdue",
+  "deadlineToday": "Due today",
+  "newShort": "New",
+  "activeCount": "Active · {count}",
+  "@activeCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "archivedCount": "Archived · {count}",
+  "@archivedCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "noDeadline": "No deadline",
+  "projectDue": "Due {date}",
+  "@projectDue": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "completeSuffix": " complete",
+  "tasksOfTotal": "{done} of {total} tasks",
+  "@tasksOfTotal": {
+    "placeholders": {
+      "done": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "projectTasksDone": "{done} of {total} tasks done",
+  "@projectTasksDone": {
+    "placeholders": {
+      "done": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "projectProgressSemantics": "{percent}% complete, {done} of {total} tasks",
+  "@projectProgressSemantics": {
+    "placeholders": {
+      "percent": {
+        "type": "int"
+      },
+      "done": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "openCount": "Open · {count}",
+  "@openCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "addTaskTo": "Add task to {project}",
+  "@addTaskTo": {
+    "placeholders": {
+      "project": {
+        "type": "String"
+      }
+    }
+  },
+  "completed": "Completed",
+  "editProject": "Edit project",
+  "newProject": "New project",
+  "projectNameLabel": "NAME",
+  "projectNameHint": "Project name",
+  "projectDescriptionHint": "What's it for? (optional)",
+  "colourLabel": "Colour",
+  "iconLabel": "Icon",
+  "deadline": "Deadline",
+  "createProject": "Create project",
+  "archiveProject": "Archive project",
+  "deleteProject": "Delete project",
+  "removeDeadline": "Remove deadline",
+  "duplicateProjectName": "You already have a project called “{name}”",
+  "@duplicateProjectName": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "colourSemantics": "{colour, select, orange{Orange} yellow{Yellow} green{Green} blue{Blue} purple{Purple} pink{Pink} red{Red} other{Grey}}",
+  "@colourSemantics": {
+    "placeholders": {
+      "colour": {
+        "type": "String"
+      }
+    }
+  },
+  "deleteProjectTitle": "Delete {project}?",
+  "@deleteProjectTitle": {
+    "placeholders": {
+      "project": {
+        "type": "String"
+      }
+    }
+  },
+  "deleteProjectBody": "What should happen to its {count, plural, =1{1 task} other{{count} tasks}}? This can't be undone.",
+  "@deleteProjectBody": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "deleteProjectBodyEmpty": "This can't be undone.",
+  "moveTasksToInbox": "Move tasks to Inbox",
+  "deleteTasksToo": "Delete tasks too",
+  "projectsEmptyTitle": "Group tasks into projects",
+  "projectsEmptyBody": "A project keeps related tasks together, tracks progress and holds a deadline. Your {count, plural, =0{inbox tasks stay} =1{1 inbox task stays} other{{count} inbox tasks stay}} where they are.",
+  "@projectsEmptyBody": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "popularStartingPoints": "Popular starting points",
+  "starterWork": "Work",
+  "starterHome": "Home",
+  "starterLearning": "Learning",
+  "starterTravel": "Travel",
+  "archivedProjectsTitle": "Archived projects",
+  "archivedMeta": "{count, plural, =1{1 task} other{{count} tasks}} · finished {date}",
+  "@archivedMeta": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      },
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "restore": "Restore",
+  "projectRestored": "{project} is active again",
+  "@projectRestored": {
+    "placeholders": {
+      "project": {
+        "type": "String"
+      }
+    }
+  },
+  "restoreNameTaken": "An active project is already called {name}",
+  "@restoreNameTaken": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "archivedNote": "Archived projects keep their tasks and stats. Restore one to move it back to Projects.",
+  "moveToProject": "Move to project",
+  "searchProjects": "Search projects",
+  "noProject": "No project",
+  "openTasksCount": "{count} open",
+  "@openTasksCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "moreOptions": "More options",
+  "iconSemantics": "{icon, select, globe{Globe} chart{Chart} home{Home} code{Code} plane{Plane} briefcase{Briefcase} bag{Bag} book{Book} box{Box} gift{Gift} palette{Palette} other{Heart}}",
+  "@iconSemantics": {
+    "placeholders": {
+      "icon": {
+        "type": "String"
+      }
+    }
+  },
+  "focusedFor": "{duration} focused",
+  "@focusedFor": {
+    "placeholders": {
+      "duration": {
+        "type": "String"
+      }
+    }
   }
 }

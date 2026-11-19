@@ -1221,6 +1221,324 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Set {when}'**
   String setDue(String when);
+
+  /// No description provided for @deadlineOverdue.
+  ///
+  /// In en, this message translates to:
+  /// **'Overdue'**
+  String get deadlineOverdue;
+
+  /// No description provided for @deadlineToday.
+  ///
+  /// In en, this message translates to:
+  /// **'Due today'**
+  String get deadlineToday;
+
+  /// No description provided for @newShort.
+  ///
+  /// In en, this message translates to:
+  /// **'New'**
+  String get newShort;
+
+  /// No description provided for @activeCount.
+  ///
+  /// In en, this message translates to:
+  /// **'Active · {count}'**
+  String activeCount(int count);
+
+  /// No description provided for @archivedCount.
+  ///
+  /// In en, this message translates to:
+  /// **'Archived · {count}'**
+  String archivedCount(int count);
+
+  /// No description provided for @noDeadline.
+  ///
+  /// In en, this message translates to:
+  /// **'No deadline'**
+  String get noDeadline;
+
+  /// No description provided for @projectDue.
+  ///
+  /// In en, this message translates to:
+  /// **'Due {date}'**
+  String projectDue(String date);
+
+  /// No description provided for @completeSuffix.
+  ///
+  /// In en, this message translates to:
+  /// **' complete'**
+  String get completeSuffix;
+
+  /// No description provided for @tasksOfTotal.
+  ///
+  /// In en, this message translates to:
+  /// **'{done} of {total} tasks'**
+  String tasksOfTotal(int done, int total);
+
+  /// No description provided for @projectTasksDone.
+  ///
+  /// In en, this message translates to:
+  /// **'{done} of {total} tasks done'**
+  String projectTasksDone(int done, int total);
+
+  /// No description provided for @projectProgressSemantics.
+  ///
+  /// In en, this message translates to:
+  /// **'{percent}% complete, {done} of {total} tasks'**
+  String projectProgressSemantics(int percent, int done, int total);
+
+  /// No description provided for @openCount.
+  ///
+  /// In en, this message translates to:
+  /// **'Open · {count}'**
+  String openCount(int count);
+
+  /// No description provided for @addTaskTo.
+  ///
+  /// In en, this message translates to:
+  /// **'Add task to {project}'**
+  String addTaskTo(String project);
+
+  /// No description provided for @completed.
+  ///
+  /// In en, this message translates to:
+  /// **'Completed'**
+  String get completed;
+
+  /// No description provided for @editProject.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit project'**
+  String get editProject;
+
+  /// No description provided for @newProject.
+  ///
+  /// In en, this message translates to:
+  /// **'New project'**
+  String get newProject;
+
+  /// No description provided for @projectNameLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'NAME'**
+  String get projectNameLabel;
+
+  /// No description provided for @projectNameHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Project name'**
+  String get projectNameHint;
+
+  /// No description provided for @projectDescriptionHint.
+  ///
+  /// In en, this message translates to:
+  /// **'What\'s it for? (optional)'**
+  String get projectDescriptionHint;
+
+  /// No description provided for @colourLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Colour'**
+  String get colourLabel;
+
+  /// No description provided for @iconLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Icon'**
+  String get iconLabel;
+
+  /// No description provided for @deadline.
+  ///
+  /// In en, this message translates to:
+  /// **'Deadline'**
+  String get deadline;
+
+  /// No description provided for @createProject.
+  ///
+  /// In en, this message translates to:
+  /// **'Create project'**
+  String get createProject;
+
+  /// No description provided for @archiveProject.
+  ///
+  /// In en, this message translates to:
+  /// **'Archive project'**
+  String get archiveProject;
+
+  /// No description provided for @deleteProject.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete project'**
+  String get deleteProject;
+
+  /// No description provided for @removeDeadline.
+  ///
+  /// In en, this message translates to:
+  /// **'Remove deadline'**
+  String get removeDeadline;
+
+  /// No description provided for @duplicateProjectName.
+  ///
+  /// In en, this message translates to:
+  /// **'You already have a project called “{name}”'**
+  String duplicateProjectName(String name);
+
+  /// No description provided for @colourSemantics.
+  ///
+  /// In en, this message translates to:
+  /// **'{colour, select, orange{Orange} yellow{Yellow} green{Green} blue{Blue} purple{Purple} pink{Pink} red{Red} other{Grey}}'**
+  String colourSemantics(String colour);
+
+  /// No description provided for @deleteProjectTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete {project}?'**
+  String deleteProjectTitle(String project);
+
+  /// No description provided for @deleteProjectBody.
+  ///
+  /// In en, this message translates to:
+  /// **'What should happen to its {count, plural, =1{1 task} other{{count} tasks}}? This can\'t be undone.'**
+  String deleteProjectBody(int count);
+
+  /// No description provided for @deleteProjectBodyEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'This can\'t be undone.'**
+  String get deleteProjectBodyEmpty;
+
+  /// No description provided for @moveTasksToInbox.
+  ///
+  /// In en, this message translates to:
+  /// **'Move tasks to Inbox'**
+  String get moveTasksToInbox;
+
+  /// No description provided for @deleteTasksToo.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete tasks too'**
+  String get deleteTasksToo;
+
+  /// No description provided for @projectsEmptyTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Group tasks into projects'**
+  String get projectsEmptyTitle;
+
+  /// No description provided for @projectsEmptyBody.
+  ///
+  /// In en, this message translates to:
+  /// **'A project keeps related tasks together, tracks progress and holds a deadline. Your {count, plural, =0{inbox tasks stay} =1{1 inbox task stays} other{{count} inbox tasks stay}} where they are.'**
+  String projectsEmptyBody(int count);
+
+  /// No description provided for @popularStartingPoints.
+  ///
+  /// In en, this message translates to:
+  /// **'Popular starting points'**
+  String get popularStartingPoints;
+
+  /// No description provided for @starterWork.
+  ///
+  /// In en, this message translates to:
+  /// **'Work'**
+  String get starterWork;
+
+  /// No description provided for @starterHome.
+  ///
+  /// In en, this message translates to:
+  /// **'Home'**
+  String get starterHome;
+
+  /// No description provided for @starterLearning.
+  ///
+  /// In en, this message translates to:
+  /// **'Learning'**
+  String get starterLearning;
+
+  /// No description provided for @starterTravel.
+  ///
+  /// In en, this message translates to:
+  /// **'Travel'**
+  String get starterTravel;
+
+  /// No description provided for @archivedProjectsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Archived projects'**
+  String get archivedProjectsTitle;
+
+  /// No description provided for @archivedMeta.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{1 task} other{{count} tasks}} · finished {date}'**
+  String archivedMeta(int count, String date);
+
+  /// No description provided for @restore.
+  ///
+  /// In en, this message translates to:
+  /// **'Restore'**
+  String get restore;
+
+  /// No description provided for @projectRestored.
+  ///
+  /// In en, this message translates to:
+  /// **'{project} is active again'**
+  String projectRestored(String project);
+
+  /// No description provided for @restoreNameTaken.
+  ///
+  /// In en, this message translates to:
+  /// **'An active project is already called {name}'**
+  String restoreNameTaken(String name);
+
+  /// No description provided for @archivedNote.
+  ///
+  /// In en, this message translates to:
+  /// **'Archived projects keep their tasks and stats. Restore one to move it back to Projects.'**
+  String get archivedNote;
+
+  /// No description provided for @moveToProject.
+  ///
+  /// In en, this message translates to:
+  /// **'Move to project'**
+  String get moveToProject;
+
+  /// No description provided for @searchProjects.
+  ///
+  /// In en, this message translates to:
+  /// **'Search projects'**
+  String get searchProjects;
+
+  /// No description provided for @noProject.
+  ///
+  /// In en, this message translates to:
+  /// **'No project'**
+  String get noProject;
+
+  /// No description provided for @openTasksCount.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} open'**
+  String openTasksCount(int count);
+
+  /// No description provided for @moreOptions.
+  ///
+  /// In en, this message translates to:
+  /// **'More options'**
+  String get moreOptions;
+
+  /// No description provided for @iconSemantics.
+  ///
+  /// In en, this message translates to:
+  /// **'{icon, select, globe{Globe} chart{Chart} home{Home} code{Code} plane{Plane} briefcase{Briefcase} bag{Bag} book{Book} box{Box} gift{Gift} palette{Palette} other{Heart}}'**
+  String iconSemantics(String icon);
+
+  /// No description provided for @focusedFor.
+  ///
+  /// In en, this message translates to:
+  /// **'{duration} focused'**
+  String focusedFor(String duration);
 }
 
 class _AppLocalizationsDelegate

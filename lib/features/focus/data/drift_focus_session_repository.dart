@@ -23,4 +23,17 @@ class DriftFocusSessionRepository implements FocusSessionRepository {
       ..orderBy([(s) => OrderingTerm.asc(s.startedAt)]);
     return query.watch().map((rows) => [for (final r in rows) r.toEntity()]);
   }
+
+  @override
+  Stream<int> watchFocusedSeconds(int projectId) => _db
+      .customSelect(
+        'SELECT COALESCE(SUM(s.elapsed_sec), 0) AS n FROM focus_sessions s '
+        'JOIN tasks t ON t.id = s.task_id '
+        "WHERE t.project_id = ?1 AND s.kind = 'focus' "
+        'AND s.elapsed_sec >= 60',
+        variables: [Variable.withInt(projectId)],
+        readsFrom: {_db.focusSessions, _db.tasks},
+      )
+      .watchSingle()
+      .map((row) => row.read<int>('n'));
 }

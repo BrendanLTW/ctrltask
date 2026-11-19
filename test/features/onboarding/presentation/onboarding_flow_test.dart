@@ -7,6 +7,8 @@ import 'package:ctrltask/features/onboarding/presentation/name_screen.dart';
 import 'package:ctrltask/features/onboarding/presentation/reminders_screen.dart';
 import 'package:ctrltask/features/onboarding/presentation/splash_screen.dart';
 import 'package:ctrltask/features/onboarding/presentation/welcome_screen.dart';
+import 'package:ctrltask/features/projects/presentation/project_form_screen.dart';
+import 'package:ctrltask/features/projects/presentation/projects_screen.dart';
 import 'package:ctrltask/features/settings/domain/preferences.dart';
 import 'package:ctrltask/features/settings/domain/preferences_repository.dart';
 import 'package:ctrltask/features/tasks/domain/task.dart';
@@ -207,7 +209,7 @@ void main() {
     expect((await prefs.read()).userName, 'x' * 30);
   });
 
-  testWidgets('Create a project first finishes onboarding on Projects', (
+  testWidgets('Create a project first finishes onboarding on New project', (
     tester,
   ) async {
     await pumpApp(tester);
@@ -217,10 +219,10 @@ void main() {
     await tapText(tester, 'Not now');
     await tapText(tester, 'Create a project first');
     expect((await prefs.read()).onboardingComplete, isTrue);
-    expect(
-      find.descendant(of: find.byType(AppBar), matching: find.text('Projects')),
-      findsOneWidget,
-    );
+    expect(find.byType(ProjectFormScreen), findsOneWidget);
+    // Cancel lands on the Projects tab.
+    await tapText(tester, 'Cancel');
+    expect(find.byType(ProjectsScreen), findsOneWidget);
   });
 
   for (final (name, theme) in [

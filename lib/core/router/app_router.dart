@@ -9,7 +9,9 @@ import 'package:ctrltask/features/onboarding/presentation/onboarding_controller.
 import 'package:ctrltask/features/onboarding/presentation/reminders_screen.dart';
 import 'package:ctrltask/features/onboarding/presentation/splash_screen.dart';
 import 'package:ctrltask/features/onboarding/presentation/welcome_screen.dart';
+import 'package:ctrltask/features/projects/presentation/archived_projects.dart';
 import 'package:ctrltask/features/projects/presentation/project_detail_screen.dart';
+import 'package:ctrltask/features/projects/presentation/project_form_screen.dart';
 import 'package:ctrltask/features/projects/presentation/projects_screen.dart';
 import 'package:ctrltask/features/settings/presentation/settings_screen.dart';
 import 'package:ctrltask/features/tasks/domain/task_draft.dart';
@@ -32,7 +34,10 @@ abstract final class Routes {
   static const newTask = '/task/new';
   static String task(String id) => '/task/$id';
   static String editTask(String id) => '/task/$id/edit';
+  static const newProject = '/project/new';
   static String project(String id) => '/project/$id';
+  static String editProject(String id) => '/project/$id/edit';
+  static const archivedProjects = '/settings/archived';
   static const search = '/search';
   static const insights = '/insights';
   static const settings = '/settings';
@@ -101,9 +106,27 @@ GoRouter appRouter(Ref ref) {
         ],
       ),
       GoRoute(
-        path: '/project/:id',
+        path: Routes.newProject,
         builder: (context, state) =>
-            ProjectDetailScreen(projectId: state.pathParameters['id']!),
+            ProjectFormScreen(preset: state.extra as ProjectPreset?),
+      ),
+      GoRoute(
+        path: '/project/:id',
+        builder: (context, state) => ProjectDetailScreen(
+          projectId: int.parse(state.pathParameters['id']!),
+        ),
+        routes: [
+          GoRoute(
+            path: 'edit',
+            builder: (context, state) => ProjectFormScreen(
+              projectId: int.parse(state.pathParameters['id']!),
+            ),
+          ),
+        ],
+      ),
+      GoRoute(
+        path: Routes.archivedProjects,
+        builder: (context, state) => const ArchivedProjectsScreen(),
       ),
       GoRoute(
         path: Routes.search,

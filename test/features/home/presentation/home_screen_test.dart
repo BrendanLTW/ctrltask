@@ -17,6 +17,7 @@ import 'package:ctrltask/features/home/presentation/home_stats.dart';
 import 'package:ctrltask/features/projects/domain/project.dart';
 import 'package:ctrltask/features/projects/domain/project_keys.dart';
 import 'package:ctrltask/features/projects/domain/project_repository.dart';
+import 'package:ctrltask/features/projects/presentation/project_form_screen.dart';
 import 'package:ctrltask/features/settings/domain/preferences.dart';
 import 'package:ctrltask/features/settings/domain/preferences_repository.dart';
 import 'package:ctrltask/features/tasks/domain/progress.dart';
@@ -373,13 +374,13 @@ void main() {
       expect(find.widgetWithText(TextField, 'Plan my week'), findsOneWidget);
     });
 
-    testWidgets('Create a project opens Projects', (tester) async {
+    testWidgets('Create a project opens New project', (tester) async {
       today.value = [];
       all.value = [];
       await pumpHome(tester);
       await tester.tap(find.text('Create a project'));
       await tester.pumpAndSettle();
-      expect(appBarTitle('Projects'), findsOneWidget);
+      expect(find.byType(ProjectFormScreen), findsOneWidget);
     });
 
     testWidgets('tasks on other days keep the normal layout', (tester) async {

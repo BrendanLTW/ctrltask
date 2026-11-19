@@ -13,30 +13,39 @@ class EmptyTasks extends Mock implements TaskRepository {
   }
 }
 
-class _Projects extends Mock implements ProjectRepository;
+class EmptyProjects extends Mock implements ProjectRepository;
 
-class _Focus extends Mock implements FocusSessionRepository;
+class EmptyFocus extends Mock implements FocusSessionRepository;
 
 /// Repositories with nothing in them, for tests that only need screens to
-/// open. Pass [tasks] to stub more on the task repository, and [projects]
-/// for active projects.
+/// open. Pass [tasks] to stub more on the task repository, [projects] for
+/// active projects and [archived] for archived ones. Pass [projectRepo] or
+/// [focusRepo] to stub more on those; stubs added later win.
 List<Override> emptyRepositories({
   EmptyTasks? tasks,
+  EmptyProjects? projectRepo,
+  EmptyFocus? focusRepo,
   List<Project> projects = const [],
+  List<Project> archived = const [],
 }) {
   final t = tasks ?? EmptyTasks();
   when(() => t.watchToday(any())).thenAnswer((_) => Stream.value(const []));
   when(() => t.watchAll(includeDone: any(named: 'includeDone')))
       .thenAnswer((_) => Stream.value(const []));
   when(t.watchSubtaskProgress).thenAnswer((_) => Stream.value(const {}));
-  final projectRepo = _Projects();
-  when(projectRepo.watchActive).thenAnswer((_) => Stream.value(projects));
-  final focus = _Focus();
+  when(t.watchTaskCounts).thenAnswer((_) => Stream.value(const {}));
+  when(() => t.watchByProject(any())).thenAnswer((_) => Stream.value(const []));
+  final projectFake = projectRepo ?? EmptyProjects();
+  when(projectFake.watchActive).thenAnswer((_) => Stream.value(projects));
+  when(projectFake.watchArchived).thenAnswer((_) => Stream.value(archived));
+  final focus = focusRepo ?? EmptyFocus();
   when(() => focus.watchStartedBetween(any(), any()))
       .thenAnswer((_) => Stream.value(const []));
+  when(() => focus.watchFocusedSeconds(any()))
+      .thenAnswer((_) => Stream.value(0));
   return [
     taskRepositoryProvider.overrideWithValue(t),
-    projectRepositoryProvider.overrideWithValue(projectRepo),
+    projectRepositoryProvider.overrideWithValue(projectFake),
     focusSessionRepositoryProvider.overrideWithValue(focus),
   ];
 }

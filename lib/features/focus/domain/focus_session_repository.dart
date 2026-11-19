@@ -10,6 +10,10 @@ abstract interface class FocusSessionRepository {
   /// Sessions that started on local days [from] to [to], inclusive, oldest
   /// first.
   Stream<List<FocusSession>> watchStartedBetween(DateTime from, DateTime to);
+
+  /// Seconds focused on the project's tasks, counting only focus sessions
+  /// that ran at least a minute (S27).
+  Stream<int> watchFocusedSeconds(int projectId);
 }
 
 /// Overridden in `main.dart` with the Drift implementation.

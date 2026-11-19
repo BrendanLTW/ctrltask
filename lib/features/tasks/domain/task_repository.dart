@@ -35,6 +35,10 @@ abstract interface class TaskRepository {
   /// Ticked out of all subtasks, for every task that has any ("2/4").
   Stream<Map<int, Progress>> watchSubtaskProgress();
 
+  /// How many tasks, open or done, each project has, archived ones
+  /// included (S45). Projects without tasks are left out.
+  Stream<Map<int, int>> watchTaskCounts();
+
   /// A task with its repeat rule, subtasks, tags and links; null once gone.
   Stream<TaskDetails?> watchDetails(int id);
 

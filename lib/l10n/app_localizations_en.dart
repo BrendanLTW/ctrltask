@@ -705,4 +705,245 @@ class AppLocalizationsEn extends AppLocalizations {
   String setDue(String when) {
     return 'Set $when';
   }
+
+  @override
+  String get deadlineOverdue => 'Overdue';
+
+  @override
+  String get deadlineToday => 'Due today';
+
+  @override
+  String get newShort => 'New';
+
+  @override
+  String activeCount(int count) {
+    return 'Active · $count';
+  }
+
+  @override
+  String archivedCount(int count) {
+    return 'Archived · $count';
+  }
+
+  @override
+  String get noDeadline => 'No deadline';
+
+  @override
+  String projectDue(String date) {
+    return 'Due $date';
+  }
+
+  @override
+  String get completeSuffix => ' complete';
+
+  @override
+  String tasksOfTotal(int done, int total) {
+    return '$done of $total tasks';
+  }
+
+  @override
+  String projectTasksDone(int done, int total) {
+    return '$done of $total tasks done';
+  }
+
+  @override
+  String projectProgressSemantics(int percent, int done, int total) {
+    return '$percent% complete, $done of $total tasks';
+  }
+
+  @override
+  String openCount(int count) {
+    return 'Open · $count';
+  }
+
+  @override
+  String addTaskTo(String project) {
+    return 'Add task to $project';
+  }
+
+  @override
+  String get completed => 'Completed';
+
+  @override
+  String get editProject => 'Edit project';
+
+  @override
+  String get newProject => 'New project';
+
+  @override
+  String get projectNameLabel => 'NAME';
+
+  @override
+  String get projectNameHint => 'Project name';
+
+  @override
+  String get projectDescriptionHint => 'What\'s it for? (optional)';
+
+  @override
+  String get colourLabel => 'Colour';
+
+  @override
+  String get iconLabel => 'Icon';
+
+  @override
+  String get deadline => 'Deadline';
+
+  @override
+  String get createProject => 'Create project';
+
+  @override
+  String get archiveProject => 'Archive project';
+
+  @override
+  String get deleteProject => 'Delete project';
+
+  @override
+  String get removeDeadline => 'Remove deadline';
+
+  @override
+  String duplicateProjectName(String name) {
+    return 'You already have a project called “$name”';
+  }
+
+  @override
+  String colourSemantics(String colour) {
+    String _temp0 = intl.Intl.selectLogic(colour, {
+      'orange': 'Orange',
+      'yellow': 'Yellow',
+      'green': 'Green',
+      'blue': 'Blue',
+      'purple': 'Purple',
+      'pink': 'Pink',
+      'red': 'Red',
+      'other': 'Grey',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String deleteProjectTitle(String project) {
+    return 'Delete $project?';
+  }
+
+  @override
+  String deleteProjectBody(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count tasks',
+      one: '1 task',
+    );
+    return 'What should happen to its $_temp0? This can\'t be undone.';
+  }
+
+  @override
+  String get deleteProjectBodyEmpty => 'This can\'t be undone.';
+
+  @override
+  String get moveTasksToInbox => 'Move tasks to Inbox';
+
+  @override
+  String get deleteTasksToo => 'Delete tasks too';
+
+  @override
+  String get projectsEmptyTitle => 'Group tasks into projects';
+
+  @override
+  String projectsEmptyBody(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count inbox tasks stay',
+      one: '1 inbox task stays',
+      zero: 'inbox tasks stay',
+    );
+    return 'A project keeps related tasks together, tracks progress and holds a deadline. Your $_temp0 where they are.';
+  }
+
+  @override
+  String get popularStartingPoints => 'Popular starting points';
+
+  @override
+  String get starterWork => 'Work';
+
+  @override
+  String get starterHome => 'Home';
+
+  @override
+  String get starterLearning => 'Learning';
+
+  @override
+  String get starterTravel => 'Travel';
+
+  @override
+  String get archivedProjectsTitle => 'Archived projects';
+
+  @override
+  String archivedMeta(int count, String date) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count tasks',
+      one: '1 task',
+    );
+    return '$_temp0 · finished $date';
+  }
+
+  @override
+  String get restore => 'Restore';
+
+  @override
+  String projectRestored(String project) {
+    return '$project is active again';
+  }
+
+  @override
+  String restoreNameTaken(String name) {
+    return 'An active project is already called $name';
+  }
+
+  @override
+  String get archivedNote =>
+      'Archived projects keep their tasks and stats. Restore one to move it back to Projects.';
+
+  @override
+  String get moveToProject => 'Move to project';
+
+  @override
+  String get searchProjects => 'Search projects';
+
+  @override
+  String get noProject => 'No project';
+
+  @override
+  String openTasksCount(int count) {
+    return '$count open';
+  }
+
+  @override
+  String get moreOptions => 'More options';
+
+  @override
+  String iconSemantics(String icon) {
+    String _temp0 = intl.Intl.selectLogic(icon, {
+      'globe': 'Globe',
+      'chart': 'Chart',
+      'home': 'Home',
+      'code': 'Code',
+      'plane': 'Plane',
+      'briefcase': 'Briefcase',
+      'bag': 'Bag',
+      'book': 'Book',
+      'box': 'Box',
+      'gift': 'Gift',
+      'palette': 'Palette',
+      'other': 'Heart',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String focusedFor(String duration) {
+    return '$duration focused';
+  }
 }

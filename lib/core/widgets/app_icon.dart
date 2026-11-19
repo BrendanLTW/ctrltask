@@ -22,11 +22,15 @@ enum AppIcon {
   chevronRight('chevron-right'),
   clock('clock'),
   close('x'),
+
+  /// ••• (S27).
+  ellipsis('ellipsis'),
   code('code'),
   flag('flag'),
   flagFilled('flag-filled'),
   flame('flame'),
   folder('folder'),
+  folderPlus('folder-plus'),
   gift('gift'),
   globe('globe'),
   heart('heart'),

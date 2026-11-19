@@ -24,9 +24,14 @@ extension DateText on AppLocalizations {
   String overdueLabel(DateLabels labels, DateTime due) =>
       overdueOn(labels.weekday(due));
 
-  /// "13 days left" until [deadline].
+  /// "13 days left" until [deadline], "Due today", or "Overdue" once it's
+  /// passed.
   String daysLeftLabel(DateTime deadline, {required DateTime today}) =>
-      daysLeft(DateLabels.daysBetween(today, deadline));
+      switch (DateLabels.daysBetween(today, deadline)) {
+        < 0 => deadlineOverdue,
+        0 => deadlineToday,
+        final days => daysLeft(days),
+      };
 
   /// "1h 15m", "2h 05m", "2h" or "25m".
   String durationLabel(Duration duration) {

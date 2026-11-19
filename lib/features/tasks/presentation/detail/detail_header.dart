@@ -21,6 +21,7 @@ class DetailHeader extends StatelessWidget {
     required this.project,
     required this.tags,
     required this.onToggle,
+    required this.onProject,
     super.key,
   });
 
@@ -28,6 +29,9 @@ class DetailHeader extends StatelessWidget {
   final Project? project;
   final List<Tag> tags;
   final ValueChanged<bool> onToggle;
+
+  /// Opens S17 to move the task.
+  final VoidCallback onProject;
 
   @override
   Widget build(BuildContext context) {
@@ -74,7 +78,7 @@ class DetailHeader extends StatelessWidget {
                       runSpacing: 8,
                       children: [
                         if (urgentOrHigh) PriorityTag(task.priority),
-                        _ProjectChip(project),
+                        _ProjectChip(project, onTap: onProject),
                         for (final tag in tags) TagChip(tag.name),
                       ],
                     ),
@@ -101,14 +105,30 @@ class DetailHeader extends StatelessWidget {
 
 /// The project as a pill with its dot, or Inbox.
 class _ProjectChip extends StatelessWidget {
-  const new(this.project);
+  const new(this.project, {required this.onTap});
 
   final Project? project;
+  final VoidCallback onTap;
 
   @override
   Widget build(BuildContext context) {
+    // 44 high to tap; the pill inside is 24, taller with large text, and
+    // the name shrinks to fit.
+    return Semantics(
+      button: true,
+      child: InkWell(
+        onTap: onTap,
+        borderRadius: BorderRadius.circular(AppRadius.pill),
+        child: ConstrainedBox(
+          constraints: const BoxConstraints(minHeight: 44),
+          child: Align(widthFactor: 1, child: _pill(context)),
+        ),
+      ),
+    );
+  }
+
+  Widget _pill(BuildContext context) {
     final colors = context.colors;
-    // At least 24 high, taller with large text; the name shrinks to fit.
     return Container(
       constraints: const BoxConstraints(minHeight: 24),
       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 2),

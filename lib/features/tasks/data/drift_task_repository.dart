@@ -114,6 +114,20 @@ class DriftTaskRepository implements TaskRepository {
   }
 
   @override
+  Stream<Map<int, int>> watchTaskCounts() => _db
+      .customSelect(
+        'SELECT project_id, COUNT(*) AS n FROM tasks '
+        'WHERE project_id IS NOT NULL GROUP BY project_id',
+        readsFrom: {_db.tasks},
+      )
+      .watch()
+      .map(
+        (rows) => {
+          for (final r in rows) r.read<int>('project_id'): r.read<int>('n'),
+        },
+      );
+
+  @override
   Stream<Map<int, Progress>> watchSubtaskProgress() => _db
       .customSelect(
         'SELECT task_id, SUM(done) AS done, COUNT(*) AS total '

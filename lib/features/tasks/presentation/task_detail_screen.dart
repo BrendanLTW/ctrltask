@@ -12,6 +12,7 @@ import 'package:ctrltask/core/widgets/sub_screen_bar.dart';
 import 'package:ctrltask/core/widgets/text_link.dart';
 import 'package:ctrltask/features/home/presentation/home_providers.dart';
 import 'package:ctrltask/features/projects/domain/project.dart';
+import 'package:ctrltask/features/projects/presentation/move_to_project_sheet.dart';
 import 'package:ctrltask/features/settings/domain/preferences.dart';
 import 'package:ctrltask/features/settings/domain/preferences_repository.dart';
 import 'package:ctrltask/features/tasks/domain/task_details.dart';
@@ -68,6 +69,17 @@ class _TaskDetailScreenState extends ConsumerState<TaskDetailScreen> {
         success: false,
       );
     }
+  }
+
+  Future<void> _pickProject(TaskDetails details) async {
+    final pick = await showMoveToProject(
+      context,
+      current: details.task.projectId,
+    );
+    if (pick == null) return;
+    await _update(
+      details.copyWith(task: details.task.copyWith(projectId: pick.projectId)),
+    );
   }
 
   Future<void> _pickDue(TaskDetails details) async {
@@ -176,6 +188,7 @@ class _TaskDetailScreenState extends ConsumerState<TaskDetailScreen> {
           tags: details.tags,
           onToggle: (done) =>
               unawaited(setTaskDone(context, ref, task, done: done)),
+          onProject: () => unawaited(_pickProject(details)),
         ),
         DueSection(
           dueDate: task.dueDate,

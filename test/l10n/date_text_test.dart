@@ -46,6 +46,8 @@ void main() {
       l10n.daysLeftLabel(DateTime(2026, 11, 18), today: today),
       '1 day left',
     );
+    expect(l10n.daysLeftLabel(today, today: today), 'Due today');
+    expect(l10n.daysLeftLabel(DateTime(2026, 11, 16), today: today), 'Overdue');
   });
 
   test('durationLabel', () {

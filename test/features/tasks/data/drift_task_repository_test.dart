@@ -513,6 +513,18 @@ void main() {
     });
   });
 
+  test('counts every task per project, archived ones included', () async {
+    final live = await addProject('Live');
+    final old = await addProject('Old', archived: true);
+    await repo.add(TaskDraft(title: 'A', projectId: live));
+    final done = await repo.add(TaskDraft(title: 'B', projectId: live));
+    await repo.complete(done.id);
+    await repo.add(TaskDraft(title: 'C', projectId: old));
+    await repo.add(const TaskDraft(title: 'Inbox'));
+
+    expect(await repo.watchTaskCounts().first, {live: 2, old: 1});
+  });
+
   test('uncomplete reopens a done task', () async {
     final task = await repo.add(const TaskDraft(title: 'T'));
     await repo.complete(task.id);
