@@ -19,6 +19,7 @@ TaskTileData taskTileData(
   required Map<int, Progress> subtasks,
   String? untimedLabel,
   bool showDay = false,
+  bool overdueAsDay = false,
 }) {
   final project = projects[task.projectId];
   final due = task.dueDate;
@@ -39,6 +40,9 @@ TaskTileData taskTileData(
     untimedLabel: untimedLabel,
     overdueLabel: !overdue
         ? null
+        // Under S19's red Overdue header the day alone says it: "Yesterday".
+        : overdueAsDay && !dueToday
+        ? l10n.dayLabel(labels, due!, today: now)
         : l10n.overdueOn(
             dueToday && minute != null
                 ? labels.time(minute)

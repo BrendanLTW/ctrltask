@@ -709,5 +709,59 @@
         "type": "String"
       }
     }
-  }
+  },
+  "listView": "List",
+  "filterAll": "All",
+  "filterToday": "Today",
+  "filterUpcoming": "Upcoming",
+  "filterHigh": "High priority",
+  "filterDone": "Done",
+  "sectionOverdue": "OVERDUE",
+  "sectionToday": "TODAY · {day}",
+  "@sectionToday": {
+    "placeholders": {
+      "day": {
+        "type": "String"
+      }
+    }
+  },
+  "sectionTomorrow": "TOMORROW",
+  "sectionThisWeek": "THIS WEEK",
+  "sectionLater": "LATER",
+  "sectionNoDate": "NO DATE",
+  "sectionDone": "DONE",
+  "taskCount": "{count, plural, =1{1 task} other{{count} tasks}}",
+  "@taskCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "leftOfTotal": "{left} of {total} left",
+  "@leftOfTotal": {
+    "placeholders": {
+      "left": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "swipeHint": "Swipe for quick actions",
+  "reschedule": "Reschedule",
+  "completeTask": "Complete",
+  "emptyAllTitle": "No tasks yet",
+  "emptyAllBody": "Add one and it shows up here, sorted by when it's due.",
+  "emptyTodayTitle": "Nothing due today",
+  "emptyTodayBody": "Enjoy the space, or pull something forward from Upcoming.",
+  "emptyUpcomingTitle": "Nothing coming up",
+  "emptyUpcomingBody": "Tasks due after today show up here.",
+  "emptyHighTitle": "No high-priority tasks",
+  "emptyHighBody": "Urgent and High tasks show up here.",
+  "emptyDoneTitle": "Nothing done yet",
+  "emptyDoneBody": "Tick off a task and it shows up here.",
+  "calendarComingSoon": "The calendar is on its way.",
+  "delete": "Delete"
 }

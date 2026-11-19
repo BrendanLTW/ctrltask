@@ -38,6 +38,7 @@ enum AppIcon {
   inbox('inbox'),
   info('info'),
   link('link'),
+  list('list'),
   minus('minus'),
   palette('palette'),
   plane('send'),

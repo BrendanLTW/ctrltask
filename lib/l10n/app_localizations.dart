@@ -1539,6 +1539,186 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'{duration} focused'**
   String focusedFor(String duration);
+
+  /// No description provided for @listView.
+  ///
+  /// In en, this message translates to:
+  /// **'List'**
+  String get listView;
+
+  /// No description provided for @filterAll.
+  ///
+  /// In en, this message translates to:
+  /// **'All'**
+  String get filterAll;
+
+  /// No description provided for @filterToday.
+  ///
+  /// In en, this message translates to:
+  /// **'Today'**
+  String get filterToday;
+
+  /// No description provided for @filterUpcoming.
+  ///
+  /// In en, this message translates to:
+  /// **'Upcoming'**
+  String get filterUpcoming;
+
+  /// No description provided for @filterHigh.
+  ///
+  /// In en, this message translates to:
+  /// **'High priority'**
+  String get filterHigh;
+
+  /// No description provided for @filterDone.
+  ///
+  /// In en, this message translates to:
+  /// **'Done'**
+  String get filterDone;
+
+  /// No description provided for @sectionOverdue.
+  ///
+  /// In en, this message translates to:
+  /// **'OVERDUE'**
+  String get sectionOverdue;
+
+  /// No description provided for @sectionToday.
+  ///
+  /// In en, this message translates to:
+  /// **'TODAY · {day}'**
+  String sectionToday(String day);
+
+  /// No description provided for @sectionTomorrow.
+  ///
+  /// In en, this message translates to:
+  /// **'TOMORROW'**
+  String get sectionTomorrow;
+
+  /// No description provided for @sectionThisWeek.
+  ///
+  /// In en, this message translates to:
+  /// **'THIS WEEK'**
+  String get sectionThisWeek;
+
+  /// No description provided for @sectionLater.
+  ///
+  /// In en, this message translates to:
+  /// **'LATER'**
+  String get sectionLater;
+
+  /// No description provided for @sectionNoDate.
+  ///
+  /// In en, this message translates to:
+  /// **'NO DATE'**
+  String get sectionNoDate;
+
+  /// No description provided for @sectionDone.
+  ///
+  /// In en, this message translates to:
+  /// **'DONE'**
+  String get sectionDone;
+
+  /// No description provided for @taskCount.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{1 task} other{{count} tasks}}'**
+  String taskCount(int count);
+
+  /// No description provided for @leftOfTotal.
+  ///
+  /// In en, this message translates to:
+  /// **'{left} of {total} left'**
+  String leftOfTotal(int left, int total);
+
+  /// No description provided for @swipeHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Swipe for quick actions'**
+  String get swipeHint;
+
+  /// No description provided for @reschedule.
+  ///
+  /// In en, this message translates to:
+  /// **'Reschedule'**
+  String get reschedule;
+
+  /// No description provided for @completeTask.
+  ///
+  /// In en, this message translates to:
+  /// **'Complete'**
+  String get completeTask;
+
+  /// No description provided for @emptyAllTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'No tasks yet'**
+  String get emptyAllTitle;
+
+  /// No description provided for @emptyAllBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Add one and it shows up here, sorted by when it\'s due.'**
+  String get emptyAllBody;
+
+  /// No description provided for @emptyTodayTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Nothing due today'**
+  String get emptyTodayTitle;
+
+  /// No description provided for @emptyTodayBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Enjoy the space, or pull something forward from Upcoming.'**
+  String get emptyTodayBody;
+
+  /// No description provided for @emptyUpcomingTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Nothing coming up'**
+  String get emptyUpcomingTitle;
+
+  /// No description provided for @emptyUpcomingBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Tasks due after today show up here.'**
+  String get emptyUpcomingBody;
+
+  /// No description provided for @emptyHighTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'No high-priority tasks'**
+  String get emptyHighTitle;
+
+  /// No description provided for @emptyHighBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Urgent and High tasks show up here.'**
+  String get emptyHighBody;
+
+  /// No description provided for @emptyDoneTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Nothing done yet'**
+  String get emptyDoneTitle;
+
+  /// No description provided for @emptyDoneBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Tick off a task and it shows up here.'**
+  String get emptyDoneBody;
+
+  /// No description provided for @calendarComingSoon.
+  ///
+  /// In en, this message translates to:
+  /// **'The calendar is on its way.'**
+  String get calendarComingSoon;
+
+  /// No description provided for @delete.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete'**
+  String get delete;
 }
 
 class _AppLocalizationsDelegate

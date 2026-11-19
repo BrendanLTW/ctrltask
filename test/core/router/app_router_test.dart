@@ -12,6 +12,7 @@ import 'package:ctrltask/features/projects/presentation/projects_screen.dart';
 import 'package:ctrltask/features/settings/domain/preferences.dart';
 import 'package:ctrltask/features/settings/domain/preferences_repository.dart';
 import 'package:ctrltask/features/tasks/presentation/task_detail_screen.dart';
+import 'package:ctrltask/features/tasks/presentation/tasks_screen.dart';
 import 'package:ctrltask/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -55,6 +56,7 @@ void main() {
   Finder title(String text) => switch (text) {
     'Home' => find.byType(HomeScreen),
     'Projects' => find.byType(ProjectsScreen),
+    'Tasks' => find.byType(TasksScreen),
     _ => find.descendant(of: find.byType(AppBar), matching: find.text(text)),
   };
 
@@ -122,7 +124,7 @@ void main() {
   testWidgets('tabs switch between the four branches', (tester) async {
     await pumpApp(tester);
     for (final label in ['Tasks', 'Projects', 'Focus', 'Home']) {
-      // Home and Projects have no app bar; the others are placeholders.
+      // Only Focus is still a placeholder with an app bar.
       await tester.tap(tab(label));
       await tester.pumpAndSettle();
       expect(title(label), findsOneWidget);

@@ -85,7 +85,7 @@ Work top to bottom. Each task is sized for one Claude Code session and follows t
   Refs: S14, PRD §5.5, FR-05
 - [x] **2.10 Projects.** S26 list (Active and Archived), S27 detail (header, open tasks, add task in project, Completed row), S28 new and edit (name, description, colour, icon, deadline; archive and delete from edit), S29 empty state, S45 archived list with Restore, and S17 Move to project sheet.
   Refs: S17, S26–S29, S45, PRD §5.7, FR-06
-- [ ] **2.11 Tasks list.** S19 title, List segment (Calendar and Board show placeholders), filter chips with counts, sections, task rows, swipe right to complete and swipe left for Reschedule (→ S14) and Delete (→ S13).
+- [x] **2.11 Tasks list.** S19 title, List segment (Calendar and Board show placeholders), filter chips with counts, sections, task rows, swipe right to complete and swipe left for Reschedule (→ S14) and Delete (→ S13).
   Refs: S19, PRD §5.6, FR-07
 - [ ] **2.12 Settings shell.** S35 with the name card (→ S40 Edit name), the insights banner (placeholder until 3.10), and the Preferences, Manage and Data rows for what exists so far; the rest hidden. Footer "ctrlTask {version} · by BrendanLTW".
   Refs: S35, S40, PRD §5.10

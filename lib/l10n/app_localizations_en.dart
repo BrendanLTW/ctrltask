@@ -946,4 +946,108 @@ class AppLocalizationsEn extends AppLocalizations {
   String focusedFor(String duration) {
     return '$duration focused';
   }
+
+  @override
+  String get listView => 'List';
+
+  @override
+  String get filterAll => 'All';
+
+  @override
+  String get filterToday => 'Today';
+
+  @override
+  String get filterUpcoming => 'Upcoming';
+
+  @override
+  String get filterHigh => 'High priority';
+
+  @override
+  String get filterDone => 'Done';
+
+  @override
+  String get sectionOverdue => 'OVERDUE';
+
+  @override
+  String sectionToday(String day) {
+    return 'TODAY · $day';
+  }
+
+  @override
+  String get sectionTomorrow => 'TOMORROW';
+
+  @override
+  String get sectionThisWeek => 'THIS WEEK';
+
+  @override
+  String get sectionLater => 'LATER';
+
+  @override
+  String get sectionNoDate => 'NO DATE';
+
+  @override
+  String get sectionDone => 'DONE';
+
+  @override
+  String taskCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count tasks',
+      one: '1 task',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String leftOfTotal(int left, int total) {
+    return '$left of $total left';
+  }
+
+  @override
+  String get swipeHint => 'Swipe for quick actions';
+
+  @override
+  String get reschedule => 'Reschedule';
+
+  @override
+  String get completeTask => 'Complete';
+
+  @override
+  String get emptyAllTitle => 'No tasks yet';
+
+  @override
+  String get emptyAllBody =>
+      'Add one and it shows up here, sorted by when it\'s due.';
+
+  @override
+  String get emptyTodayTitle => 'Nothing due today';
+
+  @override
+  String get emptyTodayBody =>
+      'Enjoy the space, or pull something forward from Upcoming.';
+
+  @override
+  String get emptyUpcomingTitle => 'Nothing coming up';
+
+  @override
+  String get emptyUpcomingBody => 'Tasks due after today show up here.';
+
+  @override
+  String get emptyHighTitle => 'No high-priority tasks';
+
+  @override
+  String get emptyHighBody => 'Urgent and High tasks show up here.';
+
+  @override
+  String get emptyDoneTitle => 'Nothing done yet';
+
+  @override
+  String get emptyDoneBody => 'Tick off a task and it shows up here.';
+
+  @override
+  String get calendarComingSoon => 'The calendar is on its way.';
+
+  @override
+  String get delete => 'Delete';
 }

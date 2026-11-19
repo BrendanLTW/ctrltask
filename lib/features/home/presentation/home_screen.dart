@@ -24,9 +24,11 @@ import 'package:ctrltask/features/settings/domain/preferences.dart';
 import 'package:ctrltask/features/settings/domain/preferences_repository.dart';
 import 'package:ctrltask/features/tasks/domain/task.dart';
 import 'package:ctrltask/features/tasks/domain/task_calculations.dart';
+import 'package:ctrltask/features/tasks/domain/task_list.dart';
 import 'package:ctrltask/features/tasks/presentation/quick_add_sheet.dart';
 import 'package:ctrltask/features/tasks/presentation/task_completion.dart';
 import 'package:ctrltask/features/tasks/presentation/task_tile_data.dart';
+import 'package:ctrltask/features/tasks/presentation/tasks_providers.dart';
 import 'package:ctrltask/l10n/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -76,9 +78,12 @@ class HomeScreen extends ConsumerWidget {
     final tomorrowList = orderToday(open.where((t) => t.dueDate == tomorrow));
 
     void openTask(Task task) => context.push(Routes.task('${task.id}'));
-    // shortcut: these open the Tasks tab until S19's overdue filter (2.11)
-    // and the calendar (3.3) exist.
-    void openTasksTab() => context.go(Routes.tasks);
+
+    /// Tasks (S19) on [filter].
+    void openTasks(TaskFilter filter) {
+      ref.read(tasksFilterProvider.notifier).selected = filter;
+      context.go(Routes.tasks);
+    }
 
     void addTask(String? title) =>
         unawaited(showQuickAdd(context, title: title));
@@ -134,7 +139,9 @@ class HomeScreen extends ConsumerWidget {
                   ProgressHero(
                     progress: progress,
                     subline: subline(),
-                    onTap: firstRun || allDone ? null : openTasksTab,
+                    onTap: firstRun || allDone
+                        ? null
+                        : () => openTasks(TaskFilter.today),
                   ),
                   if (firstRun)
                     HomeFirstRun(
@@ -148,7 +155,7 @@ class HomeScreen extends ConsumerWidget {
                       tasksDone: progress.done,
                       focused: focused,
                       streak: streak(done, today),
-                      onPlanTomorrow: openTasksTab,
+                      onPlanTomorrow: () => openTasks(TaskFilter.upcoming),
                     ),
                     if (tomorrowList.isNotEmpty) ...[
                       SectionHeader(
@@ -159,7 +166,7 @@ class HomeScreen extends ConsumerWidget {
                           ).format(tomorrow).toUpperCase(),
                         ),
                         linkLabel: l10n.allTasks,
-                        onLink: openTasksTab,
+                        onLink: () => openTasks(TaskFilter.upcoming),
                       ),
                       ListGroup(
                         children: [
@@ -200,14 +207,14 @@ class HomeScreen extends ConsumerWidget {
                         ),
                         onTap: overdue.length == 1
                             ? () => openTask(overdue.first)
-                            : openTasksTab,
+                            : () => openTasks(TaskFilter.all),
                       ),
                     ],
                     if (todayList.isNotEmpty) ...[
                       SectionHeader(
                         l10n.dueToday,
                         linkLabel: l10n.allTasks,
-                        onLink: openTasksTab,
+                        onLink: () => openTasks(TaskFilter.all),
                       ),
                       for (final task in todayList) ...[
                         TaskCard(
@@ -231,7 +238,8 @@ class HomeScreen extends ConsumerWidget {
                       SectionHeader(
                         l10n.upcomingDeadlines,
                         linkLabel: l10n.calendar,
-                        onLink: openTasksTab,
+                        // shortcut: the Tasks tab until the calendar (3.3).
+                        onLink: () => openTasks(TaskFilter.all),
                       ),
                       UpcomingDeadlines(
                         items: deadlines,

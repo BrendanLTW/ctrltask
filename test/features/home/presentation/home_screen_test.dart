@@ -2,6 +2,7 @@ import 'package:ctrltask/core/dates/clock.dart';
 import 'package:ctrltask/core/haptics/haptics.dart';
 import 'package:ctrltask/core/theme/app_theme.dart';
 import 'package:ctrltask/core/widgets/alert_banner.dart';
+import 'package:ctrltask/core/widgets/app_chip.dart';
 import 'package:ctrltask/core/widgets/app_sheet.dart';
 import 'package:ctrltask/core/widgets/complete_toast.dart';
 import 'package:ctrltask/core/widgets/progress_ring.dart';
@@ -23,8 +24,10 @@ import 'package:ctrltask/features/settings/domain/preferences_repository.dart';
 import 'package:ctrltask/features/tasks/domain/progress.dart';
 import 'package:ctrltask/features/tasks/domain/task.dart';
 import 'package:ctrltask/features/tasks/domain/task_details.dart';
+import 'package:ctrltask/features/tasks/domain/task_list.dart';
 import 'package:ctrltask/features/tasks/domain/task_priority.dart';
 import 'package:ctrltask/features/tasks/domain/task_repository.dart';
+import 'package:ctrltask/features/tasks/presentation/tasks_screen.dart';
 import 'package:ctrltask/l10n/date_text.dart';
 import 'package:ctrltask/l10n/l10n.dart';
 import 'package:ctrltask/main.dart';
@@ -353,9 +356,6 @@ void main() {
   });
 
   group('states', () {
-    Finder appBarTitle(String text) =>
-        find.descendant(of: find.byType(AppBar), matching: find.text(text));
-
     testWidgets('no tasks at all is the S08 blank page', (tester) async {
       today.value = [];
       all.value = [];
@@ -425,7 +425,15 @@ void main() {
 
       await tester.tap(find.text('Plan tomorrow'));
       await tester.pumpAndSettle();
-      expect(appBarTitle('Tasks'), findsOneWidget);
+      expect(find.byType(TasksScreen), findsOneWidget);
+      expect(
+        tester
+            .widget<FilterChips<TaskFilter>>(
+              find.byType(FilterChips<TaskFilter>),
+            )
+            .selected,
+        TaskFilter.upcoming,
+      );
     });
   });
 
