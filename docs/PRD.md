@@ -2,7 +2,7 @@
 
 | | |
 |---|---|
-| Product | **ctrlTask** (package `ctrl_task`), from ctrlWorks |
+| Product | **ctrlTask** (package `ctrltask`), from ctrlWorks |
 | Type | Offline-first personal task and focus app (Flutter, iOS and Android) |
 | Purpose | Portfolio project |
 | UI source of truth | The "CtrlTask UI" design canvas (https://claude.ai/artifact/VetuLy5Er3H4VsYZLMwURj), which has: 46 light screens, a dark version of each, and a design-system board. Export the screens to `docs/design/`. |

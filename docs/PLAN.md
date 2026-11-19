@@ -11,8 +11,8 @@ Work top to bottom. Each task is sized for one Claude Code session and follows t
 
 ## Before you start (you, not Claude Code)
 
-- [ ] Create the GitHub repo `ctrl_task` and add `CLAUDE.md`, `docs/PRD.md`, `docs/DESIGN.md` and this file.
-- [ ] Export every canvas artboard to `docs/design/` as PNG, named after its file (`Main.png`, `Main · Dark.png`, `Profile.png`, …).
+- [ ] Create the GitHub repo `ctrltask` and add `CLAUDE.md`, `docs/PRD.md`, `docs/DESIGN.md` and this file.
+- [ ] Export every canvas artboard to `docs/design/` as PNG, named after its canvas title (`Splash.png`, `Splash · Dark.png`, `Settings (full scroll).png`, …).
 - [ ] Copy the ctrlSpend `.claude/commands/` (`/next`) into the repo, if you use them there.
 - [ ] Add the three missing designs to the canvas, or accept the fallbacks in PRD §12: Custom repeat (S15), Export custom range (S41), the task picker behind **Change** on S30.
 - [ ] Draw the app icon and adaptive icon from the brand mark and save the SVGs in `assets/brand/`.
@@ -21,7 +21,7 @@ Work top to bottom. Each task is sized for one Claude Code session and follows t
 
 ## Phase 0 — Foundation
 
-- [ ] **0.1 Project setup.** Create the Flutter project `ctrl_task` (android, ios). Add the v1.0 packages from `CLAUDE.md` (not the v1.1 ones), set up very_good_analysis, and make `flutter analyze` and `flutter test` pass on the template.
+- [ ] **0.1 Project setup.** Create the Flutter project `ctrltask` (android, ios). Add the v1.0 packages from `CLAUDE.md` (not the v1.1 ones), set up very_good_analysis, and make `flutter analyze` and `flutter test` pass on the template.
   Refs: CLAUDE.md Stack
 - [ ] **0.2 Folder structure and routing.** Create the `core/` and `features/` folders from `CLAUDE.md`. Set up go_router with a `StatefulShellRoute` for Home, Tasks, Projects and Focus (placeholder screens), plus routes for Task detail, New task, Project detail, Search, Insights, Settings and Onboarding. Add an onboarding redirect driven by a placeholder provider.
   Refs: PRD §4, DESIGN §6
@@ -31,7 +31,7 @@ Work top to bottom. Each task is sized for one Claude Code session and follows t
   Refs: DESIGN §4, §5, §9, §12
 - [ ] **0.5 Localisation and dates.** Set up `flutter gen-l10n` with an English ARB file. Build `DateLabels` in `core/dates` (pure Dart): "Tue, 17 Nov", "10:00 AM", "Today, 10:00", "Yesterday", "Overdue · Mon", "13 days left", "1h 15m". Unit tests.
   Refs: PRD §6.2
-- [ ] **0.6 App shell.** Build `AppShell`: the floating pill bottom bar (four tabs, active tab expands with label), the separate round quick-add button and the bottom fade, with labels and the shadows from DESIGN §5. Widget tests in both themes; compare with `Main.png` and `Main · Dark.png`.
+- [ ] **0.6 App shell.** Build `AppShell`: the floating pill bottom bar (four tabs, active tab expands with label), the separate round quick-add button and the bottom fade, with labels and the shadows from DESIGN §5. Widget tests in both themes; compare with `Home · Today (tap a circle to complete).png` and its `· Dark` version.
   Refs: PRD §4, DESIGN §6, §7
 - [ ] **0.7 Task checkbox and completion feedback.** `TaskCheckbox` (four priority rings, done state, 44 px target, spring animation, reduced motion), `CompleteToast` with Undo and a 3.5 s timer, and a `Haptics` wrapper. Widget tests for each state.
   Refs: PRD §6.1, DESIGN §7, §9

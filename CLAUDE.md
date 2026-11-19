@@ -1,12 +1,12 @@
-# ctrlTask (`ctrl_task`)
+# ctrlTask (`ctrltask`)
 
-Offline-first personal task and focus app in Flutter (iOS and Android). Portfolio project: code quality, architecture, tests and design fidelity matter more than feature count. ctrlTask shares its design system with ctrlSpend (`ctrl_spend`).
+Offline-first personal task and focus app in Flutter (iOS and Android). Portfolio project: code quality, architecture, tests and design fidelity matter more than feature count. ctrlTask shares its design system with ctrlSpend (`ctrlspend`).
 
 ## Read first
 - `docs/PRD.md`: requirements, screen IDs (S01–S46), acceptance criteria, data model, derived values. **The source of truth for behaviour.**
 - `docs/PLAN.md`: the task list. Work through it in order.
 - `docs/DESIGN.md`: design tokens, component specs, layout patterns, motion, dark mode and the Flutter theme mapping.
-- `docs/design/`: exported screens, light and dark, named after the canvas files (e.g. `Main.png`, `Main · Dark.png`). **The source of truth for layout.** If the PRD and a screen disagree, follow the screen and tell me.
+- `docs/design/`: exported screens, light and dark, named after the canvas title in PRD §4 (e.g. `Home · Today (tap a circle to complete).png` and `… · Dark.png`). **The source of truth for layout.** If the PRD and a screen disagree, follow the screen and tell me.
 
 Before building a screen, read its section in the PRD and look at both its light and dark designs.
 

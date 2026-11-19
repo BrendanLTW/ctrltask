@@ -1,10 +1,10 @@
 # ctrlTask — Design System
 
-This is the single reference for how ctrlTask looks. Values come from the "CtrlTask UI" canvas: the design-system board and the 46 screens. ctrlTask is built on the ctrlSpend design system, so most tokens are shared with `ctrl_spend/docs/DESIGN.md`. If a screen and this file disagree, the screen wins and this file is updated.
+This is the single reference for how ctrlTask looks. Values come from the "CtrlTask UI" canvas: the design-system board and the 46 screens. ctrlTask is built on the ctrlSpend design system, so most tokens are shared with `ctrlspend/docs/DESIGN.md`. If a screen and this file disagree, the screen wins and this file is updated.
 
 - Behaviour and copy: `docs/PRD.md`
 - Code conventions: `CLAUDE.md`
-- Screen exports: `docs/design/<File>.png` and `<File>Dark.png`
+- Screen exports: `docs/design/<canvas title>.png` and `<canvas title> · Dark.png`
 
 ---
 
@@ -23,7 +23,7 @@ This is the single reference for how ctrlTask looks. Values come from the "CtrlT
 
 | Item | Rule |
 |---|---|
-| Name | **ctrlTask** — lowercase "ctrl", capital "T". Package `ctrl_task`. |
+| Name | **ctrlTask** — lowercase "ctrl", capital "T". Package `ctrltask`. |
 | Wordmark | "ctrl" in Poppins 400, grey `#5D6169` (on dark `#98A2B3`), then "Task" in Poppins 700, `#15171C` (on dark `#FFFFFF`). Letter-spacing −2%. |
 | Symbol | An orange check on a charcoal keycap: `assets/brand/ctrltask_mark.svg` in the app, `ctrltask_app_icon.svg` (full-bleed, square corners) for the app icon |
 | Keycap | Base `#111318`, radius 28 on a 120 grid; skirt gradient `#262A32 → #191C22`; inset face 102 × 96, radius 21, gradient `#3B404B → #2C3038`, with a 9% white rim; check stroke 11, round caps |
