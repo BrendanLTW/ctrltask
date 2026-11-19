@@ -3,6 +3,10 @@ import 'package:ctrltask/core/db/app_database.dart';
 import 'package:ctrltask/core/router/app_router.dart';
 import 'package:ctrltask/core/theme/app_theme.dart';
 import 'package:ctrltask/core/theme/theme_mode_controller.dart';
+import 'package:ctrltask/features/projects/data/drift_project_repository.dart';
+import 'package:ctrltask/features/projects/domain/project_repository.dart';
+import 'package:ctrltask/features/tags/data/drift_tag_repository.dart';
+import 'package:ctrltask/features/tags/domain/tag_repository.dart';
 import 'package:ctrltask/features/tasks/data/drift_task_repository.dart';
 import 'package:ctrltask/features/tasks/domain/task_repository.dart';
 import 'package:ctrltask/l10n/l10n.dart';
@@ -22,6 +26,15 @@ List<Override> appOverrides() => [
       ref.watch(appDatabaseProvider),
       ref.watch(clockProvider),
     ),
+  ),
+  projectRepositoryProvider.overrideWith(
+    (ref) => DriftProjectRepository(
+      ref.watch(appDatabaseProvider),
+      ref.watch(clockProvider),
+    ),
+  ),
+  tagRepositoryProvider.overrideWith(
+    (ref) => DriftTagRepository(ref.watch(appDatabaseProvider)),
   ),
 ];
 
