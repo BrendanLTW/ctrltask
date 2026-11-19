@@ -23,7 +23,7 @@ Work top to bottom. Each task is sized for one Claude Code session and follows t
 
 - [x] **0.1 Project setup.** Create the Flutter project `ctrltask` (android, ios). Add the v1.0 packages from `CLAUDE.md` (not the v1.1 ones), set up very_good_analysis, and make `flutter analyze` and `flutter test` pass on the template.
   Refs: CLAUDE.md Stack
-- [ ] **0.2 Folder structure and routing.** Create the `core/` and `features/` folders from `CLAUDE.md`. Set up go_router with a `StatefulShellRoute` for Home, Tasks, Projects and Focus (placeholder screens), plus routes for Task detail, New task, Project detail, Search, Insights, Settings and Onboarding. Add an onboarding redirect driven by a placeholder provider.
+- [x] **0.2 Folder structure and routing.** Create the `core/` and `features/` folders from `CLAUDE.md`. Set up go_router with a `StatefulShellRoute` for Home, Tasks, Projects and Focus (placeholder screens), plus routes for Task detail, New task, Project detail, Search, Insights, Settings and Onboarding. Add an onboarding redirect driven by a placeholder provider.
   Refs: PRD §4, DESIGN §6
 - [ ] **0.3 Colour tokens.** Build `AppColors` as a `ThemeExtension` with every token in DESIGN §3.1–3.3 for light and dark, plus `ProjectColors` (DESIGN §3.4: tile, icon and solid for 8 keys). Add `context.colors` and `context.projectColors`. Test that every token has a light and a dark value.
   Refs: DESIGN §3, §12
