@@ -5,7 +5,6 @@ import 'package:ctrltask/core/theme/app_theme.dart';
 import 'package:ctrltask/core/theme/app_typography.dart';
 import 'package:ctrltask/core/theme/project_palette.dart';
 import 'package:ctrltask/core/theme/theme_mode_controller.dart';
-import 'package:ctrltask/features/onboarding/presentation/onboarding_controller.dart';
 import 'package:ctrltask/features/settings/domain/preferences.dart';
 import 'package:ctrltask/features/settings/domain/preferences_repository.dart';
 import 'package:ctrltask/main.dart';
@@ -99,16 +98,18 @@ void main() {
   }
 
   testWidgets('the app follows the stored theme', (tester) async {
-    final prefs = FakePreferencesRepository();
+    final prefs = FakePreferencesRepository(
+      const Preferences(onboardingComplete: true),
+    );
     final container = ProviderContainer(
       overrides: [preferencesRepositoryProvider.overrideWithValue(prefs)],
     );
     addTearDown(container.dispose);
-    container.read(onboardingCompleteProvider.notifier).complete();
     expect(container.read(appThemeModeProvider), ThemeMode.system);
     await tester.pumpWidget(
       UncontrolledProviderScope(container: container, child: const MainApp()),
     );
+    await tester.pumpAndSettle();
     Brightness brightness() =>
         Theme.of(tester.element(find.byType(Scaffold).first)).brightness;
 

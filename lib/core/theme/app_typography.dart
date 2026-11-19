@@ -31,6 +31,16 @@ class AppTypography {
     fontFeatures: _tabular,
   );
 
+  /// The wordmark: "ctrl" at this weight, "Task" at w700, −2% letter-spacing
+  /// (DESIGN §2).
+  TextStyle get wordmark => const TextStyle(
+    fontFamily: _family,
+    fontSize: 36,
+    fontWeight: FontWeight.w400,
+    letterSpacing: -0.72,
+    height: 1.1,
+  );
+
   /// Onboarding titles.
   TextStyle get onbTitle => const TextStyle(
     fontFamily: _family,

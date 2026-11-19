@@ -172,12 +172,6 @@ abstract class AppLocalizations {
   /// **'Project'**
   String get project;
 
-  /// No description provided for @finishOnboarding.
-  ///
-  /// In en, this message translates to:
-  /// **'Finish onboarding'**
-  String get finishOnboarding;
-
   /// No description provided for @relativeToday.
   ///
   /// In en, this message translates to:
@@ -381,6 +375,360 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Decrease'**
   String get decrease;
+
+  /// No description provided for @back.
+  ///
+  /// In en, this message translates to:
+  /// **'Back'**
+  String get back;
+
+  /// No description provided for @skip.
+  ///
+  /// In en, this message translates to:
+  /// **'Skip'**
+  String get skip;
+
+  /// No description provided for @continueAction.
+  ///
+  /// In en, this message translates to:
+  /// **'Continue'**
+  String get continueAction;
+
+  /// No description provided for @notSet.
+  ///
+  /// In en, this message translates to:
+  /// **'—'**
+  String get notSet;
+
+  /// No description provided for @off.
+  ///
+  /// In en, this message translates to:
+  /// **'Off'**
+  String get off;
+
+  /// No description provided for @splashTagline.
+  ///
+  /// In en, this message translates to:
+  /// **'Get today done.'**
+  String get splashTagline;
+
+  /// No description provided for @makerPrefix.
+  ///
+  /// In en, this message translates to:
+  /// **'by '**
+  String get makerPrefix;
+
+  /// No description provided for @makerName.
+  ///
+  /// In en, this message translates to:
+  /// **'BrendanLTW'**
+  String get makerName;
+
+  /// No description provided for @welcomeTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Get today done, one tap at a time.'**
+  String get welcomeTitle;
+
+  /// No description provided for @welcomeBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Capture tasks in seconds, focus on what matters and watch your day fill up.'**
+  String get welcomeBody;
+
+  /// No description provided for @getStarted.
+  ///
+  /// In en, this message translates to:
+  /// **'Get started'**
+  String get getStarted;
+
+  /// No description provided for @skipSetup.
+  ///
+  /// In en, this message translates to:
+  /// **'Skip setup'**
+  String get skipSetup;
+
+  /// No description provided for @welcomeDoneChip.
+  ///
+  /// In en, this message translates to:
+  /// **'Pay TNB bill'**
+  String get welcomeDoneChip;
+
+  /// No description provided for @welcomeFocusChip.
+  ///
+  /// In en, this message translates to:
+  /// **'Focus 25:00'**
+  String get welcomeFocusChip;
+
+  /// No description provided for @welcomeRingValue.
+  ///
+  /// In en, this message translates to:
+  /// **'4 of 6'**
+  String get welcomeRingValue;
+
+  /// No description provided for @welcomeRingLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'done today'**
+  String get welcomeRingLabel;
+
+  /// No description provided for @welcomeTaskTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Finish Q4 revenue slides'**
+  String get welcomeTaskTitle;
+
+  /// No description provided for @welcomeTaskTime.
+  ///
+  /// In en, this message translates to:
+  /// **'5:00 PM'**
+  String get welcomeTaskTime;
+
+  /// No description provided for @nameTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'What should we call you?'**
+  String get nameTitle;
+
+  /// No description provided for @nameBody.
+  ///
+  /// In en, this message translates to:
+  /// **'It\'s only used for your greeting and stays on this phone.'**
+  String get nameBody;
+
+  /// No description provided for @nameHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Your name'**
+  String get nameHint;
+
+  /// No description provided for @nameHelp.
+  ///
+  /// In en, this message translates to:
+  /// **'You can change this any time in Settings.'**
+  String get nameHelp;
+
+  /// No description provided for @firstTaskTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'What\'s one thing to get done today?'**
+  String get firstTaskTitle;
+
+  /// No description provided for @firstTaskTitleNamed.
+  ///
+  /// In en, this message translates to:
+  /// **'What\'s one thing to get done today, {name}?'**
+  String firstTaskTitleNamed(String name);
+
+  /// No description provided for @firstTaskBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Just a title is fine. You can add dates, priorities and projects later.'**
+  String get firstTaskBody;
+
+  /// No description provided for @firstTaskHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Type a task'**
+  String get firstTaskHint;
+
+  /// No description provided for @orPickOne.
+  ///
+  /// In en, this message translates to:
+  /// **'OR PICK ONE'**
+  String get orPickOne;
+
+  /// No description provided for @suggestionPlanWeek.
+  ///
+  /// In en, this message translates to:
+  /// **'Plan my week'**
+  String get suggestionPlanWeek;
+
+  /// No description provided for @suggestionClearInbox.
+  ///
+  /// In en, this message translates to:
+  /// **'Clear my inbox'**
+  String get suggestionClearInbox;
+
+  /// No description provided for @suggestionWalk.
+  ///
+  /// In en, this message translates to:
+  /// **'30-minute walk'**
+  String get suggestionWalk;
+
+  /// No description provided for @suggestionCallMum.
+  ///
+  /// In en, this message translates to:
+  /// **'Call mum'**
+  String get suggestionCallMum;
+
+  /// No description provided for @whenLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'WHEN'**
+  String get whenLabel;
+
+  /// No description provided for @whenToday.
+  ///
+  /// In en, this message translates to:
+  /// **'Today'**
+  String get whenToday;
+
+  /// No description provided for @whenTomorrow.
+  ///
+  /// In en, this message translates to:
+  /// **'Tomorrow'**
+  String get whenTomorrow;
+
+  /// No description provided for @whenNoDate.
+  ///
+  /// In en, this message translates to:
+  /// **'No date'**
+  String get whenNoDate;
+
+  /// No description provided for @addTask.
+  ///
+  /// In en, this message translates to:
+  /// **'Add task'**
+  String get addTask;
+
+  /// No description provided for @doItLater.
+  ///
+  /// In en, this message translates to:
+  /// **'I\'ll do it later'**
+  String get doItLater;
+
+  /// No description provided for @remindersTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Want a nudge?'**
+  String get remindersTitle;
+
+  /// No description provided for @remindersBody.
+  ///
+  /// In en, this message translates to:
+  /// **'ctrlTask can remind you when tasks are due and help you plan each morning.'**
+  String get remindersBody;
+
+  /// No description provided for @taskReminders.
+  ///
+  /// In en, this message translates to:
+  /// **'Task reminders'**
+  String get taskReminders;
+
+  /// No description provided for @taskRemindersDetail.
+  ///
+  /// In en, this message translates to:
+  /// **'At the time you set on a task'**
+  String get taskRemindersDetail;
+
+  /// No description provided for @dailyPlan.
+  ///
+  /// In en, this message translates to:
+  /// **'Daily plan'**
+  String get dailyPlan;
+
+  /// No description provided for @dailyPlanDetail.
+  ///
+  /// In en, this message translates to:
+  /// **'A short list of what\'s due today'**
+  String get dailyPlanDetail;
+
+  /// No description provided for @overdueNudges.
+  ///
+  /// In en, this message translates to:
+  /// **'Overdue nudges'**
+  String get overdueNudges;
+
+  /// No description provided for @overdueNudgesDetail.
+  ///
+  /// In en, this message translates to:
+  /// **'Once a day, if something slips'**
+  String get overdueNudgesDetail;
+
+  /// No description provided for @dailyPlanAt.
+  ///
+  /// In en, this message translates to:
+  /// **'DAILY PLAN AT'**
+  String get dailyPlanAt;
+
+  /// No description provided for @allowNotifications.
+  ///
+  /// In en, this message translates to:
+  /// **'Allow notifications'**
+  String get allowNotifications;
+
+  /// No description provided for @notNow.
+  ///
+  /// In en, this message translates to:
+  /// **'Not now'**
+  String get notNow;
+
+  /// No description provided for @allSetTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'You\'re all set'**
+  String get allSetTitle;
+
+  /// No description provided for @allSetTitleNamed.
+  ///
+  /// In en, this message translates to:
+  /// **'You\'re all set, {name}'**
+  String allSetTitleNamed(String name);
+
+  /// No description provided for @allSetBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Your first task is on today\'s list. Tick it off to start your streak.'**
+  String get allSetBody;
+
+  /// No description provided for @allSetBodyNoTask.
+  ///
+  /// In en, this message translates to:
+  /// **'Add your first task from Today whenever you\'re ready.'**
+  String get allSetBodyNoTask;
+
+  /// No description provided for @yourSetup.
+  ///
+  /// In en, this message translates to:
+  /// **'YOUR SETUP'**
+  String get yourSetup;
+
+  /// No description provided for @setupName.
+  ///
+  /// In en, this message translates to:
+  /// **'Name'**
+  String get setupName;
+
+  /// No description provided for @setupFirstTask.
+  ///
+  /// In en, this message translates to:
+  /// **'First task'**
+  String get setupFirstTask;
+
+  /// No description provided for @setupDailyPlan.
+  ///
+  /// In en, this message translates to:
+  /// **'Daily plan'**
+  String get setupDailyPlan;
+
+  /// No description provided for @setupWeekStart.
+  ///
+  /// In en, this message translates to:
+  /// **'Week starts on'**
+  String get setupWeekStart;
+
+  /// No description provided for @goToToday.
+  ///
+  /// In en, this message translates to:
+  /// **'Go to Today'**
+  String get goToToday;
+
+  /// No description provided for @createProjectFirst.
+  ///
+  /// In en, this message translates to:
+  /// **'Create a project first'**
+  String get createProjectFirst;
 }
 
 class _AppLocalizationsDelegate

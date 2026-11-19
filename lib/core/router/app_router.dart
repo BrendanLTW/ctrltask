@@ -2,8 +2,13 @@ import 'package:ctrltask/core/widgets/app_shell.dart';
 import 'package:ctrltask/features/focus/presentation/focus_screen.dart';
 import 'package:ctrltask/features/home/presentation/home_screen.dart';
 import 'package:ctrltask/features/insights/presentation/insights_screen.dart';
+import 'package:ctrltask/features/onboarding/presentation/all_set_screen.dart';
+import 'package:ctrltask/features/onboarding/presentation/first_task_screen.dart';
+import 'package:ctrltask/features/onboarding/presentation/name_screen.dart';
 import 'package:ctrltask/features/onboarding/presentation/onboarding_controller.dart';
-import 'package:ctrltask/features/onboarding/presentation/onboarding_screen.dart';
+import 'package:ctrltask/features/onboarding/presentation/reminders_screen.dart';
+import 'package:ctrltask/features/onboarding/presentation/splash_screen.dart';
+import 'package:ctrltask/features/onboarding/presentation/welcome_screen.dart';
 import 'package:ctrltask/features/projects/presentation/project_detail_screen.dart';
 import 'package:ctrltask/features/projects/presentation/projects_screen.dart';
 import 'package:ctrltask/features/settings/presentation/settings_screen.dart';
@@ -28,25 +33,35 @@ abstract final class Routes {
   static const search = '/search';
   static const insights = '/insights';
   static const settings = '/settings';
+  static const splash = '/splash';
   static const onboarding = '/onboarding';
+  static const onboardingName = '/onboarding/name';
+  static const onboardingTask = '/onboarding/task';
+  static const onboardingReminders = '/onboarding/reminders';
+  static const onboardingDone = '/onboarding/done';
 }
 
 @Riverpod(keepAlive: true)
 GoRouter appRouter(Ref ref) {
   // Feeds the redirect without rebuilding the router, so the nav stack
-  // survives when onboarding completes.
-  final onboarded = ValueNotifier(ref.read(onboardingCompleteProvider));
+  // survives when onboarding completes. Null until settings load.
+  final onboarded = ValueNotifier<bool?>(ref.read(onboardingCompleteProvider));
   ref
     ..listen(onboardingCompleteProvider, (_, next) => onboarded.value = next)
     ..onDispose(onboarded.dispose);
 
   final router = GoRouter(
-    initialLocation: Routes.home,
+    initialLocation: Routes.splash,
     refreshListenable: onboarded,
     redirect: (context, state) {
-      final atOnboarding = state.matchedLocation == Routes.onboarding;
-      if (!onboarded.value) return atOnboarding ? null : Routes.onboarding;
-      return atOnboarding ? Routes.home : null;
+      final location = state.matchedLocation;
+      // The splash screen moves on by itself once settings have loaded.
+      if (location == Routes.splash) return null;
+      final done = onboarded.value;
+      if (done == null) return Routes.splash;
+      final inOnboarding = location.startsWith(Routes.onboarding);
+      if (!done) return inOnboarding ? null : Routes.onboarding;
+      return inOnboarding ? Routes.home : null;
     },
     routes: [
       StatefulShellRoute.indexedStack(
@@ -93,8 +108,30 @@ GoRouter appRouter(Ref ref) {
         builder: (context, state) => const SettingsScreen(),
       ),
       GoRoute(
+        path: Routes.splash,
+        builder: (context, state) => const SplashScreen(),
+      ),
+      GoRoute(
         path: Routes.onboarding,
-        builder: (context, state) => const OnboardingScreen(),
+        builder: (context, state) => const WelcomeScreen(),
+        routes: [
+          GoRoute(
+            path: 'name',
+            builder: (context, state) => const NameScreen(),
+          ),
+          GoRoute(
+            path: 'task',
+            builder: (context, state) => const FirstTaskScreen(),
+          ),
+          GoRoute(
+            path: 'reminders',
+            builder: (context, state) => const RemindersScreen(),
+          ),
+          GoRoute(
+            path: 'done',
+            builder: (context, state) => const AllSetScreen(),
+          ),
+        ],
       ),
     ],
   );

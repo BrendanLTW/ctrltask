@@ -1,0 +1,17 @@
+<!-- ctrlTask mark: an orange check on a charcoal keycap (DESIGN §2), 120 grid. -->
+<svg xmlns="http://www.w3.org/2000/svg" width="120" height="120" viewBox="0 0 120 120">
+  <defs>
+    <linearGradient id="skirt" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#262A32"/>
+      <stop offset="1" stop-color="#191C22"/>
+    </linearGradient>
+    <linearGradient id="face" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#3B404B"/>
+      <stop offset="1" stop-color="#2C3038"/>
+    </linearGradient>
+  </defs>
+  <rect x="0" y="0" width="120" height="120" rx="28" fill="#111318"/>
+  <rect x="0" y="0" width="120" height="112" rx="28" fill="url(#skirt)"/>
+  <rect x="9" y="5" width="102" height="96" rx="21" fill="url(#face)" stroke="#FFFFFF" stroke-opacity="0.09" stroke-width="1.5"/>
+  <path d="M41 54 L54 67 L80 41" fill="none" stroke="#F26A21" stroke-width="11" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

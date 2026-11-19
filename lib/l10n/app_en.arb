@@ -13,7 +13,6 @@
   "insights": "Insights",
   "task": "Task",
   "project": "Project",
-  "finishOnboarding": "Finish onboarding",
   "relativeToday": "Today",
   "relativeYesterday": "Yesterday",
   "relativeTomorrow": "Tomorrow",
@@ -175,5 +174,78 @@
     }
   },
   "increase": "Increase",
-  "decrease": "Decrease"
+  "decrease": "Decrease",
+  "back": "Back",
+  "skip": "Skip",
+  "continueAction": "Continue",
+  "notSet": "—",
+  "off": "Off",
+  "splashTagline": "Get today done.",
+  "makerPrefix": "by ",
+  "makerName": "BrendanLTW",
+  "welcomeTitle": "Get today done, one tap at a time.",
+  "welcomeBody": "Capture tasks in seconds, focus on what matters and watch your day fill up.",
+  "getStarted": "Get started",
+  "skipSetup": "Skip setup",
+  "welcomeDoneChip": "Pay TNB bill",
+  "welcomeFocusChip": "Focus 25:00",
+  "welcomeRingValue": "4 of 6",
+  "welcomeRingLabel": "done today",
+  "welcomeTaskTitle": "Finish Q4 revenue slides",
+  "welcomeTaskTime": "5:00 PM",
+  "nameTitle": "What should we call you?",
+  "nameBody": "It's only used for your greeting and stays on this phone.",
+  "nameHint": "Your name",
+  "nameHelp": "You can change this any time in Settings.",
+  "firstTaskTitle": "What's one thing to get done today?",
+  "firstTaskTitleNamed": "What's one thing to get done today, {name}?",
+  "@firstTaskTitleNamed": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "firstTaskBody": "Just a title is fine. You can add dates, priorities and projects later.",
+  "firstTaskHint": "Type a task",
+  "orPickOne": "OR PICK ONE",
+  "suggestionPlanWeek": "Plan my week",
+  "suggestionClearInbox": "Clear my inbox",
+  "suggestionWalk": "30-minute walk",
+  "suggestionCallMum": "Call mum",
+  "whenLabel": "WHEN",
+  "whenToday": "Today",
+  "whenTomorrow": "Tomorrow",
+  "whenNoDate": "No date",
+  "addTask": "Add task",
+  "doItLater": "I'll do it later",
+  "remindersTitle": "Want a nudge?",
+  "remindersBody": "ctrlTask can remind you when tasks are due and help you plan each morning.",
+  "taskReminders": "Task reminders",
+  "taskRemindersDetail": "At the time you set on a task",
+  "dailyPlan": "Daily plan",
+  "dailyPlanDetail": "A short list of what's due today",
+  "overdueNudges": "Overdue nudges",
+  "overdueNudgesDetail": "Once a day, if something slips",
+  "dailyPlanAt": "DAILY PLAN AT",
+  "allowNotifications": "Allow notifications",
+  "notNow": "Not now",
+  "allSetTitle": "You're all set",
+  "allSetTitleNamed": "You're all set, {name}",
+  "@allSetTitleNamed": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "allSetBody": "Your first task is on today's list. Tick it off to start your streak.",
+  "allSetBodyNoTask": "Add your first task from Today whenever you're ready.",
+  "yourSetup": "YOUR SETUP",
+  "setupName": "Name",
+  "setupFirstTask": "First task",
+  "setupDailyPlan": "Daily plan",
+  "setupWeekStart": "Week starts on",
+  "goToToday": "Go to Today",
+  "createProjectFirst": "Create a project first"
 }

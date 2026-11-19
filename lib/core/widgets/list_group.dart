@@ -2,6 +2,7 @@ import 'package:ctrltask/core/theme/app_colors.dart';
 import 'package:ctrltask/core/theme/app_radius.dart';
 import 'package:ctrltask/core/theme/app_typography.dart';
 import 'package:ctrltask/core/widgets/app_icon.dart';
+import 'package:ctrltask/core/widgets/app_toggle.dart';
 import 'package:ctrltask/core/widgets/large_text.dart';
 import 'package:flutter/material.dart';
 
@@ -183,6 +184,71 @@ class KeyValueRow extends StatelessWidget {
                   fontWeight: FontWeight.w600,
                 ),
               ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+/// A [ListGroup] row with a toggle (S05, S31, S39). The whole row toggles
+/// and reads as one toggle to screen readers.
+class ListGroupToggleRow extends StatelessWidget {
+  const new({
+    required this.title,
+    required this.value,
+    required this.onChanged,
+    this.subtitle,
+    super.key,
+  });
+
+  final String title;
+  final String? subtitle;
+  final bool value;
+  final ValueChanged<bool> onChanged;
+
+  @override
+  Widget build(BuildContext context) {
+    final colors = context.colors;
+    final text = context.text;
+    return MergeSemantics(
+      child: InkWell(
+        onTap: () => onChanged(!value),
+        highlightColor: colors.rowPressed,
+        splashFactory: NoSplash.splashFactory,
+        child: ConstrainedBox(
+          constraints: const BoxConstraints(minHeight: 60),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 12),
+            child: Row(
+              children: [
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Text(
+                        title,
+                        style: text.rowTitle.copyWith(color: colors.ink),
+                      ),
+                      if (subtitle case final subtitle?) ...[
+                        const SizedBox(height: 2),
+                        Text(
+                          subtitle,
+                          style: text.caption.copyWith(color: colors.muted),
+                        ),
+                      ],
+                    ],
+                  ),
+                ),
+                const SizedBox(width: 12),
+                AppToggle(
+                  value: value,
+                  onChanged: onChanged,
+                  semanticLabel: title,
+                ),
+              ],
             ),
           ),
         ),

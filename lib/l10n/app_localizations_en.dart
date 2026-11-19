@@ -49,9 +49,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String get project => 'Project';
 
   @override
-  String get finishOnboarding => 'Finish onboarding';
-
-  @override
   String get relativeToday => 'Today';
 
   @override
@@ -188,4 +185,191 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get decrease => 'Decrease';
+
+  @override
+  String get back => 'Back';
+
+  @override
+  String get skip => 'Skip';
+
+  @override
+  String get continueAction => 'Continue';
+
+  @override
+  String get notSet => '—';
+
+  @override
+  String get off => 'Off';
+
+  @override
+  String get splashTagline => 'Get today done.';
+
+  @override
+  String get makerPrefix => 'by ';
+
+  @override
+  String get makerName => 'BrendanLTW';
+
+  @override
+  String get welcomeTitle => 'Get today done, one tap at a time.';
+
+  @override
+  String get welcomeBody =>
+      'Capture tasks in seconds, focus on what matters and watch your day fill up.';
+
+  @override
+  String get getStarted => 'Get started';
+
+  @override
+  String get skipSetup => 'Skip setup';
+
+  @override
+  String get welcomeDoneChip => 'Pay TNB bill';
+
+  @override
+  String get welcomeFocusChip => 'Focus 25:00';
+
+  @override
+  String get welcomeRingValue => '4 of 6';
+
+  @override
+  String get welcomeRingLabel => 'done today';
+
+  @override
+  String get welcomeTaskTitle => 'Finish Q4 revenue slides';
+
+  @override
+  String get welcomeTaskTime => '5:00 PM';
+
+  @override
+  String get nameTitle => 'What should we call you?';
+
+  @override
+  String get nameBody =>
+      'It\'s only used for your greeting and stays on this phone.';
+
+  @override
+  String get nameHint => 'Your name';
+
+  @override
+  String get nameHelp => 'You can change this any time in Settings.';
+
+  @override
+  String get firstTaskTitle => 'What\'s one thing to get done today?';
+
+  @override
+  String firstTaskTitleNamed(String name) {
+    return 'What\'s one thing to get done today, $name?';
+  }
+
+  @override
+  String get firstTaskBody =>
+      'Just a title is fine. You can add dates, priorities and projects later.';
+
+  @override
+  String get firstTaskHint => 'Type a task';
+
+  @override
+  String get orPickOne => 'OR PICK ONE';
+
+  @override
+  String get suggestionPlanWeek => 'Plan my week';
+
+  @override
+  String get suggestionClearInbox => 'Clear my inbox';
+
+  @override
+  String get suggestionWalk => '30-minute walk';
+
+  @override
+  String get suggestionCallMum => 'Call mum';
+
+  @override
+  String get whenLabel => 'WHEN';
+
+  @override
+  String get whenToday => 'Today';
+
+  @override
+  String get whenTomorrow => 'Tomorrow';
+
+  @override
+  String get whenNoDate => 'No date';
+
+  @override
+  String get addTask => 'Add task';
+
+  @override
+  String get doItLater => 'I\'ll do it later';
+
+  @override
+  String get remindersTitle => 'Want a nudge?';
+
+  @override
+  String get remindersBody =>
+      'ctrlTask can remind you when tasks are due and help you plan each morning.';
+
+  @override
+  String get taskReminders => 'Task reminders';
+
+  @override
+  String get taskRemindersDetail => 'At the time you set on a task';
+
+  @override
+  String get dailyPlan => 'Daily plan';
+
+  @override
+  String get dailyPlanDetail => 'A short list of what\'s due today';
+
+  @override
+  String get overdueNudges => 'Overdue nudges';
+
+  @override
+  String get overdueNudgesDetail => 'Once a day, if something slips';
+
+  @override
+  String get dailyPlanAt => 'DAILY PLAN AT';
+
+  @override
+  String get allowNotifications => 'Allow notifications';
+
+  @override
+  String get notNow => 'Not now';
+
+  @override
+  String get allSetTitle => 'You\'re all set';
+
+  @override
+  String allSetTitleNamed(String name) {
+    return 'You\'re all set, $name';
+  }
+
+  @override
+  String get allSetBody =>
+      'Your first task is on today\'s list. Tick it off to start your streak.';
+
+  @override
+  String get allSetBodyNoTask =>
+      'Add your first task from Today whenever you\'re ready.';
+
+  @override
+  String get yourSetup => 'YOUR SETUP';
+
+  @override
+  String get setupName => 'Name';
+
+  @override
+  String get setupFirstTask => 'First task';
+
+  @override
+  String get setupDailyPlan => 'Daily plan';
+
+  @override
+  String get setupWeekStart => 'Week starts on';
+
+  @override
+  String get goToToday => 'Go to Today';
+
+  @override
+  String get createProjectFirst => 'Create a project first';
 }

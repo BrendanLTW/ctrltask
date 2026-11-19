@@ -63,6 +63,8 @@ class AppChip extends StatelessWidget {
                   padding: EdgeInsets.symmetric(horizontal: small ? 12 : 16),
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
+                    // Centred when given a fixed width, as S05's time chips.
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       if (leading case final leading?) ...[
                         leading,

@@ -8,21 +8,20 @@ part of 'onboarding_controller.dart';
 
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint, type=warning
-/// Whether the user has finished onboarding.
-// shortcut: in-memory placeholder, resets on restart; task 2.3 switches it to
-// the stored `onboardingComplete` preference.
+/// Whether the user has finished onboarding (stored setting). Null until
+/// the settings have loaded; the splash screen waits for it.
 
-@ProviderFor(OnboardingComplete)
+@ProviderFor(onboardingComplete)
 final onboardingCompleteProvider = OnboardingCompleteProvider._();
 
-/// Whether the user has finished onboarding.
-// shortcut: in-memory placeholder, resets on restart; task 2.3 switches it to
-// the stored `onboardingComplete` preference.
+/// Whether the user has finished onboarding (stored setting). Null until
+/// the settings have loaded; the splash screen waits for it.
+
 final class OnboardingCompleteProvider
-    extends $NotifierProvider<OnboardingComplete, bool> {
-  /// Whether the user has finished onboarding.
-  // shortcut: in-memory placeholder, resets on restart; task 2.3 switches it to
-  // the stored `onboardingComplete` preference.
+    extends $FunctionalProvider<bool?, bool?, bool?>
+    with $Provider<bool?> {
+  /// Whether the user has finished onboarding (stored setting). Null until
+  /// the settings have loaded; the splash screen waits for it.
   OnboardingCompleteProvider._()
     : super(
         from: null,
@@ -39,35 +38,82 @@ final class OnboardingCompleteProvider
 
   @$internal
   @override
-  OnboardingComplete create() => OnboardingComplete();
+  $ProviderElement<bool?> $createElement($ProviderPointer pointer) =>
+      $ProviderElement(pointer);
+
+  @override
+  bool? create(Ref ref) {
+    return onboardingComplete(ref);
+  }
 
   /// {@macro riverpod.override_with_value}
-  Override overrideWithValue(bool value) {
+  Override overrideWithValue(bool? value) {
     return $ProviderOverride(
       origin: this,
-      providerOverride: $SyncValueProvider<bool>(value),
+      providerOverride: $SyncValueProvider<bool?>(value),
     );
   }
 }
 
 String _$onboardingCompleteHash() =>
-    r'6aaebda68b991dcbe725c23c95397f90cfc15fd3';
+    r'8c2e1ac5a0cebd8e7236fac7f8c046ee9bef9644';
 
-/// Whether the user has finished onboarding.
-// shortcut: in-memory placeholder, resets on restart; task 2.3 switches it to
-// the stored `onboardingComplete` preference.
+/// The task made on S04, so going back and adding again updates it rather
+/// than adding a second one, and S06 can show it.
 
-abstract class _$OnboardingComplete extends $Notifier<bool> {
-  bool build();
+@ProviderFor(OnboardingFirstTask)
+final onboardingFirstTaskProvider = OnboardingFirstTaskProvider._();
+
+/// The task made on S04, so going back and adding again updates it rather
+/// than adding a second one, and S06 can show it.
+final class OnboardingFirstTaskProvider
+    extends $NotifierProvider<OnboardingFirstTask, Task?> {
+  /// The task made on S04, so going back and adding again updates it rather
+  /// than adding a second one, and S06 can show it.
+  OnboardingFirstTaskProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'onboardingFirstTaskProvider',
+        isAutoDispose: false,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$onboardingFirstTaskHash();
+
+  @$internal
+  @override
+  OnboardingFirstTask create() => OnboardingFirstTask();
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(Task? value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<Task?>(value),
+    );
+  }
+}
+
+String _$onboardingFirstTaskHash() =>
+    r'493e426c56a089151d4c921189a90ba4b1d3ddba';
+
+/// The task made on S04, so going back and adding again updates it rather
+/// than adding a second one, and S06 can show it.
+
+abstract class _$OnboardingFirstTask extends $Notifier<Task?> {
+  Task? build();
   @$mustCallSuper
   @override
   WhenComplete runBuild() {
-    final ref = this.ref as $Ref<bool, bool>;
+    final ref = this.ref as $Ref<Task?, Task?>;
     final element =
         ref.element
             as $ClassProviderElement<
-              AnyNotifier<bool, bool>,
-              bool,
+              AnyNotifier<Task?, Task?>,
+              Task?,
               Object?,
               Object?
             >;
