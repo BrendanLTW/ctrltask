@@ -11,6 +11,7 @@ import 'package:ctrltask/features/tasks/domain/progress.dart';
 import 'package:ctrltask/features/tasks/domain/task.dart';
 import 'package:ctrltask/features/tasks/domain/task_details.dart';
 import 'package:ctrltask/features/tasks/domain/task_draft.dart';
+import 'package:ctrltask/features/tasks/domain/task_link.dart';
 import 'package:ctrltask/features/tasks/domain/task_repository.dart';
 import 'package:drift/drift.dart';
 
@@ -533,10 +534,7 @@ class DriftTaskRepository implements TaskRepository {
       _checkTitle(s, 'subtask');
     }
     for (final url in urls) {
-      final uri = Uri.tryParse(url.trim());
-      if (uri == null ||
-          !(uri.isScheme('http') || uri.isScheme('https')) ||
-          uri.host.isEmpty) {
+      if (!isWebLink(url)) {
         throw ArgumentError.value(url, 'url', 'not an http or https link');
       }
     }

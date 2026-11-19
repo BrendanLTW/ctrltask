@@ -576,4 +576,66 @@ class AppLocalizationsEn extends AppLocalizations {
   String whenTomorrowAt(String time) {
     return 'Tomorrow · $time';
   }
+
+  @override
+  String get editTask => 'Edit task';
+
+  @override
+  String get save => 'Save';
+
+  @override
+  String get titleLabel => 'TITLE';
+
+  @override
+  String get titleHint => 'What needs doing?';
+
+  @override
+  String get descriptionHint => 'Add details';
+
+  @override
+  String get essentials => 'ESSENTIALS';
+
+  @override
+  String get due => 'Due';
+
+  @override
+  String get noDate => 'No date';
+
+  @override
+  String get priority => 'Priority';
+
+  @override
+  String subtasksHeader(int done, int total) {
+    return 'SUBTASKS · $done/$total';
+  }
+
+  @override
+  String get addSubtask => 'Add subtask';
+
+  @override
+  String get subtaskHint => 'Subtask';
+
+  @override
+  String get removeSubtask => 'Remove subtask';
+
+  @override
+  String get notesLinks => 'NOTES & LINKS';
+
+  @override
+  String get addNoteOrLink => 'Add a note or link';
+
+  @override
+  String get addLink => 'Add link';
+
+  @override
+  String get linkTitleHint => 'Title (optional)';
+
+  @override
+  String get linkUrlHint => 'https://';
+
+  @override
+  String get removeLink => 'Remove link';
+
+  @override
+  String get linkUrlError => 'Use a link that starts with http:// or https://';
 }

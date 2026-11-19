@@ -31,6 +31,7 @@ abstract final class Routes {
   static const focus = '/focus';
   static const newTask = '/task/new';
   static String task(String id) => '/task/$id';
+  static String editTask(String id) => '/task/$id/edit';
   static String project(String id) => '/project/$id';
   static const search = '/search';
   static const insights = '/insights';
@@ -91,6 +92,13 @@ GoRouter appRouter(Ref ref) {
         path: '/task/:id',
         builder: (context, state) =>
             TaskDetailScreen(taskId: state.pathParameters['id']!),
+        routes: [
+          GoRoute(
+            path: 'edit',
+            builder: (context, state) =>
+                TaskFormScreen(taskId: int.parse(state.pathParameters['id']!)),
+          ),
+        ],
       ),
       GoRoute(
         path: '/project/:id',

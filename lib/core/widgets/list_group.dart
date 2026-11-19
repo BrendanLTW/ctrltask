@@ -40,10 +40,12 @@ class ListGroupRow extends StatelessWidget {
     this.subtitle,
     this.leading,
     this.value,
+    this.valueEmphasis = false,
     this.titleColor,
     this.trailing,
     this.onTap,
     this.selected = false,
+    this.chevron = true,
     super.key,
   });
 
@@ -54,6 +56,10 @@ class ListGroupRow extends StatelessWidget {
   final Widget? leading;
   final String? value;
 
+  /// The value in `ink` 600 rather than `muted`, as a chosen value (S11's
+  /// Due).
+  final bool valueEmphasis;
+
   /// Defaults to `ink`; `negative` for Erase all data (S35).
   final Color? titleColor;
 
@@ -63,6 +69,9 @@ class ListGroupRow extends StatelessWidget {
 
   /// Shows a check instead of the chevron, for single-choice lists.
   final bool selected;
+
+  /// False hides the chevron on a tappable row, as "Add subtask".
+  final bool chevron;
 
   @override
   Widget build(BuildContext context) {
@@ -122,17 +131,20 @@ class ListGroupRow extends StatelessWidget {
                     ],
                   ),
                 ),
+                // Shrinks and wraps before it pushes the row off screen.
                 if (valueText case final valueText? when !stacked)
-                  Padding(
-                    padding: const EdgeInsets.only(left: 12),
-                    child: valueText,
+                  Flexible(
+                    child: Padding(
+                      padding: const EdgeInsets.only(left: 12),
+                      child: valueText,
+                    ),
                   ),
                 if (trailing case final trailing?)
                   Padding(
                     padding: const EdgeInsets.only(left: 12),
                     child: trailing,
                   ),
-                if (selected || onTap != null)
+                if (selected || (onTap != null && chevron))
                   Padding(
                     padding: const EdgeInsets.only(left: 12),
                     child: AppIconView(

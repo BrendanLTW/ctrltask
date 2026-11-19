@@ -417,5 +417,35 @@
         "type": "String"
       }
     }
-  }
+  },
+  "editTask": "Edit task",
+  "save": "Save",
+  "titleLabel": "TITLE",
+  "titleHint": "What needs doing?",
+  "descriptionHint": "Add details",
+  "essentials": "ESSENTIALS",
+  "due": "Due",
+  "noDate": "No date",
+  "priority": "Priority",
+  "subtasksHeader": "SUBTASKS · {done}/{total}",
+  "@subtasksHeader": {
+    "placeholders": {
+      "done": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "addSubtask": "Add subtask",
+  "subtaskHint": "Subtask",
+  "removeSubtask": "Remove subtask",
+  "notesLinks": "NOTES & LINKS",
+  "addNoteOrLink": "Add a note or link",
+  "addLink": "Add link",
+  "linkTitleHint": "Title (optional)",
+  "linkUrlHint": "https://",
+  "removeLink": "Remove link",
+  "linkUrlError": "Use a link that starts with http:// or https://"
 }

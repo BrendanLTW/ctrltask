@@ -77,7 +77,7 @@ Work top to bottom. Each task is sized for one Claude Code session and follows t
   Refs: S08, S09, PRD §5.2, FR-02
 - [x] **2.6 Quick add.** S10 sheet: title and send, When chips, Priority chips, project chip (S17 comes in 2.10; use Inbox until then), More → S11 with values carried over. Opens from the quick-add button on every tab.
   Refs: S10, PRD §5.3, FR-03
-- [ ] **2.7 Task form.** S11 new and edit: title and description, Essentials (Due, Priority, Project), subtasks with add and tick, notes and links. Tags, reminder and repeat rows are hidden until 3.4–3.7.
+- [x] **2.7 Task form.** S11 new and edit: title and description, Essentials (Due, Priority, Project), subtasks with add and tick, notes and links. Tags, reminder and repeat rows are hidden until 3.4–3.7.
   Refs: S11, PRD §5.4, FR-04
 - [ ] **2.8 Task detail and delete.** S12 with chips, description, quick reschedule chips, subtasks with progress, Edit, and Delete task → S13 dialog (Delete, Mark as done instead, Cancel). Start a focus session is hidden until 3.1.
   Refs: S12, S13, PRD §5.4, FR-04, FR-05

@@ -999,6 +999,126 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Tomorrow · {time}'**
   String whenTomorrowAt(String time);
+
+  /// No description provided for @editTask.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit task'**
+  String get editTask;
+
+  /// No description provided for @save.
+  ///
+  /// In en, this message translates to:
+  /// **'Save'**
+  String get save;
+
+  /// No description provided for @titleLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'TITLE'**
+  String get titleLabel;
+
+  /// No description provided for @titleHint.
+  ///
+  /// In en, this message translates to:
+  /// **'What needs doing?'**
+  String get titleHint;
+
+  /// No description provided for @descriptionHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Add details'**
+  String get descriptionHint;
+
+  /// No description provided for @essentials.
+  ///
+  /// In en, this message translates to:
+  /// **'ESSENTIALS'**
+  String get essentials;
+
+  /// No description provided for @due.
+  ///
+  /// In en, this message translates to:
+  /// **'Due'**
+  String get due;
+
+  /// No description provided for @noDate.
+  ///
+  /// In en, this message translates to:
+  /// **'No date'**
+  String get noDate;
+
+  /// No description provided for @priority.
+  ///
+  /// In en, this message translates to:
+  /// **'Priority'**
+  String get priority;
+
+  /// No description provided for @subtasksHeader.
+  ///
+  /// In en, this message translates to:
+  /// **'SUBTASKS · {done}/{total}'**
+  String subtasksHeader(int done, int total);
+
+  /// No description provided for @addSubtask.
+  ///
+  /// In en, this message translates to:
+  /// **'Add subtask'**
+  String get addSubtask;
+
+  /// No description provided for @subtaskHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Subtask'**
+  String get subtaskHint;
+
+  /// No description provided for @removeSubtask.
+  ///
+  /// In en, this message translates to:
+  /// **'Remove subtask'**
+  String get removeSubtask;
+
+  /// No description provided for @notesLinks.
+  ///
+  /// In en, this message translates to:
+  /// **'NOTES & LINKS'**
+  String get notesLinks;
+
+  /// No description provided for @addNoteOrLink.
+  ///
+  /// In en, this message translates to:
+  /// **'Add a note or link'**
+  String get addNoteOrLink;
+
+  /// No description provided for @addLink.
+  ///
+  /// In en, this message translates to:
+  /// **'Add link'**
+  String get addLink;
+
+  /// No description provided for @linkTitleHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Title (optional)'**
+  String get linkTitleHint;
+
+  /// No description provided for @linkUrlHint.
+  ///
+  /// In en, this message translates to:
+  /// **'https://'**
+  String get linkUrlHint;
+
+  /// No description provided for @removeLink.
+  ///
+  /// In en, this message translates to:
+  /// **'Remove link'**
+  String get removeLink;
+
+  /// No description provided for @linkUrlError.
+  ///
+  /// In en, this message translates to:
+  /// **'Use a link that starts with http:// or https://'**
+  String get linkUrlError;
 }
 
 class _AppLocalizationsDelegate
