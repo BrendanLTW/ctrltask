@@ -1,16 +1,16 @@
+import 'package:ctrltask/features/settings/domain/preferences.dart';
+import 'package:ctrltask/features/settings/domain/preferences_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'theme_mode_controller.g.dart';
 
-/// The Theme setting (S36) as a [ThemeMode]. System by default.
-// shortcut: in-memory, resets on restart; task 1.7 reads the stored `theme`
-// preference instead.
+/// The stored Theme setting (S36) as a [ThemeMode]. System until the
+/// settings have loaded. Change it with `PreferencesRepository.update`.
 @Riverpod(keepAlive: true)
-class AppThemeMode extends _$AppThemeMode {
-  @override
-  ThemeMode build() => ThemeMode.system;
-
-  ThemeMode get mode => state;
-  set mode(ThemeMode value) => state = value;
-}
+ThemeMode appThemeMode(Ref ref) =>
+    switch (ref.watch(preferencesProvider).value?.theme) {
+      AppTheme.light => ThemeMode.light,
+      AppTheme.dark => ThemeMode.dark,
+      AppTheme.system || null => ThemeMode.system,
+    };

@@ -5,6 +5,8 @@ import 'package:ctrltask/core/theme/app_theme.dart';
 import 'package:ctrltask/core/theme/theme_mode_controller.dart';
 import 'package:ctrltask/features/projects/data/drift_project_repository.dart';
 import 'package:ctrltask/features/projects/domain/project_repository.dart';
+import 'package:ctrltask/features/settings/data/drift_preferences_repository.dart';
+import 'package:ctrltask/features/settings/domain/preferences_repository.dart';
 import 'package:ctrltask/features/tags/data/drift_tag_repository.dart';
 import 'package:ctrltask/features/tags/domain/tag_repository.dart';
 import 'package:ctrltask/features/tasks/data/drift_task_repository.dart';
@@ -35,6 +37,9 @@ List<Override> appOverrides() => [
   ),
   tagRepositoryProvider.overrideWith(
     (ref) => DriftTagRepository(ref.watch(appDatabaseProvider)),
+  ),
+  preferencesRepositoryProvider.overrideWith(
+    (ref) => DriftPreferencesRepository(ref.watch(appDatabaseProvider)),
   ),
 ];
 

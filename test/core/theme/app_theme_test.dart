@@ -6,11 +6,15 @@ import 'package:ctrltask/core/theme/app_typography.dart';
 import 'package:ctrltask/core/theme/project_palette.dart';
 import 'package:ctrltask/core/theme/theme_mode_controller.dart';
 import 'package:ctrltask/features/onboarding/presentation/onboarding_controller.dart';
+import 'package:ctrltask/features/settings/domain/preferences.dart';
+import 'package:ctrltask/features/settings/domain/preferences_repository.dart';
 import 'package:ctrltask/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
+
+import '../../helpers/fake_preferences_repository.dart';
 
 class _Sample extends StatelessWidget {
   const new();
@@ -94,21 +98,25 @@ void main() {
     });
   }
 
-  testWidgets('the app follows the theme mode', (tester) async {
-    final container = ProviderContainer();
+  testWidgets('the app follows the stored theme', (tester) async {
+    final prefs = FakePreferencesRepository();
+    final container = ProviderContainer(
+      overrides: [preferencesRepositoryProvider.overrideWithValue(prefs)],
+    );
     addTearDown(container.dispose);
     container.read(onboardingCompleteProvider.notifier).complete();
+    expect(container.read(appThemeModeProvider), ThemeMode.system);
     await tester.pumpWidget(
       UncontrolledProviderScope(container: container, child: const MainApp()),
     );
     Brightness brightness() =>
         Theme.of(tester.element(find.byType(Scaffold).first)).brightness;
 
-    for (final (mode, expected) in [
-      (ThemeMode.dark, Brightness.dark),
-      (ThemeMode.light, Brightness.light),
+    for (final (theme, expected) in [
+      (AppTheme.dark, Brightness.dark),
+      (AppTheme.light, Brightness.light),
     ]) {
-      container.read(appThemeModeProvider.notifier).mode = mode;
+      await prefs.update((p) => p.copyWith(theme: theme));
       await tester.pumpAndSettle();
       expect(brightness(), expected);
     }

@@ -54,7 +54,7 @@ Work top to bottom. Each task is sized for one Claude Code session and follows t
   Refs: PRD §5.4, §6.1, §6.4, §8
 - [x] **1.6 Project and tag repositories.** Projects: watch active and archived, add, update, archive, restore, delete (move tasks to Inbox or delete them). Tags: watch with counts, create, rename, merge, delete. Unique-name rules. Unit tests.
   Refs: PRD §5.7, §5.10, §8
-- [ ] **1.7 Preferences repository.** Read and watch every key in PRD §8 with its default. Wire the theme-mode provider from 0.4 to it. Unit tests.
+- [x] **1.7 Preferences repository.** Read and watch every key in PRD §8 with its default. Wire the theme-mode provider from 0.4 to it. Unit tests.
   Refs: PRD §8
 - [ ] **1.8 Progress calculations.** Pure domain functions with tests: today's list order, today's progress, overdue, streak (including undo and day boundaries), done this week, project progress and days left.
   Refs: PRD §8 Derived values
