@@ -1719,6 +1719,54 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Delete'**
   String get delete;
+
+  /// No description provided for @nameCardDetail.
+  ///
+  /// In en, this message translates to:
+  /// **'Data stored on this phone · Edit name'**
+  String get nameCardDetail;
+
+  /// No description provided for @addYourName.
+  ///
+  /// In en, this message translates to:
+  /// **'Add your name'**
+  String get addYourName;
+
+  /// No description provided for @insightsBannerLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'PRODUCTIVITY INSIGHTS'**
+  String get insightsBannerLabel;
+
+  /// No description provided for @insightsBannerSummary.
+  ///
+  /// In en, this message translates to:
+  /// **'{streak}-day streak · {count, plural, =1{1 task} other{{count} tasks}} done'**
+  String insightsBannerSummary(int streak, int count);
+
+  /// No description provided for @manageSection.
+  ///
+  /// In en, this message translates to:
+  /// **'MANAGE'**
+  String get manageSection;
+
+  /// No description provided for @settingsFooter.
+  ///
+  /// In en, this message translates to:
+  /// **'ctrlTask {version} · by BrendanLTW'**
+  String settingsFooter(String version);
+
+  /// No description provided for @editName.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit name'**
+  String get editName;
+
+  /// No description provided for @editNameNote.
+  ///
+  /// In en, this message translates to:
+  /// **'Shown in your greeting on Home. It stays on this phone and is never uploaded.'**
+  String get editNameNote;
 }
 
 class _AppLocalizationsDelegate

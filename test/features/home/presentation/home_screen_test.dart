@@ -21,6 +21,7 @@ import 'package:ctrltask/features/projects/domain/project_repository.dart';
 import 'package:ctrltask/features/projects/presentation/project_form_screen.dart';
 import 'package:ctrltask/features/settings/domain/preferences.dart';
 import 'package:ctrltask/features/settings/domain/preferences_repository.dart';
+import 'package:ctrltask/features/settings/presentation/settings_screen.dart';
 import 'package:ctrltask/features/tasks/domain/progress.dart';
 import 'package:ctrltask/features/tasks/domain/task.dart';
 import 'package:ctrltask/features/tasks/domain/task_details.dart';
@@ -349,10 +350,7 @@ void main() {
 
     await tester.tap(find.byTooltip('Settings'));
     await tester.pumpAndSettle();
-    expect(
-      find.descendant(of: find.byType(AppBar), matching: find.text('Settings')),
-      findsOneWidget,
-    );
+    expect(find.byType(SettingsScreen), findsOneWidget);
   });
 
   group('states', () {

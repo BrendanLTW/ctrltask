@@ -1050,4 +1050,39 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get delete => 'Delete';
+
+  @override
+  String get nameCardDetail => 'Data stored on this phone · Edit name';
+
+  @override
+  String get addYourName => 'Add your name';
+
+  @override
+  String get insightsBannerLabel => 'PRODUCTIVITY INSIGHTS';
+
+  @override
+  String insightsBannerSummary(int streak, int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count tasks',
+      one: '1 task',
+    );
+    return '$streak-day streak · $_temp0 done';
+  }
+
+  @override
+  String get manageSection => 'MANAGE';
+
+  @override
+  String settingsFooter(String version) {
+    return 'ctrlTask $version · by BrendanLTW';
+  }
+
+  @override
+  String get editName => 'Edit name';
+
+  @override
+  String get editNameNote =>
+      'Shown in your greeting on Home. It stays on this phone and is never uploaded.';
 }

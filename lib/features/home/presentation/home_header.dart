@@ -2,6 +2,7 @@ import 'package:ctrltask/core/theme/app_colors.dart';
 import 'package:ctrltask/core/theme/app_spacing.dart';
 import 'package:ctrltask/core/theme/app_typography.dart';
 import 'package:ctrltask/core/widgets/app_icon.dart';
+import 'package:ctrltask/core/widgets/name_avatar.dart';
 import 'package:ctrltask/l10n/l10n.dart';
 import 'package:flutter/material.dart';
 
@@ -99,27 +100,7 @@ class HomeHeader extends StatelessWidget {
                 color: colors.ink,
                 shape: const CircleBorder(),
                 clipBehavior: Clip.antiAlias,
-                child: InkWell(
-                  onTap: onAvatar,
-                  child: SizedBox.square(
-                    dimension: 48,
-                    child: Center(
-                      child: name.isEmpty
-                          ? AppIconView(
-                              AppIcon.user,
-                              size: 22,
-                              color: colors.onInk,
-                            )
-                          : Text(
-                              name.characters.first.toUpperCase(),
-                              style: text.heroUnit.copyWith(
-                                color: colors.onInk,
-                                fontWeight: FontWeight.w700,
-                              ),
-                            ),
-                    ),
-                  ),
-                ),
+                child: InkWell(onTap: onAvatar, child: NameAvatar(name)),
               ),
             ),
           ),

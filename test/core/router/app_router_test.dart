@@ -11,6 +11,7 @@ import 'package:ctrltask/features/projects/presentation/project_detail_screen.da
 import 'package:ctrltask/features/projects/presentation/projects_screen.dart';
 import 'package:ctrltask/features/settings/domain/preferences.dart';
 import 'package:ctrltask/features/settings/domain/preferences_repository.dart';
+import 'package:ctrltask/features/settings/presentation/settings_screen.dart';
 import 'package:ctrltask/features/tasks/presentation/task_detail_screen.dart';
 import 'package:ctrltask/features/tasks/presentation/tasks_screen.dart';
 import 'package:ctrltask/main.dart';
@@ -57,6 +58,7 @@ void main() {
     'Home' => find.byType(HomeScreen),
     'Projects' => find.byType(ProjectsScreen),
     'Tasks' => find.byType(TasksScreen),
+    'Settings' => find.byType(SettingsScreen),
     _ => find.descendant(of: find.byType(AppBar), matching: find.text(text)),
   };
 
@@ -159,7 +161,7 @@ void main() {
       expect(title(screen), findsOneWidget);
       expect(find.byType(AppShell), findsNothing);
 
-      await tester.tap(find.byType(BackButton));
+      await tester.tap(find.byTooltip('Back'));
       await tester.pumpAndSettle();
       expect(title('Home'), findsOneWidget);
     });

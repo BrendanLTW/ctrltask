@@ -87,7 +87,7 @@ Work top to bottom. Each task is sized for one Claude Code session and follows t
   Refs: S17, S26–S29, S45, PRD §5.7, FR-06
 - [x] **2.11 Tasks list.** S19 title, List segment (Calendar and Board show placeholders), filter chips with counts, sections, task rows, swipe right to complete and swipe left for Reschedule (→ S14) and Delete (→ S13).
   Refs: S19, PRD §5.6, FR-07
-- [ ] **2.12 Settings shell.** S35 with the name card (→ S40 Edit name), the insights banner (placeholder until 3.10), and the Preferences, Manage and Data rows for what exists so far; the rest hidden. Footer "ctrlTask {version} · by BrendanLTW".
+- [x] **2.12 Settings shell.** S35 with the name card (→ S40 Edit name), the insights banner (placeholder until 3.10), and the Preferences, Manage and Data rows for what exists so far; the rest hidden. Footer "ctrlTask {version} · by BrendanLTW".
   Refs: S35, S40, PRD §5.10
 - [ ] **2.13 P0 review.** Walk through every acceptance criterion for FR-01 to FR-07 and every P0 screen against its light and dark design. List gaps, fix them, and confirm all P0 tests pass.
   Refs: PRD §7

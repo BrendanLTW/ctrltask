@@ -763,5 +763,30 @@
   "emptyDoneTitle": "Nothing done yet",
   "emptyDoneBody": "Tick off a task and it shows up here.",
   "calendarComingSoon": "The calendar is on its way.",
-  "delete": "Delete"
+  "delete": "Delete",
+  "nameCardDetail": "Data stored on this phone · Edit name",
+  "addYourName": "Add your name",
+  "insightsBannerLabel": "PRODUCTIVITY INSIGHTS",
+  "insightsBannerSummary": "{streak}-day streak · {count, plural, =1{1 task} other{{count} tasks}} done",
+  "@insightsBannerSummary": {
+    "placeholders": {
+      "streak": {
+        "type": "int"
+      },
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "manageSection": "MANAGE",
+  "settingsFooter": "ctrlTask {version} · by BrendanLTW",
+  "@settingsFooter": {
+    "placeholders": {
+      "version": {
+        "type": "String"
+      }
+    }
+  },
+  "editName": "Edit name",
+  "editNameNote": "Shown in your greeting on Home. It stays on this phone and is never uploaded."
 }

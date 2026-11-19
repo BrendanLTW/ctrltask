@@ -13,6 +13,7 @@ import 'package:ctrltask/features/projects/presentation/archived_projects.dart';
 import 'package:ctrltask/features/projects/presentation/project_detail_screen.dart';
 import 'package:ctrltask/features/projects/presentation/project_form_screen.dart';
 import 'package:ctrltask/features/projects/presentation/projects_screen.dart';
+import 'package:ctrltask/features/settings/presentation/edit_name_screen.dart';
 import 'package:ctrltask/features/settings/presentation/settings_screen.dart';
 import 'package:ctrltask/features/tasks/domain/task_draft.dart';
 import 'package:ctrltask/features/tasks/presentation/quick_add_sheet.dart';
@@ -41,6 +42,7 @@ abstract final class Routes {
   static const search = '/search';
   static const insights = '/insights';
   static const settings = '/settings';
+  static const editName = '/settings/name';
   static const splash = '/splash';
   static const onboarding = '/onboarding';
   static const onboardingName = '/onboarding/name';
@@ -123,6 +125,10 @@ GoRouter appRouter(Ref ref) {
             ),
           ),
         ],
+      ),
+      GoRoute(
+        path: Routes.editName,
+        builder: (context, state) => const EditNameScreen(),
       ),
       GoRoute(
         path: Routes.archivedProjects,
