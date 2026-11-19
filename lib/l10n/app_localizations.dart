@@ -261,6 +261,78 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Mark not done: {title}'**
   String checkboxReopen(String title);
+
+  /// No description provided for @priorityUrgent.
+  ///
+  /// In en, this message translates to:
+  /// **'Urgent'**
+  String get priorityUrgent;
+
+  /// No description provided for @priorityHigh.
+  ///
+  /// In en, this message translates to:
+  /// **'High'**
+  String get priorityHigh;
+
+  /// No description provided for @priorityMedium.
+  ///
+  /// In en, this message translates to:
+  /// **'Medium'**
+  String get priorityMedium;
+
+  /// No description provided for @priorityLow.
+  ///
+  /// In en, this message translates to:
+  /// **'Low'**
+  String get priorityLow;
+
+  /// No description provided for @todaysProgress.
+  ///
+  /// In en, this message translates to:
+  /// **'TODAY\'S PROGRESS'**
+  String get todaysProgress;
+
+  /// After the big done count: "2" + " of 6 done".
+  ///
+  /// In en, this message translates to:
+  /// **' of {total} done'**
+  String heroOfDone(int total);
+
+  /// No description provided for @nothingPlanned.
+  ///
+  /// In en, this message translates to:
+  /// **'Nothing planned'**
+  String get nothingPlanned;
+
+  /// No description provided for @heroSemantics.
+  ///
+  /// In en, this message translates to:
+  /// **'{done} of {total} tasks done today'**
+  String heroSemantics(int done, int total);
+
+  /// No description provided for @subtaskCount.
+  ///
+  /// In en, this message translates to:
+  /// **'{done}/{total}'**
+  String subtaskCount(int done, int total);
+
+  /// No description provided for @subtaskSemantics.
+  ///
+  /// In en, this message translates to:
+  /// **'{done} of {total} subtasks done'**
+  String subtaskSemantics(int done, int total);
+
+  /// No description provided for @repeats.
+  ///
+  /// In en, this message translates to:
+  /// **'Repeats'**
+  String get repeats;
+
+  /// No description provided for @tagLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'#{name}'**
+  String tagLabel(String name);
 }
 
 class _AppLocalizationsDelegate

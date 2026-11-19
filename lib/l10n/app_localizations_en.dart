@@ -116,4 +116,50 @@ class AppLocalizationsEn extends AppLocalizations {
   String checkboxReopen(String title) {
     return 'Mark not done: $title';
   }
+
+  @override
+  String get priorityUrgent => 'Urgent';
+
+  @override
+  String get priorityHigh => 'High';
+
+  @override
+  String get priorityMedium => 'Medium';
+
+  @override
+  String get priorityLow => 'Low';
+
+  @override
+  String get todaysProgress => 'TODAY\'S PROGRESS';
+
+  @override
+  String heroOfDone(int total) {
+    return ' of $total done';
+  }
+
+  @override
+  String get nothingPlanned => 'Nothing planned';
+
+  @override
+  String heroSemantics(int done, int total) {
+    return '$done of $total tasks done today';
+  }
+
+  @override
+  String subtaskCount(int done, int total) {
+    return '$done/$total';
+  }
+
+  @override
+  String subtaskSemantics(int done, int total) {
+    return '$done of $total subtasks done';
+  }
+
+  @override
+  String get repeats => 'Repeats';
+
+  @override
+  String tagLabel(String name) {
+    return '#$name';
+  }
 }

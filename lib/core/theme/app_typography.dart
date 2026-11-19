@@ -61,6 +61,16 @@ class AppTypography {
     fontFeatures: _tabular,
   );
 
+  /// The hero value's unit, shown smaller: "2 of 6 done".
+  TextStyle get heroUnit => const TextStyle(
+    fontFamily: _family,
+    fontSize: 18,
+    fontWeight: FontWeight.w600,
+    letterSpacing: -0.3,
+    height: 1.2,
+    fontFeatures: _tabular,
+  );
+
   /// Empty, done and error state titles.
   TextStyle get stateTitle => const TextStyle(
     fontFamily: _family,
@@ -121,6 +131,15 @@ class AppTypography {
     fontSize: 14,
     fontWeight: FontWeight.w600,
     height: 1,
+    fontFeatures: _tabular,
+  );
+
+  /// The hero's sub line: "4 left · next: Review wireframes".
+  TextStyle get subline => const TextStyle(
+    fontFamily: _family,
+    fontSize: 14,
+    fontWeight: FontWeight.w400,
+    height: 1.45,
     fontFeatures: _tabular,
   );
 

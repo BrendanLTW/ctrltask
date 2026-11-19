@@ -100,5 +100,62 @@
         "type": "String"
       }
     }
+  },
+  "priorityUrgent": "Urgent",
+  "priorityHigh": "High",
+  "priorityMedium": "Medium",
+  "priorityLow": "Low",
+  "todaysProgress": "TODAY'S PROGRESS",
+  "heroOfDone": " of {total} done",
+  "@heroOfDone": {
+    "description": "After the big done count: \"2\" + \" of 6 done\".",
+    "placeholders": {
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "nothingPlanned": "Nothing planned",
+  "heroSemantics": "{done} of {total} tasks done today",
+  "@heroSemantics": {
+    "placeholders": {
+      "done": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "subtaskCount": "{done}/{total}",
+  "@subtaskCount": {
+    "placeholders": {
+      "done": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "subtaskSemantics": "{done} of {total} subtasks done",
+  "@subtaskSemantics": {
+    "placeholders": {
+      "done": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "repeats": "Repeats",
+  "tagLabel": "#{name}",
+  "@tagLabel": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
   }
 }

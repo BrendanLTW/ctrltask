@@ -16,6 +16,10 @@ class AppColors extends ThemeExtension<AppColors> {
     required this.warning,
     required this.hero,
     required this.heroTrack,
+    required this.onHero,
+    required this.heroLabel,
+    required this.heroSubline,
+    required this.heroUnit,
     required this.divider,
     required this.fillSoft,
     required this.control,
@@ -51,6 +55,10 @@ class AppColors extends ThemeExtension<AppColors> {
     warning: Color(0xFFB54708),
     hero: Color(0xFF101828),
     heroTrack: Color(0xFF475467),
+    onHero: Color(0xFFFFFFFF),
+    heroLabel: Color(0xFFD0D5DD),
+    heroSubline: Color(0xFFEAECF0),
+    heroUnit: Color(0xFF98A2B3),
     divider: Color(0xFFEEF1F6),
     fillSoft: Color(0xFFF2F4F7),
     control: Color(0xFFD0D5DD),
@@ -86,6 +94,10 @@ class AppColors extends ThemeExtension<AppColors> {
     warning: Color(0xFFFDB022),
     hero: Color(0xFF1C2536),
     heroTrack: Color(0xFF344054),
+    onHero: Color(0xFFFFFFFF),
+    heroLabel: Color(0xFFD0D5DD),
+    heroSubline: Color(0xFFEAECF0),
+    heroUnit: Color(0xFF98A2B3),
     divider: Color(0xFF232C3A),
     fillSoft: Color(0xFF232C3A),
     control: Color(0xFF475467),
@@ -143,6 +155,18 @@ class AppColors extends ThemeExtension<AppColors> {
 
   /// Ring and bar track on the hero.
   final Color heroTrack;
+
+  /// Text and the ring on the hero, white in both themes (DESIGN §7).
+  final Color onHero;
+
+  /// The hero's label.
+  final Color heroLabel;
+
+  /// The hero's sub line.
+  final Color heroSubline;
+
+  /// The hero value's unit: " of 6 done".
+  final Color heroUnit;
 
   /// Lines between rows in a list group, timeline rails.
   final Color divider;
@@ -219,6 +243,10 @@ class AppColors extends ThemeExtension<AppColors> {
     'warning': warning,
     'hero': hero,
     'heroTrack': heroTrack,
+    'onHero': onHero,
+    'heroLabel': heroLabel,
+    'heroSubline': heroSubline,
+    'heroUnit': heroUnit,
     'divider': divider,
     'fillSoft': fillSoft,
     'control': control,
@@ -255,6 +283,10 @@ class AppColors extends ThemeExtension<AppColors> {
     Color? warning,
     Color? hero,
     Color? heroTrack,
+    Color? onHero,
+    Color? heroLabel,
+    Color? heroSubline,
+    Color? heroUnit,
     Color? divider,
     Color? fillSoft,
     Color? control,
@@ -289,6 +321,10 @@ class AppColors extends ThemeExtension<AppColors> {
       warning: warning ?? this.warning,
       hero: hero ?? this.hero,
       heroTrack: heroTrack ?? this.heroTrack,
+      onHero: onHero ?? this.onHero,
+      heroLabel: heroLabel ?? this.heroLabel,
+      heroSubline: heroSubline ?? this.heroSubline,
+      heroUnit: heroUnit ?? this.heroUnit,
       divider: divider ?? this.divider,
       fillSoft: fillSoft ?? this.fillSoft,
       control: control ?? this.control,
@@ -328,6 +364,10 @@ class AppColors extends ThemeExtension<AppColors> {
       warning: Color.lerp(warning, other.warning, t)!,
       hero: Color.lerp(hero, other.hero, t)!,
       heroTrack: Color.lerp(heroTrack, other.heroTrack, t)!,
+      onHero: Color.lerp(onHero, other.onHero, t)!,
+      heroLabel: Color.lerp(heroLabel, other.heroLabel, t)!,
+      heroSubline: Color.lerp(heroSubline, other.heroSubline, t)!,
+      heroUnit: Color.lerp(heroUnit, other.heroUnit, t)!,
       divider: Color.lerp(divider, other.divider, t)!,
       fillSoft: Color.lerp(fillSoft, other.fillSoft, t)!,
       control: Color.lerp(control, other.control, t)!,

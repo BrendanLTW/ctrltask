@@ -71,7 +71,9 @@ class _TaskCheckboxState extends State<TaskCheckbox>
     final l10n = context.l10n;
     final done = widget.done;
     final size = widget.size;
+    // Its own node, so it stays tappable inside a tappable card.
     return Semantics(
+      container: true,
       button: true,
       checked: done,
       label: done
