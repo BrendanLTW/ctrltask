@@ -58,24 +58,29 @@ class DueSection extends StatelessWidget {
         SectionHeader(
           dueDate == null ? when.toUpperCase() : l10n.dueOn(when.toUpperCase()),
         ),
-        Wrap(
-          spacing: 8,
-          children: [
-            for (final (key, label) in [
-              ('today', l10n.whenToday),
-              ('tomorrow', l10n.whenTomorrow),
-              ('nextWeek', l10n.whenNextWeek),
-            ])
+        // One row that scrolls sideways, as the design (S12).
+        SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
+          clipBehavior: Clip.none,
+          child: Row(
+            spacing: 8,
+            children: [
+              for (final (key, label) in [
+                ('today', l10n.whenToday),
+                ('tomorrow', l10n.whenTomorrow),
+                ('nextWeek', l10n.whenNextWeek),
+              ])
+                AppChip(
+                  label: label,
+                  onTap: () => onMove(quickDue(key, today, weekStart)),
+                ),
               AppChip(
-                label: label,
-                onTap: () => onMove(quickDue(key, today, weekStart)),
+                label: l10n.pick,
+                leading: const AppIconView(AppIcon.calendar, size: 18),
+                onTap: onPick,
               ),
-            AppChip(
-              label: l10n.pick,
-              leading: const AppIconView(AppIcon.calendar, size: 18),
-              onTap: onPick,
-            ),
-          ],
+            ],
+          ),
         ),
       ],
     );

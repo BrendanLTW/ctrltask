@@ -18,7 +18,8 @@ class LinkRows extends StatelessWidget {
       for (final link in links)
         ListGroupRow(
           title: link.title,
-          subtitle: link.url,
+          subtitle: displayUrl(link.url),
+          subtitleMaxLines: 1,
           leading: const IconTile(
             icon: AppIcon.link,
             color: ProjectColorKey.purple,

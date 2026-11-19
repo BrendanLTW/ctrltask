@@ -21,3 +21,14 @@ bool isWebLink(String url) {
       (uri.isScheme('http') || uri.isScheme('https')) &&
       uri.host.isNotEmpty;
 }
+
+/// A saved link as S12 shows it: no scheme or `www.`, no trailing slash.
+/// "https://www.figma.com/file/x/" reads "figma.com/file/x".
+String displayUrl(String url) {
+  var shown = url.trim().replaceFirst(
+    RegExp('^https?://', caseSensitive: false),
+    '',
+  );
+  shown = shown.replaceFirst(RegExp(r'^www\.', caseSensitive: false), '');
+  return shown.endsWith('/') ? shown.substring(0, shown.length - 1) : shown;
+}

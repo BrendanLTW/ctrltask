@@ -328,6 +328,37 @@ void main() {
     expect(find.byType(CompleteToast), findsNothing);
   });
 
+  testWidgets('completing and Undo update the streak and this week', (
+    tester,
+  ) async {
+    // Nothing done yet today: no streak.
+    final openBill = bill.copyWith(
+      status: TaskStatus.open,
+      boardColumn: BoardColumn.todo,
+      completedAt: null,
+    );
+    today.value = [slides, wireframes, openBill];
+    all.value = [slides, wireframes, openBill, invoice, hero];
+    // The three tiles read as one node, a line each.
+    Finder label(String text) =>
+        find.bySemanticsLabel(RegExp('(^|\n)${RegExp.escape(text)}(\n|\$)'));
+    final handle = tester.ensureSemantics();
+    await pumpHome(tester);
+    expect(label('Streak, 0 days'), findsOneWidget);
+    expect(label('This week, 0 done'), findsOneWidget);
+
+    await tester.tap(find.byType(TaskCheckbox).first);
+    await tester.pumpAndSettle();
+    expect(label('Streak, 1 day'), findsOneWidget);
+    expect(label('This week, 1 done'), findsOneWidget);
+
+    await tester.tap(find.text('Undo'));
+    await tester.pumpAndSettle();
+    expect(label('Streak, 0 days'), findsOneWidget);
+    expect(label('This week, 0 done'), findsOneWidget);
+    handle.dispose();
+  });
+
   testWidgets('ticking a done task reopens it without a toast', (tester) async {
     await pumpHome(tester);
     await tester.tap(find.byType(TaskCheckbox).last);

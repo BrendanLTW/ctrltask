@@ -1,3 +1,5 @@
+import 'dart:math' as math;
+
 import 'package:ctrltask/core/theme/app_colors.dart';
 import 'package:ctrltask/core/theme/app_radius.dart';
 import 'package:ctrltask/core/theme/app_typography.dart';
@@ -107,76 +109,101 @@ class ListGroupRow extends StatelessWidget {
           constraints: const BoxConstraints(minHeight: 60),
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 12),
-            child: LayoutBuilder(
-              builder: (context, constraints) => Row(
-                children: [
-                  if (leading case final leading?) ...[
-                    leading,
-                    const SizedBox(width: 14),
-                  ],
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisSize: MainAxisSize.min,
+            child: Row(
+              children: [
+                if (leading case final leading?) ...[
+                  leading,
+                  const SizedBox(width: 14),
+                ],
+                Expanded(
+                  child: LayoutBuilder(
+                    builder: (context, box) => Row(
                       children: [
-                        Text(
-                          title,
-                          style: text.rowTitle.copyWith(
-                            color: titleColor ?? colors.ink,
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Text(
+                                title,
+                                style: text.rowTitle.copyWith(
+                                  color: titleColor ?? colors.ink,
+                                ),
+                              ),
+                              if (subtitle case final subtitle?) ...[
+                                const SizedBox(height: 2),
+                                Text(
+                                  subtitle,
+                                  maxLines: subtitleMaxLines,
+                                  overflow: subtitleMaxLines == null
+                                      ? null
+                                      : TextOverflow.ellipsis,
+                                  style: text.caption.copyWith(
+                                    color: colors.muted,
+                                  ),
+                                ),
+                              ],
+                              if (valueText case final valueText?
+                                  when stacked) ...[
+                                const SizedBox(height: 2),
+                                valueText,
+                              ],
+                            ],
                           ),
                         ),
-                        if (subtitle case final subtitle?) ...[
-                          const SizedBox(height: 2),
-                          Text(
-                            subtitle,
-                            maxLines: subtitleMaxLines,
-                            overflow: subtitleMaxLines == null
-                                ? null
-                                : TextOverflow.ellipsis,
-                            style: text.caption.copyWith(color: colors.muted),
+                        // What the title leaves, at least half; past that it
+                        // wraps rather than push the row off screen.
+                        if (valueText case final valueText? when !stacked)
+                          ConstrainedBox(
+                            constraints: BoxConstraints(
+                              maxWidth: math.max(
+                                box.maxWidth / 2,
+                                box.maxWidth - _titleWidth(context) - 12,
+                              ),
+                            ),
+                            child: Padding(
+                              padding: const EdgeInsets.only(left: 12),
+                              child: valueText,
+                            ),
                           ),
-                        ],
-                        if (valueText case final valueText? when stacked) ...[
-                          const SizedBox(height: 2),
-                          valueText,
-                        ],
                       ],
                     ),
                   ),
-                  // Its own width, up to half the row; past that it wraps
-                  // rather than push the row off screen.
-                  if (valueText case final valueText? when !stacked)
-                    ConstrainedBox(
-                      constraints: BoxConstraints(
-                        maxWidth: constraints.maxWidth / 2,
-                      ),
-                      child: Padding(
-                        padding: const EdgeInsets.only(left: 12),
-                        child: valueText,
-                      ),
+                ),
+                if (trailing case final trailing?)
+                  Padding(
+                    padding: const EdgeInsets.only(left: 12),
+                    child: trailing,
+                  ),
+                if (selected || (onTap != null && chevron))
+                  Padding(
+                    padding: const EdgeInsets.only(left: 12),
+                    child: AppIconView(
+                      selected ? AppIcon.check : AppIcon.chevronRight,
+                      size: 20,
+                      color: selected ? colors.ink : colors.muted,
+                      stroke: AppIconStroke.chevron,
                     ),
-                  if (trailing case final trailing?)
-                    Padding(
-                      padding: const EdgeInsets.only(left: 12),
-                      child: trailing,
-                    ),
-                  if (selected || (onTap != null && chevron))
-                    Padding(
-                      padding: const EdgeInsets.only(left: 12),
-                      child: AppIconView(
-                        selected ? AppIcon.check : AppIcon.chevronRight,
-                        size: 20,
-                        color: selected ? colors.ink : colors.muted,
-                        stroke: AppIconStroke.chevron,
-                      ),
-                    ),
-                ],
-              ),
+                  ),
+              ],
             ),
           ),
         ),
       ),
     );
+  }
+
+  /// The title's width on one line, at the current text size.
+  double _titleWidth(BuildContext context) {
+    final painter = TextPainter(
+      text: TextSpan(text: title, style: context.text.rowTitle),
+      textDirection: Directionality.of(context),
+      textScaler: MediaQuery.textScalerOf(context),
+      maxLines: 1,
+    )..layout();
+    final width = painter.width;
+    painter.dispose();
+    return width;
   }
 }
 

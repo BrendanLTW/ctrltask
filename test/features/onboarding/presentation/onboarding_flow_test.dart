@@ -154,6 +154,24 @@ void main() {
     expect(find.byTooltip('Quick add task'), findsOneWidget);
   });
 
+  testWidgets('Back keeps the name on every step', (tester) async {
+    await pumpApp(tester);
+    await tapText(tester, 'Get started');
+    await tester.enterText(find.byType(TextField), 'Alex');
+    await tester.pump();
+    await tapText(tester, 'Continue');
+    await tester.enterText(find.byType(TextField), 'Book flights');
+    await tester.pump();
+    await tapText(tester, 'Add task');
+    // Reminders, then back through the task to the name.
+    await tester.tap(find.byTooltip('Back'));
+    await tester.pumpAndSettle();
+    expect(find.text('Book flights'), findsOneWidget);
+    await tester.tap(find.byTooltip('Back'));
+    await tester.pumpAndSettle();
+    expect(find.text('Alex'), findsOneWidget);
+  });
+
   testWidgets('going back and adding again updates the first task', (
     tester,
   ) async {

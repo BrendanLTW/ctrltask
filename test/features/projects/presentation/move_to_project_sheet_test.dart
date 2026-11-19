@@ -124,6 +124,38 @@ void main() {
     expect(find.text('Garden'), findsOneWidget);
   });
 
+  testWidgets('S11 keeps what was typed through S14 and S17', (tester) async {
+    await app.pump(tester, location: Routes.newTask);
+    await tester.enterText(find.byType(TextField).at(0), 'Book flights');
+    await tester.enterText(find.byType(TextField).at(1), 'Window seats');
+    await tapText(tester, 'Add subtask');
+    await tester.enterText(find.byType(TextField).last, 'Compare fares');
+    await tester.testTextInput.receiveAction(TextInputAction.done);
+    await tester.pumpAndSettle();
+
+    await tapText(tester, 'Due');
+    await tapText(tester, 'Tomorrow');
+    await tester.tap(find.byType(PrimaryButton));
+    await tester.pumpAndSettle();
+
+    await tapText(tester, 'Project');
+    await tapText(tester, 'New project');
+    await tester.enterText(find.byType(TextField).first, 'Travel');
+    await tester.pump();
+    await tester.tap(find.byType(PrimaryButton));
+    await tester.pumpAndSettle();
+
+    for (final text in [
+      'Book flights',
+      'Window seats',
+      'Compare fares',
+      'Wed, 18 Nov',
+      'Travel',
+    ]) {
+      expect(find.text(text), findsOneWidget, reason: text);
+    }
+  });
+
   testWidgets('S10: the project chip changes where the task goes', (
     tester,
   ) async {

@@ -1,3 +1,5 @@
+import 'dart:math' as math;
+
 import 'package:ctrltask/core/theme/app_colors.dart';
 import 'package:ctrltask/core/theme/app_spacing.dart';
 import 'package:ctrltask/core/theme/app_typography.dart';
@@ -38,55 +40,80 @@ class SectionHeader extends StatelessWidget {
         0,
         10,
       ),
-      child: Row(
-        children: [
-          Expanded(
-            child: Semantics(
-              header: true,
-              child: Text(
-                label,
-                style: text.label.copyWith(
-                  color: alert ? colors.negative : colors.muted,
-                ),
-              ),
-            ),
-          ),
-          if (detail case final detail?)
-            Flexible(
-              child: Padding(
-                padding: const EdgeInsets.only(left: 12, right: 8),
+      child: LayoutBuilder(
+        builder: (context, box) => Row(
+          children: [
+            Expanded(
+              child: Semantics(
+                header: true,
                 child: Text(
-                  detail,
-                  textAlign: TextAlign.end,
-                  style: text.subline.copyWith(color: colors.muted),
+                  label,
+                  style: text.label.copyWith(
+                    color: alert ? colors.negative : colors.muted,
+                  ),
                 ),
               ),
             ),
-          if ((linkLabel, onLink) case (final link?, final onTap?))
-            TextButton(
-              onPressed: onTap,
-              style: TextButton.styleFrom(
-                minimumSize: const Size(44, 44),
-                padding: const EdgeInsets.only(left: 12, right: 4),
-                foregroundColor: colors.ink,
-                overlayColor: colors.raised,
-              ),
-              child: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Text(link, style: text.rowTitle.copyWith(color: colors.ink)),
-                  const SizedBox(width: 2),
-                  AppIconView(
-                    AppIcon.chevronRight,
-                    size: 18,
-                    color: colors.ink,
-                    stroke: AppIconStroke.chevron,
+            // At the right edge, with what the label leaves (at least
+            // half); it wraps rather than overflow with large text.
+            if (detail case final detail?)
+              ConstrainedBox(
+                constraints: BoxConstraints(
+                  maxWidth: math.max(
+                    box.maxWidth / 2,
+                    box.maxWidth - _labelWidth(context) - 12,
                   ),
-                ],
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 12, right: 8),
+                  child: Text(
+                    detail,
+                    textAlign: TextAlign.end,
+                    style: text.subline.copyWith(color: colors.muted),
+                  ),
+                ),
               ),
-            ),
-        ],
+            if ((linkLabel, onLink) case (final link?, final onTap?))
+              TextButton(
+                onPressed: onTap,
+                style: TextButton.styleFrom(
+                  minimumSize: const Size(44, 44),
+                  padding: const EdgeInsets.only(left: 12, right: 4),
+                  foregroundColor: colors.ink,
+                  overlayColor: colors.raised,
+                ),
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text(
+                      link,
+                      style: text.rowTitle.copyWith(color: colors.ink),
+                    ),
+                    const SizedBox(width: 2),
+                    AppIconView(
+                      AppIcon.chevronRight,
+                      size: 18,
+                      color: colors.ink,
+                      stroke: AppIconStroke.chevron,
+                    ),
+                  ],
+                ),
+              ),
+          ],
+        ),
       ),
     );
+  }
+
+  double _labelWidth(BuildContext context) {
+    final painter = TextPainter(
+      text: TextSpan(text: label, style: context.text.label),
+      textDirection: Directionality.of(context),
+      textScaler: MediaQuery.textScalerOf(context),
+      maxLines: 1,
+    )..layout();
+    final width = painter.width;
+    painter.dispose();
+    return width;
   }
 }

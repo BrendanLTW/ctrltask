@@ -113,4 +113,56 @@ void main() {
     expect(value.top, greaterThan(title.top));
     expect(tester.takeException(), isNull);
   });
+
+  group('the value takes what the title leaves', () {
+    Future<void> pumpRow(WidgetTester tester, String title, String value) =>
+        pumpThemed(
+          tester,
+          SizedBox(
+            width: 358,
+            child: ListGroupRow(
+              title: title,
+              value: value,
+              leading: const SizedBox.square(dimension: 40),
+              onTap: () {},
+            ),
+          ),
+        );
+
+    // Test text draws each character as a box its font size wide, so the
+    // strings below are sized for that. One line is about 22 high.
+    bool oneLine(WidgetTester tester, String text) =>
+        tester.getSize(find.text(text)).height < 32;
+
+    testWidgets('a short title leaves a long value on one line', (
+      tester,
+    ) async {
+      // 168 wide: more than half the row's 236, less than what "Due"
+      // leaves.
+      await pumpRow(tester, 'Due', '17 Nov 10 AM');
+      expect(oneLine(tester, '17 Nov 10 AM'), isTrue);
+    });
+
+    testWidgets('a short value leaves a long title on one line', (
+      tester,
+    ) async {
+      await pumpRow(tester, 'Archived pro', '3');
+      expect(oneLine(tester, 'Archived pro'), isTrue);
+    });
+
+    testWidgets('both long: the value wraps within half the row', (
+      tester,
+    ) async {
+      await pumpRow(
+        tester,
+        'A rather long row title here',
+        'An equally long value text',
+      );
+      expect(tester.takeException(), isNull);
+      expect(
+        tester.getSize(find.text('An equally long value text')).width,
+        lessThanOrEqualTo(358 / 2),
+      );
+    });
+  });
 }
