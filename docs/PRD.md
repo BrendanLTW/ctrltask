@@ -42,14 +42,14 @@ ctrlTask answers one question first: **what do I need to get done today?** The u
 - Feature-first Flutter architecture with enforced layer boundaries.
 - Unit, widget and end-to-end tests, with CI on every push.
 - Light and dark themes built from one token set, shared with ctrlSpend.
-- A live demo, an APK, and a README explaining key decisions.
+- An APK and a README explaining key decisions.
 
 ### Non-goals (v1)
 - Accounts, cloud sync or multi-device use. Export and local backup are the safety net.
 - Sharing, assigning or commenting on tasks. ctrlTask is for one person.
 - A separate habit tracker. Repeating tasks and the streak cover the need.
 - Calendar, email or chat integrations.
-- Tablet, web, desktop and watch layouts (a web build is for the demo only).
+- Tablet, web, desktop and watch layouts.
 - Natural-language parsing beyond the simple hints in v1.1.
 - The other ctrlWorks apps (ctrlSpend, ctrlGo, ctrlStock).
 
@@ -585,7 +585,7 @@ Buttons, segmented control, chips, toggles, radios, steppers, task card and row,
 | Correctness | Dates stored as local dates plus optional minutes; timestamps in UTC; one `weekOf` and one `nextOccurrence` function used everywhere |
 | Privacy | No accounts, analytics, ads or network calls; data leaves only through export and backups the user chooses; Erase all data removes everything |
 | Reliability | No data loss if the app is killed mid-write; backups are atomic; restore validates before replacing |
-| Platforms | iOS 15+ and Android 8+; a web build for the demo with notifications and backup hidden |
+| Platforms | iOS 15+ and Android 8+ |
 | Quality | `flutter analyze` clean; unit tests for derived values, `weekOf`, `nextOccurrence`, reminder times and the focus timer; widget tests per screen in both themes; one end-to-end test (onboarding → quick add → complete → undo → focus session); CI on every push |
 | Design fidelity | Each screen is compared with its light and dark design before its task is done |
 
@@ -599,7 +599,7 @@ Buttons, segmented control, chips, toggles, radios, steppers, task card and row,
 | 1 Data | Drift schema, `weekOf`, `nextOccurrence`, repositories, derived values | Unit tests pass |
 | 2 Core | Onboarding, Home (3 states), quick add, task form and detail, delete, due-date picker, projects, tasks list | **All P0 done** |
 | 3 Complete | Focus, calendar, filter and search, repeat, reminders and notifications, tags, insights, settings, export, erase | **All P1 done** |
-| 4 Ship | Accessibility and fidelity pass, end-to-end test, demo, APK, README | **v1.0 released** with all P0 + P1 |
+| 4 Ship | Accessibility and fidelity pass, end-to-end test, APK, README | **v1.0 released** with all P0 + P1 |
 | 5 Update | Board view, backup and restore, quick-add hints, drag to reschedule | P2 tests pass; **v1.1 released** |
 
 ---
