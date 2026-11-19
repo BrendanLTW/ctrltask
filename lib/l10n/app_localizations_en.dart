@@ -688,4 +688,21 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get markDoneInstead => 'Mark as done instead';
+
+  @override
+  String get dueDateTitle => 'Due date';
+
+  @override
+  String get weekend => 'Weekend';
+
+  @override
+  String get noTime => 'No time';
+
+  @override
+  String get pick => 'Pick';
+
+  @override
+  String setDue(String when) {
+    return 'Set $when';
+  }
 }

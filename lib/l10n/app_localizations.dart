@@ -1191,6 +1191,36 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Mark as done instead'**
   String get markDoneInstead;
+
+  /// No description provided for @dueDateTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Due date'**
+  String get dueDateTitle;
+
+  /// No description provided for @weekend.
+  ///
+  /// In en, this message translates to:
+  /// **'Weekend'**
+  String get weekend;
+
+  /// No description provided for @noTime.
+  ///
+  /// In en, this message translates to:
+  /// **'No time'**
+  String get noTime;
+
+  /// No description provided for @pick.
+  ///
+  /// In en, this message translates to:
+  /// **'Pick'**
+  String get pick;
+
+  /// No description provided for @setDue.
+  ///
+  /// In en, this message translates to:
+  /// **'Set {when}'**
+  String setDue(String when);
 }
 
 class _AppLocalizationsDelegate

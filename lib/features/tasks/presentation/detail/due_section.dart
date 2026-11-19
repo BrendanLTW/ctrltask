@@ -1,6 +1,7 @@
 import 'package:ctrltask/core/dates/date_labels.dart';
 import 'package:ctrltask/core/dates/week.dart';
 import 'package:ctrltask/core/widgets/app_chip.dart';
+import 'package:ctrltask/core/widgets/app_icon.dart';
 import 'package:ctrltask/core/widgets/section_header.dart';
 import 'package:ctrltask/l10n/l10n.dart';
 import 'package:flutter/material.dart';
@@ -12,10 +13,7 @@ DateTime quickDue(String chip, DateTime today, WeekStart weekStart) {
   return switch (chip) {
     'today' => day,
     'tomorrow' => DateTime(day.year, day.month, day.day + 1),
-    _ => () {
-      final end = weekOf(day, weekStart).end;
-      return DateTime(end.year, end.month, end.day + 1);
-    }(),
+    _ => nextWeekStart(day, weekStart),
   };
 }
 
@@ -29,6 +27,7 @@ class DueSection extends StatelessWidget {
     required this.weekStart,
     required this.labels,
     required this.onMove,
+    required this.onPick,
     super.key,
   });
 
@@ -38,6 +37,9 @@ class DueSection extends StatelessWidget {
   final WeekStart weekStart;
   final DateLabels labels;
   final ValueChanged<DateTime> onMove;
+
+  /// Opens S14 for any day and time.
+  final VoidCallback onPick;
 
   @override
   Widget build(BuildContext context) {
@@ -56,7 +58,6 @@ class DueSection extends StatelessWidget {
         SectionHeader(
           dueDate == null ? when.toUpperCase() : l10n.dueOn(when.toUpperCase()),
         ),
-        // shortcut: the Pick chip that opens S14 comes with 2.9.
         Wrap(
           spacing: 8,
           children: [
@@ -69,6 +70,11 @@ class DueSection extends StatelessWidget {
                 label: label,
                 onTap: () => onMove(quickDue(key, today, weekStart)),
               ),
+            AppChip(
+              label: l10n.pick,
+              leading: const AppIconView(AppIcon.calendar, size: 18),
+              onTap: onPick,
+            ),
           ],
         ),
       ],

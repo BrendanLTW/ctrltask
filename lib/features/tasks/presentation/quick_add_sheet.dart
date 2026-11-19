@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:ctrltask/core/dates/clock.dart';
 import 'package:ctrltask/core/dates/date_labels.dart';
+import 'package:ctrltask/core/dates/week.dart';
 import 'package:ctrltask/core/router/app_router.dart';
 import 'package:ctrltask/core/theme/app_colors.dart';
 import 'package:ctrltask/core/theme/app_spacing.dart';
@@ -20,6 +21,7 @@ import 'package:ctrltask/features/tasks/domain/task.dart';
 import 'package:ctrltask/features/tasks/domain/task_draft.dart';
 import 'package:ctrltask/features/tasks/domain/task_priority.dart';
 import 'package:ctrltask/features/tasks/domain/task_repository.dart';
+import 'package:ctrltask/features/tasks/presentation/due_date_picker.dart';
 import 'package:ctrltask/l10n/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -71,6 +73,9 @@ class _QuickAddSheetState extends ConsumerState<QuickAddSheet> {
   int? _when;
   var _sending = false;
 
+  /// A day and time picked on S14, shown as its own chip.
+  DueChoice? _pickedDue;
+
   @override
   void dispose() {
     _title.dispose();
@@ -87,8 +92,7 @@ class _QuickAddSheetState extends ConsumerState<QuickAddSheet> {
     final today = DateTime(now.year, now.month, now.day);
     DateTime plus(int days) =>
         DateTime(today.year, today.month, today.day + days);
-    final toSaturday = (DateTime.saturday - today.weekday) % 7;
-    final saturday = plus(toSaturday == 0 ? 7 : toSaturday);
+    final saturday = comingSaturday(today);
     const nineAm = 9 * 60;
     final options = <_When>[
       (label: l10n.whenNoDate, date: null, minute: null),
@@ -103,6 +107,16 @@ class _QuickAddSheetState extends ConsumerState<QuickAddSheet> {
     if (widget.date case final preset?
         when !options.any((o) => o.date == preset)) {
       options.add((label: labels.date(preset), date: preset, minute: null));
+    }
+    if (_pickedDue case (:final date, :final minute)
+        when !options.any((o) => o.date == date && o.minute == minute)) {
+      options.add((
+        label: minute == null
+            ? labels.date(date)
+            : l10n.titleWithDetail(labels.date(date), labels.timeShort(minute)),
+        date: date,
+        minute: minute,
+      ));
     }
     return options;
   }
@@ -123,6 +137,22 @@ class _QuickAddSheetState extends ConsumerState<QuickAddSheet> {
       priority: _priority(),
       projectId: widget.projectId,
     );
+  }
+
+  Future<void> _pick(List<_When> options) async {
+    final current = options[_when!];
+    final choice = await showDueDatePicker(
+      context,
+      date: current.date,
+      minute: current.minute,
+    );
+    if (choice == null || !mounted) return;
+    setState(() {
+      _pickedDue = choice;
+      _when = _options(
+        DateLabels(Localizations.localeOf(context).toLanguageTag()),
+      ).indexWhere((o) => o.date == choice.date && o.minute == choice.minute);
+    });
   }
 
   Future<void> _send(List<_When> options) async {
@@ -224,7 +254,6 @@ class _QuickAddSheetState extends ConsumerState<QuickAddSheet> {
             ],
           ),
           label(l10n.whenLabel),
-          // shortcut: the calendar chip that opens S14 comes with 2.9.
           chipRow([
             for (final (i, option) in options.indexed)
               AppChip(
@@ -233,6 +262,12 @@ class _QuickAddSheetState extends ConsumerState<QuickAddSheet> {
                 selected: _when == i,
                 onTap: () => setState(() => _when = i),
               ),
+            AppChip(
+              label: l10n.pick,
+              small: true,
+              leading: const AppIconView(AppIcon.calendar, size: 16),
+              onTap: () => unawaited(_pick(options)),
+            ),
           ]),
           label(l10n.priorityLabel),
           chipRow([

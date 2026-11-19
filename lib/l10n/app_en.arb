@@ -496,5 +496,17 @@
     }
   },
   "deleteTask": "Delete task",
-  "markDoneInstead": "Mark as done instead"
+  "markDoneInstead": "Mark as done instead",
+  "dueDateTitle": "Due date",
+  "weekend": "Weekend",
+  "noTime": "No time",
+  "pick": "Pick",
+  "setDue": "Set {when}",
+  "@setDue": {
+    "placeholders": {
+      "when": {
+        "type": "String"
+      }
+    }
+  }
 }

@@ -66,4 +66,21 @@ void main() {
       expect(week.start.weekday, DateTime.monday, reason: '$date');
     }
   });
+
+  test('the coming Saturday is never today', () {
+    expect(comingSaturday(tue), DateTime(2026, 11, 21));
+    expect(comingSaturday(DateTime(2026, 11, 21, 10)), DateTime(2026, 11, 28));
+    expect(comingSaturday(DateTime(2026, 12, 27)), DateTime(2027, 1, 2));
+  });
+
+  test('next week starts on the week start setting', () {
+    expect(nextWeekStart(tue, WeekStart.mon), DateTime(2026, 11, 23));
+    expect(nextWeekStart(tue, WeekStart.sun), DateTime(2026, 11, 22));
+    expect(nextWeekStart(tue, WeekStart.sat), DateTime(2026, 11, 21));
+    // On the first day of a week it's still the week after.
+    expect(
+      nextWeekStart(DateTime(2026, 11, 16), WeekStart.mon),
+      DateTime(2026, 11, 23),
+    );
+  });
 }

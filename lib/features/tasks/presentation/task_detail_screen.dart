@@ -22,6 +22,7 @@ import 'package:ctrltask/features/tasks/presentation/detail/detail_header.dart';
 import 'package:ctrltask/features/tasks/presentation/detail/due_section.dart';
 import 'package:ctrltask/features/tasks/presentation/detail/link_rows.dart';
 import 'package:ctrltask/features/tasks/presentation/detail/subtask_progress.dart';
+import 'package:ctrltask/features/tasks/presentation/due_date_picker.dart';
 import 'package:ctrltask/features/tasks/presentation/task_completion.dart';
 import 'package:ctrltask/l10n/l10n.dart';
 import 'package:flutter/material.dart';
@@ -67,6 +68,21 @@ class _TaskDetailScreenState extends ConsumerState<TaskDetailScreen> {
         success: false,
       );
     }
+  }
+
+  Future<void> _pickDue(TaskDetails details) async {
+    final task = details.task;
+    final choice = await showDueDatePicker(
+      context,
+      date: task.dueDate,
+      minute: task.dueMinute,
+    );
+    if (choice == null) return;
+    await _update(
+      details.copyWith(
+        task: task.copyWith(dueDate: choice.date, dueMinute: choice.minute),
+      ),
+    );
   }
 
   Future<void> _delete(TaskDetails details, Project? project) async {
@@ -170,6 +186,7 @@ class _TaskDetailScreenState extends ConsumerState<TaskDetailScreen> {
           onMove: (date) => unawaited(
             _update(details.copyWith(task: task.copyWith(dueDate: date))),
           ),
+          onPick: () => unawaited(_pickDue(details)),
         ),
         // shortcut: the Reminder and Repeat rows come with 3.5 and 3.7.
         if (details.links.isNotEmpty) ...[

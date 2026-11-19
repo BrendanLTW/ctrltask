@@ -81,7 +81,7 @@ Work top to bottom. Each task is sized for one Claude Code session and follows t
   Refs: S11, PRD §5.4, FR-04
 - [x] **2.8 Task detail and delete.** S12 with chips, description, quick reschedule chips, subtasks with progress, Edit, and Delete task → S13 dialog (Delete, Mark as done instead, Cancel). Start a focus session is hidden until 3.1.
   Refs: S12, S13, PRD §5.4, FR-04, FR-05
-- [ ] **2.9 Due-date picker.** S14 sheet: quick tiles, month calendar on the user's week start, time chips and no time, read-back button. Used from S10, S11 and S12.
+- [x] **2.9 Due-date picker.** S14 sheet: quick tiles, month calendar on the user's week start, time chips and no time, read-back button. Used from S10, S11 and S12.
   Refs: S14, PRD §5.5, FR-05
 - [ ] **2.10 Projects.** S26 list (Active and Archived), S27 detail (header, open tasks, add task in project, Completed row), S28 new and edit (name, description, colour, icon, deadline; archive and delete from edit), S29 empty state, S45 archived list with Restore, and S17 Move to project sheet.
   Refs: S17, S26–S29, S45, PRD §5.7, FR-06

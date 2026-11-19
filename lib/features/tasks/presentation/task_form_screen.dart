@@ -23,6 +23,7 @@ import 'package:ctrltask/features/tasks/domain/task_draft.dart';
 import 'package:ctrltask/features/tasks/domain/task_link.dart';
 import 'package:ctrltask/features/tasks/domain/task_priority.dart';
 import 'package:ctrltask/features/tasks/domain/task_repository.dart';
+import 'package:ctrltask/features/tasks/presentation/due_date_picker.dart';
 import 'package:ctrltask/features/tasks/presentation/form/add_link_sheet.dart';
 import 'package:ctrltask/features/tasks/presentation/form/link_section.dart';
 import 'package:ctrltask/features/tasks/presentation/form/subtask_section.dart';
@@ -174,6 +175,19 @@ class _TaskFormScreenState extends ConsumerState<TaskFormScreen> {
     if (mounted) Navigator.of(context).pop();
   }
 
+  Future<void> _pickDue() async {
+    final choice = await showDueDatePicker(
+      context,
+      date: _dueDate,
+      minute: _dueMinute,
+    );
+    if (choice == null) return;
+    setState(() {
+      _dueDate = choice.date;
+      _dueMinute = choice.minute;
+    });
+  }
+
   Future<void> _addLink() async {
     final link = await showAddLinkSheet(context);
     if (link == null) return;
@@ -235,12 +249,11 @@ class _TaskFormScreenState extends ConsumerState<TaskFormScreen> {
                   SectionHeader(l10n.essentials),
                   ListGroup(
                     children: [
-                      // shortcut: shows the date; the S14 picker comes
-                      // with 2.9 and S17 for the project with 2.10.
                       ListGroupRow(
                         title: l10n.due,
                         value: due,
                         valueEmphasis: _dueDate != null,
+                        onTap: () => unawaited(_pickDue()),
                         leading: const IconTile(
                           icon: AppIcon.calendar,
                           color: ProjectColorKey.grey,
@@ -293,6 +306,7 @@ class _TaskFormScreenState extends ConsumerState<TaskFormScreen> {
                           ],
                         ),
                       ),
+                      // shortcut: S17 for the project comes with 2.10.
                       ListGroupRow(
                         title: l10n.project,
                         value: project?.name ?? l10n.inbox,
