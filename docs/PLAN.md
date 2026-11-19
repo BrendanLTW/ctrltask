@@ -50,7 +50,7 @@ Work top to bottom. Each task is sized for one Claude Code session and follows t
   Refs: PRD §8
 - [x] **1.4 Domain entities.** freezed entities for every table, enums for priority, status, board column, reminder, colour key and icon key, and mappers to and from Drift rows.
   Refs: PRD §8, DESIGN §3.4, §8
-- [ ] **1.5 Task repository.** Watch today's list, sections, by project, by date range, and search; add, update, complete (creating the next occurrence for repeating tasks), uncomplete, delete with subtasks, tags and links, and exact restore for undo. Enforce the field rules in PRD §8. Unit tests.
+- [x] **1.5 Task repository.** Watch today's list, sections, by project, by date range, and search; add, update, complete (creating the next occurrence for repeating tasks), uncomplete, delete with subtasks, tags and links, and exact restore for undo. Enforce the field rules in PRD §8. Unit tests.
   Refs: PRD §5.4, §6.1, §6.4, §8
 - [ ] **1.6 Project and tag repositories.** Projects: watch active and archived, add, update, archive, restore, delete (move tasks to Inbox or delete them). Tags: watch with counts, create, rename, merge, delete. Unique-name rules. Unit tests.
   Refs: PRD §5.7, §5.10, §8
