@@ -48,7 +48,7 @@ Work top to bottom. Each task is sized for one Claude Code session and follows t
   Refs: PRD §6.4
 - [x] **1.3 Database schema v1.** Drift database in `core/db` with Task, Subtask, Tag, TaskTag, Link, Project, RepeatRule, FocusSession and a key-value Preferences table (schemaVersion 1). Provide it through Riverpod; use an in-memory database in tests.
   Refs: PRD §8
-- [ ] **1.4 Domain entities.** freezed entities for every table, enums for priority, status, board column, reminder, colour key and icon key, and mappers to and from Drift rows.
+- [x] **1.4 Domain entities.** freezed entities for every table, enums for priority, status, board column, reminder, colour key and icon key, and mappers to and from Drift rows.
   Refs: PRD §8, DESIGN §3.4, §8
 - [ ] **1.5 Task repository.** Watch today's list, sections, by project, by date range, and search; add, update, complete (creating the next occurrence for repeating tasks), uncomplete, delete with subtasks, tags and links, and exact restore for undo. Enforce the field rules in PRD §8. Unit tests.
   Refs: PRD §5.4, §6.1, §6.4, §8
