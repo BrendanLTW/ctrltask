@@ -559,4 +559,21 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get anyTime => 'Any time';
+
+  @override
+  String get taskTitleHint => 'Task title';
+
+  @override
+  String get priorityLabel => 'PRIORITY';
+
+  @override
+  String get inbox => 'Inbox';
+
+  @override
+  String get more => 'More';
+
+  @override
+  String whenTomorrowAt(String time) {
+    return 'Tomorrow · $time';
+  }
 }

@@ -2,6 +2,7 @@ import 'package:ctrltask/core/dates/clock.dart';
 import 'package:ctrltask/core/haptics/haptics.dart';
 import 'package:ctrltask/core/theme/app_theme.dart';
 import 'package:ctrltask/core/widgets/alert_banner.dart';
+import 'package:ctrltask/core/widgets/app_sheet.dart';
 import 'package:ctrltask/core/widgets/complete_toast.dart';
 import 'package:ctrltask/core/widgets/progress_ring.dart';
 import 'package:ctrltask/core/widgets/task_card.dart';
@@ -365,9 +366,11 @@ void main() {
       expect(find.text('Nothing planned'), findsOneWidget);
       expect(find.byType(HomeStats), findsNothing);
 
+      // The chip opens quick add with its title.
       await tester.tap(find.text('Plan my week'));
       await tester.pumpAndSettle();
-      expect(appBarTitle('New task'), findsOneWidget);
+      expect(find.byType(AppSheet), findsOneWidget);
+      expect(find.widgetWithText(TextField, 'Plan my week'), findsOneWidget);
     });
 
     testWidgets('Create a project opens Projects', (tester) async {

@@ -38,12 +38,7 @@ class PriorityTag extends StatelessWidget {
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          AppIconView(
-            AppIcon.flag,
-            size: 12,
-            color: colors.icon,
-            stroke: AppIconStroke.chevron,
-          ),
+          AppIconView(AppIcon.flagFilled, size: 12, color: colors.icon),
           const SizedBox(width: 5),
           Text(
             priorityLabel(context, priority),

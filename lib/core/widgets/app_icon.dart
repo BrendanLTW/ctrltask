@@ -9,6 +9,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 enum AppIcon {
   add('plus'),
   alert('circle-alert'),
+  arrowUp('arrow-up'),
   arrowUpRight('arrow-up-right'),
   bag('shopping-bag'),
   book('book-open'),
@@ -22,6 +23,7 @@ enum AppIcon {
   close('x'),
   code('code'),
   flag('flag'),
+  flagFilled('flag-filled'),
   flame('flame'),
   folder('folder'),
   gift('gift'),

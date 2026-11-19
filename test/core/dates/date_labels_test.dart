@@ -23,6 +23,12 @@ void main() {
     expect(labels.time(1439), '11:59 PM');
   });
 
+  test('short time drops :00 on the hour', () {
+    expect(labels.timeShort(540), '9 AM');
+    expect(labels.timeShort(570), '9:30 AM');
+    expect(labels.timeShort(0), '12 AM');
+  });
+
   group('daysBetween', () {
     test('ignores the time of day', () {
       expect(

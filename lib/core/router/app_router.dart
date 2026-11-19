@@ -12,6 +12,8 @@ import 'package:ctrltask/features/onboarding/presentation/welcome_screen.dart';
 import 'package:ctrltask/features/projects/presentation/project_detail_screen.dart';
 import 'package:ctrltask/features/projects/presentation/projects_screen.dart';
 import 'package:ctrltask/features/settings/presentation/settings_screen.dart';
+import 'package:ctrltask/features/tasks/domain/task_draft.dart';
+import 'package:ctrltask/features/tasks/presentation/quick_add_sheet.dart';
 import 'package:ctrltask/features/tasks/presentation/search_screen.dart';
 import 'package:ctrltask/features/tasks/presentation/task_detail_screen.dart';
 import 'package:ctrltask/features/tasks/presentation/task_form_screen.dart';
@@ -69,8 +71,7 @@ GoRouter appRouter(Ref ref) {
           currentIndex: shell.currentIndex,
           onTabSelected: (i) =>
               shell.goBranch(i, initialLocation: i == shell.currentIndex),
-          // shortcut: opens the New task screen; 2.6 makes it the S10 sheet.
-          onQuickAdd: () => context.push(Routes.newTask),
+          onQuickAdd: () => showQuickAdd(context),
           child: shell,
         ),
         branches: [
@@ -84,7 +85,7 @@ GoRouter appRouter(Ref ref) {
       GoRoute(
         path: Routes.newTask,
         builder: (context, state) =>
-            TaskFormScreen(initialTitle: state.uri.queryParameters['title']),
+            TaskFormScreen(draft: state.extra as TaskDraft?),
       ),
       GoRoute(
         path: '/task/:id',

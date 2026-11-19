@@ -11,12 +11,14 @@ class DateLabels {
     : _date = DateFormat('EEE, d MMM', locale),
       _dateLong = DateFormat('EEE, d MMMM', locale),
       _weekday = DateFormat('EEE', locale),
-      _time = DateFormat('h:mm a', locale);
+      _time = DateFormat('h:mm a', locale),
+      _hour = DateFormat('h a', locale);
 
   final DateFormat _date;
   final DateFormat _dateLong;
   final DateFormat _weekday;
   final DateFormat _time;
+  final DateFormat _hour;
 
   /// "Tue, 17 Nov".
   String date(DateTime date) => _date.format(date);
@@ -32,6 +34,11 @@ class DateLabels {
     assert(minute >= 0 && minute < 24 * 60, 'minute out of range: $minute');
     return _time.format(DateTime(2000, 1, 1, minute ~/ 60, minute % 60));
   }
+
+  /// "9 AM" on the hour, else as [time]: S10's "Tomorrow · 9 AM".
+  String timeShort(int minute) => minute % 60 == 0
+      ? _hour.format(DateTime(2000, 1, 1, minute ~/ 60))
+      : time(minute);
 
   /// Whole calendar days from [from] to [to], ignoring the time of day.
   /// Counted in UTC so a daylight-saving change can't shift it by one.

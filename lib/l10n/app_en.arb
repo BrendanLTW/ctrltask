@@ -405,5 +405,17 @@
       }
     }
   },
-  "anyTime": "Any time"
+  "anyTime": "Any time",
+  "taskTitleHint": "Task title",
+  "priorityLabel": "PRIORITY",
+  "inbox": "Inbox",
+  "more": "More",
+  "whenTomorrowAt": "Tomorrow · {time}",
+  "@whenTomorrowAt": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  }
 }

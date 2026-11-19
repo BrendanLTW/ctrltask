@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:ctrltask/core/router/app_router.dart';
+import 'package:ctrltask/core/widgets/app_sheet.dart';
 import 'package:ctrltask/core/widgets/app_shell.dart';
 import 'package:ctrltask/core/widgets/app_shell_tab.dart';
 import 'package:ctrltask/features/home/presentation/home_screen.dart';
@@ -123,7 +124,7 @@ void main() {
     }
   });
 
-  testWidgets('quick add opens New task and back returns to the tab', (
+  testWidgets('quick add opens its sheet over the tab, and closes back', (
     tester,
   ) async {
     await pumpApp(tester);
@@ -132,11 +133,11 @@ void main() {
 
     await tester.tap(find.byTooltip('Quick add task'));
     await tester.pumpAndSettle();
-    expect(title('New task'), findsOneWidget);
-    expect(find.byType(AppShell), findsNothing);
+    expect(find.byType(AppSheet), findsOneWidget);
 
-    await tester.tap(find.byType(BackButton));
+    await tester.tap(find.byTooltip('Close'));
     await tester.pumpAndSettle();
+    expect(find.byType(AppSheet), findsNothing);
     expect(title('Projects'), findsOneWidget);
   });
 

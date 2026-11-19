@@ -969,6 +969,36 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Any time'**
   String get anyTime;
+
+  /// No description provided for @taskTitleHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Task title'**
+  String get taskTitleHint;
+
+  /// No description provided for @priorityLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'PRIORITY'**
+  String get priorityLabel;
+
+  /// No description provided for @inbox.
+  ///
+  /// In en, this message translates to:
+  /// **'Inbox'**
+  String get inbox;
+
+  /// No description provided for @more.
+  ///
+  /// In en, this message translates to:
+  /// **'More'**
+  String get more;
+
+  /// No description provided for @whenTomorrowAt.
+  ///
+  /// In en, this message translates to:
+  /// **'Tomorrow · {time}'**
+  String whenTomorrowAt(String time);
 }
 
 class _AppLocalizationsDelegate

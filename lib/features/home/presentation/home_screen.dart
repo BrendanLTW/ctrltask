@@ -24,6 +24,7 @@ import 'package:ctrltask/features/settings/domain/preferences.dart';
 import 'package:ctrltask/features/settings/domain/preferences_repository.dart';
 import 'package:ctrltask/features/tasks/domain/task.dart';
 import 'package:ctrltask/features/tasks/domain/task_calculations.dart';
+import 'package:ctrltask/features/tasks/presentation/quick_add_sheet.dart';
 import 'package:ctrltask/features/tasks/presentation/task_completion.dart';
 import 'package:ctrltask/features/tasks/presentation/task_tile_data.dart';
 import 'package:ctrltask/l10n/l10n.dart';
@@ -79,15 +80,8 @@ class HomeScreen extends ConsumerWidget {
     // and the calendar (3.3) exist.
     void openTasksTab() => context.go(Routes.tasks);
 
-    // shortcut: opens New task with the title until quick add (2.6).
-    void addTask(String? title) => context.push(
-      title == null
-          ? Routes.newTask
-          : Uri(
-              path: Routes.newTask,
-              queryParameters: {'title': title},
-            ).toString(),
-    );
+    void addTask(String? title) =>
+        unawaited(showQuickAdd(context, title: title));
 
     String subline() {
       if (progress.total == 0) return l10n.heroEmpty;
