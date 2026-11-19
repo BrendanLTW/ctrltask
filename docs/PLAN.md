@@ -44,7 +44,7 @@ Work top to bottom. Each task is sized for one Claude Code session and follows t
 
 - [x] **1.1 Days and weeks.** Implement `weekOf(date, weekStart)`, `sectionFor(task, today, weekStart)` (Overdue, Today, Tomorrow, This week, Later, No date) and an injectable `Clock` provider in `core/dates`. Unit tests: each week start, month and year boundaries, tasks with and without times, a time already passed today.
   Refs: PRD §6.2, §6.3
-- [ ] **1.2 Repeat rules.** Implement `nextOccurrence(rule, dueDate)` in `core/repeat` (pure Dart). Exhaustive unit tests: daily, weekdays across weekends, weekly with one and several days, monthly on the 15th, 29th, 30th and 31st (short months and leap years), custom every N days, weeks and months for N 1 and 12, end dates.
+- [x] **1.2 Repeat rules.** Implement `nextOccurrence(rule, dueDate)` in `core/repeat` (pure Dart). Exhaustive unit tests: daily, weekdays across weekends, weekly with one and several days, monthly on the 15th, 29th, 30th and 31st (short months and leap years), custom every N days, weeks and months for N 1 and 12, end dates.
   Refs: PRD §6.4
 - [ ] **1.3 Database schema v1.** Drift database in `core/db` with Task, Subtask, Tag, TaskTag, Link, Project, RepeatRule, FocusSession and a key-value Preferences table (schemaVersion 1). Provide it through Riverpod; use an in-memory database in tests.
   Refs: PRD §8
