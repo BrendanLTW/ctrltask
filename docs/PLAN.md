@@ -42,7 +42,7 @@ Work top to bottom. Each task is sized for one Claude Code session and follows t
 
 ## Phase 1 — Data
 
-- [ ] **1.1 Days and weeks.** Implement `weekOf(date, weekStart)`, `sectionFor(task, today, weekStart)` (Overdue, Today, Tomorrow, This week, Later, No date) and an injectable `Clock` provider in `core/dates`. Unit tests: each week start, month and year boundaries, tasks with and without times, a time already passed today.
+- [x] **1.1 Days and weeks.** Implement `weekOf(date, weekStart)`, `sectionFor(task, today, weekStart)` (Overdue, Today, Tomorrow, This week, Later, No date) and an injectable `Clock` provider in `core/dates`. Unit tests: each week start, month and year boundaries, tasks with and without times, a time already passed today.
   Refs: PRD §6.2, §6.3
 - [ ] **1.2 Repeat rules.** Implement `nextOccurrence(rule, dueDate)` in `core/repeat` (pure Dart). Exhaustive unit tests: daily, weekdays across weekends, weekly with one and several days, monthly on the 15th, 29th, 30th and 31st (short months and leap years), custom every N days, weeks and months for N 1 and 12, end dates.
   Refs: PRD §6.4
