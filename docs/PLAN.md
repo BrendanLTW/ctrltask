@@ -58,7 +58,7 @@ Work top to bottom. Each task is sized for one Claude Code session and follows t
   Refs: PRD §8
 - [x] **1.8 Progress calculations.** Pure domain functions with tests: today's list order, today's progress, overdue, streak (including undo and day boundaries), done this week, project progress and days left.
   Refs: PRD §8 Derived values
-- [ ] **1.9 Insight calculations.** Pure domain functions with tests: completion rate and change for 7 days and this month, completions per day, focus per day and daily average, 6-week trend, power day, and the "not enough data" rule.
+- [x] **1.9 Insight calculations.** Pure domain functions with tests: completion rate and change for 7 days and this month, completions per day, focus per day and daily average, 6-week trend, power day, and the "not enough data" rule.
   Refs: PRD §5.9, §8 Derived values
 - [ ] **1.10 Dev seed.** A debug-only seed that reproduces the canvas: Alex, Tue 17 Nov 2026, the six projects, today's tasks, overdue and upcoming tasks, tags, focus sessions and a 12-day streak. A debug toggle to load it.
   Refs: CLAUDE.md Testing

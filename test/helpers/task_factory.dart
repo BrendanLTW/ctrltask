@@ -8,6 +8,7 @@ Task task(
   DateTime? dueDate,
   int? dueMinute,
   DateTime? completedAt,
+  DateTime? createdAt,
   int sortOrder = 0,
 }) => Task(
   id: title.hashCode,
@@ -15,7 +16,7 @@ Task task(
   priority: priority,
   status: completedAt == null ? TaskStatus.open : TaskStatus.done,
   boardColumn: completedAt == null ? BoardColumn.todo : BoardColumn.done,
-  createdAt: DateTime.utc(2026),
+  createdAt: createdAt ?? DateTime.utc(2026),
   updatedAt: DateTime.utc(2026),
   sortOrder: sortOrder,
   dueDate: dueDate,
