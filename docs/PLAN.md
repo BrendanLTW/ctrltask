@@ -56,7 +56,7 @@ Work top to bottom. Each task is sized for one Claude Code session and follows t
   Refs: PRD §5.7, §5.10, §8
 - [x] **1.7 Preferences repository.** Read and watch every key in PRD §8 with its default. Wire the theme-mode provider from 0.4 to it. Unit tests.
   Refs: PRD §8
-- [ ] **1.8 Progress calculations.** Pure domain functions with tests: today's list order, today's progress, overdue, streak (including undo and day boundaries), done this week, project progress and days left.
+- [x] **1.8 Progress calculations.** Pure domain functions with tests: today's list order, today's progress, overdue, streak (including undo and day boundaries), done this week, project progress and days left.
   Refs: PRD §8 Derived values
 - [ ] **1.9 Insight calculations.** Pure domain functions with tests: completion rate and change for 7 days and this month, completions per day, focus per day and daily average, 6-week trend, power day, and the "not enough data" rule.
   Refs: PRD §5.9, §8 Derived values
