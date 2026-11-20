@@ -1046,9 +1046,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String get emptyDoneBody => 'Tick off a task and it shows up here.';
 
   @override
-  String get calendarComingSoon => 'The calendar is on its way.';
-
-  @override
   String get delete => 'Delete';
 
   @override
@@ -1269,4 +1266,73 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get preferencesSection => 'PREFERENCES';
+
+  @override
+  String get calendarDay => 'Day';
+
+  @override
+  String get calendarWeek => 'Week';
+
+  @override
+  String get calendarMonth => 'Month';
+
+  @override
+  String get legendPending => 'Pending';
+
+  @override
+  String get legendCompleted => 'Completed';
+
+  @override
+  String get legendOverdue => 'Overdue';
+
+  @override
+  String agendaHeader(String date, String relative) {
+    return '$date · $relative';
+  }
+
+  @override
+  String get nothingDue => 'Nothing due. Tap + to plan this day';
+
+  @override
+  String get anytime => 'ANYTIME';
+
+  @override
+  String dueCounts(int due, int overdue) {
+    String _temp0 = intl.Intl.pluralLogic(
+      overdue,
+      locale: localeName,
+      other: ' · $overdue overdue',
+      zero: '',
+    );
+    return '$due due$_temp0';
+  }
+
+  @override
+  String focusBlock(String task) {
+    return 'Focus · $task';
+  }
+
+  @override
+  String get focusBlockNoTask => 'Focus';
+
+  @override
+  String focusSessions(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count sessions',
+      one: '1 session',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String timeRange(String start, String end) {
+    return '$start – $end';
+  }
+
+  @override
+  String nowLine(String time) {
+    return 'Now, $time';
+  }
 }

@@ -16,6 +16,15 @@ void main() {
     expect(labels.weekday(DateTime(2026, 11, 16)), 'Mon');
     expect(labels.dateYear(DateTime(2027, 2, 5)), 'Fri, 5 Feb 2027');
     expect(labels.dayMonth(DateTime(2026, 9, 2)), '2 Sep');
+    expect(labels.clock(DateTime(2026, 11, 17, 14, 30)), '2:30');
+    expect(
+      labels.weekRange(DateTime(2026, 11, 16), DateTime(2026, 11, 22)),
+      '16 – 22 Nov',
+    );
+    expect(
+      labels.weekRange(DateTime(2026, 11, 30), DateTime(2026, 12, 6)),
+      '30 Nov – 6 Dec',
+    );
   });
 
   test('time from minutes after midnight', () {

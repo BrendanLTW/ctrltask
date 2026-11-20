@@ -14,6 +14,8 @@ class DateLabels {
       _dayMonth = DateFormat('d MMM', locale),
       _weekday = DateFormat('EEE', locale),
       _time = DateFormat('h:mm a', locale),
+      _clock = DateFormat('h:mm', locale),
+      _dayMonthShort = DateFormat('d', locale),
       _hour = DateFormat('h a', locale);
 
   final DateFormat _date;
@@ -22,6 +24,8 @@ class DateLabels {
   final DateFormat _dayMonth;
   final DateFormat _weekday;
   final DateFormat _time;
+  final DateFormat _clock;
+  final DateFormat _dayMonthShort;
   final DateFormat _hour;
 
   /// "Tue, 17 Nov".
@@ -44,6 +48,14 @@ class DateLabels {
     assert(minute >= 0 && minute < 24 * 60, 'minute out of range: $minute');
     return _time.format(DateTime(2000, 1, 1, minute ~/ 60, minute % 60));
   }
+
+  /// "10:00" without AM or PM: S22's block times.
+  String clock(DateTime time) => _clock.format(time);
+
+  /// "16 – 22 Nov", or "30 Nov – 6 Dec" across months: S22's week.
+  String weekRange(DateTime start, DateTime end) => start.month == end.month
+      ? '${_dayMonthShort.format(start)} – ${dayMonth(end)}'
+      : '${dayMonth(start)} – ${dayMonth(end)}';
 
   /// "9 AM" on the hour, else as [time]: S10's "Tomorrow · 9 AM".
   String timeShort(int minute) => minute % 60 == 0

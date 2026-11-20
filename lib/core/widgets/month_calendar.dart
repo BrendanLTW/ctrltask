@@ -172,7 +172,10 @@ class _Day extends StatelessWidget {
         child: Opacity(
           opacity: inMonth || isSelected ? 1 : 0.55,
           child: Container(
-            height: 46,
+            // 46 high, taller with large text.
+            constraints: const BoxConstraints(minHeight: 46),
+            alignment: Alignment.center,
+            padding: const EdgeInsets.symmetric(vertical: 4),
             decoration: BoxDecoration(
               color: isSelected ? colors.ink : null,
               borderRadius: BorderRadius.circular(AppRadius.r14),
@@ -181,7 +184,7 @@ class _Day extends StatelessWidget {
                   : null,
             ),
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisSize: MainAxisSize.min,
               children: [
                 Text(
                   '${date.day}',

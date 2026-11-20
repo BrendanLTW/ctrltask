@@ -14,6 +14,7 @@ import 'package:ctrltask/core/widgets/app_shell.dart';
 import 'package:ctrltask/core/widgets/empty_state.dart';
 import 'package:ctrltask/core/widgets/section_header.dart';
 import 'package:ctrltask/core/widgets/segmented_control.dart';
+import 'package:ctrltask/features/calendar/presentation/calendar_month_view.dart';
 import 'package:ctrltask/features/home/presentation/home_providers.dart';
 import 'package:ctrltask/features/projects/domain/project.dart';
 import 'package:ctrltask/features/projects/presentation/project_providers.dart';
@@ -29,8 +30,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 
-enum _View { list, calendar }
-
 /// S19 Tasks (PRD §5.6): filter chips with live counts, tasks in date
 /// sections, and swipe actions on every row.
 class TasksScreen extends ConsumerStatefulWidget {
@@ -41,13 +40,12 @@ class TasksScreen extends ConsumerStatefulWidget {
 }
 
 class _TasksScreenState extends ConsumerState<TasksScreen> {
-  // shortcut: the Board segment (P2) comes with 5.1, the calendar with 3.3.
-  _View _view = _View.list;
-
+  // shortcut: the Board segment (P2) comes with 5.1.
   @override
   Widget build(BuildContext context) {
     final colors = context.colors;
     final l10n = context.l10n;
+    final view = ref.watch(tasksViewModeProvider);
     return Scaffold(
       backgroundColor: colors.ground,
       body: SafeArea(
@@ -96,31 +94,29 @@ class _TasksScreenState extends ConsumerState<TasksScreen> {
               padding: const EdgeInsets.symmetric(
                 horizontal: AppSpacing.screenX,
               ),
-              child: SegmentedControl<_View>(
+              child: SegmentedControl<TasksView>(
                 segments: [
-                  (value: _View.list, label: l10n.listView, icon: AppIcon.list),
                   (
-                    value: _View.calendar,
+                    value: TasksView.list,
+                    label: l10n.listView,
+                    icon: AppIcon.list,
+                  ),
+                  (
+                    value: TasksView.calendar,
                     label: l10n.calendar,
                     icon: AppIcon.calendar,
                   ),
                 ],
-                selected: _view,
-                onChanged: (view) => setState(() => _view = view),
+                selected: view,
+                onChanged: (view) =>
+                    ref.read(tasksViewModeProvider.notifier).view = view,
               ),
             ),
             const SizedBox(height: 12),
-            if (_view == _View.list)
+            if (view == TasksView.list)
               const _TaskList()
             else
-              Padding(
-                padding: const EdgeInsets.only(top: 80),
-                child: EmptyState(
-                  icon: AppIcon.calendar,
-                  title: l10n.calendar,
-                  body: l10n.calendarComingSoon,
-                ),
-              ),
+              const CalendarMonthView(),
           ],
         ),
       ),

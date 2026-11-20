@@ -762,7 +762,6 @@
   "emptyHighBody": "Urgent and High tasks show up here.",
   "emptyDoneTitle": "Nothing done yet",
   "emptyDoneBody": "Tick off a task and it shows up here.",
-  "calendarComingSoon": "The calendar is on its way.",
   "delete": "Delete",
   "nameCardDetail": "Data stored on this phone · Edit name",
   "addYourName": "Add your name",
@@ -947,5 +946,71 @@
   "startFocusing": "Start focusing",
   "breakTip": "Stand up, refill your water and look at something far away.",
   "defaultFocusLength": "Default focus length",
-  "preferencesSection": "PREFERENCES"
+  "preferencesSection": "PREFERENCES",
+  "calendarDay": "Day",
+  "calendarWeek": "Week",
+  "calendarMonth": "Month",
+  "legendPending": "Pending",
+  "legendCompleted": "Completed",
+  "legendOverdue": "Overdue",
+  "agendaHeader": "{date} · {relative}",
+  "@agendaHeader": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      },
+      "relative": {
+        "type": "String"
+      }
+    }
+  },
+  "nothingDue": "Nothing due. Tap + to plan this day",
+  "anytime": "ANYTIME",
+  "dueCounts": "{due} due{overdue, plural, =0{} other{ · {overdue} overdue}}",
+  "@dueCounts": {
+    "placeholders": {
+      "due": {
+        "type": "int"
+      },
+      "overdue": {
+        "type": "int"
+      }
+    }
+  },
+  "focusBlock": "Focus · {task}",
+  "@focusBlock": {
+    "placeholders": {
+      "task": {
+        "type": "String"
+      }
+    }
+  },
+  "focusBlockNoTask": "Focus",
+  "focusSessions": "{count, plural, =1{1 session} other{{count} sessions}}",
+  "@focusSessions": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "timeRange": "{start} – {end}",
+  "@timeRange": {
+    "placeholders": {
+      "start": {
+        "type": "String"
+      },
+      "end": {
+        "type": "String"
+      }
+    }
+  },
+  "nowLine": "Now, {time}",
+  "@nowLine": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  }
 }

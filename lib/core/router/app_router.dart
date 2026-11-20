@@ -1,4 +1,6 @@
 import 'package:ctrltask/core/widgets/app_shell.dart';
+import 'package:ctrltask/features/calendar/presentation/calendar_providers.dart';
+import 'package:ctrltask/features/calendar/presentation/calendar_week_screen.dart';
 import 'package:ctrltask/features/focus/presentation/focus_screen.dart';
 import 'package:ctrltask/features/home/presentation/home_screen.dart';
 import 'package:ctrltask/features/insights/presentation/insights_screen.dart';
@@ -20,6 +22,7 @@ import 'package:ctrltask/features/tasks/presentation/quick_add_sheet.dart';
 import 'package:ctrltask/features/tasks/presentation/search_screen.dart';
 import 'package:ctrltask/features/tasks/presentation/task_detail_screen.dart';
 import 'package:ctrltask/features/tasks/presentation/task_form_screen.dart';
+import 'package:ctrltask/features/tasks/presentation/tasks_providers.dart';
 import 'package:ctrltask/features/tasks/presentation/tasks_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -30,6 +33,7 @@ part 'app_router.g.dart';
 abstract final class Routes {
   static const home = '/home';
   static const tasks = '/tasks';
+  static String calendar(CalendarSpan span) => '/tasks/calendar/${span.name}';
   static const projects = '/projects';
   static const focus = '/focus';
   static const newTask = '/task/new';
@@ -79,12 +83,34 @@ GoRouter appRouter(Ref ref) {
           currentIndex: shell.currentIndex,
           onTabSelected: (i) =>
               shell.goBranch(i, initialLocation: i == shell.currentIndex),
-          onQuickAdd: () => showQuickAdd(context),
+          // On the calendar (S21, S22), + plans the day picked there.
+          onQuickAdd: () => showQuickAdd(
+            context,
+            date:
+                state.uri.path.startsWith(Routes.tasks) &&
+                    (state.uri.path != Routes.tasks ||
+                        ref.read(tasksViewModeProvider) == TasksView.calendar)
+                ? ref.read(calendarDayProvider)
+                : null,
+          ),
           child: shell,
         ),
         branches: [
           _branch(Routes.home, const HomeScreen()),
-          _branch(Routes.tasks, const TasksScreen()),
+          _branch(
+            Routes.tasks,
+            const TasksScreen(),
+            routes: [
+              GoRoute(
+                path: 'calendar/:span',
+                builder: (context, state) => CalendarWeekScreen(
+                  span: CalendarSpan.values.byName(
+                    state.pathParameters['span']!,
+                  ),
+                ),
+              ),
+            ],
+          ),
           _branch(Routes.projects, const ProjectsScreen()),
           _branch(Routes.focus, const FocusScreen()),
         ],
@@ -178,6 +204,12 @@ GoRouter appRouter(Ref ref) {
   return router;
 }
 
-StatefulShellBranch _branch(String path, Widget screen) => StatefulShellBranch(
-  routes: [GoRoute(path: path, builder: (context, state) => screen)],
+StatefulShellBranch _branch(
+  String path,
+  Widget screen, {
+  List<RouteBase> routes = const [],
+}) => StatefulShellBranch(
+  routes: [
+    GoRoute(path: path, builder: (context, state) => screen, routes: routes),
+  ],
 );

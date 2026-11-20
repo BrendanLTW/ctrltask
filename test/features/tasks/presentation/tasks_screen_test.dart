@@ -291,12 +291,6 @@ void main() {
     });
   });
 
-  testWidgets('Calendar shows a placeholder until 3.3', (tester) async {
-    await pump(tester);
-    await tapText(tester, 'Calendar');
-    expect(find.text('The calendar is on its way.'), findsOneWidget);
-  });
-
   for (final brightness in Brightness.values) {
     testWidgets('lays out at 200% text in ${brightness.name}', (tester) async {
       await app.pump(

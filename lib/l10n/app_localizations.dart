@@ -1708,12 +1708,6 @@ abstract class AppLocalizations {
   /// **'Tick off a task and it shows up here.'**
   String get emptyDoneBody;
 
-  /// No description provided for @calendarComingSoon.
-  ///
-  /// In en, this message translates to:
-  /// **'The calendar is on its way.'**
-  String get calendarComingSoon;
-
   /// No description provided for @delete.
   ///
   /// In en, this message translates to:
@@ -2067,6 +2061,96 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'PREFERENCES'**
   String get preferencesSection;
+
+  /// No description provided for @calendarDay.
+  ///
+  /// In en, this message translates to:
+  /// **'Day'**
+  String get calendarDay;
+
+  /// No description provided for @calendarWeek.
+  ///
+  /// In en, this message translates to:
+  /// **'Week'**
+  String get calendarWeek;
+
+  /// No description provided for @calendarMonth.
+  ///
+  /// In en, this message translates to:
+  /// **'Month'**
+  String get calendarMonth;
+
+  /// No description provided for @legendPending.
+  ///
+  /// In en, this message translates to:
+  /// **'Pending'**
+  String get legendPending;
+
+  /// No description provided for @legendCompleted.
+  ///
+  /// In en, this message translates to:
+  /// **'Completed'**
+  String get legendCompleted;
+
+  /// No description provided for @legendOverdue.
+  ///
+  /// In en, this message translates to:
+  /// **'Overdue'**
+  String get legendOverdue;
+
+  /// No description provided for @agendaHeader.
+  ///
+  /// In en, this message translates to:
+  /// **'{date} · {relative}'**
+  String agendaHeader(String date, String relative);
+
+  /// No description provided for @nothingDue.
+  ///
+  /// In en, this message translates to:
+  /// **'Nothing due. Tap + to plan this day'**
+  String get nothingDue;
+
+  /// No description provided for @anytime.
+  ///
+  /// In en, this message translates to:
+  /// **'ANYTIME'**
+  String get anytime;
+
+  /// No description provided for @dueCounts.
+  ///
+  /// In en, this message translates to:
+  /// **'{due} due{overdue, plural, =0{} other{ · {overdue} overdue}}'**
+  String dueCounts(int due, int overdue);
+
+  /// No description provided for @focusBlock.
+  ///
+  /// In en, this message translates to:
+  /// **'Focus · {task}'**
+  String focusBlock(String task);
+
+  /// No description provided for @focusBlockNoTask.
+  ///
+  /// In en, this message translates to:
+  /// **'Focus'**
+  String get focusBlockNoTask;
+
+  /// No description provided for @focusSessions.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{1 session} other{{count} sessions}}'**
+  String focusSessions(int count);
+
+  /// No description provided for @timeRange.
+  ///
+  /// In en, this message translates to:
+  /// **'{start} – {end}'**
+  String timeRange(String start, String end);
+
+  /// No description provided for @nowLine.
+  ///
+  /// In en, this message translates to:
+  /// **'Now, {time}'**
+  String nowLine(String time);
 }
 
 class _AppLocalizationsDelegate
