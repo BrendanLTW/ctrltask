@@ -57,6 +57,9 @@ void main() {
         'Data stored on this phone · Edit name',
         'PRODUCTIVITY INSIGHTS',
         '3-day streak · 3 tasks done',
+        'PREFERENCES',
+        'Default focus length',
+        '25 min',
         'MANAGE',
         'Archived projects',
         '2',
@@ -66,7 +69,6 @@ void main() {
       }
       // Hidden until their screens exist.
       for (final text in [
-        'PREFERENCES',
         'Theme',
         'Notifications',
         'Tags',

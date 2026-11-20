@@ -64,6 +64,15 @@ void main() {
       expect(timer.taskId, 7, reason: 'kept for the next focus session');
     });
 
+    test('finished keeps what ran and is not saved twice', () {
+      final done = const FocusTimer().start(t0).finished(at(1500));
+      expect(done.phase, TimerPhase.done);
+      expect(done.elapsedSec(at(9999)), 1500);
+      expect(done.isDone(at(9999)), isFalse, reason: 'already handled');
+      expect(done.ended(at(9999)), isNull);
+      expect(done.start(at(9999)), done, reason: 'Start moves on instead');
+    });
+
     test('reset keeps the mode and task', () {
       final reset = const FocusTimer(
         kind: FocusKind.long,

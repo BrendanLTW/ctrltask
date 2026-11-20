@@ -1,28 +1,35 @@
 import 'package:ctrltask/core/theme/app_colors.dart';
 import 'package:ctrltask/core/theme/app_typography.dart';
+import 'package:ctrltask/core/theme/project_palette.dart';
 import 'package:ctrltask/core/widgets/app_icon.dart';
 import 'package:ctrltask/core/widgets/progress_ring.dart';
 import 'package:ctrltask/features/focus/domain/focus_session.dart';
 import 'package:ctrltask/features/focus/domain/focus_timer.dart';
+import 'package:ctrltask/features/projects/domain/project_keys.dart';
 import 'package:ctrltask/l10n/l10n.dart';
 import 'package:flutter/material.dart';
 
-/// "18:42": minutes and seconds left.
-String clockText(int seconds) =>
-    '${seconds ~/ 60}:${'${seconds % 60}'.padLeft(2, '0')}';
+/// "18:42" or "05:00": minutes and seconds left, as S30 and S33 show.
+String clockText(int seconds) {
+  String two(int n) => '$n'.padLeft(2, '0');
+  return '${two(seconds ~/ 60)}:${two(seconds % 60)}';
+}
 
 /// The phase S30 shows above the time, in sentence case.
-String phaseLabel(AppLocalizations l10n, FocusTimer timer) =>
-    switch (timer.phase) {
-      TimerPhase.idle => l10n.phaseReady,
-      TimerPhase.paused => l10n.phasePaused,
-      TimerPhase.running when timer.kind == FocusKind.focus =>
-        l10n.phaseFocusing,
-      TimerPhase.running => l10n.phaseBreak,
-    };
+String phaseLabel(
+  AppLocalizations l10n,
+  FocusTimer timer,
+) => switch (timer.phase) {
+  TimerPhase.idle => l10n.phaseReady,
+  TimerPhase.paused => l10n.phasePaused,
+  TimerPhase.running when timer.kind == FocusKind.focus => l10n.phaseFocusing,
+  TimerPhase.running => l10n.phaseBreak,
+  TimerPhase.done when timer.kind == FocusKind.focus => l10n.sessionComplete,
+  TimerPhase.done => l10n.phaseBreakOver,
+};
 
 /// S30's ring: elapsed time as the arc, the phase, the time left and
-/// where the session sits in the round. Breaks draw in `positive`.
+/// where the session sits in the round. Breaks draw in green.
 class FocusRing extends StatelessWidget {
   const new({
     required this.timer,
@@ -51,7 +58,9 @@ class FocusRing extends StatelessWidget {
       value: timer.elapsedSec(now) / timer.plannedSec,
       size: 270,
       stroke: 14,
-      color: isBreak ? colors.positive : colors.ink,
+      color: isBreak
+          ? context.projectColors.of(ProjectColorKey.green).solid
+          : colors.ink,
       trackColor: colors.raised,
       // Read on focus only; phase changes are announced by the screen.
       semanticLabel: [
@@ -126,6 +135,8 @@ class FocusControls extends StatelessWidget {
             TimerPhase.idle => l10n.startTimer,
             TimerPhase.running => l10n.pauseTimer,
             TimerPhase.paused => l10n.resumeTimer,
+            // Only a break shows its controls once over (S33).
+            TimerPhase.done => l10n.startFocusing,
           },
           style: IconButton.styleFrom(
             fixedSize: const Size(80, 80),

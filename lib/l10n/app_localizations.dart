@@ -1899,6 +1899,174 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Start a focus session'**
   String get startFocusSession;
+
+  /// No description provided for @timerSettings.
+  ///
+  /// In en, this message translates to:
+  /// **'Timer settings'**
+  String get timerSettings;
+
+  /// No description provided for @durationsSection.
+  ///
+  /// In en, this message translates to:
+  /// **'DURATIONS'**
+  String get durationsSection;
+
+  /// No description provided for @behaviourSection.
+  ///
+  /// In en, this message translates to:
+  /// **'BEHAVIOUR'**
+  String get behaviourSection;
+
+  /// No description provided for @focusLength.
+  ///
+  /// In en, this message translates to:
+  /// **'Focus'**
+  String get focusLength;
+
+  /// No description provided for @focusLengthDetail.
+  ///
+  /// In en, this message translates to:
+  /// **'Deep work block'**
+  String get focusLengthDetail;
+
+  /// No description provided for @shortBreak.
+  ///
+  /// In en, this message translates to:
+  /// **'Short break'**
+  String get shortBreak;
+
+  /// No description provided for @shortBreakDetail.
+  ///
+  /// In en, this message translates to:
+  /// **'Between sessions'**
+  String get shortBreakDetail;
+
+  /// No description provided for @longBreak.
+  ///
+  /// In en, this message translates to:
+  /// **'Long break'**
+  String get longBreak;
+
+  /// No description provided for @longBreakDetail.
+  ///
+  /// In en, this message translates to:
+  /// **'After a full round'**
+  String get longBreakDetail;
+
+  /// No description provided for @sessionsPerRound.
+  ///
+  /// In en, this message translates to:
+  /// **'Sessions per round'**
+  String get sessionsPerRound;
+
+  /// No description provided for @sessionsPerRoundDetail.
+  ///
+  /// In en, this message translates to:
+  /// **'Then a long break'**
+  String get sessionsPerRoundDetail;
+
+  /// No description provided for @minutesValue.
+  ///
+  /// In en, this message translates to:
+  /// **'{minutes} min'**
+  String minutesValue(int minutes);
+
+  /// No description provided for @autoStartBreaks.
+  ///
+  /// In en, this message translates to:
+  /// **'Start breaks automatically'**
+  String get autoStartBreaks;
+
+  /// No description provided for @autoStartNext.
+  ///
+  /// In en, this message translates to:
+  /// **'Start next session automatically'**
+  String get autoStartNext;
+
+  /// No description provided for @silenceWhileFocusing.
+  ///
+  /// In en, this message translates to:
+  /// **'Silence notifications while focusing'**
+  String get silenceWhileFocusing;
+
+  /// No description provided for @saveAsDefault.
+  ///
+  /// In en, this message translates to:
+  /// **'Save as default'**
+  String get saveAsDefault;
+
+  /// No description provided for @sessionComplete.
+  ///
+  /// In en, this message translates to:
+  /// **'Session complete'**
+  String get sessionComplete;
+
+  /// No description provided for @minutesOn.
+  ///
+  /// In en, this message translates to:
+  /// **'{minutes} min on {task}'**
+  String minutesOn(int minutes, String task);
+
+  /// No description provided for @minutesOfFocus.
+  ///
+  /// In en, this message translates to:
+  /// **'{minutes} min of focus'**
+  String minutesOfFocus(int minutes);
+
+  /// No description provided for @focusTodayRound.
+  ///
+  /// In en, this message translates to:
+  /// **'Today {time} focused · {left, plural, =0{long break next} =1{one more for a long break} other{{left} more for a long break}}'**
+  String focusTodayRound(String time, int left);
+
+  /// No description provided for @startBreak.
+  ///
+  /// In en, this message translates to:
+  /// **'Start {minutes}-min break'**
+  String startBreak(int minutes);
+
+  /// No description provided for @skipBreak.
+  ///
+  /// In en, this message translates to:
+  /// **'Skip break'**
+  String get skipBreak;
+
+  /// No description provided for @markTaskDone.
+  ///
+  /// In en, this message translates to:
+  /// **'Mark task done'**
+  String get markTaskDone;
+
+  /// No description provided for @phaseBreakOver.
+  ///
+  /// In en, this message translates to:
+  /// **'Break over'**
+  String get phaseBreakOver;
+
+  /// No description provided for @startFocusing.
+  ///
+  /// In en, this message translates to:
+  /// **'Start focusing'**
+  String get startFocusing;
+
+  /// No description provided for @breakTip.
+  ///
+  /// In en, this message translates to:
+  /// **'Stand up, refill your water and look at something far away.'**
+  String get breakTip;
+
+  /// No description provided for @defaultFocusLength.
+  ///
+  /// In en, this message translates to:
+  /// **'Default focus length'**
+  String get defaultFocusLength;
+
+  /// No description provided for @preferencesSection.
+  ///
+  /// In en, this message translates to:
+  /// **'PREFERENCES'**
+  String get preferencesSection;
 }
 
 class _AppLocalizationsDelegate

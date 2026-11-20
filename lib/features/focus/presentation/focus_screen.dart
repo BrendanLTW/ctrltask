@@ -16,6 +16,8 @@ import 'package:ctrltask/features/focus/domain/focus_timer.dart';
 import 'package:ctrltask/features/focus/presentation/focus_controller.dart';
 import 'package:ctrltask/features/focus/presentation/focus_task_picker.dart';
 import 'package:ctrltask/features/focus/presentation/focus_timer_view.dart';
+import 'package:ctrltask/features/focus/presentation/session_complete.dart';
+import 'package:ctrltask/features/focus/presentation/timer_settings_sheet.dart';
 import 'package:ctrltask/features/home/presentation/home_providers.dart';
 import 'package:ctrltask/features/projects/domain/project.dart';
 import 'package:ctrltask/features/projects/domain/project_keys.dart';
@@ -23,6 +25,7 @@ import 'package:ctrltask/features/projects/presentation/project_providers.dart';
 import 'package:ctrltask/features/settings/domain/preferences.dart';
 import 'package:ctrltask/features/settings/domain/preferences_repository.dart';
 import 'package:ctrltask/features/tasks/domain/task.dart';
+import 'package:ctrltask/features/tasks/presentation/task_completion.dart';
 import 'package:ctrltask/l10n/date_text.dart';
 import 'package:ctrltask/l10n/l10n.dart';
 import 'package:flutter/material.dart';
@@ -89,12 +92,69 @@ class _FocusScreenState extends ConsumerState<FocusScreen> {
       }
     });
 
-    final todayLine = l10n.focusTodayLine(
-      l10n.durationLabel(focused),
-      prefs.sessionsPerRound,
-    );
+    final task = (ref.watch(allTasksProvider).value ?? const <Task>[])
+        .where((t) => t.id == timer.taskId)
+        .firstOrNull;
+    final complete =
+        timer.kind == FocusKind.focus && timer.phase == TimerPhase.done;
     final time = l10n.durationLabel(focused);
+    final todayLine = complete
+        ? l10n.focusTodayRound(time, prefs.sessionsPerRound - round.done)
+        : l10n.focusTodayLine(time, prefs.sessionsPerRound);
     final at = todayLine.indexOf(time);
+    final footer = Column(
+      children: [
+        Semantics(
+          label: l10n.sessionDots(round.done, prefs.sessionsPerRound),
+          excludeSemantics: true,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              for (var i = 0; i < prefs.sessionsPerRound; i++)
+                Container(
+                  width: 10,
+                  height: 10,
+                  margin: const EdgeInsets.symmetric(horizontal: 4),
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: i < round.done ? colors.ink : colors.control,
+                  ),
+                ),
+            ],
+          ),
+        ),
+        const SizedBox(height: 10),
+        Text.rich(
+          TextSpan(
+            children: [
+              TextSpan(text: todayLine.substring(0, at)),
+              TextSpan(
+                text: time,
+                style: TextStyle(
+                  color: colors.ink,
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
+              TextSpan(text: todayLine.substring(at + time.length)),
+            ],
+          ),
+          textAlign: TextAlign.center,
+          style: text.subline.copyWith(color: colors.muted),
+        ),
+      ],
+    );
+
+    Widget headerButton(AppIcon icon, String tooltip, VoidCallback onTap) =>
+        IconButton(
+          onPressed: onTap,
+          tooltip: tooltip,
+          style: IconButton.styleFrom(
+            fixedSize: const Size(48, 48),
+            backgroundColor: colors.raised,
+            foregroundColor: colors.ink,
+          ),
+          icon: AppIconView(icon, size: 22),
+        );
 
     return Scaffold(
       backgroundColor: colors.ground,
@@ -120,107 +180,101 @@ class _FocusScreenState extends ConsumerState<FocusScreen> {
                     ),
                   ),
                 ),
-                // shortcut: opens the Insights placeholder until 3.10; the
-                // S31 settings button comes with 3.2.
-                IconButton(
-                  onPressed: () => unawaited(context.push(Routes.insights)),
-                  tooltip: l10n.focusStats,
-                  style: IconButton.styleFrom(
-                    fixedSize: const Size(48, 48),
-                    backgroundColor: colors.raised,
-                    foregroundColor: colors.ink,
-                  ),
-                  icon: const AppIconView(AppIcon.chart, size: 22),
+                // shortcut: opens the Insights placeholder until 3.10.
+                headerButton(
+                  AppIcon.chart,
+                  l10n.focusStats,
+                  () => unawaited(context.push(Routes.insights)),
+                ),
+                const SizedBox(width: 12),
+                headerButton(
+                  AppIcon.sliders,
+                  l10n.timerSettings,
+                  () => unawaited(showTimerSettings(context)),
                 ),
               ],
             ),
-            const SizedBox(height: 12),
-            SegmentedControl<FocusKind>(
-              segments: [
-                (
-                  value: FocusKind.focus,
-                  label: l10n.focusModeFocus(prefs.focusMin),
-                  icon: null,
-                ),
-                (
-                  value: FocusKind.short,
-                  label: l10n.focusModeShort(prefs.shortMin),
-                  icon: null,
-                ),
-                (
-                  value: FocusKind.long,
-                  label: l10n.focusModeLong(prefs.longMin),
-                  icon: null,
-                ),
-              ],
-              selected: timer.kind,
-              onChanged: (kind) => unawaited(controller.selectMode(kind)),
-            ),
-            const SizedBox(height: 12),
-            _WorkingOn(
-              taskId: timer.taskId,
-              onChange: () async {
-                final pick = await showFocusTaskPicker(
-                  context,
-                  current: timer.taskId,
-                );
-                if (pick != null) await controller.link(pick.taskId);
-              },
-            ),
-            const SizedBox(height: 36),
-            Center(
-              child: FocusRing(
-                timer: timer,
-                now: now,
-                session: round.session,
-                perRound: prefs.sessionsPerRound,
-              ),
-            ),
-            const SizedBox(height: 36),
-            FocusControls(
-              phase: timer.phase,
-              onToggle: () => unawaited(controller.toggle()),
-              onReset: () => unawaited(controller.reset()),
-              onFinish: () => unawaited(controller.finish()),
-            ),
-            const SizedBox(height: 24),
-            Semantics(
-              label: l10n.sessionDots(round.done, prefs.sessionsPerRound),
-              excludeSemantics: true,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  for (var i = 0; i < prefs.sessionsPerRound; i++)
-                    Container(
-                      width: 10,
-                      height: 10,
-                      margin: const EdgeInsets.symmetric(horizontal: 4),
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: i < round.done ? colors.ink : colors.control,
+            if (complete) ...[
+              const SizedBox(height: 32),
+              SessionComplete(
+                minutes: (timer.bankedSec / 60).round(),
+                taskTitle: task?.title,
+                breakMinutes: round.longBreakNext
+                    ? prefs.longMin
+                    : prefs.shortMin,
+                footer: footer,
+                onStartBreak: () => unawaited(controller.startBreak()),
+                onSkipBreak: () => unawaited(controller.skipBreak()),
+                onMarkDone: task == null || task.status != TaskStatus.open
+                    ? null
+                    : () => unawaited(
+                        setTaskDone(context, ref, task, done: true),
                       ),
-                    ),
-                ],
               ),
-            ),
-            const SizedBox(height: 10),
-            Text.rich(
-              TextSpan(
-                children: [
-                  TextSpan(text: todayLine.substring(0, at)),
-                  TextSpan(
-                    text: time,
-                    style: TextStyle(
-                      color: colors.ink,
-                      fontWeight: FontWeight.w700,
-                    ),
+            ] else ...[
+              const SizedBox(height: 12),
+              SegmentedControl<FocusKind>(
+                segments: [
+                  (
+                    value: FocusKind.focus,
+                    label: l10n.focusModeFocus(prefs.focusMin),
+                    icon: null,
                   ),
-                  TextSpan(text: todayLine.substring(at + time.length)),
+                  (
+                    value: FocusKind.short,
+                    label: l10n.focusModeShort(prefs.shortMin),
+                    icon: null,
+                  ),
+                  (
+                    value: FocusKind.long,
+                    label: l10n.focusModeLong(prefs.longMin),
+                    icon: null,
+                  ),
                 ],
+                selected: timer.kind,
+                onChanged: (kind) => unawaited(controller.selectMode(kind)),
               ),
-              textAlign: TextAlign.center,
-              style: text.subline.copyWith(color: colors.muted),
-            ),
+              const SizedBox(height: 12),
+              if (timer.kind == FocusKind.focus)
+                _WorkingOn(
+                  task: task,
+                  onChange: () async {
+                    final pick = await showFocusTaskPicker(
+                      context,
+                      current: timer.taskId,
+                    );
+                    if (pick != null) await controller.link(pick.taskId);
+                  },
+                )
+              else
+                const _BreakTip(),
+              const SizedBox(height: 36),
+              Center(
+                child: FocusRing(
+                  timer: timer,
+                  now: now,
+                  session: round.session,
+                  perRound: prefs.sessionsPerRound,
+                ),
+              ),
+              const SizedBox(height: 36),
+              FocusControls(
+                phase: timer.phase,
+                onToggle: () => unawaited(controller.toggle()),
+                onReset: () => unawaited(controller.reset()),
+                // On a break, Finish ends it and starts focusing (S33).
+                onFinish: () => unawaited(
+                  timer.kind == FocusKind.focus
+                      ? controller.finish()
+                      : controller.endBreak(),
+                ),
+              ),
+              // A break shows no round below its controls (S33).
+              if (timer.kind == FocusKind.focus) ...[
+                const SizedBox(height: 24),
+                footer,
+              ],
+            ],
           ],
         ),
       ),
@@ -228,11 +282,44 @@ class _FocusScreenState extends ConsumerState<FocusScreen> {
   }
 }
 
+/// S33's tip card, in place of Working on during a break.
+class _BreakTip extends StatelessWidget {
+  const new();
+
+  @override
+  Widget build(BuildContext context) {
+    final colors = context.colors;
+    return Container(
+      padding: const EdgeInsets.all(12),
+      decoration: BoxDecoration(
+        color: colors.surface,
+        borderRadius: BorderRadius.circular(AppRadius.r28),
+      ),
+      child: Row(
+        children: [
+          const IconTile(
+            icon: AppIcon.coffee,
+            color: ProjectColorKey.green,
+            size: IconTileSize.medium,
+          ),
+          const SizedBox(width: 12),
+          Expanded(
+            child: Text(
+              context.l10n.breakTip,
+              style: context.text.body.copyWith(color: colors.ink),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
 /// "WORKING ON" with the linked task in its project's tile, and Change.
 class _WorkingOn extends ConsumerWidget {
-  const new({required this.taskId, required this.onChange});
+  const new({required this.task, required this.onChange});
 
-  final int? taskId;
+  final Task? task;
   final VoidCallback onChange;
 
   @override
@@ -240,9 +327,6 @@ class _WorkingOn extends ConsumerWidget {
     final colors = context.colors;
     final text = context.text;
     final l10n = context.l10n;
-    final task = (ref.watch(allTasksProvider).value ?? const <Task>[])
-        .where((t) => t.id == taskId)
-        .firstOrNull;
     final project = (ref.watch(activeProjectsProvider).value ?? <Project>[])
         .where((p) => p.id == task?.projectId)
         .firstOrNull;

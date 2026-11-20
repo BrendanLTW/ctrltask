@@ -13,6 +13,7 @@ import 'package:ctrltask/core/widgets/list_group.dart';
 import 'package:ctrltask/core/widgets/name_avatar.dart';
 import 'package:ctrltask/core/widgets/section_header.dart';
 import 'package:ctrltask/core/widgets/sub_screen_bar.dart';
+import 'package:ctrltask/features/focus/presentation/timer_settings_sheet.dart';
 import 'package:ctrltask/features/home/presentation/home_providers.dart';
 import 'package:ctrltask/features/projects/domain/project_keys.dart';
 import 'package:ctrltask/features/projects/presentation/project_providers.dart';
@@ -25,8 +26,8 @@ import 'package:go_router/go_router.dart';
 
 /// S35 Settings (PRD §5.10): the name card, the insights banner, and the
 /// rows whose screens exist so far.
-// shortcut: Preferences (Theme, Week starts on, Default priority 3.9,
-// Default focus length 3.1, Notifications 3.8), Tags (3.6), Export data
+// shortcut: the other Preferences (Theme, Week starts on, Default priority
+// 3.9, Notifications 3.8), Tags (3.6), Export data
 // (3.11) and Erase all data (3.12) appear with their screens; Backup &
 // restore is v1.1.
 class SettingsScreen extends ConsumerWidget {
@@ -37,7 +38,8 @@ class SettingsScreen extends ConsumerWidget {
     final colors = context.colors;
     final text = context.text;
     final l10n = context.l10n;
-    final name = ref.watch(preferencesProvider).value?.userName ?? '';
+    final prefs = ref.watch(preferencesProvider).value;
+    final name = prefs?.userName ?? '';
     final done = ref.watch(doneTasksProvider).value ?? const [];
     final archived = ref.watch(archivedProjectsProvider).value ?? const [];
     final now = ref.watch(clockProvider)();
@@ -161,6 +163,21 @@ class SettingsScreen extends ConsumerWidget {
                         ),
                       ),
                     ),
+                  ),
+                  SectionHeader(l10n.preferencesSection),
+                  ListGroup(
+                    children: [
+                      ListGroupRow(
+                        title: l10n.defaultFocusLength,
+                        value: l10n.minutesValue(prefs?.focusMin ?? 25),
+                        leading: const IconTile(
+                          icon: AppIcon.timer,
+                          color: ProjectColorKey.green,
+                          size: IconTileSize.medium,
+                        ),
+                        onTap: () => unawaited(showTimerSettings(context)),
+                      ),
+                    ],
                   ),
                   SectionHeader(l10n.manageSection),
                   ListGroup(

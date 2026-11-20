@@ -878,5 +878,74 @@
       }
     }
   },
-  "startFocusSession": "Start a focus session"
+  "startFocusSession": "Start a focus session",
+  "timerSettings": "Timer settings",
+  "durationsSection": "DURATIONS",
+  "behaviourSection": "BEHAVIOUR",
+  "focusLength": "Focus",
+  "focusLengthDetail": "Deep work block",
+  "shortBreak": "Short break",
+  "shortBreakDetail": "Between sessions",
+  "longBreak": "Long break",
+  "longBreakDetail": "After a full round",
+  "sessionsPerRound": "Sessions per round",
+  "sessionsPerRoundDetail": "Then a long break",
+  "minutesValue": "{minutes} min",
+  "@minutesValue": {
+    "placeholders": {
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
+  "autoStartBreaks": "Start breaks automatically",
+  "autoStartNext": "Start next session automatically",
+  "silenceWhileFocusing": "Silence notifications while focusing",
+  "saveAsDefault": "Save as default",
+  "sessionComplete": "Session complete",
+  "minutesOn": "{minutes} min on {task}",
+  "@minutesOn": {
+    "placeholders": {
+      "minutes": {
+        "type": "int"
+      },
+      "task": {
+        "type": "String"
+      }
+    }
+  },
+  "minutesOfFocus": "{minutes} min of focus",
+  "@minutesOfFocus": {
+    "placeholders": {
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
+  "focusTodayRound": "Today {time} focused · {left, plural, =0{long break next} =1{one more for a long break} other{{left} more for a long break}}",
+  "@focusTodayRound": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      },
+      "left": {
+        "type": "int"
+      }
+    }
+  },
+  "startBreak": "Start {minutes}-min break",
+  "@startBreak": {
+    "placeholders": {
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
+  "skipBreak": "Skip break",
+  "markTaskDone": "Mark task done",
+  "phaseBreakOver": "Break over",
+  "startFocusing": "Start focusing",
+  "breakTip": "Stand up, refill your water and look at something far away.",
+  "defaultFocusLength": "Default focus length",
+  "preferencesSection": "PREFERENCES"
 }

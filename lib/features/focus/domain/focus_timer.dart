@@ -5,7 +5,9 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'focus_timer.freezed.dart';
 
-enum TimerPhase { idle, running, paused }
+/// [done]: the session has ended and is saved, and waits for the next
+/// step (S32 Session complete, or S33's Break over).
+enum TimerPhase { idle, running, paused, done }
 
 /// A session as it's saved once it ends.
 typedef EndedSession = ({
@@ -53,9 +55,10 @@ abstract class FocusTimer with _$FocusTimer {
 
   int remainingSec(DateTime now) => plannedSec - elapsedSec(now);
 
-  /// Whether a started session has run its full length.
+  /// Whether a session under way has run its full length.
   bool isDone(DateTime now) =>
-      phase != TimerPhase.idle && elapsedSec(now) >= plannedSec;
+      (phase == TimerPhase.running || phase == TimerPhase.paused) &&
+      elapsedSec(now) >= plannedSec;
 
   /// Starts an idle timer, or resumes a paused one.
   FocusTimer start(DateTime now) => switch (phase) {
@@ -66,7 +69,7 @@ abstract class FocusTimer with _$FocusTimer {
       bankedSec: 0,
     ),
     TimerPhase.paused => copyWith(phase: TimerPhase.running, runningSince: now),
-    TimerPhase.running => this,
+    TimerPhase.running || TimerPhase.done => this,
   };
 
   FocusTimer pause(DateTime now) => phase != TimerPhase.running
@@ -76,6 +79,13 @@ abstract class FocusTimer with _$FocusTimer {
           bankedSec: elapsedSec(now),
           runningSince: null,
         );
+
+  /// Ended at [now], keeping what ran for S32's "25 min on …".
+  FocusTimer finished(DateTime now) => copyWith(
+    phase: TimerPhase.done,
+    bankedSec: elapsedSec(now),
+    runningSince: null,
+  );
 
   /// Back to the start of the same session, keeping the mode and task.
   FocusTimer reset() => copyWith(
@@ -89,9 +99,10 @@ abstract class FocusTimer with _$FocusTimer {
   FocusTimer next(FocusKind kind, int plannedSec) =>
       reset().copyWith(kind: kind, plannedSec: plannedSec);
 
-  /// The session to save when it ends at [now]; null if it never started.
+  /// The session to save when it ends at [now]; null if it never started
+  /// or is already saved.
   EndedSession? ended(DateTime now) => switch (startedAt) {
-    final started? => (
+    final started? when phase != TimerPhase.done => (
       kind: kind,
       plannedSec: plannedSec,
       startedAt: started,
@@ -100,7 +111,7 @@ abstract class FocusTimer with _$FocusTimer {
       taskId: kind == FocusKind.focus ? taskId : null,
       completed: elapsedSec(now) >= plannedSec,
     ),
-    null => null,
+    _ => null,
   };
 }
 

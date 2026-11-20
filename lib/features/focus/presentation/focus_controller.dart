@@ -70,10 +70,16 @@ class FocusController extends _$FocusController {
     }
   }
 
-  /// Start, Pause or Resume.
-  Future<void> toggle() {
+  /// Start, Pause or Resume; on a finished session, the next step:
+  /// the break after focus (S32), focus after a break (S33).
+  Future<void> toggle() async {
     final timer = _timer;
-    return _save(
+    if (timer.phase == TimerPhase.done) {
+      return timer.kind == FocusKind.focus
+          ? await startBreak()
+          : await _startFocus();
+    }
+    await _save(
       timer.phase == TimerPhase.running ? timer.pause(_now) : timer.start(_now),
     );
   }
@@ -91,32 +97,52 @@ class FocusController extends _$FocusController {
     await _save(_timer.next(kind, plannedFor(kind, _prefs)));
   }
 
-  /// Ends the session, saving it, and readies the next phase: a break
-  /// after focus (long once the round is done), focus after a break.
-  // shortcut: S32 Session complete and auto-start come with 3.2.
+  /// Ends the session and saves it. After focus: S32, or the break at
+  /// once with "Start breaks automatically". After a break: Break over, or
+  /// the next session with "Start next session automatically" (§6.6).
   Future<void> finish() async {
     final timer = _timer;
-    if (timer.phase == TimerPhase.idle) return;
-    await _endCurrent();
-    final FocusKind next;
-    if (timer.kind == FocusKind.focus) {
-      final today = ref.read(clockProvider)();
-      final sessions = await ref
-          .read(focusSessionRepositoryProvider)
-          .watchStartedBetween(today, today)
-          .first;
-      next =
-          roundProgress(
-            sessions,
-            perRound: _prefs.sessionsPerRound,
-          ).longBreakNext
-          ? FocusKind.long
-          : FocusKind.short;
-    } else {
-      next = FocusKind.focus;
+    if (timer.phase == TimerPhase.idle || timer.phase == TimerPhase.done) {
+      return;
     }
-    await _save(timer.next(next, plannedFor(next, _prefs)));
+    await _endCurrent();
+    if (timer.kind == FocusKind.focus) {
+      if (_prefs.autoStartBreaks) return await startBreak();
+    } else if (_prefs.autoStartNext) {
+      return await _startFocus();
+    }
+    await _save(timer.finished(_now));
   }
+
+  /// S33's Finish: ends the break, saving it, and starts focusing.
+  Future<void> endBreak() async {
+    await _endCurrent();
+    await _startFocus();
+  }
+
+  /// S32's Start break: short, or long once the round is done.
+  Future<void> startBreak() async {
+    final today = ref.read(clockProvider)();
+    final sessions = await ref
+        .read(focusSessionRepositoryProvider)
+        .watchStartedBetween(today, today)
+        .first;
+    final kind =
+        roundProgress(sessions, perRound: _prefs.sessionsPerRound).longBreakNext
+        ? FocusKind.long
+        : FocusKind.short;
+    await _save(_timer.next(kind, plannedFor(kind, _prefs)).start(_now));
+  }
+
+  /// S32's Skip break: the next focus session, ready to start.
+  Future<void> skipBreak() =>
+      _save(_timer.next(FocusKind.focus, plannedFor(FocusKind.focus, _prefs)));
+
+  Future<void> _startFocus() => _save(
+    _timer
+        .next(FocusKind.focus, plannedFor(FocusKind.focus, _prefs))
+        .start(_now),
+  );
 
   Preferences get _prefs =>
       ref.read(preferencesProvider).value ?? const Preferences();

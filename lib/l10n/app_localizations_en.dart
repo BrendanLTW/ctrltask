@@ -1167,4 +1167,106 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get startFocusSession => 'Start a focus session';
+
+  @override
+  String get timerSettings => 'Timer settings';
+
+  @override
+  String get durationsSection => 'DURATIONS';
+
+  @override
+  String get behaviourSection => 'BEHAVIOUR';
+
+  @override
+  String get focusLength => 'Focus';
+
+  @override
+  String get focusLengthDetail => 'Deep work block';
+
+  @override
+  String get shortBreak => 'Short break';
+
+  @override
+  String get shortBreakDetail => 'Between sessions';
+
+  @override
+  String get longBreak => 'Long break';
+
+  @override
+  String get longBreakDetail => 'After a full round';
+
+  @override
+  String get sessionsPerRound => 'Sessions per round';
+
+  @override
+  String get sessionsPerRoundDetail => 'Then a long break';
+
+  @override
+  String minutesValue(int minutes) {
+    return '$minutes min';
+  }
+
+  @override
+  String get autoStartBreaks => 'Start breaks automatically';
+
+  @override
+  String get autoStartNext => 'Start next session automatically';
+
+  @override
+  String get silenceWhileFocusing => 'Silence notifications while focusing';
+
+  @override
+  String get saveAsDefault => 'Save as default';
+
+  @override
+  String get sessionComplete => 'Session complete';
+
+  @override
+  String minutesOn(int minutes, String task) {
+    return '$minutes min on $task';
+  }
+
+  @override
+  String minutesOfFocus(int minutes) {
+    return '$minutes min of focus';
+  }
+
+  @override
+  String focusTodayRound(String time, int left) {
+    String _temp0 = intl.Intl.pluralLogic(
+      left,
+      locale: localeName,
+      other: '$left more for a long break',
+      one: 'one more for a long break',
+      zero: 'long break next',
+    );
+    return 'Today $time focused · $_temp0';
+  }
+
+  @override
+  String startBreak(int minutes) {
+    return 'Start $minutes-min break';
+  }
+
+  @override
+  String get skipBreak => 'Skip break';
+
+  @override
+  String get markTaskDone => 'Mark task done';
+
+  @override
+  String get phaseBreakOver => 'Break over';
+
+  @override
+  String get startFocusing => 'Start focusing';
+
+  @override
+  String get breakTip =>
+      'Stand up, refill your water and look at something far away.';
+
+  @override
+  String get defaultFocusLength => 'Default focus length';
+
+  @override
+  String get preferencesSection => 'PREFERENCES';
 }

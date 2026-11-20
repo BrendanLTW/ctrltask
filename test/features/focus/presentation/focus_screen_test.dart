@@ -118,10 +118,15 @@ void main() {
       (session.kind, session.elapsedSec, session.taskId, session.completed),
       (FocusKind.focus, 600, 1, false),
     );
-    expect(saved().kind, FocusKind.short);
-    expect(find.text('5:00'), findsOneWidget);
+    // Breaks start by themselves by default (S31).
+    expect(
+      (saved().kind, saved().phase, saved().taskId),
+      (FocusKind.short, TimerPhase.running, 1),
+    );
+    expect(find.text('ON A BREAK'), findsOneWidget);
     expect(find.text('Next: session 2 of 4'), findsOneWidget);
-    expect(find.text('Finish Q4 revenue slides'), findsOneWidget);
+    expect(find.text(breakTip), findsOneWidget);
+    await tap(tester, 'Pause');
   });
 
   testWidgets('a session that runs out saves itself as completed', (
@@ -133,7 +138,7 @@ void main() {
     final session = app.sessions.value.single;
     expect((session.elapsedSec, session.completed), (1500, true));
     expect(saved().kind, FocusKind.short);
-    expect(find.textContaining('Today 25m focused'), findsOneWidget);
+    await tap(tester, 'Pause');
   });
 
   testWidgets('after a full round the break is long', (tester) async {
@@ -153,7 +158,8 @@ void main() {
     await tap(tester, 'Start');
     await wait(tester, const Duration(minutes: 25));
     expect(saved().kind, FocusKind.long);
-    expect(find.text('15:00'), findsOneWidget);
+    expect(find.text('15:00'), findsOneWidget, reason: 'just started');
+    await tap(tester, 'Pause');
   });
 
   testWidgets('reopened after it ran out, it saves at full length', (
@@ -169,6 +175,7 @@ void main() {
     final session = app.sessions.value.single;
     expect((session.elapsedSec, session.completed), (1500, true));
     expect(saved().kind, FocusKind.short);
+    await tap(tester, 'Pause');
   });
 
   testWidgets('Reset starts the session over and saves nothing', (
@@ -279,3 +286,5 @@ void main() {
 }
 
 final today = DateTime(2026, 11, 17);
+
+const breakTip = 'Stand up, refill your water and look at something far away.';

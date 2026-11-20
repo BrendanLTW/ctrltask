@@ -33,6 +33,10 @@ void main() {
     await repo.save(timer);
     expect(await repo.watch().first, timer);
 
+    final done = timer.finished(DateTime.utc(2026, 11, 17, 2));
+    await repo.save(done);
+    expect(await repo.watch().first, done);
+
     // Clearing a field removes its key.
     await repo.save(timer.reset());
     expect(await repo.watch().first, timer.reset());
