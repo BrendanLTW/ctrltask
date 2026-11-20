@@ -28,6 +28,7 @@ import 'package:ctrltask/features/tasks/domain/task_details.dart';
 import 'package:ctrltask/features/tasks/domain/task_list.dart';
 import 'package:ctrltask/features/tasks/domain/task_priority.dart';
 import 'package:ctrltask/features/tasks/domain/task_repository.dart';
+import 'package:ctrltask/features/tasks/presentation/search_screen.dart';
 import 'package:ctrltask/features/tasks/presentation/tasks_screen.dart';
 import 'package:ctrltask/l10n/date_text.dart';
 import 'package:ctrltask/l10n/l10n.dart';
@@ -372,11 +373,8 @@ void main() {
     await pumpHome(tester);
     await tester.tap(find.byTooltip('Search tasks'));
     await tester.pumpAndSettle();
-    expect(
-      find.descendant(of: find.byType(AppBar), matching: find.text('Search')),
-      findsOneWidget,
-    );
-    await tester.tap(find.byType(BackButton));
+    expect(find.byType(SearchScreen), findsOneWidget);
+    await tester.tap(find.text('Cancel'));
     await tester.pumpAndSettle();
 
     await tester.tap(find.byTooltip('Settings'));

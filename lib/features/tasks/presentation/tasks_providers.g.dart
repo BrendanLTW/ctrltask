@@ -61,6 +61,122 @@ abstract class _$TasksViewMode extends $Notifier<TasksView> {
   }
 }
 
+/// S23's sort and filters, for as long as the app is open.
+
+@ProviderFor(TaskListOptions)
+final taskListOptionsProvider = TaskListOptionsProvider._();
+
+/// S23's sort and filters, for as long as the app is open.
+final class TaskListOptionsProvider
+    extends $NotifierProvider<TaskListOptions, ListOptions> {
+  /// S23's sort and filters, for as long as the app is open.
+  TaskListOptionsProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'taskListOptionsProvider',
+        isAutoDispose: false,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$taskListOptionsHash();
+
+  @$internal
+  @override
+  TaskListOptions create() => TaskListOptions();
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(ListOptions value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<ListOptions>(value),
+    );
+  }
+}
+
+String _$taskListOptionsHash() => r'de5253137b345e90eda81a96874303b98cf5eb98';
+
+/// S23's sort and filters, for as long as the app is open.
+
+abstract class _$TaskListOptions extends $Notifier<ListOptions> {
+  ListOptions build();
+  @$mustCallSuper
+  @override
+  WhenComplete runBuild() {
+    final ref = this.ref as $Ref<ListOptions, ListOptions>;
+    final element =
+        ref.element
+            as $ClassProviderElement<
+              AnyNotifier<ListOptions, ListOptions>,
+              ListOptions,
+              Object?,
+              Object?
+            >;
+    return element.handleCreate(ref, build);
+  }
+}
+
+/// S23's choices while the sheet is open; Show applies them.
+
+@ProviderFor(FilterSortDraft)
+final filterSortDraftProvider = FilterSortDraftProvider._();
+
+/// S23's choices while the sheet is open; Show applies them.
+final class FilterSortDraftProvider
+    extends $NotifierProvider<FilterSortDraft, ListOptions> {
+  /// S23's choices while the sheet is open; Show applies them.
+  FilterSortDraftProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'filterSortDraftProvider',
+        isAutoDispose: true,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$filterSortDraftHash();
+
+  @$internal
+  @override
+  FilterSortDraft create() => FilterSortDraft();
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(ListOptions value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<ListOptions>(value),
+    );
+  }
+}
+
+String _$filterSortDraftHash() => r'5387890acb627c64b63efea31d6c81a848163b77';
+
+/// S23's choices while the sheet is open; Show applies them.
+
+abstract class _$FilterSortDraft extends $Notifier<ListOptions> {
+  ListOptions build();
+  @$mustCallSuper
+  @override
+  WhenComplete runBuild() {
+    final ref = this.ref as $Ref<ListOptions, ListOptions>;
+    final element =
+        ref.element
+            as $ClassProviderElement<
+              AnyNotifier<ListOptions, ListOptions>,
+              ListOptions,
+              Object?,
+              Object?
+            >;
+    return element.handleCreate(ref, build);
+  }
+}
+
 @ProviderFor(TasksFilter)
 final tasksFilterProvider = TasksFilterProvider._();
 

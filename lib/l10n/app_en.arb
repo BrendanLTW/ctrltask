@@ -1012,5 +1012,76 @@
         "type": "String"
       }
     }
-  }
+  },
+  "doneOn": "Done · {date}",
+  "@doneOn": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "filterSortTitle": "Filter & sort",
+  "filterSort": "Filter and sort",
+  "reset": "Reset",
+  "sortBy": "SORT BY",
+  "sortDueDate": "Due date",
+  "sortPriority": "Priority",
+  "sortProject": "Project",
+  "sortAdded": "Date added",
+  "projectsSection": "PROJECTS",
+  "showCompleted": "Show completed tasks",
+  "showTasks": "Show {count, plural, =1{1 task} other{{count} tasks}}",
+  "@showTasks": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "sectionCompleted": "COMPLETED",
+  "sectionByAdded": "NEWEST FIRST",
+  "sectionInbox": "INBOX",
+  "filtersOn": "Filter and sort, filters on",
+  "searchHint": "Search tasks, projects and tags",
+  "tasksSection": "TASKS",
+  "recentSearches": "RECENT SEARCHES",
+  "clear": "Clear",
+  "noteMatches": "Note matches “{snippet}”",
+  "@noteMatches": {
+    "placeholders": {
+      "snippet": {
+        "type": "String"
+      }
+    }
+  },
+  "noMatchesTitle": "No matches for “{query}”",
+  "@noMatchesTitle": {
+    "placeholders": {
+      "query": {
+        "type": "String"
+      }
+    }
+  },
+  "noMatchesBody": "Nothing in your tasks, projects or tags. Check the spelling or try a shorter word.",
+  "didYouMean": "Did you mean {word}?",
+  "@didYouMean": {
+    "placeholders": {
+      "word": {
+        "type": "String"
+      }
+    }
+  },
+  "createTaskNamed": "Create task “{title}”",
+  "@createTaskNamed": {
+    "placeholders": {
+      "title": {
+        "type": "String"
+      }
+    }
+  },
+  "searchTypeAll": "All",
+  "searchTypeTasks": "Tasks",
+  "searchTypeProjects": "Projects",
+  "searchTypeDone": "Done"
 }

@@ -26,6 +26,7 @@ class TaskTileData {
     this.subtasks,
     this.repeats = false,
     this.untimedLabel,
+    this.titleMatches = const [],
   });
 
   final String title;
@@ -46,6 +47,9 @@ class TaskTileData {
   /// Ticked out of all subtasks; null without subtasks.
   final Progress? subtasks;
   final bool repeats;
+
+  /// Parts of the title to highlight: S24's search matches.
+  final List<({int start, int end})> titleMatches;
 
   /// Urgent and High get a tag, until the task is done.
   bool get showsTag =>
@@ -157,8 +161,21 @@ class TaskContent extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  data.title,
+                Text.rich(
+                  TextSpan(
+                    children: [
+                      for (final (part, hit) in _parts(
+                        data.title,
+                        data.titleMatches,
+                      ))
+                        TextSpan(
+                          text: part,
+                          style: hit
+                              ? TextStyle(backgroundColor: colors.warningBox)
+                              : null,
+                        ),
+                    ],
+                  ),
                   style: text.rowTitle.copyWith(
                     color: data.done ? colors.muted : colors.ink,
                     decoration: data.done ? TextDecoration.lineThrough : null,
@@ -186,4 +203,17 @@ class TaskContent extends StatelessWidget {
       ],
     );
   }
+}
+
+/// [text] split at [matches]: each part, and whether it's a match.
+List<(String, bool)> _parts(String text, List<({int start, int end})> matches) {
+  final out = <(String, bool)>[];
+  var at = 0;
+  for (final m in matches) {
+    if (m.start > at) out.add((text.substring(at, m.start), false));
+    out.add((text.substring(m.start, m.end), true));
+    at = m.end;
+  }
+  if (at < text.length) out.add((text.substring(at), false));
+  return out;
 }

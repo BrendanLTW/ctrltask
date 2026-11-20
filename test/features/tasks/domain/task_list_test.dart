@@ -145,4 +145,76 @@ void main() {
     );
     expect(sections.single.$1, TaskSection.later);
   });
+
+  group('S23 options', () {
+    test('the defaults show no dot; any change does', () {
+      expect(optionsChanged(defaultListOptions), isFalse);
+      expect(
+        optionsChanged((
+          sort: TaskSort.priority,
+          priorities: const {},
+          projectIds: const {},
+          showCompleted: false,
+        )),
+        isTrue,
+      );
+    });
+
+    test('priority and project chips narrow the chip, and combine', () {
+      final inProject = task('Copy', due: today).copyWith(projectId: 3);
+      final list = listFor(
+        TaskFilter.today,
+        [...all, inProject],
+        (
+          sort: TaskSort.dueDate,
+          priorities: const {TaskPriority.medium},
+          projectIds: const {3},
+          showCompleted: false,
+        ),
+        today: today,
+      );
+      expect(titles(list.shown), ['Copy']);
+      expect(list.completed, isEmpty);
+    });
+
+    test('Show completed adds the done tasks the chip leaves out', () {
+      final list = listFor(TaskFilter.all, all, (
+        sort: TaskSort.dueDate,
+        priorities: const {},
+        projectIds: const {},
+        showCompleted: true,
+      ), today: today);
+      // Gym, done today, is already in All.
+      expect(titles(list.completed), ['Old']);
+    });
+
+    test('Sort by Priority groups Urgent to Low, each by due date', () {
+      final groups = byPriority([later, tomorrow, slides, call, someday]);
+      expect(
+        [for (final (p, ts) in groups) '${p.name}: ${titles(ts).join(', ')}'],
+        ['urgent: Slides', 'high: Tiles', 'medium: Call, Taxes, Read'],
+      );
+    });
+
+    test('Sort by Project follows the project order, Inbox last', () {
+      final a = task('A').copyWith(projectId: 2);
+      final b = task('B').copyWith(projectId: 1);
+      final c = task('C');
+      final groups = byProject([a, b, c], projectOrder: [1, 2]);
+      expect(
+        [for (final (id, ts) in groups) (id, titles(ts))].toString(),
+        [
+          (1, ['B']),
+          (2, ['A']),
+          (null, ['C']),
+        ].toString(),
+      );
+    });
+
+    test('Sort by Date added is newest first', () {
+      final old = task('Old one').copyWith(createdAt: DateTime.utc(2026, 2));
+      final fresh = task('New one').copyWith(createdAt: DateTime.utc(2026, 11));
+      expect(titles(byAdded([old, fresh])), ['New one', 'Old one']);
+    });
+  });
 }

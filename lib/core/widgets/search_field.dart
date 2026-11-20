@@ -15,6 +15,7 @@ class SearchField extends StatelessWidget {
     required this.onChanged,
     this.inSheet = false,
     this.autofocus = false,
+    this.onSubmitted,
     super.key,
   });
 
@@ -23,6 +24,9 @@ class SearchField extends StatelessWidget {
   final ValueChanged<String> onChanged;
   final bool inSheet;
   final bool autofocus;
+
+  /// The keyboard's search key (S24 saves the search).
+  final ValueChanged<String>? onSubmitted;
 
   @override
   Widget build(BuildContext context) {
@@ -44,6 +48,7 @@ class SearchField extends StatelessWidget {
         style: style,
         cursorColor: colors.ink,
         textInputAction: TextInputAction.search,
+        onSubmitted: onSubmitted,
         textAlignVertical: TextAlignVertical.center,
         decoration: InputDecoration(
           hintText: hint,

@@ -15,7 +15,9 @@ import 'package:ctrltask/features/settings/data/drift_preferences_repository.dar
 import 'package:ctrltask/features/settings/domain/preferences_repository.dart';
 import 'package:ctrltask/features/tags/data/drift_tag_repository.dart';
 import 'package:ctrltask/features/tags/domain/tag_repository.dart';
+import 'package:ctrltask/features/tasks/data/drift_recent_searches_repository.dart';
 import 'package:ctrltask/features/tasks/data/drift_task_repository.dart';
+import 'package:ctrltask/features/tasks/domain/recent_searches_repository.dart';
 import 'package:ctrltask/features/tasks/domain/task_repository.dart';
 import 'package:ctrltask/l10n/l10n.dart';
 import 'package:drift/native.dart';
@@ -75,6 +77,9 @@ List<Override> appOverrides() => [
   ),
   focusSessionRepositoryProvider.overrideWith(
     (ref) => DriftFocusSessionRepository(ref.watch(appDatabaseProvider)),
+  ),
+  recentSearchesRepositoryProvider.overrideWith(
+    (ref) => DriftRecentSearchesRepository(ref.watch(appDatabaseProvider)),
   ),
   focusTimerRepositoryProvider.overrideWith(
     (ref) => DriftFocusTimerRepository(ref.watch(appDatabaseProvider)),

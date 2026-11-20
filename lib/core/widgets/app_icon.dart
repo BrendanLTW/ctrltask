@@ -25,6 +25,7 @@ enum AppIcon {
 
   /// ••• (S27).
   ellipsis('ellipsis'),
+  filter('list-filter'),
   code('code'),
   coffee('coffee'),
   flag('flag'),
@@ -52,6 +53,7 @@ enum AppIcon {
   repeat('repeat'),
   reset('rotate-ccw'),
   search('search'),
+  searchNone('search-x'),
   skipForward('skip-forward'),
   sliders('sliders-horizontal'),
   subtask('corner-down-right'),

@@ -98,3 +98,93 @@ List<Task> _byDate(List<Task> tasks) {
     if (days[null] case final rest?) ...orderToday(rest),
   ];
 }
+
+/// S23's Sort by.
+enum TaskSort { dueDate, priority, project, added }
+
+/// S23's choices. Empty sets mean every priority or project.
+typedef ListOptions = ({
+  TaskSort sort,
+  Set<TaskPriority> priorities,
+  Set<int> projectIds,
+  bool showCompleted,
+});
+
+const ListOptions defaultListOptions = (
+  sort: TaskSort.dueDate,
+  priorities: <TaskPriority>{},
+  projectIds: <int>{},
+  showCompleted: false,
+);
+
+/// Whether anything differs from the defaults: S19's filter dot.
+bool optionsChanged(ListOptions o) =>
+    o.sort != TaskSort.dueDate ||
+    o.priorities.isNotEmpty ||
+    o.projectIds.isNotEmpty ||
+    o.showCompleted;
+
+/// [tasks] narrowed by S23's priority and project chips.
+List<Task> applyListFilters(Iterable<Task> tasks, ListOptions o) => [
+  for (final t in tasks)
+    if ((o.priorities.isEmpty || o.priorities.contains(t.priority)) &&
+        (o.projectIds.isEmpty || o.projectIds.contains(t.projectId)))
+      t,
+];
+
+/// What S19 lists for [filter] with [options]: the chip's tasks, and with
+/// Show completed the done ones it leaves out, for a Completed section.
+({List<Task> shown, List<Task> completed}) listFor(
+  TaskFilter filter,
+  Iterable<Task> tasks,
+  ListOptions options, {
+  required DateTime today,
+}) {
+  final filtered = applyListFilters(tasks, options);
+  final shown = tasksFor(filter, filtered, today: today);
+  final completed = !options.showCompleted || filter == TaskFilter.done
+      ? <Task>[]
+      : (tasksFor(TaskFilter.done, filtered, today: today)
+          ..removeWhere(shown.contains));
+  return (shown: shown, completed: completed);
+}
+
+int _byDue(Task a, Task b) {
+  final da = a.dueDate;
+  final db = b.dueDate;
+  if (da != db) {
+    if (da == null) return 1;
+    if (db == null) return -1;
+    return da.compareTo(db);
+  }
+  return (a.dueMinute ?? 24 * 60).compareTo(b.dueMinute ?? 24 * 60);
+}
+
+/// Sort by Priority: Urgent to Low, each by due date.
+List<(TaskPriority, List<Task>)> byPriority(Iterable<Task> tasks) => [
+  for (final p in TaskPriority.values)
+    if ([
+          for (final t in tasks)
+            if (t.priority == p) t,
+        ]..sort(_byDue)
+        case final group when group.isNotEmpty)
+      (p, group),
+];
+
+/// Sort by Project: in [projectOrder], then Inbox (null), each by due date.
+List<(int?, List<Task>)> byProject(
+  Iterable<Task> tasks, {
+  required List<int> projectOrder,
+}) => [
+  for (final id in [...projectOrder, null])
+    if ([
+          for (final t in tasks)
+            if (t.projectId == id) t,
+        ]..sort(_byDue)
+        case final group when group.isNotEmpty)
+      (id, group),
+];
+
+/// Sort by Date added: newest first.
+List<Task> byAdded(Iterable<Task> tasks) =>
+    [...tasks]..sort((a, b) => b.createdAt.compareTo(a.createdAt));

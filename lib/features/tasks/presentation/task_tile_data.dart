@@ -3,6 +3,7 @@ import 'package:ctrltask/core/dates/sections.dart';
 import 'package:ctrltask/core/widgets/task_content.dart';
 import 'package:ctrltask/features/projects/domain/project.dart';
 import 'package:ctrltask/features/tasks/domain/progress.dart';
+import 'package:ctrltask/features/tasks/domain/search_text.dart';
 import 'package:ctrltask/features/tasks/domain/task.dart';
 import 'package:ctrltask/l10n/app_localizations.dart';
 import 'package:ctrltask/l10n/date_text.dart';
@@ -20,6 +21,8 @@ TaskTileData taskTileData(
   String? untimedLabel,
   bool showDay = false,
   bool overdueAsDay = false,
+  String? highlight,
+  bool forSearch = false,
 }) {
   final project = projects[task.projectId];
   final due = task.dueDate;
@@ -33,8 +36,16 @@ TaskTileData taskTileData(
     title: task.title,
     priority: task.priority,
     done: task.status == TaskStatus.done,
-    // S27 lists tasks from many days, so it names the day.
-    timeLabel: showDay && due != null
+    titleMatches: highlight == null
+        ? const []
+        : matchRanges(task.title, highlight),
+    // S27 lists tasks from many days, so it names the day. S24 reads
+    // "Done · 2 Nov" for a done task.
+    timeLabel: forSearch && task.status == TaskStatus.done
+        ? l10n.doneOn(
+            labels.dayMonth((task.completedAt ?? task.updatedAt).toLocal()),
+          )
+        : (showDay || forSearch) && due != null
         ? l10n.dayLabel(labels, due, today: now, minute: minute)
         : (minute == null ? null : labels.time(minute)),
     untimedLabel: untimedLabel,
@@ -43,6 +54,9 @@ TaskTileData taskTileData(
         // Under S19's red Overdue header the day alone says it: "Yesterday".
         : overdueAsDay && !dueToday
         ? l10n.dayLabel(labels, due!, today: now)
+        // S24: "Overdue · Mon, 16 Nov".
+        : forSearch && !dueToday
+        ? l10n.overdueOn(labels.date(due!))
         : l10n.overdueOn(
             dueToday && minute != null
                 ? labels.time(minute)

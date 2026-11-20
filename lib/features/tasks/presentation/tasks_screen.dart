@@ -12,6 +12,7 @@ import 'package:ctrltask/core/widgets/app_chip.dart';
 import 'package:ctrltask/core/widgets/app_icon.dart';
 import 'package:ctrltask/core/widgets/app_shell.dart';
 import 'package:ctrltask/core/widgets/empty_state.dart';
+import 'package:ctrltask/core/widgets/priority_tag.dart';
 import 'package:ctrltask/core/widgets/section_header.dart';
 import 'package:ctrltask/core/widgets/segmented_control.dart';
 import 'package:ctrltask/features/calendar/presentation/calendar_month_view.dart';
@@ -21,6 +22,7 @@ import 'package:ctrltask/features/projects/presentation/project_providers.dart';
 import 'package:ctrltask/features/settings/domain/preferences_repository.dart';
 import 'package:ctrltask/features/tasks/domain/task.dart';
 import 'package:ctrltask/features/tasks/domain/task_list.dart';
+import 'package:ctrltask/features/tasks/presentation/list/filter_sort_sheet.dart';
 import 'package:ctrltask/features/tasks/presentation/list/task_list_group.dart';
 import 'package:ctrltask/features/tasks/presentation/quick_add_sheet.dart';
 import 'package:ctrltask/features/tasks/presentation/tasks_providers.dart';
@@ -87,6 +89,10 @@ class _TasksScreenState extends ConsumerState<TasksScreen> {
                     ),
                     icon: const AppIconView(AppIcon.search, size: 22),
                   ),
+                  if (view == TasksView.list) ...[
+                    const SizedBox(width: 12),
+                    const _FilterButton(),
+                  ],
                 ],
               ),
             ),
@@ -144,8 +150,11 @@ class _TaskList extends ConsumerWidget {
     };
     final subtasks = ref.watch(subtaskProgressProvider).value ?? const {};
     final filter = ref.watch(tasksFilterProvider);
-    final counts = filterCounts(all, today: today);
-    final shown = tasksFor(filter, all, today: today);
+    final options = ref.watch(taskListOptionsProvider);
+    // S23's filters narrow every chip, and the counts follow.
+    final counts = filterCounts(applyListFilters(all, options), today: today);
+    final (:shown, :completed) = listFor(filter, all, options, today: today);
+    final projectOrder = [for (final p in projects.values) p.id];
 
     TaskListGroup group(
       List<Task> tasks, {
@@ -161,10 +170,10 @@ class _TaskList extends ConsumerWidget {
       overdueAsDay: overdueAsDay,
     );
 
-    final List<Widget> body;
+    List<Widget> body;
     if (!ref.watch(allTasksProvider).hasValue) {
       body = const [];
-    } else if (shown.isEmpty) {
+    } else if (shown.isEmpty && completed.isEmpty) {
       body = [
         Padding(
           padding: const EdgeInsets.only(top: 64),
@@ -175,6 +184,39 @@ class _TaskList extends ConsumerWidget {
       body = [
         SectionHeader(l10n.sectionDone, detail: l10n.taskCount(shown.length)),
         group(shown, showDay: true),
+      ];
+    } else if (options.sort == TaskSort.priority) {
+      body = [
+        for (final (priority, tasks) in byPriority(shown)) ...[
+          SectionHeader(
+            priorityLabel(context, priority).toUpperCase(),
+            detail: l10n.taskCount(tasks.length),
+          ),
+          group(tasks, showDay: true),
+        ],
+      ];
+    } else if (options.sort == TaskSort.project) {
+      body = [
+        for (final (id, tasks) in byProject(
+          shown,
+          projectOrder: projectOrder,
+        )) ...[
+          SectionHeader(
+            projects[id]?.name.toUpperCase() ?? l10n.sectionInbox,
+            detail: l10n.taskCount(tasks.length),
+          ),
+          group(tasks, showDay: true),
+        ],
+      ];
+    } else if (options.sort == TaskSort.added) {
+      body = [
+        if (shown.isNotEmpty) ...[
+          SectionHeader(
+            l10n.sectionByAdded,
+            detail: l10n.taskCount(shown.length),
+          ),
+          group(byAdded(shown), showDay: true),
+        ],
       ];
     } else {
       final sections = sectionTasks(shown, today: today, weekStart: weekStart);
@@ -213,6 +255,17 @@ class _TaskList extends ConsumerWidget {
                 section == TaskSection.thisWeek || section == TaskSection.later,
           ),
         ],
+      ];
+    }
+
+    if (completed.isNotEmpty) {
+      body = [
+        ...body,
+        SectionHeader(
+          l10n.sectionCompleted,
+          detail: l10n.taskCount(completed.length),
+        ),
+        group(completed, showDay: true),
       ];
     }
 
@@ -262,6 +315,49 @@ class _TaskList extends ConsumerWidget {
       onAction: filter == TaskFilter.all
           ? () => unawaited(showQuickAdd(context))
           : null,
+    );
+  }
+}
+
+/// Opens S23, with a dot while anything differs from the defaults.
+class _FilterButton extends ConsumerWidget {
+  const new();
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final colors = context.colors;
+    final l10n = context.l10n;
+    final on = optionsChanged(ref.watch(taskListOptionsProvider));
+    return Stack(
+      clipBehavior: Clip.none,
+      children: [
+        IconButton(
+          onPressed: () => unawaited(showFilterSort(context)),
+          tooltip: on ? l10n.filtersOn : l10n.filterSort,
+          style: IconButton.styleFrom(
+            fixedSize: const Size(48, 48),
+            backgroundColor: colors.raised,
+            foregroundColor: colors.ink,
+          ),
+          icon: const AppIconView(AppIcon.filter, size: 22),
+        ),
+        if (on)
+          Positioned(
+            top: 10,
+            right: 10,
+            child: IgnorePointer(
+              child: Container(
+                width: 9,
+                height: 9,
+                decoration: BoxDecoration(
+                  color: colors.ink,
+                  shape: BoxShape.circle,
+                  border: Border.all(color: colors.raised, width: 1.5),
+                ),
+              ),
+            ),
+          ),
+      ],
     );
   }
 }

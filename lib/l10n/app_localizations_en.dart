@@ -1335,4 +1335,110 @@ class AppLocalizationsEn extends AppLocalizations {
   String nowLine(String time) {
     return 'Now, $time';
   }
+
+  @override
+  String doneOn(String date) {
+    return 'Done · $date';
+  }
+
+  @override
+  String get filterSortTitle => 'Filter & sort';
+
+  @override
+  String get filterSort => 'Filter and sort';
+
+  @override
+  String get reset => 'Reset';
+
+  @override
+  String get sortBy => 'SORT BY';
+
+  @override
+  String get sortDueDate => 'Due date';
+
+  @override
+  String get sortPriority => 'Priority';
+
+  @override
+  String get sortProject => 'Project';
+
+  @override
+  String get sortAdded => 'Date added';
+
+  @override
+  String get projectsSection => 'PROJECTS';
+
+  @override
+  String get showCompleted => 'Show completed tasks';
+
+  @override
+  String showTasks(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count tasks',
+      one: '1 task',
+    );
+    return 'Show $_temp0';
+  }
+
+  @override
+  String get sectionCompleted => 'COMPLETED';
+
+  @override
+  String get sectionByAdded => 'NEWEST FIRST';
+
+  @override
+  String get sectionInbox => 'INBOX';
+
+  @override
+  String get filtersOn => 'Filter and sort, filters on';
+
+  @override
+  String get searchHint => 'Search tasks, projects and tags';
+
+  @override
+  String get tasksSection => 'TASKS';
+
+  @override
+  String get recentSearches => 'RECENT SEARCHES';
+
+  @override
+  String get clear => 'Clear';
+
+  @override
+  String noteMatches(String snippet) {
+    return 'Note matches “$snippet”';
+  }
+
+  @override
+  String noMatchesTitle(String query) {
+    return 'No matches for “$query”';
+  }
+
+  @override
+  String get noMatchesBody =>
+      'Nothing in your tasks, projects or tags. Check the spelling or try a shorter word.';
+
+  @override
+  String didYouMean(String word) {
+    return 'Did you mean $word?';
+  }
+
+  @override
+  String createTaskNamed(String title) {
+    return 'Create task “$title”';
+  }
+
+  @override
+  String get searchTypeAll => 'All';
+
+  @override
+  String get searchTypeTasks => 'Tasks';
+
+  @override
+  String get searchTypeProjects => 'Projects';
+
+  @override
+  String get searchTypeDone => 'Done';
 }

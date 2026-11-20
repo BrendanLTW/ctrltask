@@ -5,6 +5,8 @@ import 'package:ctrltask/features/focus/domain/focus_timer.dart';
 import 'package:ctrltask/features/focus/domain/focus_timer_repository.dart';
 import 'package:ctrltask/features/projects/domain/project.dart';
 import 'package:ctrltask/features/projects/domain/project_repository.dart';
+import 'package:ctrltask/features/tags/domain/tag_repository.dart';
+import 'package:ctrltask/features/tasks/domain/recent_searches_repository.dart';
 import 'package:ctrltask/features/tasks/domain/task_repository.dart';
 import 'package:flutter_riverpod/misc.dart';
 import 'package:mocktail/mocktail.dart';
@@ -20,6 +22,38 @@ class EmptyTasks extends Mock implements TaskRepository {
 class EmptyProjects extends Mock implements ProjectRepository;
 
 class EmptyFocus extends Mock implements FocusSessionRepository;
+
+class _Tags extends Mock implements TagRepository;
+
+/// Recent searches kept in memory, live.
+class MemoryRecentSearches implements RecentSearchesRepository {
+  final _changes = StreamController<List<String>>.broadcast();
+  List<String> value = [];
+
+  @override
+  Stream<List<String>> watch() async* {
+    yield value;
+    yield* _changes.stream;
+  }
+
+  @override
+  Future<void> add(String query) async {
+    final text = query.trim();
+    if (text.isEmpty) return;
+    value = [
+      text,
+      for (final q in value)
+        if (q.toLowerCase() != text.toLowerCase()) q,
+    ].take(RecentSearchesRepository.keep).toList();
+    _changes.add(value);
+  }
+
+  @override
+  Future<void> clear() async {
+    value = [];
+    _changes.add(value);
+  }
+}
 
 /// A timer store that starts empty and keeps what's saved, live.
 class MemoryFocusTimers implements FocusTimerRepository {
@@ -48,6 +82,7 @@ List<Override> emptyRepositories({
   EmptyProjects? projectRepo,
   EmptyFocus? focusRepo,
   MemoryFocusTimers? timers,
+  MemoryRecentSearches? recent,
   List<Project> projects = const [],
   List<Project> archived = const [],
 }) {
@@ -62,6 +97,8 @@ List<Override> emptyRepositories({
   when(projectFake.watchActive).thenAnswer((_) => Stream.value(projects));
   when(projectFake.watchArchived).thenAnswer((_) => Stream.value(archived));
   final focus = focusRepo ?? EmptyFocus();
+  final tags = _Tags();
+  when(tags.watch).thenAnswer((_) => Stream.value(const []));
   when(() => focus.watchStartedBetween(any(), any()))
       .thenAnswer((_) => Stream.value(const []));
   when(() => focus.watchFocusedSeconds(any()))
@@ -70,6 +107,10 @@ List<Override> emptyRepositories({
     taskRepositoryProvider.overrideWithValue(t),
     projectRepositoryProvider.overrideWithValue(projectFake),
     focusSessionRepositoryProvider.overrideWithValue(focus),
+    tagRepositoryProvider.overrideWithValue(tags),
+    recentSearchesRepositoryProvider.overrideWithValue(
+      recent ?? MemoryRecentSearches(),
+    ),
     focusTimerRepositoryProvider.overrideWithValue(
       timers ?? MemoryFocusTimers(),
     ),

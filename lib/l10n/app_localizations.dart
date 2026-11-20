@@ -2151,6 +2151,180 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Now, {time}'**
   String nowLine(String time);
+
+  /// No description provided for @doneOn.
+  ///
+  /// In en, this message translates to:
+  /// **'Done · {date}'**
+  String doneOn(String date);
+
+  /// No description provided for @filterSortTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Filter & sort'**
+  String get filterSortTitle;
+
+  /// No description provided for @filterSort.
+  ///
+  /// In en, this message translates to:
+  /// **'Filter and sort'**
+  String get filterSort;
+
+  /// No description provided for @reset.
+  ///
+  /// In en, this message translates to:
+  /// **'Reset'**
+  String get reset;
+
+  /// No description provided for @sortBy.
+  ///
+  /// In en, this message translates to:
+  /// **'SORT BY'**
+  String get sortBy;
+
+  /// No description provided for @sortDueDate.
+  ///
+  /// In en, this message translates to:
+  /// **'Due date'**
+  String get sortDueDate;
+
+  /// No description provided for @sortPriority.
+  ///
+  /// In en, this message translates to:
+  /// **'Priority'**
+  String get sortPriority;
+
+  /// No description provided for @sortProject.
+  ///
+  /// In en, this message translates to:
+  /// **'Project'**
+  String get sortProject;
+
+  /// No description provided for @sortAdded.
+  ///
+  /// In en, this message translates to:
+  /// **'Date added'**
+  String get sortAdded;
+
+  /// No description provided for @projectsSection.
+  ///
+  /// In en, this message translates to:
+  /// **'PROJECTS'**
+  String get projectsSection;
+
+  /// No description provided for @showCompleted.
+  ///
+  /// In en, this message translates to:
+  /// **'Show completed tasks'**
+  String get showCompleted;
+
+  /// No description provided for @showTasks.
+  ///
+  /// In en, this message translates to:
+  /// **'Show {count, plural, =1{1 task} other{{count} tasks}}'**
+  String showTasks(int count);
+
+  /// No description provided for @sectionCompleted.
+  ///
+  /// In en, this message translates to:
+  /// **'COMPLETED'**
+  String get sectionCompleted;
+
+  /// No description provided for @sectionByAdded.
+  ///
+  /// In en, this message translates to:
+  /// **'NEWEST FIRST'**
+  String get sectionByAdded;
+
+  /// No description provided for @sectionInbox.
+  ///
+  /// In en, this message translates to:
+  /// **'INBOX'**
+  String get sectionInbox;
+
+  /// No description provided for @filtersOn.
+  ///
+  /// In en, this message translates to:
+  /// **'Filter and sort, filters on'**
+  String get filtersOn;
+
+  /// No description provided for @searchHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Search tasks, projects and tags'**
+  String get searchHint;
+
+  /// No description provided for @tasksSection.
+  ///
+  /// In en, this message translates to:
+  /// **'TASKS'**
+  String get tasksSection;
+
+  /// No description provided for @recentSearches.
+  ///
+  /// In en, this message translates to:
+  /// **'RECENT SEARCHES'**
+  String get recentSearches;
+
+  /// No description provided for @clear.
+  ///
+  /// In en, this message translates to:
+  /// **'Clear'**
+  String get clear;
+
+  /// No description provided for @noteMatches.
+  ///
+  /// In en, this message translates to:
+  /// **'Note matches “{snippet}”'**
+  String noteMatches(String snippet);
+
+  /// No description provided for @noMatchesTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'No matches for “{query}”'**
+  String noMatchesTitle(String query);
+
+  /// No description provided for @noMatchesBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Nothing in your tasks, projects or tags. Check the spelling or try a shorter word.'**
+  String get noMatchesBody;
+
+  /// No description provided for @didYouMean.
+  ///
+  /// In en, this message translates to:
+  /// **'Did you mean {word}?'**
+  String didYouMean(String word);
+
+  /// No description provided for @createTaskNamed.
+  ///
+  /// In en, this message translates to:
+  /// **'Create task “{title}”'**
+  String createTaskNamed(String title);
+
+  /// No description provided for @searchTypeAll.
+  ///
+  /// In en, this message translates to:
+  /// **'All'**
+  String get searchTypeAll;
+
+  /// No description provided for @searchTypeTasks.
+  ///
+  /// In en, this message translates to:
+  /// **'Tasks'**
+  String get searchTypeTasks;
+
+  /// No description provided for @searchTypeProjects.
+  ///
+  /// In en, this message translates to:
+  /// **'Projects'**
+  String get searchTypeProjects;
+
+  /// No description provided for @searchTypeDone.
+  ///
+  /// In en, this message translates to:
+  /// **'Done'**
+  String get searchTypeDone;
 }
 
 class _AppLocalizationsDelegate

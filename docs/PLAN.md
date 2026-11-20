@@ -100,7 +100,7 @@ Work top to bottom. Each task is sized for one Claude Code session and follows t
   Refs: S31–S33, PRD §5.8, FR-08
 - [x] **3.3 Calendar.** S21 month view (status dots, legend, agenda for the selected day) and S22 week view (week strip, Anytime chips, day timeline with tasks, focus sessions and the now line). Quick add from a day prefills the date.
   Refs: S21, S22, PRD §5.6, FR-09
-- [ ] **3.4 Filter, sort and search.** S23 sheet combined with the S19 chips and the filter dot; S24 search with type chips, highlights and recent searches; S25 no results with Did you mean and Create task.
+- [x] **3.4 Filter, sort and search.** S23 sheet combined with the S19 chips and the filter dot; S24 search with type chips, highlights and recent searches; S25 no results with Did you mean and Create task.
   Refs: S23–S25, PRD §5.6, FR-10
 - [ ] **3.5 Repeat.** S15 sheet (all rules, weekly day toggles, Custom, Ends) on S10, S11 and S12; the repeat icon on rows; completing a repeating task creates the next occurrence and Undo removes it.
   Refs: S15, PRD §5.5, §6.4, FR-11
