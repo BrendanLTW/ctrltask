@@ -5,16 +5,24 @@ import 'package:ctrltask/features/projects/domain/project_keys.dart';
 import 'package:ctrltask/features/tasks/domain/task_link.dart';
 import 'package:flutter/material.dart';
 
-/// S12's saved links: tap one to open it in the browser.
+/// S12's details group: [rows] above (Repeat), then the saved links;
+/// tap a link to open it in the browser.
 class LinkRows extends StatelessWidget {
-  const new({required this.links, required this.onOpen, super.key});
+  const new({
+    required this.links,
+    required this.onOpen,
+    this.rows = const [],
+    super.key,
+  });
 
   final List<TaskLink> links;
   final ValueChanged<TaskLink> onOpen;
+  final List<Widget> rows;
 
   @override
   Widget build(BuildContext context) => ListGroup(
     children: [
+      ...rows,
       for (final link in links)
         ListGroupRow(
           title: link.title,

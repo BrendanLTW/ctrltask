@@ -13,6 +13,7 @@ class DateLabels {
       _dateYear = DateFormat('EEE, d MMM y', locale),
       _dayMonth = DateFormat('d MMM', locale),
       _weekday = DateFormat('EEE', locale),
+      _weekdayNarrow = DateFormat('EEEEE', locale),
       _time = DateFormat('h:mm a', locale),
       _clock = DateFormat('h:mm', locale),
       _dayMonthShort = DateFormat('d', locale),
@@ -23,6 +24,7 @@ class DateLabels {
   final DateFormat _dateYear;
   final DateFormat _dayMonth;
   final DateFormat _weekday;
+  final DateFormat _weekdayNarrow;
   final DateFormat _time;
   final DateFormat _clock;
   final DateFormat _dayMonthShort;
@@ -39,6 +41,13 @@ class DateLabels {
 
   /// "2 Sep", S45's "finished" date.
   String dayMonth(DateTime date) => _dayMonth.format(date);
+
+  /// "M" for a `DateTime.weekday` value (1 = Monday): S15's day toggles.
+  String weekdayNarrow(int weekday) =>
+      _weekdayNarrow.format(DateTime(2024, 1, weekday));
+
+  /// "Mon" for a `DateTime.weekday` value; 1 Jan 2024 was a Monday.
+  String weekdayOf(int weekday) => _weekday.format(DateTime(2024, 1, weekday));
 
   /// "Mon".
   String weekday(DateTime date) => _weekday.format(date);

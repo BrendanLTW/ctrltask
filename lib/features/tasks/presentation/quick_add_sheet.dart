@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:ctrltask/core/dates/clock.dart';
 import 'package:ctrltask/core/dates/date_labels.dart';
 import 'package:ctrltask/core/dates/week.dart';
+import 'package:ctrltask/core/repeat/repeat_rule.dart';
 import 'package:ctrltask/core/router/app_router.dart';
 import 'package:ctrltask/core/theme/app_colors.dart';
 import 'package:ctrltask/core/theme/app_spacing.dart';
@@ -23,6 +24,7 @@ import 'package:ctrltask/features/tasks/domain/task_draft.dart';
 import 'package:ctrltask/features/tasks/domain/task_priority.dart';
 import 'package:ctrltask/features/tasks/domain/task_repository.dart';
 import 'package:ctrltask/features/tasks/presentation/due_date_picker.dart';
+import 'package:ctrltask/features/tasks/presentation/repeat_sheet.dart';
 import 'package:ctrltask/l10n/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -78,6 +80,9 @@ class _QuickAddSheetState extends ConsumerState<QuickAddSheet> {
   DueChoice? _pickedDue;
 
   late int? _projectId = widget.projectId;
+
+  /// Set on S15 from the ↻ button.
+  RepeatRule? _repeat;
 
   @override
   void dispose() {
@@ -139,6 +144,7 @@ class _QuickAddSheetState extends ConsumerState<QuickAddSheet> {
       dueMinute: when.minute,
       priority: _priority(),
       projectId: _projectId,
+      repeat: _repeat,
     );
   }
 
@@ -156,6 +162,15 @@ class _QuickAddSheetState extends ConsumerState<QuickAddSheet> {
         DateLabels(Localizations.localeOf(context).toLanguageTag()),
       ).indexWhere((o) => o.date == choice.date && o.minute == choice.minute);
     });
+  }
+
+  Future<void> _pickRepeat(List<_When> options) async {
+    final pick = await showRepeatSheet(
+      context,
+      rule: _repeat,
+      dueDate: options[_when!].date,
+    );
+    if (pick != null && mounted) setState(() => _repeat = pick.rule);
   }
 
   Future<void> _pickProject() async {
@@ -297,8 +312,8 @@ class _QuickAddSheetState extends ConsumerState<QuickAddSheet> {
           const SizedBox(height: 16),
           Row(
             children: [
-              // shortcut: the tag, reminder and repeat buttons come with
-              // 3.4–3.7.
+              // shortcut: the tag (3.6) and reminder (3.7) buttons come with
+              // their tasks.
               Flexible(
                 child: AppChip(
                   label: project?.name ?? l10n.inbox,
@@ -308,6 +323,33 @@ class _QuickAddSheetState extends ConsumerState<QuickAddSheet> {
                   ),
                   onTap: () => unawaited(_pickProject()),
                 ),
+              ),
+              const SizedBox(width: 8),
+              IconButton(
+                onPressed: () => unawaited(_pickRepeat(options)),
+                tooltip: _repeat == null
+                    ? l10n.repeatTitle
+                    : l10n.titleWithDetail(
+                        l10n.repeatTitle,
+                        repeatSummary(
+                          l10n,
+                          DateLabels(
+                            Localizations.localeOf(context).toLanguageTag(),
+                          ),
+                          _repeat,
+                          weekStart:
+                              ref.watch(preferencesProvider).value?.weekStart ??
+                              WeekStart.mon,
+                        ),
+                      ),
+                style: IconButton.styleFrom(
+                  fixedSize: const Size(44, 44),
+                  backgroundColor: _repeat == null
+                      ? colors.fillSoft
+                      : colors.ink,
+                  foregroundColor: _repeat == null ? colors.ink : colors.onInk,
+                ),
+                icon: const AppIconView(AppIcon.repeat, size: 20),
               ),
               const Spacer(),
               TextButton(

@@ -9,6 +9,8 @@ import 'package:ctrltask/core/theme/app_spacing.dart';
 import 'package:ctrltask/core/widgets/app_dialog.dart';
 import 'package:ctrltask/core/widgets/app_icon.dart';
 import 'package:ctrltask/core/widgets/complete_toast.dart';
+import 'package:ctrltask/core/widgets/icon_tile.dart';
+import 'package:ctrltask/core/widgets/list_group.dart';
 import 'package:ctrltask/core/widgets/primary_button.dart';
 import 'package:ctrltask/core/widgets/sub_screen_bar.dart';
 import 'package:ctrltask/core/widgets/text_link.dart';
@@ -16,6 +18,7 @@ import 'package:ctrltask/features/focus/domain/focus_timer.dart';
 import 'package:ctrltask/features/focus/presentation/focus_controller.dart';
 import 'package:ctrltask/features/home/presentation/home_providers.dart';
 import 'package:ctrltask/features/projects/domain/project.dart';
+import 'package:ctrltask/features/projects/domain/project_keys.dart';
 import 'package:ctrltask/features/projects/presentation/move_to_project_sheet.dart';
 import 'package:ctrltask/features/settings/domain/preferences.dart';
 import 'package:ctrltask/features/settings/domain/preferences_repository.dart';
@@ -28,6 +31,7 @@ import 'package:ctrltask/features/tasks/presentation/detail/due_section.dart';
 import 'package:ctrltask/features/tasks/presentation/detail/link_rows.dart';
 import 'package:ctrltask/features/tasks/presentation/detail/subtask_progress.dart';
 import 'package:ctrltask/features/tasks/presentation/due_date_picker.dart';
+import 'package:ctrltask/features/tasks/presentation/repeat_sheet.dart';
 import 'package:ctrltask/features/tasks/presentation/task_completion.dart';
 import 'package:ctrltask/l10n/l10n.dart';
 import 'package:flutter/material.dart';
@@ -92,6 +96,16 @@ class _TaskDetailScreenState extends ConsumerState<TaskDetailScreen> {
     await _update(
       details.copyWith(task: details.task.copyWith(projectId: pick.projectId)),
     );
+  }
+
+  Future<void> _pickRepeat(TaskDetails details) async {
+    final pick = await showRepeatSheet(
+      context,
+      rule: details.repeat,
+      dueDate: details.task.dueDate,
+    );
+    if (pick == null) return;
+    await _update(details.copyWith(repeat: pick.rule));
   }
 
   Future<void> _pickDue(TaskDetails details) async {
@@ -213,14 +227,29 @@ class _TaskDetailScreenState extends ConsumerState<TaskDetailScreen> {
           ),
           onPick: () => unawaited(_pickDue(details)),
         ),
-        // shortcut: the Reminder and Repeat rows come with 3.5 and 3.7.
-        if (details.links.isNotEmpty) ...[
-          const SizedBox(height: 16),
-          LinkRows(
-            links: details.links,
-            onOpen: (link) => unawaited(_openLink(link)),
-          ),
-        ],
+        // shortcut: the Reminder row joins this group with 3.7.
+        const SizedBox(height: 16),
+        LinkRows(
+          rows: [
+            ListGroupRow(
+              title: context.l10n.repeatTitle,
+              value: repeatSummary(
+                context.l10n,
+                labels,
+                details.repeat,
+                weekStart: prefs.weekStart,
+              ),
+              leading: const IconTile(
+                icon: AppIcon.repeat,
+                color: ProjectColorKey.grey,
+                size: IconTileSize.medium,
+              ),
+              onTap: () => unawaited(_pickRepeat(details)),
+            ),
+          ],
+          links: details.links,
+          onOpen: (link) => unawaited(_openLink(link)),
+        ),
         if (details.subtasks.isNotEmpty)
           SubtaskProgress(
             subtasks: details.subtasks,

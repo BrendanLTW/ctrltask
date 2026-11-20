@@ -1,6 +1,8 @@
 import 'dart:async';
 
 import 'package:ctrltask/core/dates/date_labels.dart';
+import 'package:ctrltask/core/dates/week.dart';
+import 'package:ctrltask/core/repeat/repeat_rule.dart';
 import 'package:ctrltask/core/theme/app_colors.dart';
 import 'package:ctrltask/core/theme/app_spacing.dart';
 import 'package:ctrltask/core/theme/app_typography.dart';
@@ -17,6 +19,7 @@ import 'package:ctrltask/core/widgets/title_field_card.dart';
 import 'package:ctrltask/features/home/presentation/home_providers.dart';
 import 'package:ctrltask/features/projects/domain/project_keys.dart';
 import 'package:ctrltask/features/projects/presentation/move_to_project_sheet.dart';
+import 'package:ctrltask/features/settings/domain/preferences_repository.dart';
 import 'package:ctrltask/features/tasks/domain/subtask.dart';
 import 'package:ctrltask/features/tasks/domain/task.dart';
 import 'package:ctrltask/features/tasks/domain/task_details.dart';
@@ -28,6 +31,7 @@ import 'package:ctrltask/features/tasks/presentation/due_date_picker.dart';
 import 'package:ctrltask/features/tasks/presentation/form/add_link_sheet.dart';
 import 'package:ctrltask/features/tasks/presentation/form/link_section.dart';
 import 'package:ctrltask/features/tasks/presentation/form/subtask_section.dart';
+import 'package:ctrltask/features/tasks/presentation/repeat_sheet.dart';
 import 'package:ctrltask/l10n/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -56,6 +60,7 @@ class _TaskFormScreenState extends ConsumerState<TaskFormScreen> {
   late int? _dueMinute = widget.draft?.dueMinute;
   late TaskPriority _priority = widget.draft?.priority ?? TaskPriority.medium;
   late int? _projectId = widget.draft?.projectId;
+  late RepeatRule? _repeat = widget.draft?.repeat;
   late final List<Subtask> _subtasks = [
     for (final (i, title) in (widget.draft?.subtasks ?? const []).indexed)
       Subtask(id: 0, taskId: 0, title: title, sortOrder: i),
@@ -93,6 +98,7 @@ class _TaskFormScreenState extends ConsumerState<TaskFormScreen> {
       _dueMinute = task.dueMinute;
       _priority = task.priority;
       _projectId = task.projectId;
+      _repeat = details.repeat;
       _subtasks
         ..clear()
         ..addAll(details.subtasks);
@@ -136,7 +142,7 @@ class _TaskFormScreenState extends ConsumerState<TaskFormScreen> {
           subtasks: [for (final s in _subtasks) s.title],
           links: [for (final l in _links) (title: l.title, url: l.url)],
           reminder: widget.draft?.reminder ?? ReminderOffset.none,
-          repeat: widget.draft?.repeat,
+          repeat: _repeat,
           tagIds: widget.draft?.tagIds ?? const {},
         ),
       );
@@ -166,6 +172,7 @@ class _TaskFormScreenState extends ConsumerState<TaskFormScreen> {
             priority: _priority,
             projectId: _projectId,
           ),
+          repeat: _repeat,
           subtasks: [
             for (final (i, s) in _subtasks.indexed) s.copyWith(sortOrder: i),
           ],
@@ -174,6 +181,15 @@ class _TaskFormScreenState extends ConsumerState<TaskFormScreen> {
       );
     }
     if (mounted) Navigator.of(context).pop();
+  }
+
+  Future<void> _pickRepeat() async {
+    final pick = await showRepeatSheet(
+      context,
+      rule: _repeat,
+      dueDate: _dueDate,
+    );
+    if (pick != null && mounted) setState(() => _repeat = pick.rule);
   }
 
   Future<void> _pickDue() async {
@@ -331,8 +347,31 @@ class _TaskFormScreenState extends ConsumerState<TaskFormScreen> {
                       ),
                     ],
                   ),
-                  // Tags, reminder and repeat (MORE DETAILS) come with
-                  // tasks 3.4–3.7.
+                  // shortcut: the Tags (3.6) and Reminder (3.7) rows join
+                  // MORE DETAILS with their tasks.
+                  SectionHeader('${l10n.moreDetails}${l10n.optional}'),
+                  ListGroup(
+                    children: [
+                      ListGroupRow(
+                        title: l10n.repeatTitle,
+                        value: repeatSummary(
+                          l10n,
+                          labels,
+                          _repeat,
+                          weekStart:
+                              ref.watch(preferencesProvider).value?.weekStart ??
+                              WeekStart.mon,
+                        ),
+                        valueEmphasis: _repeat != null,
+                        leading: const IconTile(
+                          icon: AppIcon.repeat,
+                          color: ProjectColorKey.grey,
+                          size: IconTileSize.medium,
+                        ),
+                        onTap: () => unawaited(_pickRepeat()),
+                      ),
+                    ],
+                  ),
                   SubtaskSection(
                     subtasks: _subtasks,
                     onAdd: (title) => setState(

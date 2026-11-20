@@ -1441,4 +1441,184 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get searchTypeDone => 'Done';
+
+  @override
+  String get repeatTitle => 'Repeat';
+
+  @override
+  String get repeatNever => 'Never';
+
+  @override
+  String get repeatDaily => 'Every day';
+
+  @override
+  String get repeatWeekdays => 'Weekdays';
+
+  @override
+  String get repeatWeekdaysDetail => 'Monday to Friday';
+
+  @override
+  String get repeatWeekly => 'Every week';
+
+  @override
+  String get repeatWeeklyDetail => 'Pick the days below';
+
+  @override
+  String get repeatMonthly => 'Every month';
+
+  @override
+  String repeatMonthlyDetail(String day) {
+    return 'On the $day';
+  }
+
+  @override
+  String get repeatCustom => 'Custom';
+
+  @override
+  String get repeatCustomDetail => 'Every few days, weeks or months';
+
+  @override
+  String ordinalDay(String day) {
+    String _temp0 = intl.Intl.selectLogic(day, {
+      '1': '1st',
+      '2': '2nd',
+      '3': '3rd',
+      '21': '21st',
+      '22': '22nd',
+      '23': '23rd',
+      '31': '31st',
+      'other': '${day}th',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String get onTheseDays => 'ON THESE DAYS';
+
+  @override
+  String get every => 'Every';
+
+  @override
+  String get ends => 'Ends';
+
+  @override
+  String get removeEndDate => 'Remove end date';
+
+  @override
+  String get summaryWeekdays => 'Weekdays';
+
+  @override
+  String summaryWeekly(String days) {
+    return 'Every $days';
+  }
+
+  @override
+  String summaryMonthly(String day) {
+    return 'Every month on the $day';
+  }
+
+  @override
+  String summaryEveryDays(int n) {
+    String _temp0 = intl.Intl.pluralLogic(
+      n,
+      locale: localeName,
+      other: 'Every $n days',
+      one: 'Every day',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String summaryEveryWeeks(int n) {
+    String _temp0 = intl.Intl.pluralLogic(
+      n,
+      locale: localeName,
+      other: 'Every $n weeks',
+      one: 'Every week',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String summaryEveryMonths(int n) {
+    String _temp0 = intl.Intl.pluralLogic(
+      n,
+      locale: localeName,
+      other: 'Every $n months',
+      one: 'Every month',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String summaryUntil(String rule, String date) {
+    return '$rule until $date';
+  }
+
+  @override
+  String get repeatButtonNever => 'Don\'t repeat';
+
+  @override
+  String get repeatButtonDaily => 'Repeat every day';
+
+  @override
+  String get repeatButtonWeekdays => 'Repeat on weekdays';
+
+  @override
+  String repeatButtonWeekly(String days) {
+    return 'Repeat every $days';
+  }
+
+  @override
+  String repeatButtonMonthly(String day) {
+    return 'Repeat every month on the $day';
+  }
+
+  @override
+  String repeatButtonDays(int n) {
+    String _temp0 = intl.Intl.pluralLogic(
+      n,
+      locale: localeName,
+      other: 'Repeat every $n days',
+      one: 'Repeat every day',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String repeatButtonWeeks(int n) {
+    String _temp0 = intl.Intl.pluralLogic(
+      n,
+      locale: localeName,
+      other: 'Repeat every $n weeks',
+      one: 'Repeat every week',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String repeatButtonMonths(int n) {
+    String _temp0 = intl.Intl.pluralLogic(
+      n,
+      locale: localeName,
+      other: 'Repeat every $n months',
+      one: 'Repeat every month',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get moreDetails => 'MORE DETAILS';
+
+  @override
+  String get optional => ' · optional';
+
+  @override
+  String get repeatUnitDays => 'Days';
+
+  @override
+  String get repeatUnitWeeks => 'Weeks';
+
+  @override
+  String get repeatUnitMonths => 'Months';
 }

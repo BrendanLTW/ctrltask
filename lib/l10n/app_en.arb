@@ -1083,5 +1083,135 @@
   "searchTypeAll": "All",
   "searchTypeTasks": "Tasks",
   "searchTypeProjects": "Projects",
-  "searchTypeDone": "Done"
+  "searchTypeDone": "Done",
+  "repeatTitle": "Repeat",
+  "repeatNever": "Never",
+  "repeatDaily": "Every day",
+  "repeatWeekdays": "Weekdays",
+  "repeatWeekdaysDetail": "Monday to Friday",
+  "repeatWeekly": "Every week",
+  "repeatWeeklyDetail": "Pick the days below",
+  "repeatMonthly": "Every month",
+  "repeatMonthlyDetail": "On the {day}",
+  "@repeatMonthlyDetail": {
+    "placeholders": {
+      "day": {
+        "type": "String"
+      }
+    }
+  },
+  "repeatCustom": "Custom",
+  "repeatCustomDetail": "Every few days, weeks or months",
+  "ordinalDay": "{day, select, 1{1st} 2{2nd} 3{3rd} 21{21st} 22{22nd} 23{23rd} 31{31st} other{{day}th}}",
+  "@ordinalDay": {
+    "placeholders": {
+      "day": {
+        "type": "String"
+      }
+    }
+  },
+  "onTheseDays": "ON THESE DAYS",
+  "every": "Every",
+  "ends": "Ends",
+  "removeEndDate": "Remove end date",
+  "summaryWeekdays": "Weekdays",
+  "summaryWeekly": "Every {days}",
+  "@summaryWeekly": {
+    "placeholders": {
+      "days": {
+        "type": "String"
+      }
+    }
+  },
+  "summaryMonthly": "Every month on the {day}",
+  "@summaryMonthly": {
+    "placeholders": {
+      "day": {
+        "type": "String"
+      }
+    }
+  },
+  "summaryEveryDays": "{n, plural, =1{Every day} other{Every {n} days}}",
+  "@summaryEveryDays": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "summaryEveryWeeks": "{n, plural, =1{Every week} other{Every {n} weeks}}",
+  "@summaryEveryWeeks": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "summaryEveryMonths": "{n, plural, =1{Every month} other{Every {n} months}}",
+  "@summaryEveryMonths": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "summaryUntil": "{rule} until {date}",
+  "@summaryUntil": {
+    "placeholders": {
+      "rule": {
+        "type": "String"
+      },
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "repeatButtonNever": "Don't repeat",
+  "repeatButtonDaily": "Repeat every day",
+  "repeatButtonWeekdays": "Repeat on weekdays",
+  "repeatButtonWeekly": "Repeat every {days}",
+  "@repeatButtonWeekly": {
+    "placeholders": {
+      "days": {
+        "type": "String"
+      }
+    }
+  },
+  "repeatButtonMonthly": "Repeat every month on the {day}",
+  "@repeatButtonMonthly": {
+    "placeholders": {
+      "day": {
+        "type": "String"
+      }
+    }
+  },
+  "repeatButtonDays": "{n, plural, =1{Repeat every day} other{Repeat every {n} days}}",
+  "@repeatButtonDays": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "repeatButtonWeeks": "{n, plural, =1{Repeat every week} other{Repeat every {n} weeks}}",
+  "@repeatButtonWeeks": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "repeatButtonMonths": "{n, plural, =1{Repeat every month} other{Repeat every {n} months}}",
+  "@repeatButtonMonths": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "moreDetails": "MORE DETAILS",
+  "optional": " · optional",
+  "repeatUnitDays": "Days",
+  "repeatUnitWeeks": "Weeks",
+  "repeatUnitMonths": "Months"
 }
