@@ -788,5 +788,95 @@
     }
   },
   "editName": "Edit name",
-  "editNameNote": "Shown in your greeting on Home. It stays on this phone and is never uploaded."
+  "editNameNote": "Shown in your greeting on Home. It stays on this phone and is never uploaded.",
+  "focusModeFocus": "Focus · {minutes}",
+  "@focusModeFocus": {
+    "placeholders": {
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
+  "focusModeShort": "Short · {minutes}",
+  "@focusModeShort": {
+    "placeholders": {
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
+  "focusModeLong": "Long · {minutes}",
+  "@focusModeLong": {
+    "placeholders": {
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
+  "focusStats": "Focus stats",
+  "workingOn": "WORKING ON",
+  "change": "Change",
+  "noTask": "No task",
+  "phaseReady": "Ready",
+  "phaseFocusing": "Focusing",
+  "phasePaused": "Paused",
+  "phaseBreak": "On a break",
+  "sessionOf": "Session {session} of {total}",
+  "@sessionOf": {
+    "placeholders": {
+      "session": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "nextSessionOf": "Next: session {session} of {total}",
+  "@nextSessionOf": {
+    "placeholders": {
+      "session": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "startTimer": "Start",
+  "pauseTimer": "Pause",
+  "resumeTimer": "Resume",
+  "resetTimer": "Reset",
+  "finishSession": "Finish session",
+  "timeLeft": "{time} left",
+  "@timeLeft": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "focusTodayLine": "Today {time} focused · long break after session {session}",
+  "@focusTodayLine": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      },
+      "session": {
+        "type": "int"
+      }
+    }
+  },
+  "sessionDots": "{done} of {total} sessions done this round",
+  "@sessionDots": {
+    "placeholders": {
+      "done": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "startFocusSession": "Start a focus session"
 }

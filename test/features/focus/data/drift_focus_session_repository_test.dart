@@ -1,5 +1,6 @@
 import 'package:ctrltask/core/db/app_database.dart';
 import 'package:ctrltask/features/focus/data/drift_focus_session_repository.dart';
+import 'package:ctrltask/features/focus/domain/focus_session.dart';
 import 'package:drift/drift.dart' hide isNotNull, isNull;
 import 'package:drift/native.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -92,5 +93,33 @@ void main() {
 
     expect(await repo.watchFocusedSeconds(web).first, 1500);
     expect(await repo.watchFocusedSeconds(999).first, 0);
+  });
+
+  test('add saves an ended session', () async {
+    final db = AppDatabase(NativeDatabase.memory());
+    addTearDown(db.close);
+    final repo = DriftFocusSessionRepository(db);
+    final start = DateTime.utc(2026, 11, 17, 1, 41);
+    await repo.add((
+      kind: FocusKind.focus,
+      plannedSec: 1500,
+      startedAt: start,
+      endedAt: start.add(const Duration(minutes: 25)),
+      elapsedSec: 1500,
+      taskId: null,
+      completed: true,
+    ));
+    final saved =
+        (await repo
+                .watchStartedBetween(
+                  DateTime(2026, 11, 17),
+                  DateTime(2026, 11, 17),
+                )
+                .first)
+            .single;
+    expect(
+      (saved.kind, saved.elapsedSec, saved.completed, saved.endedAt),
+      (FocusKind.focus, 1500, true, start.add(const Duration(minutes: 25))),
+    );
   });
 }

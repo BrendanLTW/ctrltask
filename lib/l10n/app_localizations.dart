@@ -1767,6 +1767,138 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Shown in your greeting on Home. It stays on this phone and is never uploaded.'**
   String get editNameNote;
+
+  /// No description provided for @focusModeFocus.
+  ///
+  /// In en, this message translates to:
+  /// **'Focus · {minutes}'**
+  String focusModeFocus(int minutes);
+
+  /// No description provided for @focusModeShort.
+  ///
+  /// In en, this message translates to:
+  /// **'Short · {minutes}'**
+  String focusModeShort(int minutes);
+
+  /// No description provided for @focusModeLong.
+  ///
+  /// In en, this message translates to:
+  /// **'Long · {minutes}'**
+  String focusModeLong(int minutes);
+
+  /// No description provided for @focusStats.
+  ///
+  /// In en, this message translates to:
+  /// **'Focus stats'**
+  String get focusStats;
+
+  /// No description provided for @workingOn.
+  ///
+  /// In en, this message translates to:
+  /// **'WORKING ON'**
+  String get workingOn;
+
+  /// No description provided for @change.
+  ///
+  /// In en, this message translates to:
+  /// **'Change'**
+  String get change;
+
+  /// No description provided for @noTask.
+  ///
+  /// In en, this message translates to:
+  /// **'No task'**
+  String get noTask;
+
+  /// No description provided for @phaseReady.
+  ///
+  /// In en, this message translates to:
+  /// **'Ready'**
+  String get phaseReady;
+
+  /// No description provided for @phaseFocusing.
+  ///
+  /// In en, this message translates to:
+  /// **'Focusing'**
+  String get phaseFocusing;
+
+  /// No description provided for @phasePaused.
+  ///
+  /// In en, this message translates to:
+  /// **'Paused'**
+  String get phasePaused;
+
+  /// No description provided for @phaseBreak.
+  ///
+  /// In en, this message translates to:
+  /// **'On a break'**
+  String get phaseBreak;
+
+  /// No description provided for @sessionOf.
+  ///
+  /// In en, this message translates to:
+  /// **'Session {session} of {total}'**
+  String sessionOf(int session, int total);
+
+  /// No description provided for @nextSessionOf.
+  ///
+  /// In en, this message translates to:
+  /// **'Next: session {session} of {total}'**
+  String nextSessionOf(int session, int total);
+
+  /// No description provided for @startTimer.
+  ///
+  /// In en, this message translates to:
+  /// **'Start'**
+  String get startTimer;
+
+  /// No description provided for @pauseTimer.
+  ///
+  /// In en, this message translates to:
+  /// **'Pause'**
+  String get pauseTimer;
+
+  /// No description provided for @resumeTimer.
+  ///
+  /// In en, this message translates to:
+  /// **'Resume'**
+  String get resumeTimer;
+
+  /// No description provided for @resetTimer.
+  ///
+  /// In en, this message translates to:
+  /// **'Reset'**
+  String get resetTimer;
+
+  /// No description provided for @finishSession.
+  ///
+  /// In en, this message translates to:
+  /// **'Finish session'**
+  String get finishSession;
+
+  /// No description provided for @timeLeft.
+  ///
+  /// In en, this message translates to:
+  /// **'{time} left'**
+  String timeLeft(String time);
+
+  /// No description provided for @focusTodayLine.
+  ///
+  /// In en, this message translates to:
+  /// **'Today {time} focused · long break after session {session}'**
+  String focusTodayLine(String time, int session);
+
+  /// No description provided for @sessionDots.
+  ///
+  /// In en, this message translates to:
+  /// **'{done} of {total} sessions done this round'**
+  String sessionDots(int done, int total);
+
+  /// No description provided for @startFocusSession.
+  ///
+  /// In en, this message translates to:
+  /// **'Start a focus session'**
+  String get startFocusSession;
 }
 
 class _AppLocalizationsDelegate

@@ -94,7 +94,7 @@ Work top to bottom. Each task is sized for one Claude Code session and follows t
 
 ## Phase 3 — Complete (P1)
 
-- [ ] **3.1 Focus timer.** S30 with modes, Working on (with a task picker reusing S17's sheet), the timer ring, Reset / Play-Pause / Finish, session dots and today's total. Time is computed from the stored start (§6.6). Wire **Start a focus session** on S12.
+- [x] **3.1 Focus timer.** S30 with modes, Working on (with a task picker reusing S17's sheet), the timer ring, Reset / Play-Pause / Finish, session dots and today's total. Time is computed from the stored start (§6.6). Wire **Start a focus session** on S12.
   Refs: S30, PRD §5.8, §6.6, FR-08
 - [ ] **3.2 Focus states and settings.** S32 Session complete (Start break, Skip break, Mark task done), S33 Short break (green ring, tip card), long break after N sessions, auto-start options, and S31 timer settings sheet (also from Settings → Default focus length). Sessions are saved with the 1-minute rule.
   Refs: S31–S33, PRD §5.8, FR-08

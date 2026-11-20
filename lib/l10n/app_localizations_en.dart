@@ -1085,4 +1085,86 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get editNameNote =>
       'Shown in your greeting on Home. It stays on this phone and is never uploaded.';
+
+  @override
+  String focusModeFocus(int minutes) {
+    return 'Focus · $minutes';
+  }
+
+  @override
+  String focusModeShort(int minutes) {
+    return 'Short · $minutes';
+  }
+
+  @override
+  String focusModeLong(int minutes) {
+    return 'Long · $minutes';
+  }
+
+  @override
+  String get focusStats => 'Focus stats';
+
+  @override
+  String get workingOn => 'WORKING ON';
+
+  @override
+  String get change => 'Change';
+
+  @override
+  String get noTask => 'No task';
+
+  @override
+  String get phaseReady => 'Ready';
+
+  @override
+  String get phaseFocusing => 'Focusing';
+
+  @override
+  String get phasePaused => 'Paused';
+
+  @override
+  String get phaseBreak => 'On a break';
+
+  @override
+  String sessionOf(int session, int total) {
+    return 'Session $session of $total';
+  }
+
+  @override
+  String nextSessionOf(int session, int total) {
+    return 'Next: session $session of $total';
+  }
+
+  @override
+  String get startTimer => 'Start';
+
+  @override
+  String get pauseTimer => 'Pause';
+
+  @override
+  String get resumeTimer => 'Resume';
+
+  @override
+  String get resetTimer => 'Reset';
+
+  @override
+  String get finishSession => 'Finish session';
+
+  @override
+  String timeLeft(String time) {
+    return '$time left';
+  }
+
+  @override
+  String focusTodayLine(String time, int session) {
+    return 'Today $time focused · long break after session $session';
+  }
+
+  @override
+  String sessionDots(int done, int total) {
+    return '$done of $total sessions done this round';
+  }
+
+  @override
+  String get startFocusSession => 'Start a focus session';
 }

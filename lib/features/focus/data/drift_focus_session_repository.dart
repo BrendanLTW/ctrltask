@@ -2,6 +2,7 @@ import 'package:ctrltask/core/db/app_database.dart';
 import 'package:ctrltask/features/focus/data/focus_session_mapper.dart';
 import 'package:ctrltask/features/focus/domain/focus_session.dart';
 import 'package:ctrltask/features/focus/domain/focus_session_repository.dart';
+import 'package:ctrltask/features/focus/domain/focus_timer.dart';
 import 'package:drift/drift.dart';
 
 class DriftFocusSessionRepository implements FocusSessionRepository {
@@ -23,6 +24,21 @@ class DriftFocusSessionRepository implements FocusSessionRepository {
       ..orderBy([(s) => OrderingTerm.asc(s.startedAt)]);
     return query.watch().map((rows) => [for (final r in rows) r.toEntity()]);
   }
+
+  @override
+  Future<void> add(EndedSession session) => _db
+      .into(_db.focusSessions)
+      .insert(
+        FocusSessionsCompanion.insert(
+          kind: session.kind.name,
+          plannedSec: session.plannedSec,
+          startedAt: session.startedAt.toUtc(),
+          endedAt: Value(session.endedAt.toUtc()),
+          elapsedSec: session.elapsedSec,
+          taskId: Value(session.taskId),
+          completed: Value(session.completed),
+        ),
+      );
 
   @override
   Stream<int> watchFocusedSeconds(int projectId) => _db

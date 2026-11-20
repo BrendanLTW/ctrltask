@@ -1,4 +1,8 @@
+import 'dart:async';
+
 import 'package:ctrltask/features/focus/domain/focus_session_repository.dart';
+import 'package:ctrltask/features/focus/domain/focus_timer.dart';
+import 'package:ctrltask/features/focus/domain/focus_timer_repository.dart';
 import 'package:ctrltask/features/projects/domain/project.dart';
 import 'package:ctrltask/features/projects/domain/project_repository.dart';
 import 'package:ctrltask/features/tasks/domain/task_repository.dart';
@@ -17,6 +21,24 @@ class EmptyProjects extends Mock implements ProjectRepository;
 
 class EmptyFocus extends Mock implements FocusSessionRepository;
 
+/// A timer store that starts empty and keeps what's saved, live.
+class MemoryFocusTimers implements FocusTimerRepository {
+  final _saved = StreamController<FocusTimer?>.broadcast();
+  FocusTimer? value;
+
+  @override
+  Stream<FocusTimer?> watch() async* {
+    yield value;
+    yield* _saved.stream;
+  }
+
+  @override
+  Future<void> save(FocusTimer timer) async {
+    value = timer;
+    _saved.add(timer);
+  }
+}
+
 /// Repositories with nothing in them, for tests that only need screens to
 /// open. Pass [tasks] to stub more on the task repository, [projects] for
 /// active projects and [archived] for archived ones. Pass [projectRepo] or
@@ -25,6 +47,7 @@ List<Override> emptyRepositories({
   EmptyTasks? tasks,
   EmptyProjects? projectRepo,
   EmptyFocus? focusRepo,
+  MemoryFocusTimers? timers,
   List<Project> projects = const [],
   List<Project> archived = const [],
 }) {
@@ -47,5 +70,8 @@ List<Override> emptyRepositories({
     taskRepositoryProvider.overrideWithValue(t),
     projectRepositoryProvider.overrideWithValue(projectFake),
     focusSessionRepositoryProvider.overrideWithValue(focus),
+    focusTimerRepositoryProvider.overrideWithValue(
+      timers ?? MemoryFocusTimers(),
+    ),
   ];
 }

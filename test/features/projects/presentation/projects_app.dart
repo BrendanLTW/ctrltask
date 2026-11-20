@@ -1,6 +1,8 @@
 import 'package:ctrltask/core/dates/clock.dart';
 import 'package:ctrltask/core/router/app_router.dart';
 import 'package:ctrltask/core/widgets/complete_toast.dart';
+import 'package:ctrltask/features/focus/domain/focus_session.dart';
+import 'package:ctrltask/features/focus/domain/focus_timer.dart';
 import 'package:ctrltask/features/projects/domain/project.dart';
 import 'package:ctrltask/features/projects/domain/project_keys.dart';
 import 'package:ctrltask/features/projects/domain/project_repository.dart';
@@ -28,6 +30,15 @@ void registerProjectFallbacks() {
   registerFallbackValue(testProject(0, ''));
   registerFallbackValue(ProjectColorKey.grey);
   registerFallbackValue(ProjectIconKey.globe);
+  registerFallbackValue((
+    kind: FocusKind.focus,
+    plannedSec: 0,
+    startedAt: DateTime.utc(2026),
+    endedAt: DateTime.utc(2026),
+    elapsedSec: 0,
+    taskId: null,
+    completed: false,
+  ));
   registerFallbackValue((
     before: TaskDetails(task: testTask(0, '')),
     nextId: null,
@@ -178,6 +189,11 @@ class ProjectsApp {
   final taskList = Live<List<Task>>(const []);
   final counts = Live<Map<int, int>>(const {});
   final focused = Live<int>(0);
+  final sessions = Live<List<FocusSession>>(const []);
+  final timers = MemoryFocusTimers();
+
+  /// The app's clock; tests move it on.
+  DateTime now = testNow;
   late ProviderContainer container;
 
   GoRouter get router => container.read(appRouterProvider);
@@ -207,6 +223,24 @@ class ProjectsApp {
         );
     when(() => focus.watchFocusedSeconds(any()))
         .thenAnswer((_) => focused.stream);
+    when(() => focus.watchStartedBetween(any(), any()))
+        .thenAnswer((_) => sessions.stream);
+    when(() => focus.add(any())).thenAnswer((i) async {
+      final s = i.positionalArguments.single as EndedSession;
+      sessions.value = [
+        ...sessions.value,
+        FocusSession(
+          id: sessions.value.length + 1,
+          kind: s.kind,
+          plannedSec: s.plannedSec,
+          startedAt: s.startedAt,
+          endedAt: s.endedAt,
+          elapsedSec: s.elapsedSec,
+          taskId: s.taskId,
+          completed: s.completed,
+        ),
+      ];
+    });
   }
 
   void _replaceTask(Task task) => taskList.value = [
@@ -250,8 +284,9 @@ class ProjectsApp {
           tasks: tasks,
           projectRepo: projects,
           focusRepo: focus,
+          timers: timers,
         ),
-        clockProvider.overrideWithValue(() => testNow),
+        clockProvider.overrideWithValue(() => now),
       ],
     );
     // emptyRepositories stubs fixed lists; these live ones win.

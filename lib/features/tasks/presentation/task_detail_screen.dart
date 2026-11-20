@@ -7,9 +7,13 @@ import 'package:ctrltask/core/router/app_router.dart';
 import 'package:ctrltask/core/theme/app_colors.dart';
 import 'package:ctrltask/core/theme/app_spacing.dart';
 import 'package:ctrltask/core/widgets/app_dialog.dart';
+import 'package:ctrltask/core/widgets/app_icon.dart';
 import 'package:ctrltask/core/widgets/complete_toast.dart';
+import 'package:ctrltask/core/widgets/primary_button.dart';
 import 'package:ctrltask/core/widgets/sub_screen_bar.dart';
 import 'package:ctrltask/core/widgets/text_link.dart';
+import 'package:ctrltask/features/focus/domain/focus_timer.dart';
+import 'package:ctrltask/features/focus/presentation/focus_controller.dart';
 import 'package:ctrltask/features/home/presentation/home_providers.dart';
 import 'package:ctrltask/features/projects/domain/project.dart';
 import 'package:ctrltask/features/projects/presentation/move_to_project_sheet.dart';
@@ -69,6 +73,14 @@ class _TaskDetailScreenState extends ConsumerState<TaskDetailScreen> {
         success: false,
       );
     }
+  }
+
+  /// Links the task unless a session is under way, then opens Focus.
+  Future<void> _focus(int taskId) async {
+    if (ref.read(focusTimerProvider).phase == TimerPhase.idle) {
+      await ref.read(focusControllerProvider.notifier).link(taskId);
+    }
+    if (mounted) context.go(Routes.focus);
   }
 
   Future<void> _pickProject(TaskDetails details) async {
@@ -223,8 +235,13 @@ class _TaskDetailScreenState extends ConsumerState<TaskDetailScreen> {
               ),
             ),
           ),
-        // shortcut: Start a focus session comes with 3.1.
         const SizedBox(height: 24),
+        PrimaryButton(
+          label: context.l10n.startFocusSession,
+          icon: AppIcon.timer,
+          onPressed: () => unawaited(_focus(task.id)),
+        ),
+        const SizedBox(height: 12),
         Center(
           child: TextLink(
             label: context.l10n.deleteTask,

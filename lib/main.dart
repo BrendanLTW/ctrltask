@@ -5,7 +5,10 @@ import 'package:ctrltask/core/router/app_router.dart';
 import 'package:ctrltask/core/theme/app_theme.dart';
 import 'package:ctrltask/core/theme/theme_mode_controller.dart';
 import 'package:ctrltask/features/focus/data/drift_focus_session_repository.dart';
+import 'package:ctrltask/features/focus/data/drift_focus_timer_repository.dart';
 import 'package:ctrltask/features/focus/domain/focus_session_repository.dart';
+import 'package:ctrltask/features/focus/domain/focus_timer_repository.dart';
+import 'package:ctrltask/features/focus/presentation/focus_controller.dart';
 import 'package:ctrltask/features/projects/data/drift_project_repository.dart';
 import 'package:ctrltask/features/projects/domain/project_repository.dart';
 import 'package:ctrltask/features/settings/data/drift_preferences_repository.dart';
@@ -73,6 +76,9 @@ List<Override> appOverrides() => [
   focusSessionRepositoryProvider.overrideWith(
     (ref) => DriftFocusSessionRepository(ref.watch(appDatabaseProvider)),
   ),
+  focusTimerRepositoryProvider.overrideWith(
+    (ref) => DriftFocusTimerRepository(ref.watch(appDatabaseProvider)),
+  ),
 ];
 
 class MainApp extends ConsumerWidget {
@@ -80,6 +86,8 @@ class MainApp extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    // Keeps the focus timer running on whatever screen is open (§6.6).
+    ref.watch(focusControllerProvider);
     return MaterialApp.router(
       onGenerateTitle: (context) => context.l10n.appName,
       localizationsDelegates: AppLocalizations.localizationsDelegates,

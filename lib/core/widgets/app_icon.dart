@@ -41,9 +41,17 @@ enum AppIcon {
   list('list'),
   minus('minus'),
   palette('palette'),
+
+  /// Solid, as S30's play button.
+  pause('pause'),
   plane('send'),
+
+  /// Solid, as S30's play button.
+  play('play'),
   repeat('repeat'),
+  reset('rotate-ccw'),
   search('search'),
+  skipForward('skip-forward'),
   subtask('corner-down-right'),
   success('circle-check'),
   tag('tag'),

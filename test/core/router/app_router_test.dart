@@ -4,6 +4,7 @@ import 'package:ctrltask/core/router/app_router.dart';
 import 'package:ctrltask/core/widgets/app_sheet.dart';
 import 'package:ctrltask/core/widgets/app_shell.dart';
 import 'package:ctrltask/core/widgets/app_shell_tab.dart';
+import 'package:ctrltask/features/focus/presentation/focus_screen.dart';
 import 'package:ctrltask/features/home/presentation/home_screen.dart';
 import 'package:ctrltask/features/onboarding/presentation/splash_screen.dart';
 import 'package:ctrltask/features/onboarding/presentation/welcome_screen.dart';
@@ -59,6 +60,7 @@ void main() {
     'Projects' => find.byType(ProjectsScreen),
     'Tasks' => find.byType(TasksScreen),
     'Settings' => find.byType(SettingsScreen),
+    'Focus' => find.byType(FocusScreen),
     _ => find.descendant(of: find.byType(AppBar), matching: find.text(text)),
   };
 
@@ -126,7 +128,7 @@ void main() {
   testWidgets('tabs switch between the four branches', (tester) async {
     await pumpApp(tester);
     for (final label in ['Tasks', 'Projects', 'Focus', 'Home']) {
-      // Only Focus is still a placeholder with an app bar.
+      // Every tab is its real screen now.
       await tester.tap(tab(label));
       await tester.pumpAndSettle();
       expect(title(label), findsOneWidget);

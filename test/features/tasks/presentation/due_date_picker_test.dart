@@ -116,8 +116,9 @@ void main() {
     await tester.pumpAndSettle();
   }
 
+  /// The sheet's Set button, above any on the screen behind.
   Future<void> set(WidgetTester tester) async {
-    await tester.tap(find.byType(PrimaryButton));
+    await tester.tap(find.byType(PrimaryButton).last);
     await tester.pumpAndSettle();
   }
 
