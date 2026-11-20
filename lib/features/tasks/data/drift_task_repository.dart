@@ -78,6 +78,8 @@ class DriftTaskRepository implements TaskRepository {
   Stream<List<Task>> search(String query) {
     final text = query.trim();
     if (text.isEmpty) return Stream.value(const []);
+    // "#design": only tasks with a tag that starts with the word (S24).
+    if (text.startsWith('#')) return _searchTag(text.substring(1).trim());
     // Match % and _ literally.
     final escaped = text.replaceAllMapped(
       RegExp(r'[\\%_]'),
@@ -104,6 +106,31 @@ class DriftTaskRepository implements TaskRepository {
             _db.taskTags,
             _db.tags,
           },
+        )
+        .watch()
+        .map(
+          (rows) => [
+            for (final row in rows) _db.tasks.map(row.data).toEntity(),
+          ],
+        );
+  }
+
+  Stream<List<Task>> _searchTag(String name) {
+    if (name.isEmpty) return Stream.value(const []);
+    final escaped = name.toLowerCase().replaceAllMapped(
+      RegExp(r'[\\%_]'),
+      (m) => '\\${m[0]}',
+    );
+    return _db
+        .customSelect(
+          'SELECT t.* FROM tasks t '
+          'LEFT JOIN projects p ON p.id = t.project_id '
+          'WHERE p.archived_at IS NULL AND EXISTS (SELECT 1 FROM task_tags tt '
+          'JOIN tags g ON g.id = tt.tag_id WHERE tt.task_id = t.id '
+          r"AND g.name LIKE ?1 ESCAPE '\') "
+          'ORDER BY t.sort_order, t.id',
+          variables: [Variable.withString('$escaped%')],
+          readsFrom: {_db.tasks, _db.projects, _db.taskTags, _db.tags},
         )
         .watch()
         .map(

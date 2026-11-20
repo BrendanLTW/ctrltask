@@ -15,6 +15,7 @@ class AppChip extends StatelessWidget {
     this.small = false,
     this.leading,
     this.count,
+    this.trailing,
     super.key,
   });
 
@@ -24,6 +25,9 @@ class AppChip extends StatelessWidget {
   final bool small;
   final Widget? leading;
   final int? count;
+
+  /// After the label, as S18's × on a picked tag.
+  final Widget? trailing;
 
   @override
   Widget build(BuildContext context) {
@@ -71,6 +75,10 @@ class AppChip extends StatelessWidget {
                         const SizedBox(width: 8),
                       ],
                       Flexible(child: Text(label, style: style)),
+                      if (trailing case final trailing?) ...[
+                        const SizedBox(width: 6),
+                        trailing,
+                      ],
                       if (count case final count?) ...[
                         const SizedBox(width: 6),
                         Opacity(

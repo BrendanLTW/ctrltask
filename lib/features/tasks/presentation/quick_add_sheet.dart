@@ -19,6 +19,7 @@ import 'package:ctrltask/features/home/presentation/home_providers.dart';
 import 'package:ctrltask/features/projects/domain/project_keys.dart';
 import 'package:ctrltask/features/projects/presentation/move_to_project_sheet.dart';
 import 'package:ctrltask/features/settings/domain/preferences_repository.dart';
+import 'package:ctrltask/features/tags/presentation/tags_sheet.dart';
 import 'package:ctrltask/features/tasks/domain/task.dart';
 import 'package:ctrltask/features/tasks/domain/task_draft.dart';
 import 'package:ctrltask/features/tasks/domain/task_priority.dart';
@@ -84,6 +85,9 @@ class _QuickAddSheetState extends ConsumerState<QuickAddSheet> {
   /// Set on S15 from the ↻ button.
   RepeatRule? _repeat;
 
+  /// Picked on S18 from the 🏷 button.
+  Set<int> _tagIds = {};
+
   @override
   void dispose() {
     _title.dispose();
@@ -145,6 +149,7 @@ class _QuickAddSheetState extends ConsumerState<QuickAddSheet> {
       priority: _priority(),
       projectId: _projectId,
       repeat: _repeat,
+      tagIds: _tagIds,
     );
   }
 
@@ -162,6 +167,11 @@ class _QuickAddSheetState extends ConsumerState<QuickAddSheet> {
         DateLabels(Localizations.localeOf(context).toLanguageTag()),
       ).indexWhere((o) => o.date == choice.date && o.minute == choice.minute);
     });
+  }
+
+  Future<void> _pickTags() async {
+    final ids = await showTagsSheet(context, selected: _tagIds);
+    if (ids != null && mounted) setState(() => _tagIds = ids);
   }
 
   Future<void> _pickRepeat(List<_When> options) async {
@@ -312,8 +322,7 @@ class _QuickAddSheetState extends ConsumerState<QuickAddSheet> {
           const SizedBox(height: 16),
           Row(
             children: [
-              // shortcut: the tag (3.6) and reminder (3.7) buttons come with
-              // their tasks.
+              // shortcut: the reminder button comes with 3.7.
               Flexible(
                 child: AppChip(
                   label: project?.name ?? l10n.inbox,
@@ -323,6 +332,21 @@ class _QuickAddSheetState extends ConsumerState<QuickAddSheet> {
                   ),
                   onTap: () => unawaited(_pickProject()),
                 ),
+              ),
+              const SizedBox(width: 8),
+              IconButton(
+                onPressed: () => unawaited(_pickTags()),
+                tooltip: _tagIds.isEmpty
+                    ? l10n.tagsTitle
+                    : l10n.titleWithDetail(l10n.tagsTitle, '${_tagIds.length}'),
+                style: IconButton.styleFrom(
+                  fixedSize: const Size(44, 44),
+                  backgroundColor: _tagIds.isEmpty
+                      ? colors.fillSoft
+                      : colors.ink,
+                  foregroundColor: _tagIds.isEmpty ? colors.ink : colors.onInk,
+                ),
+                icon: const AppIconView(AppIcon.tag, size: 20),
               ),
               const SizedBox(width: 8),
               IconButton(

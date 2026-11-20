@@ -29,7 +29,8 @@ abstract interface class TaskRepository {
   Stream<List<Task>> watchDueBetween(DateTime from, DateTime to);
 
   /// Tasks whose title, description, subtasks, tags or project contain
-  /// [query], ignoring case. Empty for a blank query.
+  /// [query], ignoring case. Empty for a blank query. A query starting
+  /// with # matches only tags that start with the rest ("#des").
   Stream<List<Task>> search(String query);
 
   /// Ticked out of all subtasks, for every task that has any ("2/4").

@@ -1621,4 +1621,123 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get repeatUnitMonths => 'Months';
+
+  @override
+  String get tagsTitle => 'Tags';
+
+  @override
+  String get searchOrCreateTag => 'Search or create a tag';
+
+  @override
+  String get tapToRemove => 'Tap to remove';
+
+  @override
+  String createTag(String name) {
+    return 'Create tag “#$name”';
+  }
+
+  @override
+  String saveTags(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Save $count tags',
+      one: 'Save 1 tag',
+      zero: 'Save without tags',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get addTagChip => 'Tag';
+
+  @override
+  String searchTagsCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count tags',
+      one: '1 tag',
+    );
+    return 'Search $_temp0';
+  }
+
+  @override
+  String get mostUsed => 'MOST USED';
+
+  @override
+  String get addShort => 'Add';
+
+  @override
+  String get tagsNote => 'Tap a tag here to rename, merge or delete it.';
+
+  @override
+  String tagTaskCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count tasks',
+      one: '1 task',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get showTaggedTasks => 'Show tasks';
+
+  @override
+  String get rename => 'Rename';
+
+  @override
+  String get deleteTag => 'Delete tag';
+
+  @override
+  String get newTag => 'New tag';
+
+  @override
+  String get renameTag => 'Rename tag';
+
+  @override
+  String get tagNameHint => 'Tag name';
+
+  @override
+  String get createTagButton => 'Create tag';
+
+  @override
+  String mergeTagTitle(String from, String into) {
+    return 'Merge #$from into #$into?';
+  }
+
+  @override
+  String mergeTagBody(String from, String into) {
+    return 'Tasks tagged #$from will be tagged #$into instead. This can\'t be undone.';
+  }
+
+  @override
+  String get mergeTag => 'Merge';
+
+  @override
+  String deleteTagTitle(String name) {
+    return 'Delete #$name?';
+  }
+
+  @override
+  String deleteTagBody(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'It comes off $count tasks.',
+      one: 'It comes off 1 task.',
+      zero: 'No tasks use it.',
+    );
+    return '$_temp0 This can\'t be undone.';
+  }
+
+  @override
+  String tagNameTaken(String name) {
+    return 'You already have #$name';
+  }
+
+  @override
+  String get noTagsYet => 'No tags yet';
 }

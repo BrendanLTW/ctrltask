@@ -5,6 +5,7 @@ import 'package:ctrltask/features/focus/domain/focus_timer.dart';
 import 'package:ctrltask/features/focus/domain/focus_timer_repository.dart';
 import 'package:ctrltask/features/projects/domain/project.dart';
 import 'package:ctrltask/features/projects/domain/project_repository.dart';
+import 'package:ctrltask/features/tags/domain/tag.dart';
 import 'package:ctrltask/features/tags/domain/tag_repository.dart';
 import 'package:ctrltask/features/tasks/domain/recent_searches_repository.dart';
 import 'package:ctrltask/features/tasks/domain/task_repository.dart';
@@ -23,7 +24,71 @@ class EmptyProjects extends Mock implements ProjectRepository;
 
 class EmptyFocus extends Mock implements FocusSessionRepository;
 
-class _Tags extends Mock implements TagRepository;
+/// Tags kept in memory, live, following the repository's rules: names
+/// normalised and unique, rename onto a name merges, usage counts kept.
+class MemoryTags implements TagRepository {
+  final _changes = StreamController<List<TagUsage>>.broadcast();
+  List<TagUsage> value = [];
+  var _nextId = 100;
+
+  void _emit(List<TagUsage> next) {
+    value = [...next]
+      ..sort((a, b) {
+        final c = b.taskCount.compareTo(a.taskCount);
+        return c != 0 ? c : a.tag.name.compareTo(b.tag.name);
+      });
+    _changes.add(value);
+  }
+
+  @override
+  Stream<List<TagUsage>> watch() async* {
+    yield value;
+    yield* _changes.stream;
+  }
+
+  @override
+  Future<Tag> create(String name) async {
+    final n = normaliseTagName(name);
+    if (value.any((u) => u.tag.name == n)) throw DuplicateTagNameException(n);
+    final tag = Tag(id: _nextId++, name: n);
+    _emit([...value, (tag: tag, taskCount: 0)]);
+    return tag;
+  }
+
+  @override
+  Future<Tag> rename(int id, String name) async {
+    final n = normaliseTagName(name);
+    final into = value.where((u) => u.tag.name == n && u.tag.id != id);
+    if (into.isNotEmpty) {
+      await merge(id, into.single.tag.id);
+      return into.single.tag;
+    }
+    final tag = Tag(id: id, name: n);
+    _emit([
+      for (final u in value)
+        if (u.tag.id == id) (tag: tag, taskCount: u.taskCount) else u,
+    ]);
+    return tag;
+  }
+
+  @override
+  Future<void> merge(int fromId, int intoId) async {
+    final from = value.firstWhere((u) => u.tag.id == fromId);
+    _emit([
+      for (final u in value)
+        if (u.tag.id == intoId)
+          (tag: u.tag, taskCount: u.taskCount + from.taskCount)
+        else if (u.tag.id != fromId)
+          u,
+    ]);
+  }
+
+  @override
+  Future<void> delete(int id) async => _emit([
+    for (final u in value)
+      if (u.tag.id != id) u,
+  ]);
+}
 
 /// Recent searches kept in memory, live.
 class MemoryRecentSearches implements RecentSearchesRepository {
@@ -83,6 +148,7 @@ List<Override> emptyRepositories({
   EmptyFocus? focusRepo,
   MemoryFocusTimers? timers,
   MemoryRecentSearches? recent,
+  MemoryTags? tagRepo,
   List<Project> projects = const [],
   List<Project> archived = const [],
 }) {
@@ -97,8 +163,7 @@ List<Override> emptyRepositories({
   when(projectFake.watchActive).thenAnswer((_) => Stream.value(projects));
   when(projectFake.watchArchived).thenAnswer((_) => Stream.value(archived));
   final focus = focusRepo ?? EmptyFocus();
-  final tags = _Tags();
-  when(tags.watch).thenAnswer((_) => Stream.value(const []));
+  final tags = tagRepo ?? MemoryTags();
   when(() => focus.watchStartedBetween(any(), any()))
       .thenAnswer((_) => Stream.value(const []));
   when(() => focus.watchFocusedSeconds(any()))

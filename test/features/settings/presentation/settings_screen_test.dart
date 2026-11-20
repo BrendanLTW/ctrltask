@@ -63,6 +63,7 @@ void main() {
         'MANAGE',
         'Archived projects',
         '2',
+        'Tags',
         'ctrlTask 0.1 · by BrendanLTW',
       ]) {
         expect(find.text(text), findsOneWidget, reason: text);
@@ -71,7 +72,6 @@ void main() {
       for (final text in [
         'Theme',
         'Notifications',
-        'Tags',
         'Export data',
         'Backup & restore',
         'Erase all data',

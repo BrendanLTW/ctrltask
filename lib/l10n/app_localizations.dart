@@ -2541,6 +2541,156 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Months'**
   String get repeatUnitMonths;
+
+  /// No description provided for @tagsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Tags'**
+  String get tagsTitle;
+
+  /// No description provided for @searchOrCreateTag.
+  ///
+  /// In en, this message translates to:
+  /// **'Search or create a tag'**
+  String get searchOrCreateTag;
+
+  /// No description provided for @tapToRemove.
+  ///
+  /// In en, this message translates to:
+  /// **'Tap to remove'**
+  String get tapToRemove;
+
+  /// No description provided for @createTag.
+  ///
+  /// In en, this message translates to:
+  /// **'Create tag “#{name}”'**
+  String createTag(String name);
+
+  /// No description provided for @saveTags.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =0{Save without tags} =1{Save 1 tag} other{Save {count} tags}}'**
+  String saveTags(int count);
+
+  /// No description provided for @addTagChip.
+  ///
+  /// In en, this message translates to:
+  /// **'Tag'**
+  String get addTagChip;
+
+  /// No description provided for @searchTagsCount.
+  ///
+  /// In en, this message translates to:
+  /// **'Search {count, plural, =1{1 tag} other{{count} tags}}'**
+  String searchTagsCount(int count);
+
+  /// No description provided for @mostUsed.
+  ///
+  /// In en, this message translates to:
+  /// **'MOST USED'**
+  String get mostUsed;
+
+  /// No description provided for @addShort.
+  ///
+  /// In en, this message translates to:
+  /// **'Add'**
+  String get addShort;
+
+  /// No description provided for @tagsNote.
+  ///
+  /// In en, this message translates to:
+  /// **'Tap a tag here to rename, merge or delete it.'**
+  String get tagsNote;
+
+  /// No description provided for @tagTaskCount.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{1 task} other{{count} tasks}}'**
+  String tagTaskCount(int count);
+
+  /// No description provided for @showTaggedTasks.
+  ///
+  /// In en, this message translates to:
+  /// **'Show tasks'**
+  String get showTaggedTasks;
+
+  /// No description provided for @rename.
+  ///
+  /// In en, this message translates to:
+  /// **'Rename'**
+  String get rename;
+
+  /// No description provided for @deleteTag.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete tag'**
+  String get deleteTag;
+
+  /// No description provided for @newTag.
+  ///
+  /// In en, this message translates to:
+  /// **'New tag'**
+  String get newTag;
+
+  /// No description provided for @renameTag.
+  ///
+  /// In en, this message translates to:
+  /// **'Rename tag'**
+  String get renameTag;
+
+  /// No description provided for @tagNameHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Tag name'**
+  String get tagNameHint;
+
+  /// No description provided for @createTagButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Create tag'**
+  String get createTagButton;
+
+  /// No description provided for @mergeTagTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Merge #{from} into #{into}?'**
+  String mergeTagTitle(String from, String into);
+
+  /// No description provided for @mergeTagBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Tasks tagged #{from} will be tagged #{into} instead. This can\'t be undone.'**
+  String mergeTagBody(String from, String into);
+
+  /// No description provided for @mergeTag.
+  ///
+  /// In en, this message translates to:
+  /// **'Merge'**
+  String get mergeTag;
+
+  /// No description provided for @deleteTagTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete #{name}?'**
+  String deleteTagTitle(String name);
+
+  /// No description provided for @deleteTagBody.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =0{No tasks use it.} =1{It comes off 1 task.} other{It comes off {count} tasks.}} This can\'t be undone.'**
+  String deleteTagBody(int count);
+
+  /// No description provided for @tagNameTaken.
+  ///
+  /// In en, this message translates to:
+  /// **'You already have #{name}'**
+  String tagNameTaken(String name);
+
+  /// No description provided for @noTagsYet.
+  ///
+  /// In en, this message translates to:
+  /// **'No tags yet'**
+  String get noTagsYet;
 }
 
 class _AppLocalizationsDelegate

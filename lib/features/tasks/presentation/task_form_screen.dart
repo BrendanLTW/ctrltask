@@ -15,11 +15,16 @@ import 'package:ctrltask/core/widgets/list_group.dart';
 import 'package:ctrltask/core/widgets/priority_tag.dart';
 import 'package:ctrltask/core/widgets/section_header.dart';
 import 'package:ctrltask/core/widgets/sub_screen_bar.dart';
+import 'package:ctrltask/core/widgets/tag_chip.dart';
 import 'package:ctrltask/core/widgets/title_field_card.dart';
 import 'package:ctrltask/features/home/presentation/home_providers.dart';
 import 'package:ctrltask/features/projects/domain/project_keys.dart';
 import 'package:ctrltask/features/projects/presentation/move_to_project_sheet.dart';
 import 'package:ctrltask/features/settings/domain/preferences_repository.dart';
+import 'package:ctrltask/features/tags/domain/tag.dart';
+import 'package:ctrltask/features/tags/domain/tag_repository.dart';
+import 'package:ctrltask/features/tags/presentation/tag_providers.dart';
+import 'package:ctrltask/features/tags/presentation/tags_sheet.dart';
 import 'package:ctrltask/features/tasks/domain/subtask.dart';
 import 'package:ctrltask/features/tasks/domain/task.dart';
 import 'package:ctrltask/features/tasks/domain/task_details.dart';
@@ -61,6 +66,7 @@ class _TaskFormScreenState extends ConsumerState<TaskFormScreen> {
   late TaskPriority _priority = widget.draft?.priority ?? TaskPriority.medium;
   late int? _projectId = widget.draft?.projectId;
   late RepeatRule? _repeat = widget.draft?.repeat;
+  late Set<int> _tagIds = {...?widget.draft?.tagIds};
   late final List<Subtask> _subtasks = [
     for (final (i, title) in (widget.draft?.subtasks ?? const []).indexed)
       Subtask(id: 0, taskId: 0, title: title, sortOrder: i),
@@ -99,6 +105,7 @@ class _TaskFormScreenState extends ConsumerState<TaskFormScreen> {
       _priority = task.priority;
       _projectId = task.projectId;
       _repeat = details.repeat;
+      _tagIds = {for (final t in details.tags) t.id};
       _subtasks
         ..clear()
         ..addAll(details.subtasks);
@@ -143,7 +150,7 @@ class _TaskFormScreenState extends ConsumerState<TaskFormScreen> {
           links: [for (final l in _links) (title: l.title, url: l.url)],
           reminder: widget.draft?.reminder ?? ReminderOffset.none,
           repeat: _repeat,
-          tagIds: widget.draft?.tagIds ?? const {},
+          tagIds: _tagIds,
         ),
       );
       // A new task's subtasks start open; carry over any ticked here.
@@ -173,6 +180,7 @@ class _TaskFormScreenState extends ConsumerState<TaskFormScreen> {
             projectId: _projectId,
           ),
           repeat: _repeat,
+          tags: _tags(watch: false),
           subtasks: [
             for (final (i, s) in _subtasks.indexed) s.copyWith(sortOrder: i),
           ],
@@ -181,6 +189,21 @@ class _TaskFormScreenState extends ConsumerState<TaskFormScreen> {
       );
     }
     if (mounted) Navigator.of(context).pop();
+  }
+
+  /// The picked tags, in the order S18 lists them. [watch] in build,
+  /// read when saving.
+  List<Tag> _tags({bool watch = true}) => [
+    for (final u
+        in (watch ? ref.watch(tagUsagesProvider) : ref.read(tagUsagesProvider))
+                .value ??
+            const <TagUsage>[])
+      if (_tagIds.contains(u.tag.id)) u.tag,
+  ];
+
+  Future<void> _pickTags() async {
+    final ids = await showTagsSheet(context, selected: _tagIds);
+    if (ids != null && mounted) setState(() => _tagIds = ids);
   }
 
   Future<void> _pickRepeat() async {
@@ -352,6 +375,37 @@ class _TaskFormScreenState extends ConsumerState<TaskFormScreen> {
                   SectionHeader('${l10n.moreDetails}${l10n.optional}'),
                   ListGroup(
                     children: [
+                      InkWell(
+                        onTap: () => unawaited(_pickTags()),
+                        child: Padding(
+                          padding: const EdgeInsets.fromLTRB(18, 12, 18, 12),
+                          child: Row(
+                            children: [
+                              const IconTile(
+                                icon: AppIcon.tag,
+                                color: ProjectColorKey.grey,
+                                size: IconTileSize.medium,
+                              ),
+                              const SizedBox(width: 14),
+                              Expanded(
+                                child: Semantics(
+                                  button: true,
+                                  label: l10n.tagsTitle,
+                                  child: Wrap(
+                                    spacing: 8,
+                                    runSpacing: 8,
+                                    children: [
+                                      for (final tag in _tags())
+                                        TagChip(tag.name),
+                                      AddTagChip(label: l10n.addTagChip),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
                       ListGroupRow(
                         title: l10n.repeatTitle,
                         value: repeatSummary(

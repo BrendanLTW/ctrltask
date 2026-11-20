@@ -16,6 +16,7 @@ class SearchField extends StatelessWidget {
     this.inSheet = false,
     this.autofocus = false,
     this.onSubmitted,
+    this.icon = AppIcon.search,
     super.key,
   });
 
@@ -27,6 +28,9 @@ class SearchField extends StatelessWidget {
 
   /// The keyboard's search key (S24 saves the search).
   final ValueChanged<String>? onSubmitted;
+
+  /// 🔍, or S18's 🏷.
+  final AppIcon icon;
 
   @override
   Widget build(BuildContext context) {
@@ -59,7 +63,7 @@ class SearchField extends StatelessWidget {
           contentPadding: EdgeInsets.zero,
           prefixIcon: Padding(
             padding: const EdgeInsets.only(left: 18, right: 12),
-            child: AppIconView(AppIcon.search, size: 20, color: colors.muted),
+            child: AppIconView(icon, size: 20, color: colors.muted),
           ),
           prefixIconConstraints: const BoxConstraints(),
           suffixIcon: value.text.isEmpty

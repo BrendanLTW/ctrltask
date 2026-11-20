@@ -21,6 +21,7 @@ import 'package:ctrltask/features/home/presentation/home_providers.dart';
 import 'package:ctrltask/features/projects/domain/project.dart';
 import 'package:ctrltask/features/projects/presentation/project_providers.dart';
 import 'package:ctrltask/features/tags/domain/tag_repository.dart';
+import 'package:ctrltask/features/tags/presentation/tag_providers.dart';
 import 'package:ctrltask/features/tasks/domain/recent_searches_repository.dart';
 import 'package:ctrltask/features/tasks/domain/search_text.dart';
 import 'package:ctrltask/features/tasks/domain/task.dart';
@@ -41,11 +42,6 @@ part 'search_screen.g.dart';
 Stream<List<Task>> searchTasks(Ref ref, String query) =>
     ref.watch(taskRepositoryProvider).search(query);
 
-/// Tag names, for S25's "Did you mean".
-@riverpod
-Stream<List<TagUsage>> searchTags(Ref ref) =>
-    ref.watch(tagRepositoryProvider).watch();
-
 @riverpod
 Stream<List<String>> recentSearches(Ref ref) =>
     ref.watch(recentSearchesRepositoryProvider).watch();
@@ -54,14 +50,17 @@ enum _Type { all, tasks, projects, done }
 
 /// S24 Search, and S25 when nothing matches (PRD §5.6).
 class SearchScreen extends ConsumerStatefulWidget {
-  const new({super.key});
+  const new({this.initialQuery, super.key});
+
+  /// Starts on this search: S46's "#design".
+  final String? initialQuery;
 
   @override
   ConsumerState<SearchScreen> createState() => _SearchScreenState();
 }
 
 class _SearchScreenState extends ConsumerState<SearchScreen> {
-  final _query = TextEditingController();
+  late final _query = TextEditingController(text: widget.initialQuery);
   _Type _type = _Type.all;
 
   @override
@@ -252,7 +251,7 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
         t.title,
       for (final p in ref.watch(activeProjectsProvider).value ?? <Project>[])
         p.name,
-      for (final u in ref.watch(searchTagsProvider).value ?? const <TagUsage>[])
+      for (final u in ref.watch(tagUsagesProvider).value ?? const <TagUsage>[])
         u.tag.name,
     ];
     final suggestion = didYouMean(query, vocabulary);

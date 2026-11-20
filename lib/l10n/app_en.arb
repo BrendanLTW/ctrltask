@@ -1213,5 +1213,99 @@
   "optional": " · optional",
   "repeatUnitDays": "Days",
   "repeatUnitWeeks": "Weeks",
-  "repeatUnitMonths": "Months"
+  "repeatUnitMonths": "Months",
+  "tagsTitle": "Tags",
+  "searchOrCreateTag": "Search or create a tag",
+  "tapToRemove": "Tap to remove",
+  "createTag": "Create tag “#{name}”",
+  "@createTag": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "saveTags": "{count, plural, =0{Save without tags} =1{Save 1 tag} other{Save {count} tags}}",
+  "@saveTags": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "addTagChip": "Tag",
+  "searchTagsCount": "Search {count, plural, =1{1 tag} other{{count} tags}}",
+  "@searchTagsCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "mostUsed": "MOST USED",
+  "addShort": "Add",
+  "tagsNote": "Tap a tag here to rename, merge or delete it.",
+  "tagTaskCount": "{count, plural, =1{1 task} other{{count} tasks}}",
+  "@tagTaskCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "showTaggedTasks": "Show tasks",
+  "rename": "Rename",
+  "deleteTag": "Delete tag",
+  "newTag": "New tag",
+  "renameTag": "Rename tag",
+  "tagNameHint": "Tag name",
+  "createTagButton": "Create tag",
+  "mergeTagTitle": "Merge #{from} into #{into}?",
+  "@mergeTagTitle": {
+    "placeholders": {
+      "from": {
+        "type": "String"
+      },
+      "into": {
+        "type": "String"
+      }
+    }
+  },
+  "mergeTagBody": "Tasks tagged #{from} will be tagged #{into} instead. This can't be undone.",
+  "@mergeTagBody": {
+    "placeholders": {
+      "from": {
+        "type": "String"
+      },
+      "into": {
+        "type": "String"
+      }
+    }
+  },
+  "mergeTag": "Merge",
+  "deleteTagTitle": "Delete #{name}?",
+  "@deleteTagTitle": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "deleteTagBody": "{count, plural, =0{No tasks use it.} =1{It comes off 1 task.} other{It comes off {count} tasks.}} This can't be undone.",
+  "@deleteTagBody": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "tagNameTaken": "You already have #{name}",
+  "@tagNameTaken": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "noTagsYet": "No tags yet"
 }

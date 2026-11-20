@@ -22,6 +22,9 @@ import 'package:ctrltask/features/projects/domain/project_keys.dart';
 import 'package:ctrltask/features/projects/presentation/move_to_project_sheet.dart';
 import 'package:ctrltask/features/settings/domain/preferences.dart';
 import 'package:ctrltask/features/settings/domain/preferences_repository.dart';
+import 'package:ctrltask/features/tags/domain/tag_repository.dart';
+import 'package:ctrltask/features/tags/presentation/tag_providers.dart';
+import 'package:ctrltask/features/tags/presentation/tags_sheet.dart';
 import 'package:ctrltask/features/tasks/domain/task_details.dart';
 import 'package:ctrltask/features/tasks/domain/task_link.dart';
 import 'package:ctrltask/features/tasks/domain/task_repository.dart';
@@ -98,6 +101,23 @@ class _TaskDetailScreenState extends ConsumerState<TaskDetailScreen> {
     );
   }
 
+  Future<void> _pickTags(TaskDetails details) async {
+    final ids = await showTagsSheet(
+      context,
+      selected: {for (final t in details.tags) t.id},
+    );
+    if (ids == null) return;
+    final known = ref.read(tagUsagesProvider).value ?? const <TagUsage>[];
+    await _update(
+      details.copyWith(
+        tags: [
+          for (final u in known)
+            if (ids.contains(u.tag.id)) u.tag,
+        ],
+      ),
+    );
+  }
+
   Future<void> _pickRepeat(TaskDetails details) async {
     final pick = await showRepeatSheet(
       context,
@@ -149,6 +169,8 @@ class _TaskDetailScreenState extends ConsumerState<TaskDetailScreen> {
     final colors = context.colors;
     final l10n = context.l10n;
     final async = ref.watch(taskDetailsProvider(widget.taskId));
+    // Kept loaded, so a tag picked on S18 can be saved by name.
+    ref.watch(tagUsagesProvider);
     ref.listen(taskDetailsProvider(widget.taskId), (previous, next) {
       // Gone, deleted here or elsewhere: back to where we came from.
       if (previous?.value != null && next.hasValue && next.value == null) {
@@ -215,6 +237,7 @@ class _TaskDetailScreenState extends ConsumerState<TaskDetailScreen> {
           onToggle: (done) =>
               unawaited(setTaskDone(context, ref, task, done: done)),
           onProject: () => unawaited(_pickProject(details)),
+          onTags: () => unawaited(_pickTags(details)),
         ),
         DueSection(
           dueDate: task.dueDate,

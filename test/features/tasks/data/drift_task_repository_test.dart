@@ -269,6 +269,13 @@ void main() {
       expect(await titles(repo.search('_')), isEmpty);
     });
 
+    test('#word matches only tags starting with it', () async {
+      await repo.add(const TaskDraft(title: 'Errands list'));
+      expect(await titles(repo.search('#ERR')), ['Weekly shop']);
+      expect(await titles(repo.search('#rands')), isEmpty);
+      expect(await titles(repo.search('#')), isEmpty);
+    });
+
     test('a blank query finds nothing', () async {
       expect(await titles(repo.search('  ')), isEmpty);
     });

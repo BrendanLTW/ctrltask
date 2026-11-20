@@ -18,6 +18,7 @@ import 'package:ctrltask/features/home/presentation/home_providers.dart';
 import 'package:ctrltask/features/projects/domain/project_keys.dart';
 import 'package:ctrltask/features/projects/presentation/project_providers.dart';
 import 'package:ctrltask/features/settings/domain/preferences_repository.dart';
+import 'package:ctrltask/features/tags/presentation/tag_providers.dart';
 import 'package:ctrltask/features/tasks/domain/task_calculations.dart';
 import 'package:ctrltask/l10n/l10n.dart';
 import 'package:flutter/material.dart';
@@ -27,7 +28,7 @@ import 'package:go_router/go_router.dart';
 /// S35 Settings (PRD §5.10): the name card, the insights banner, and the
 /// rows whose screens exist so far.
 // shortcut: the other Preferences (Theme, Week starts on, Default priority
-// 3.9, Notifications 3.8), Tags (3.6), Export data
+// 3.9, Notifications 3.8), Export data
 // (3.11) and Erase all data (3.12) appear with their screens; Backup &
 // restore is v1.1.
 class SettingsScreen extends ConsumerWidget {
@@ -42,6 +43,7 @@ class SettingsScreen extends ConsumerWidget {
     final name = prefs?.userName ?? '';
     final done = ref.watch(doneTasksProvider).value ?? const [];
     final archived = ref.watch(archivedProjectsProvider).value ?? const [];
+    final tags = ref.watch(tagUsagesProvider).value ?? const [];
     final now = ref.watch(clockProvider)();
     final today = DateTime(now.year, now.month, now.day);
     void open(String route) => unawaited(context.push(route));
@@ -191,6 +193,16 @@ class SettingsScreen extends ConsumerWidget {
                           size: IconTileSize.medium,
                         ),
                         onTap: () => open(Routes.archivedProjects),
+                      ),
+                      ListGroupRow(
+                        title: l10n.tagsTitle,
+                        value: '${tags.length}',
+                        leading: const IconTile(
+                          icon: AppIcon.tag,
+                          color: ProjectColorKey.grey,
+                          size: IconTileSize.medium,
+                        ),
+                        onTap: () => open(Routes.tags),
                       ),
                     ],
                   ),

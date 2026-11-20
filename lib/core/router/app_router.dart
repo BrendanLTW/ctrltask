@@ -17,6 +17,7 @@ import 'package:ctrltask/features/projects/presentation/project_form_screen.dart
 import 'package:ctrltask/features/projects/presentation/projects_screen.dart';
 import 'package:ctrltask/features/settings/presentation/edit_name_screen.dart';
 import 'package:ctrltask/features/settings/presentation/settings_screen.dart';
+import 'package:ctrltask/features/tags/presentation/tags_manager_screen.dart';
 import 'package:ctrltask/features/tasks/domain/task_draft.dart';
 import 'package:ctrltask/features/tasks/presentation/quick_add_sheet.dart';
 import 'package:ctrltask/features/tasks/presentation/search_screen.dart';
@@ -43,6 +44,7 @@ abstract final class Routes {
   static String project(String id) => '/project/$id';
   static String editProject(String id) => '/project/$id/edit';
   static const archivedProjects = '/settings/archived';
+  static const tags = '/settings/tags';
   static const search = '/search';
   static const insights = '/insights';
   static const settings = '/settings';
@@ -157,12 +159,17 @@ GoRouter appRouter(Ref ref) {
         builder: (context, state) => const EditNameScreen(),
       ),
       GoRoute(
+        path: Routes.tags,
+        builder: (context, state) => const TagsManagerScreen(),
+      ),
+      GoRoute(
         path: Routes.archivedProjects,
         builder: (context, state) => const ArchivedProjectsScreen(),
       ),
       GoRoute(
         path: Routes.search,
-        builder: (context, state) => const SearchScreen(),
+        builder: (context, state) =>
+            SearchScreen(initialQuery: state.extra as String?),
       ),
       GoRoute(
         path: Routes.insights,

@@ -22,6 +22,7 @@ class DetailHeader extends StatelessWidget {
     required this.tags,
     required this.onToggle,
     required this.onProject,
+    required this.onTags,
     super.key,
   });
 
@@ -32,6 +33,9 @@ class DetailHeader extends StatelessWidget {
 
   /// Opens S17 to move the task.
   final VoidCallback onProject;
+
+  /// Opens S18 to change the tags.
+  final VoidCallback onTags;
 
   @override
   Widget build(BuildContext context) {
@@ -79,7 +83,28 @@ class DetailHeader extends StatelessWidget {
                       children: [
                         if (urgentOrHigh) PriorityTag(task.priority),
                         _ProjectChip(project, onTap: onProject),
-                        for (final tag in tags) TagChip(tag.name),
+                        // 44 high to tap, like the project chip.
+                        Semantics(
+                          button: true,
+                          label: context.l10n.tagsTitle,
+                          child: InkWell(
+                            onTap: onTags,
+                            borderRadius: BorderRadius.circular(AppRadius.pill),
+                            child: ConstrainedBox(
+                              constraints: const BoxConstraints(minHeight: 44),
+                              child: Wrap(
+                                spacing: 8,
+                                runSpacing: 8,
+                                crossAxisAlignment: WrapCrossAlignment.center,
+                                children: [
+                                  for (final tag in tags) TagChip(tag.name),
+                                  if (tags.isEmpty)
+                                    AddTagChip(label: context.l10n.addTagChip),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
                       ],
                     ),
                   ],

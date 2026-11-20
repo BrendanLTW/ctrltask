@@ -91,50 +91,6 @@ final class SearchTasksFamily extends $Family
   String toString() => r'searchTasksProvider';
 }
 
-/// Tag names, for S25's "Did you mean".
-
-@ProviderFor(searchTags)
-final searchTagsProvider = SearchTagsProvider._();
-
-/// Tag names, for S25's "Did you mean".
-
-final class SearchTagsProvider
-    extends
-        $FunctionalProvider<
-          AsyncValue<List<TagUsage>>,
-          List<TagUsage>,
-          Stream<List<TagUsage>>
-        >
-    with $FutureModifier<List<TagUsage>>, $StreamProvider<List<TagUsage>> {
-  /// Tag names, for S25's "Did you mean".
-  SearchTagsProvider._()
-    : super(
-        from: null,
-        argument: null,
-        retry: null,
-        name: r'searchTagsProvider',
-        isAutoDispose: true,
-        dependencies: null,
-        $allTransitiveDependencies: null,
-      );
-
-  @override
-  String debugGetCreateSourceHash() => _$searchTagsHash();
-
-  @$internal
-  @override
-  $StreamProviderElement<List<TagUsage>> $createElement(
-    $ProviderPointer pointer,
-  ) => $StreamProviderElement(pointer);
-
-  @override
-  Stream<List<TagUsage>> create(Ref ref) {
-    return searchTags(ref);
-  }
-}
-
-String _$searchTagsHash() => r'2a7dfde56c45879af4c507f603c25717635ea162';
-
 @ProviderFor(recentSearches)
 final recentSearchesProvider = RecentSearchesProvider._();
 
