@@ -58,6 +58,12 @@ void main() {
         'PRODUCTIVITY INSIGHTS',
         '3-day streak · 3 tasks done',
         'PREFERENCES',
+        'Theme',
+        'System',
+        'Week starts on',
+        'Monday',
+        'Default priority',
+        'Medium',
         'Default focus length',
         'Notifications',
         '4 on',
@@ -72,7 +78,6 @@ void main() {
       }
       // Hidden until their screens exist.
       for (final text in [
-        'Theme',
         'Export data',
         'Backup & restore',
         'Erase all data',

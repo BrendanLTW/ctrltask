@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:ctrltask/core/app_info.dart';
 import 'package:ctrltask/core/dates/clock.dart';
+import 'package:ctrltask/core/dates/week.dart';
 import 'package:ctrltask/core/router/app_router.dart';
 import 'package:ctrltask/core/theme/app_colors.dart';
 import 'package:ctrltask/core/theme/app_radius.dart';
@@ -11,6 +12,7 @@ import 'package:ctrltask/core/widgets/app_icon.dart';
 import 'package:ctrltask/core/widgets/icon_tile.dart';
 import 'package:ctrltask/core/widgets/list_group.dart';
 import 'package:ctrltask/core/widgets/name_avatar.dart';
+import 'package:ctrltask/core/widgets/priority_tag.dart';
 import 'package:ctrltask/core/widgets/section_header.dart';
 import 'package:ctrltask/core/widgets/sub_screen_bar.dart';
 import 'package:ctrltask/features/focus/presentation/timer_settings_sheet.dart';
@@ -22,6 +24,7 @@ import 'package:ctrltask/features/settings/domain/preferences.dart';
 import 'package:ctrltask/features/settings/domain/preferences_repository.dart';
 import 'package:ctrltask/features/tags/presentation/tag_providers.dart';
 import 'package:ctrltask/features/tasks/domain/task_calculations.dart';
+import 'package:ctrltask/features/tasks/domain/task_priority.dart';
 import 'package:ctrltask/l10n/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -29,10 +32,8 @@ import 'package:go_router/go_router.dart';
 
 /// S35 Settings (PRD §5.10): the name card, the insights banner, and the
 /// rows whose screens exist so far.
-// shortcut: the other Preferences (Theme, Week starts on, Default priority
-// 3.9), Export data
-// (3.11) and Erase all data (3.12) appear with their screens; Backup &
-// restore is v1.1.
+// shortcut: Export data (3.11) and Erase all data (3.12) appear with their
+// screens; Backup & restore is v1.1.
 class SettingsScreen extends ConsumerWidget {
   const new({super.key});
 
@@ -171,6 +172,43 @@ class SettingsScreen extends ConsumerWidget {
                   SectionHeader(l10n.preferencesSection),
                   ListGroup(
                     children: [
+                      ListGroupRow(
+                        title: l10n.themeTitle,
+                        value: l10n.themeName(
+                          (prefs?.theme ?? AppTheme.system).name,
+                        ),
+                        leading: const IconTile(
+                          icon: AppIcon.palette,
+                          color: ProjectColorKey.purple,
+                          size: IconTileSize.medium,
+                        ),
+                        onTap: () => open(Routes.theme),
+                      ),
+                      ListGroupRow(
+                        title: l10n.weekStartTitle,
+                        value: l10n.weekStartName(
+                          (prefs?.weekStart ?? WeekStart.mon).name,
+                        ),
+                        leading: const IconTile(
+                          icon: AppIcon.calendar,
+                          color: ProjectColorKey.orange,
+                          size: IconTileSize.medium,
+                        ),
+                        onTap: () => open(Routes.weekStart),
+                      ),
+                      ListGroupRow(
+                        title: l10n.defaultPriorityTitle,
+                        value: priorityLabel(
+                          context,
+                          prefs?.defaultPriority ?? TaskPriority.medium,
+                        ),
+                        leading: const IconTile(
+                          icon: AppIcon.flag,
+                          color: ProjectColorKey.blue,
+                          size: IconTileSize.medium,
+                        ),
+                        onTap: () => open(Routes.defaultPriority),
+                      ),
                       ListGroupRow(
                         title: l10n.defaultFocusLength,
                         value: l10n.minutesValue(prefs?.focusMin ?? 25),

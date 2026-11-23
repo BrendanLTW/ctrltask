@@ -17,6 +17,8 @@ import 'package:ctrltask/features/projects/presentation/project_detail_screen.da
 import 'package:ctrltask/features/projects/presentation/project_form_screen.dart';
 import 'package:ctrltask/features/projects/presentation/projects_screen.dart';
 import 'package:ctrltask/features/settings/presentation/edit_name_screen.dart';
+import 'package:ctrltask/features/settings/presentation/preferences/preference_screens.dart';
+import 'package:ctrltask/features/settings/presentation/preferences/theme_screen.dart';
 import 'package:ctrltask/features/settings/presentation/settings_screen.dart';
 import 'package:ctrltask/features/tags/presentation/tags_manager_screen.dart';
 import 'package:ctrltask/features/tasks/domain/task_draft.dart';
@@ -47,6 +49,9 @@ abstract final class Routes {
   static const archivedProjects = '/settings/archived';
   static const tags = '/settings/tags';
   static const notifications = '/settings/notifications';
+  static const theme = '/settings/theme';
+  static const weekStart = '/settings/week-start';
+  static const defaultPriority = '/settings/priority';
   static const search = '/search';
   static const insights = '/insights';
   static const settings = '/settings';
@@ -159,6 +164,18 @@ GoRouter appRouter(Ref ref) {
       GoRoute(
         path: Routes.editName,
         builder: (context, state) => const EditNameScreen(),
+      ),
+      GoRoute(
+        path: Routes.theme,
+        builder: (context, state) => const ThemeScreen(),
+      ),
+      GoRoute(
+        path: Routes.weekStart,
+        builder: (context, state) => const WeekStartScreen(),
+      ),
+      GoRoute(
+        path: Routes.defaultPriority,
+        builder: (context, state) => const DefaultPriorityScreen(),
       ),
       GoRoute(
         path: Routes.notifications,

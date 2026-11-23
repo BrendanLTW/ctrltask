@@ -1904,4 +1904,63 @@ class AppLocalizationsEn extends AppLocalizations {
   String notificationsOnCount(int count) {
     return '$count on';
   }
+
+  @override
+  String get themeTitle => 'Theme';
+
+  @override
+  String themeName(String theme) {
+    String _temp0 = intl.Intl.selectLogic(theme, {
+      'light': 'Light',
+      'dark': 'Dark',
+      'other': 'System',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String get themeNote =>
+      'System follows your phone\'s setting and switches automatically at night.';
+
+  @override
+  String get weekStartTitle => 'Week starts on';
+
+  @override
+  String weekStartName(String day) {
+    String _temp0 = intl.Intl.selectLogic(day, {
+      'sun': 'Sunday',
+      'sat': 'Saturday',
+      'other': 'Monday',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String get weekStartMonDetail => 'Common in Malaysia and Europe';
+
+  @override
+  String get weekStartSunDetail => 'Common in the US';
+
+  @override
+  String get weekStartNote =>
+      'Changes the calendar grid, “This week” in Tasks and your weekly insights.';
+
+  @override
+  String get defaultPriorityTitle => 'Default priority';
+
+  @override
+  String get priorityUrgentDetail => 'Red ring, always shows a tag';
+
+  @override
+  String get priorityHighDetail => 'Orange ring, shows a tag';
+
+  @override
+  String get priorityMediumDetail => 'Blue ring';
+
+  @override
+  String get priorityLowDetail => 'Plain ring';
+
+  @override
+  String get defaultPriorityNote =>
+      'New tasks start at this priority. You can change it in quick add with one tap.';
 }

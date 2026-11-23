@@ -110,7 +110,7 @@ Work top to bottom. Each task is sized for one Claude Code session and follows t
   Refs: S05, S16, S39, PRD §6.5, FR-12
 - [x] **3.8 Notification settings.** S39 toggles, Timing rows (time pickers and the default reminder) and the permission-denied warning box with Open phone settings.
   Refs: S39, PRD §5.10, FR-12
-- [ ] **3.9 Preferences screens.** S36 Theme (preview cards), S37 Week starts on, S38 Default priority. Changes apply at once everywhere.
+- [x] **3.9 Preferences screens.** S36 Theme (preview cards), S37 Week starts on, S38 Default priority. Changes apply at once everywhere.
   Refs: S36–S38, PRD §5.10, FR-15
 - [ ] **3.10 Insights.** S34 with the range segments, completion-rate hero and change, stat tiles, tasks and focus bar charts with text alternatives, 6-week trend, power day, and the not-enough-data state. Wire the S35 banner and the stats button on S30.
   Refs: S34, PRD §5.9, FR-14

@@ -2925,6 +2925,90 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'{count} on'**
   String notificationsOnCount(int count);
+
+  /// No description provided for @themeTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Theme'**
+  String get themeTitle;
+
+  /// No description provided for @themeName.
+  ///
+  /// In en, this message translates to:
+  /// **'{theme, select, light{Light} dark{Dark} other{System}}'**
+  String themeName(String theme);
+
+  /// No description provided for @themeNote.
+  ///
+  /// In en, this message translates to:
+  /// **'System follows your phone\'s setting and switches automatically at night.'**
+  String get themeNote;
+
+  /// No description provided for @weekStartTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Week starts on'**
+  String get weekStartTitle;
+
+  /// No description provided for @weekStartName.
+  ///
+  /// In en, this message translates to:
+  /// **'{day, select, sun{Sunday} sat{Saturday} other{Monday}}'**
+  String weekStartName(String day);
+
+  /// No description provided for @weekStartMonDetail.
+  ///
+  /// In en, this message translates to:
+  /// **'Common in Malaysia and Europe'**
+  String get weekStartMonDetail;
+
+  /// No description provided for @weekStartSunDetail.
+  ///
+  /// In en, this message translates to:
+  /// **'Common in the US'**
+  String get weekStartSunDetail;
+
+  /// No description provided for @weekStartNote.
+  ///
+  /// In en, this message translates to:
+  /// **'Changes the calendar grid, “This week” in Tasks and your weekly insights.'**
+  String get weekStartNote;
+
+  /// No description provided for @defaultPriorityTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Default priority'**
+  String get defaultPriorityTitle;
+
+  /// No description provided for @priorityUrgentDetail.
+  ///
+  /// In en, this message translates to:
+  /// **'Red ring, always shows a tag'**
+  String get priorityUrgentDetail;
+
+  /// No description provided for @priorityHighDetail.
+  ///
+  /// In en, this message translates to:
+  /// **'Orange ring, shows a tag'**
+  String get priorityHighDetail;
+
+  /// No description provided for @priorityMediumDetail.
+  ///
+  /// In en, this message translates to:
+  /// **'Blue ring'**
+  String get priorityMediumDetail;
+
+  /// No description provided for @priorityLowDetail.
+  ///
+  /// In en, this message translates to:
+  /// **'Plain ring'**
+  String get priorityLowDetail;
+
+  /// No description provided for @defaultPriorityNote.
+  ///
+  /// In en, this message translates to:
+  /// **'New tasks start at this priority. You can change it in quick add with one tap.'**
+  String get defaultPriorityNote;
 }
 
 class _AppLocalizationsDelegate

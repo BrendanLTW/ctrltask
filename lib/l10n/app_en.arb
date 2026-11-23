@@ -1428,5 +1428,33 @@
         "type": "int"
       }
     }
-  }
+  },
+  "themeTitle": "Theme",
+  "themeName": "{theme, select, light{Light} dark{Dark} other{System}}",
+  "@themeName": {
+    "placeholders": {
+      "theme": {
+        "type": "String"
+      }
+    }
+  },
+  "themeNote": "System follows your phone's setting and switches automatically at night.",
+  "weekStartTitle": "Week starts on",
+  "weekStartName": "{day, select, sun{Sunday} sat{Saturday} other{Monday}}",
+  "@weekStartName": {
+    "placeholders": {
+      "day": {
+        "type": "String"
+      }
+    }
+  },
+  "weekStartMonDetail": "Common in Malaysia and Europe",
+  "weekStartSunDetail": "Common in the US",
+  "weekStartNote": "Changes the calendar grid, “This week” in Tasks and your weekly insights.",
+  "defaultPriorityTitle": "Default priority",
+  "priorityUrgentDetail": "Red ring, always shows a tag",
+  "priorityHighDetail": "Orange ring, shows a tag",
+  "priorityMediumDetail": "Blue ring",
+  "priorityLowDetail": "Plain ring",
+  "defaultPriorityNote": "New tasks start at this priority. You can change it in quick add with one tap."
 }
