@@ -192,6 +192,7 @@ class ProjectsApp {
   final sessions = Live<List<FocusSession>>(const []);
   final timers = MemoryFocusTimers();
   final tags = MemoryTags();
+  final scheduler = FakeScheduler();
 
   /// The app's clock; tests move it on.
   DateTime now = testNow;
@@ -287,6 +288,7 @@ class ProjectsApp {
           focusRepo: focus,
           timers: timers,
           tagRepo: tags,
+          scheduler: scheduler,
         ),
         clockProvider.overrideWithValue(() => now),
       ],

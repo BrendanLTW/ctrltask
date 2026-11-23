@@ -2691,6 +2691,114 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'No tags yet'**
   String get noTagsYet;
+
+  /// No description provided for @notifyPlanTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Your plan for today'**
+  String get notifyPlanTitle;
+
+  /// No description provided for @notifyPlanBody.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{1 task} other{{count} tasks}} due · first: {title}'**
+  String notifyPlanBody(int count, String title);
+
+  /// No description provided for @notifyOverdueBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Open ctrlTask to catch up on what slipped.'**
+  String get notifyOverdueBody;
+
+  /// No description provided for @notifyWeeklyTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Weekly review'**
+  String get notifyWeeklyTitle;
+
+  /// No description provided for @notifyWeeklyBody.
+  ///
+  /// In en, this message translates to:
+  /// **'See how your week went and plan the next one.'**
+  String get notifyWeeklyBody;
+
+  /// No description provided for @notifySessionBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Nice focus. Time for a break.'**
+  String get notifySessionBody;
+
+  /// No description provided for @notifyBreakOverBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Ready for the next session?'**
+  String get notifyBreakOverBody;
+
+  /// No description provided for @notifyDue.
+  ///
+  /// In en, this message translates to:
+  /// **'{when}'**
+  String notifyDue(String when);
+
+  /// No description provided for @reminderTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Reminder'**
+  String get reminderTitle;
+
+  /// No description provided for @reminderOption.
+  ///
+  /// In en, this message translates to:
+  /// **'{offset, select, none{No reminder} atTime{At due time} min10{10 minutes before} min30{30 minutes before} hour1{1 hour before} morningOf{Morning of} other{Day before}}'**
+  String reminderOption(String offset);
+
+  /// No description provided for @reminderShort.
+  ///
+  /// In en, this message translates to:
+  /// **'{offset, select, none{None} atTime{At due time} min10{10 min before} min30{30 min before} hour1{1 hour before} morningOf{Morning of} other{Day before}}'**
+  String reminderShort(String offset);
+
+  /// No description provided for @reminderNote.
+  ///
+  /// In en, this message translates to:
+  /// **'Due {due}. You\'ll be reminded {when}.'**
+  String reminderNote(String due, String when);
+
+  /// No description provided for @reminderNoteNone.
+  ///
+  /// In en, this message translates to:
+  /// **'Due {due}. No reminder.'**
+  String reminderNoteNone(String due);
+
+  /// No description provided for @reminderNoteNoDate.
+  ///
+  /// In en, this message translates to:
+  /// **'Set a due date to get a reminder.'**
+  String get reminderNoteNoDate;
+
+  /// No description provided for @remindedAt.
+  ///
+  /// In en, this message translates to:
+  /// **'at {time}'**
+  String remindedAt(String time);
+
+  /// No description provided for @remindedOn.
+  ///
+  /// In en, this message translates to:
+  /// **'on {day} at {time}'**
+  String remindedOn(String day, String time);
+
+  /// No description provided for @needsDueTime.
+  ///
+  /// In en, this message translates to:
+  /// **'Needs a due time'**
+  String get needsDueTime;
+
+  /// No description provided for @done.
+  ///
+  /// In en, this message translates to:
+  /// **'Done'**
+  String get done;
 }
 
 class _AppLocalizationsDelegate

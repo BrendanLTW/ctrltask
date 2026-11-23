@@ -81,7 +81,6 @@ class TaskListGroup extends ConsumerWidget {
     if (!context.mounted) return;
     switch (choice) {
       case DialogChoice.confirm:
-        // shortcut: 3.7 also cancels the task's reminder here.
         await ref.read(taskRepositoryProvider).delete(task.id);
       case DialogChoice.secondary:
         await setTaskDone(context, ref, task, done: true);

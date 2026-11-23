@@ -16,6 +16,7 @@ import 'package:ctrltask/core/widgets/app_sheet.dart';
 import 'package:ctrltask/core/widgets/priority_tag.dart';
 import 'package:ctrltask/core/widgets/project_dot.dart';
 import 'package:ctrltask/features/home/presentation/home_providers.dart';
+import 'package:ctrltask/features/notifications/domain/notification_plan.dart';
 import 'package:ctrltask/features/projects/domain/project_keys.dart';
 import 'package:ctrltask/features/projects/presentation/move_to_project_sheet.dart';
 import 'package:ctrltask/features/settings/domain/preferences_repository.dart';
@@ -25,6 +26,7 @@ import 'package:ctrltask/features/tasks/domain/task_draft.dart';
 import 'package:ctrltask/features/tasks/domain/task_priority.dart';
 import 'package:ctrltask/features/tasks/domain/task_repository.dart';
 import 'package:ctrltask/features/tasks/presentation/due_date_picker.dart';
+import 'package:ctrltask/features/tasks/presentation/reminder_sheet.dart';
 import 'package:ctrltask/features/tasks/presentation/repeat_sheet.dart';
 import 'package:ctrltask/l10n/l10n.dart';
 import 'package:flutter/material.dart';
@@ -88,6 +90,19 @@ class _QuickAddSheetState extends ConsumerState<QuickAddSheet> {
   /// Picked on S18 from the 🏷 button.
   Set<int> _tagIds = {};
 
+  /// Picked on S16 from the 🔔 button; null means the Default task
+  /// reminder (S39) where it fits the chosen day and time.
+  ReminderOffset? _reminder;
+
+  ReminderOffset _reminderFor(_When when) =>
+      _reminder ??
+      defaultReminderFor(
+        ref.read(preferencesProvider).value?.defaultReminder ??
+            ReminderOffset.none,
+        dueDate: when.date,
+        dueMinute: when.minute,
+      );
+
   @override
   void dispose() {
     _title.dispose();
@@ -150,6 +165,7 @@ class _QuickAddSheetState extends ConsumerState<QuickAddSheet> {
       projectId: _projectId,
       repeat: _repeat,
       tagIds: _tagIds,
+      reminder: _reminderFor(when),
     );
   }
 
@@ -167,6 +183,17 @@ class _QuickAddSheetState extends ConsumerState<QuickAddSheet> {
         DateLabels(Localizations.localeOf(context).toLanguageTag()),
       ).indexWhere((o) => o.date == choice.date && o.minute == choice.minute);
     });
+  }
+
+  Future<void> _pickReminder(List<_When> options) async {
+    final when = options[_when!];
+    final offset = await showReminderSheet(
+      context,
+      offset: _reminderFor(when),
+      dueDate: when.date,
+      dueMinute: when.minute,
+    );
+    if (offset != null && mounted) setState(() => _reminder = offset);
   }
 
   Future<void> _pickTags() async {
@@ -322,7 +349,6 @@ class _QuickAddSheetState extends ConsumerState<QuickAddSheet> {
           const SizedBox(height: 16),
           Row(
             children: [
-              // shortcut: the reminder button comes with 3.7.
               Flexible(
                 child: AppChip(
                   label: project?.name ?? l10n.inbox,
@@ -348,6 +374,26 @@ class _QuickAddSheetState extends ConsumerState<QuickAddSheet> {
                 ),
                 icon: const AppIconView(AppIcon.tag, size: 20),
               ),
+              const SizedBox(width: 8),
+              () {
+                final reminder = _reminderFor(options[_when!]);
+                final on = reminder != ReminderOffset.none;
+                return IconButton(
+                  onPressed: () => unawaited(_pickReminder(options)),
+                  tooltip: on
+                      ? l10n.titleWithDetail(
+                          l10n.reminderTitle,
+                          l10n.reminderShort(reminder.name),
+                        )
+                      : l10n.reminderTitle,
+                  style: IconButton.styleFrom(
+                    fixedSize: const Size(44, 44),
+                    backgroundColor: on ? colors.ink : colors.fillSoft,
+                    foregroundColor: on ? colors.onInk : colors.ink,
+                  ),
+                  icon: const AppIconView(AppIcon.bell, size: 20),
+                );
+              }(),
               const SizedBox(width: 8),
               IconButton(
                 onPressed: () => unawaited(_pickRepeat(options)),

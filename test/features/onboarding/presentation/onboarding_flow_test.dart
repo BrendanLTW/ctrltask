@@ -66,6 +66,9 @@ void main() {
     when(() => tasks.update(any())).thenAnswer((_) async {});
   });
 
+  late FakeScheduler scheduler;
+  setUp(() => scheduler = FakeScheduler());
+
   Future<void> pumpApp(WidgetTester tester) async {
     tester.view
       ..physicalSize = const Size(390, 844)
@@ -75,7 +78,7 @@ void main() {
       ProviderScope(
         overrides: [
           preferencesRepositoryProvider.overrideWithValue(prefs),
-          ...emptyRepositories(tasks: tasks),
+          ...emptyRepositories(tasks: tasks, scheduler: scheduler),
           clockProvider.overrideWithValue(() => now),
         ],
         child: const MainApp(),
@@ -152,6 +155,15 @@ void main() {
     expect((await prefs.read()).onboardingComplete, isTrue);
     expect(find.byType(AllSetScreen), findsNothing);
     expect(find.byTooltip('Quick add task'), findsOneWidget);
+  });
+
+  testWidgets('Allow notifications asks the phone', (tester) async {
+    await pumpApp(tester);
+    await tapText(tester, 'Get started');
+    await tapText(tester, 'Skip');
+    await tapText(tester, "I'll do it later");
+    await tapText(tester, 'Allow notifications');
+    expect(scheduler.asked, 1);
   });
 
   testWidgets('Back keeps the name on every step', (tester) async {

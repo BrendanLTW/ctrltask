@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:ctrltask/features/focus/domain/focus_session_repository.dart';
 import 'package:ctrltask/features/focus/domain/focus_timer.dart';
 import 'package:ctrltask/features/focus/domain/focus_timer_repository.dart';
+import 'package:ctrltask/features/notifications/domain/notification_scheduler.dart';
 import 'package:ctrltask/features/projects/domain/project.dart';
 import 'package:ctrltask/features/projects/domain/project_repository.dart';
 import 'package:ctrltask/features/tags/domain/tag.dart';
@@ -90,6 +91,33 @@ class MemoryTags implements TagRepository {
   ]);
 }
 
+/// A scheduler that keeps what's scheduled, for tests to read.
+class FakeScheduler implements NotificationScheduler {
+  final scheduled = <({int id, DateTime at, String title, String body})>[];
+  bool permitted = false;
+  int asked = 0;
+
+  @override
+  Future<bool> requestPermission() async {
+    asked++;
+    return permitted = true;
+  }
+
+  @override
+  Future<bool> isPermitted() async => permitted;
+
+  @override
+  Future<void> scheduleOnce({
+    required int id,
+    required DateTime at,
+    required String title,
+    required String body,
+  }) async => scheduled.add((id: id, at: at, title: title, body: body));
+
+  @override
+  Future<void> cancelAll() async => scheduled.clear();
+}
+
 /// Recent searches kept in memory, live.
 class MemoryRecentSearches implements RecentSearchesRepository {
   final _changes = StreamController<List<String>>.broadcast();
@@ -149,6 +177,7 @@ List<Override> emptyRepositories({
   MemoryFocusTimers? timers,
   MemoryRecentSearches? recent,
   MemoryTags? tagRepo,
+  FakeScheduler? scheduler,
   List<Project> projects = const [],
   List<Project> archived = const [],
 }) {
@@ -173,6 +202,9 @@ List<Override> emptyRepositories({
     projectRepositoryProvider.overrideWithValue(projectFake),
     focusSessionRepositoryProvider.overrideWithValue(focus),
     tagRepositoryProvider.overrideWithValue(tags),
+    notificationSchedulerProvider.overrideWithValue(
+      scheduler ?? FakeScheduler(),
+    ),
     recentSearchesRepositoryProvider.overrideWithValue(
       recent ?? MemoryRecentSearches(),
     ),

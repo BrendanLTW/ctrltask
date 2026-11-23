@@ -1307,5 +1307,88 @@
       }
     }
   },
-  "noTagsYet": "No tags yet"
+  "noTagsYet": "No tags yet",
+  "notifyPlanTitle": "Your plan for today",
+  "notifyPlanBody": "{count, plural, =1{1 task} other{{count} tasks}} due · first: {title}",
+  "@notifyPlanBody": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      },
+      "title": {
+        "type": "String"
+      }
+    }
+  },
+  "notifyOverdueBody": "Open ctrlTask to catch up on what slipped.",
+  "notifyWeeklyTitle": "Weekly review",
+  "notifyWeeklyBody": "See how your week went and plan the next one.",
+  "notifySessionBody": "Nice focus. Time for a break.",
+  "notifyBreakOverBody": "Ready for the next session?",
+  "notifyDue": "{when}",
+  "@notifyDue": {
+    "placeholders": {
+      "when": {
+        "type": "String"
+      }
+    }
+  },
+  "reminderTitle": "Reminder",
+  "reminderOption": "{offset, select, none{No reminder} atTime{At due time} min10{10 minutes before} min30{30 minutes before} hour1{1 hour before} morningOf{Morning of} other{Day before}}",
+  "@reminderOption": {
+    "placeholders": {
+      "offset": {
+        "type": "String"
+      }
+    }
+  },
+  "reminderShort": "{offset, select, none{None} atTime{At due time} min10{10 min before} min30{30 min before} hour1{1 hour before} morningOf{Morning of} other{Day before}}",
+  "@reminderShort": {
+    "placeholders": {
+      "offset": {
+        "type": "String"
+      }
+    }
+  },
+  "reminderNote": "Due {due}. You'll be reminded {when}.",
+  "@reminderNote": {
+    "placeholders": {
+      "due": {
+        "type": "String"
+      },
+      "when": {
+        "type": "String"
+      }
+    }
+  },
+  "reminderNoteNone": "Due {due}. No reminder.",
+  "@reminderNoteNone": {
+    "placeholders": {
+      "due": {
+        "type": "String"
+      }
+    }
+  },
+  "reminderNoteNoDate": "Set a due date to get a reminder.",
+  "remindedAt": "at {time}",
+  "@remindedAt": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "remindedOn": "on {day} at {time}",
+  "@remindedOn": {
+    "placeholders": {
+      "day": {
+        "type": "String"
+      },
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "needsDueTime": "Needs a due time",
+  "done": "Done"
 }

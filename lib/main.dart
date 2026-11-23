@@ -9,6 +9,9 @@ import 'package:ctrltask/features/focus/data/drift_focus_timer_repository.dart';
 import 'package:ctrltask/features/focus/domain/focus_session_repository.dart';
 import 'package:ctrltask/features/focus/domain/focus_timer_repository.dart';
 import 'package:ctrltask/features/focus/presentation/focus_controller.dart';
+import 'package:ctrltask/features/notifications/data/local_notification_scheduler.dart';
+import 'package:ctrltask/features/notifications/domain/notification_scheduler.dart';
+import 'package:ctrltask/features/notifications/presentation/notification_sync.dart';
 import 'package:ctrltask/features/projects/data/drift_project_repository.dart';
 import 'package:ctrltask/features/projects/domain/project_repository.dart';
 import 'package:ctrltask/features/settings/data/drift_preferences_repository.dart';
@@ -40,6 +43,7 @@ Future<void> main() async {
     final container = ProviderContainer(
       overrides: [
         ...appOverrides(),
+        ...platformOverrides(),
         appDatabaseProvider.overrideWithValue(db),
         clockProvider.overrideWithValue(
           () => demoNow.add(DateTime.now().difference(launched)),
@@ -51,8 +55,19 @@ Future<void> main() async {
     );
     return;
   }
-  runApp(ProviderScope(overrides: appOverrides(), child: const MainApp()));
+  runApp(
+    ProviderScope(
+      overrides: [...appOverrides(), ...platformOverrides()],
+      child: const MainApp(),
+    ),
+  );
 }
+
+/// The phone's own services, kept apart from [appOverrides] so tests and
+/// the demo seed can run the app's data with a fake in their place.
+List<Override> platformOverrides() => [
+  notificationSchedulerProvider.overrideWithValue(LocalNotificationScheduler()),
+];
 
 /// The real implementations behind each repository. Wired here so screens
 /// never import `data/`.
@@ -92,7 +107,10 @@ class MainApp extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     // Keeps the focus timer running on whatever screen is open (§6.6).
-    ref.watch(focusControllerProvider);
+    ref
+      ..watch(focusControllerProvider)
+      // The one owner of notification scheduling (§6.5).
+      ..watch(notificationSyncProvider);
     return MaterialApp.router(
       onGenerateTitle: (context) => context.l10n.appName,
       localizationsDelegates: AppLocalizations.localizationsDelegates,

@@ -1740,4 +1740,99 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get noTagsYet => 'No tags yet';
+
+  @override
+  String get notifyPlanTitle => 'Your plan for today';
+
+  @override
+  String notifyPlanBody(int count, String title) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count tasks',
+      one: '1 task',
+    );
+    return '$_temp0 due · first: $title';
+  }
+
+  @override
+  String get notifyOverdueBody => 'Open ctrlTask to catch up on what slipped.';
+
+  @override
+  String get notifyWeeklyTitle => 'Weekly review';
+
+  @override
+  String get notifyWeeklyBody =>
+      'See how your week went and plan the next one.';
+
+  @override
+  String get notifySessionBody => 'Nice focus. Time for a break.';
+
+  @override
+  String get notifyBreakOverBody => 'Ready for the next session?';
+
+  @override
+  String notifyDue(String when) {
+    return '$when';
+  }
+
+  @override
+  String get reminderTitle => 'Reminder';
+
+  @override
+  String reminderOption(String offset) {
+    String _temp0 = intl.Intl.selectLogic(offset, {
+      'none': 'No reminder',
+      'atTime': 'At due time',
+      'min10': '10 minutes before',
+      'min30': '30 minutes before',
+      'hour1': '1 hour before',
+      'morningOf': 'Morning of',
+      'other': 'Day before',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String reminderShort(String offset) {
+    String _temp0 = intl.Intl.selectLogic(offset, {
+      'none': 'None',
+      'atTime': 'At due time',
+      'min10': '10 min before',
+      'min30': '30 min before',
+      'hour1': '1 hour before',
+      'morningOf': 'Morning of',
+      'other': 'Day before',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String reminderNote(String due, String when) {
+    return 'Due $due. You\'ll be reminded $when.';
+  }
+
+  @override
+  String reminderNoteNone(String due) {
+    return 'Due $due. No reminder.';
+  }
+
+  @override
+  String get reminderNoteNoDate => 'Set a due date to get a reminder.';
+
+  @override
+  String remindedAt(String time) {
+    return 'at $time';
+  }
+
+  @override
+  String remindedOn(String day, String time) {
+    return 'on $day at $time';
+  }
+
+  @override
+  String get needsDueTime => 'Needs a due time';
+
+  @override
+  String get done => 'Done';
 }

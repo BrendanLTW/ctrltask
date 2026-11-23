@@ -12,6 +12,7 @@ enum AppIcon {
   arrowUp('arrow-up'),
   arrowUpRight('arrow-up-right'),
   bag('shopping-bag'),
+  bell('bell'),
   book('book-open'),
   box('box'),
   briefcase('briefcase'),

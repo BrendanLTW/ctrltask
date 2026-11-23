@@ -142,7 +142,6 @@ class _ProjectFormScreenState extends ConsumerState<ProjectFormScreen> {
   }
 
   Future<void> _archive(Project project) async {
-    // shortcut: 3.7 also cancels the project's task reminders here.
     await ref.read(projectRepositoryProvider).archive(project.id);
     if (mounted) context.go(Routes.projects);
   }
@@ -162,7 +161,6 @@ class _ProjectFormScreenState extends ConsumerState<ProjectFormScreen> {
       destructive: count == 0,
     );
     if (choice == DialogChoice.cancel || !mounted) return;
-    // shortcut: 3.7 also cancels the deleted tasks' reminders here.
     await ref
         .read(projectRepositoryProvider)
         .delete(project.id, deleteTasks: choice == DialogChoice.secondary);

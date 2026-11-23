@@ -13,7 +13,7 @@ part 'home_providers.g.dart';
 
 /// Today's local date, from the injected clock.
 // shortcut: read when Home builds, so it doesn't roll over at midnight while
-// the app stays open; 3.7 refreshes on resume.
+// the app stays open; to refresh on resume (Phase 4 review).
 DateTime homeToday(Ref ref) {
   final now = ref.read(clockProvider)();
   return DateTime(now.year, now.month, now.day);

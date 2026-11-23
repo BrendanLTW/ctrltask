@@ -18,6 +18,7 @@ import 'package:ctrltask/core/widgets/sub_screen_bar.dart';
 import 'package:ctrltask/core/widgets/tag_chip.dart';
 import 'package:ctrltask/core/widgets/title_field_card.dart';
 import 'package:ctrltask/features/home/presentation/home_providers.dart';
+import 'package:ctrltask/features/notifications/domain/notification_plan.dart';
 import 'package:ctrltask/features/projects/domain/project_keys.dart';
 import 'package:ctrltask/features/projects/presentation/move_to_project_sheet.dart';
 import 'package:ctrltask/features/settings/domain/preferences_repository.dart';
@@ -36,6 +37,7 @@ import 'package:ctrltask/features/tasks/presentation/due_date_picker.dart';
 import 'package:ctrltask/features/tasks/presentation/form/add_link_sheet.dart';
 import 'package:ctrltask/features/tasks/presentation/form/link_section.dart';
 import 'package:ctrltask/features/tasks/presentation/form/subtask_section.dart';
+import 'package:ctrltask/features/tasks/presentation/reminder_sheet.dart';
 import 'package:ctrltask/features/tasks/presentation/repeat_sheet.dart';
 import 'package:ctrltask/l10n/l10n.dart';
 import 'package:flutter/material.dart';
@@ -67,6 +69,19 @@ class _TaskFormScreenState extends ConsumerState<TaskFormScreen> {
   late int? _projectId = widget.draft?.projectId;
   late RepeatRule? _repeat = widget.draft?.repeat;
   late Set<int> _tagIds = {...?widget.draft?.tagIds};
+
+  /// Picked on S16; null on a new task means the Default task reminder.
+  late ReminderOffset? _reminder = widget.draft?.reminder;
+
+  /// The reminder to save: the one picked, or the default where it fits.
+  ReminderOffset get _reminderToSave =>
+      _reminder ??
+      defaultReminderFor(
+        ref.read(preferencesProvider).value?.defaultReminder ??
+            ReminderOffset.none,
+        dueDate: _dueDate,
+        dueMinute: _dueMinute,
+      );
   late final List<Subtask> _subtasks = [
     for (final (i, title) in (widget.draft?.subtasks ?? const []).indexed)
       Subtask(id: 0, taskId: 0, title: title, sortOrder: i),
@@ -106,6 +121,7 @@ class _TaskFormScreenState extends ConsumerState<TaskFormScreen> {
       _projectId = task.projectId;
       _repeat = details.repeat;
       _tagIds = {for (final t in details.tags) t.id};
+      _reminder = task.reminder;
       _subtasks
         ..clear()
         ..addAll(details.subtasks);
@@ -148,7 +164,7 @@ class _TaskFormScreenState extends ConsumerState<TaskFormScreen> {
           projectId: _projectId,
           subtasks: [for (final s in _subtasks) s.title],
           links: [for (final l in _links) (title: l.title, url: l.url)],
-          reminder: widget.draft?.reminder ?? ReminderOffset.none,
+          reminder: _reminderToSave,
           repeat: _repeat,
           tagIds: _tagIds,
         ),
@@ -178,6 +194,7 @@ class _TaskFormScreenState extends ConsumerState<TaskFormScreen> {
             dueMinute: _dueMinute,
             priority: _priority,
             projectId: _projectId,
+            reminder: _reminderToSave,
           ),
           repeat: _repeat,
           tags: _tags(watch: false),
@@ -204,6 +221,16 @@ class _TaskFormScreenState extends ConsumerState<TaskFormScreen> {
   Future<void> _pickTags() async {
     final ids = await showTagsSheet(context, selected: _tagIds);
     if (ids != null && mounted) setState(() => _tagIds = ids);
+  }
+
+  Future<void> _pickReminder() async {
+    final offset = await showReminderSheet(
+      context,
+      offset: _reminderToSave,
+      dueDate: _dueDate,
+      dueMinute: _dueMinute,
+    );
+    if (offset != null && mounted) setState(() => _reminder = offset);
   }
 
   Future<void> _pickRepeat() async {
@@ -370,8 +397,6 @@ class _TaskFormScreenState extends ConsumerState<TaskFormScreen> {
                       ),
                     ],
                   ),
-                  // shortcut: the Tags (3.6) and Reminder (3.7) rows join
-                  // MORE DETAILS with their tasks.
                   SectionHeader('${l10n.moreDetails}${l10n.optional}'),
                   ListGroup(
                     children: [
@@ -405,6 +430,17 @@ class _TaskFormScreenState extends ConsumerState<TaskFormScreen> {
                             ],
                           ),
                         ),
+                      ),
+                      ListGroupRow(
+                        title: l10n.reminderTitle,
+                        value: l10n.reminderShort(_reminderToSave.name),
+                        valueEmphasis: _reminderToSave != ReminderOffset.none,
+                        leading: const IconTile(
+                          icon: AppIcon.bell,
+                          color: ProjectColorKey.grey,
+                          size: IconTileSize.medium,
+                        ),
+                        onTap: () => unawaited(_pickReminder()),
                       ),
                       ListGroupRow(
                         title: l10n.repeatTitle,

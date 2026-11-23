@@ -15,6 +15,7 @@ import 'package:ctrltask/features/home/presentation/home_first_run.dart';
 import 'package:ctrltask/features/home/presentation/home_header.dart';
 import 'package:ctrltask/features/home/presentation/home_screen.dart';
 import 'package:ctrltask/features/home/presentation/home_stats.dart';
+import 'package:ctrltask/features/notifications/domain/notification_scheduler.dart';
 import 'package:ctrltask/features/projects/domain/project.dart';
 import 'package:ctrltask/features/projects/domain/project_keys.dart';
 import 'package:ctrltask/features/projects/domain/project_repository.dart';
@@ -39,6 +40,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:mocktail/mocktail.dart';
 
+import '../../../helpers/empty_repositories.dart';
 import '../../../helpers/fake_preferences_repository.dart';
 import '../../../helpers/live.dart';
 
@@ -197,6 +199,7 @@ void main() {
           projectRepositoryProvider.overrideWithValue(projects),
           focusSessionRepositoryProvider.overrideWithValue(focus),
           hapticsProvider.overrideWithValue(haptics),
+          notificationSchedulerProvider.overrideWithValue(FakeScheduler()),
           clockProvider.overrideWithValue(() => _now),
         ],
         child: theme == null

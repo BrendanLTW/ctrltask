@@ -171,8 +171,8 @@ class _TimerSettingsState extends ConsumerState<TimerSettingsSheet> {
                 onChanged: (v) =>
                     setState(() => _draft = d.copyWith(autoStartNext: v)),
               ),
-              // shortcut: stored now; the notification service (3.7)
-              // holds reminders back while this is on.
+              // The notification planner holds task reminders back while
+              // this is on.
               ListGroupToggleRow(
                 title: l10n.silenceWhileFocusing,
                 value: d.silenceWhileFocusing,

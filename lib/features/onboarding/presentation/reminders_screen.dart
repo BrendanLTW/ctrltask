@@ -5,6 +5,7 @@ import 'package:ctrltask/core/theme/app_typography.dart';
 import 'package:ctrltask/core/widgets/app_chip.dart';
 import 'package:ctrltask/core/widgets/list_group.dart';
 import 'package:ctrltask/core/widgets/onboarding_scaffold.dart';
+import 'package:ctrltask/features/notifications/domain/notification_scheduler.dart';
 import 'package:ctrltask/features/settings/domain/preferences.dart';
 import 'package:ctrltask/features/settings/domain/preferences_repository.dart';
 import 'package:ctrltask/l10n/l10n.dart';
@@ -12,8 +13,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
-/// S05 Want a nudge? (3 of 3). Both buttons save the choices; the
-/// permission prompt behind Allow notifications comes with task 3.7.
+/// S05 Want a nudge? (3 of 3). Both buttons save the choices; Allow
+/// notifications also asks the OS, and goes on whatever the answer.
 class RemindersScreen extends ConsumerStatefulWidget {
   const new({super.key});
 
@@ -57,7 +58,10 @@ class _RemindersScreenState extends ConsumerState<RemindersScreen> {
       title: l10n.remindersTitle,
       subtitle: l10n.remindersBody,
       primaryLabel: l10n.allowNotifications,
-      onPrimary: _save,
+      onPrimary: () async {
+        await ref.read(notificationSchedulerProvider).requestPermission();
+        await _save();
+      },
       secondaryLabel: l10n.notNow,
       onSecondary: _save,
       body: Column(

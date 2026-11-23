@@ -34,6 +34,7 @@ import 'package:ctrltask/features/tasks/presentation/detail/due_section.dart';
 import 'package:ctrltask/features/tasks/presentation/detail/link_rows.dart';
 import 'package:ctrltask/features/tasks/presentation/detail/subtask_progress.dart';
 import 'package:ctrltask/features/tasks/presentation/due_date_picker.dart';
+import 'package:ctrltask/features/tasks/presentation/reminder_sheet.dart';
 import 'package:ctrltask/features/tasks/presentation/repeat_sheet.dart';
 import 'package:ctrltask/features/tasks/presentation/task_completion.dart';
 import 'package:ctrltask/l10n/l10n.dart';
@@ -118,6 +119,18 @@ class _TaskDetailScreenState extends ConsumerState<TaskDetailScreen> {
     );
   }
 
+  Future<void> _pickReminder(TaskDetails details) async {
+    final task = details.task;
+    final offset = await showReminderSheet(
+      context,
+      offset: task.reminder,
+      dueDate: task.dueDate,
+      dueMinute: task.dueMinute,
+    );
+    if (offset == null) return;
+    await _update(details.copyWith(task: task.copyWith(reminder: offset)));
+  }
+
   Future<void> _pickRepeat(TaskDetails details) async {
     final pick = await showRepeatSheet(
       context,
@@ -153,7 +166,6 @@ class _TaskDetailScreenState extends ConsumerState<TaskDetailScreen> {
     if (!mounted) return;
     switch (choice) {
       case DialogChoice.confirm:
-        // shortcut: 3.7 also cancels the task's reminder here.
         _leaving = true;
         await ref.read(taskRepositoryProvider).delete(details.task.id);
         if (mounted) Navigator.of(context).maybePop();
@@ -250,10 +262,19 @@ class _TaskDetailScreenState extends ConsumerState<TaskDetailScreen> {
           ),
           onPick: () => unawaited(_pickDue(details)),
         ),
-        // shortcut: the Reminder row joins this group with 3.7.
         const SizedBox(height: 16),
         LinkRows(
           rows: [
+            ListGroupRow(
+              title: context.l10n.reminderTitle,
+              value: context.l10n.reminderShort(task.reminder.name),
+              leading: const IconTile(
+                icon: AppIcon.bell,
+                color: ProjectColorKey.grey,
+                size: IconTileSize.medium,
+              ),
+              onTap: () => unawaited(_pickReminder(details)),
+            ),
             ListGroupRow(
               title: context.l10n.repeatTitle,
               value: repeatSummary(
