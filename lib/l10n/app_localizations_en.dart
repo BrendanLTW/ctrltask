@@ -2153,4 +2153,24 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get exportSubtitle => 'CSV or JSON';
+
+  @override
+  String get dataSection => 'DATA';
+
+  @override
+  String get eraseAllData => 'Erase all data';
+
+  @override
+  String get eraseTitle => 'Erase all data?';
+
+  @override
+  String eraseBody(String tasks, String projects) {
+    return 'This deletes $tasks, $projects and all focus history from this phone. It can\'t be undone.';
+  }
+
+  @override
+  String get eraseEverything => 'Erase everything';
+
+  @override
+  String get exportCopyFirst => 'Export a copy first';
 }

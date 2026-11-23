@@ -33,6 +33,7 @@ void main() {
 
   /// Only task reminders on, unless a test turns more on.
   const remindersOnly = Preferences(
+    onboardingComplete: true,
     dailyPlanOn: false,
     weeklyReviewOn: false,
     focusEndOn: false,
@@ -103,6 +104,21 @@ void main() {
   });
 
   group('planNotifications', () {
+    test('nothing before onboarding: a fresh install or just erased', () {
+      final t = task(
+        'Slides',
+        due: DateTime(2026, 11, 18),
+        minute: 17 * 60,
+        reminder: ReminderOffset.min30,
+      );
+      expect(plan([t]), isNotEmpty);
+      expect(
+        plan([t], prefs: const Preferences()),
+        isEmpty,
+        reason: 'default settings have the daily plan and weekly review on',
+      );
+    });
+
     test('task reminders: open, in the future, within 14 days', () {
       final soon = task(
         'Slides',

@@ -196,6 +196,18 @@ class ProjectsApp {
   final sharer = FakeFileSharer();
   final exportSource = FixedExportSource();
 
+  /// Erasing empties the live data and resets settings, as Drift would.
+  late final eraser = FakeDataEraser()
+    ..onErase = () async {
+      taskList.value = const [];
+      active.value = const [];
+      archived.value = const [];
+      sessions.value = const [];
+      await container
+          .read(preferencesRepositoryProvider)
+          .update((_) => const Preferences());
+    };
+
   /// The app's clock; tests move it on.
   DateTime now = testNow;
   late ProviderContainer container;
@@ -294,6 +306,7 @@ class ProjectsApp {
           scheduler: scheduler,
           sharer: sharer,
           exportSource: exportSource,
+          eraser: eraser,
         ),
         clockProvider.overrideWithValue(() => now),
       ],

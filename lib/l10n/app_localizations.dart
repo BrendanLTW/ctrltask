@@ -3285,6 +3285,42 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'CSV or JSON'**
   String get exportSubtitle;
+
+  /// No description provided for @dataSection.
+  ///
+  /// In en, this message translates to:
+  /// **'DATA'**
+  String get dataSection;
+
+  /// No description provided for @eraseAllData.
+  ///
+  /// In en, this message translates to:
+  /// **'Erase all data'**
+  String get eraseAllData;
+
+  /// No description provided for @eraseTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Erase all data?'**
+  String get eraseTitle;
+
+  /// No description provided for @eraseBody.
+  ///
+  /// In en, this message translates to:
+  /// **'This deletes {tasks}, {projects} and all focus history from this phone. It can\'t be undone.'**
+  String eraseBody(String tasks, String projects);
+
+  /// No description provided for @eraseEverything.
+  ///
+  /// In en, this message translates to:
+  /// **'Erase everything'**
+  String get eraseEverything;
+
+  /// No description provided for @exportCopyFirst.
+  ///
+  /// In en, this message translates to:
+  /// **'Export a copy first'**
+  String get exportCopyFirst;
 }
 
 class _AppLocalizationsDelegate

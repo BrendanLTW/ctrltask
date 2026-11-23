@@ -108,6 +108,8 @@ List<PlannedNotification> planNotifications({
   Duration horizon = const Duration(days: 14),
   int cap = 60,
 }) {
+  // Nothing until the app is set up: a fresh install, or just erased.
+  if (!prefs.onboardingComplete) return const [];
   final open = [
     for (final t in openTasks)
       if (t.status == TaskStatus.open) t,

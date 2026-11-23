@@ -1646,5 +1646,21 @@
       }
     }
   },
-  "exportSubtitle": "CSV or JSON"
+  "exportSubtitle": "CSV or JSON",
+  "dataSection": "DATA",
+  "eraseAllData": "Erase all data",
+  "eraseTitle": "Erase all data?",
+  "eraseBody": "This deletes {tasks}, {projects} and all focus history from this phone. It can't be undone.",
+  "@eraseBody": {
+    "placeholders": {
+      "tasks": {
+        "type": "String"
+      },
+      "projects": {
+        "type": "String"
+      }
+    }
+  },
+  "eraseEverything": "Erase everything",
+  "exportCopyFirst": "Export a copy first"
 }

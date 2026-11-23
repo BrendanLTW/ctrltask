@@ -4,8 +4,10 @@ import 'package:ctrltask/core/dev/demo_seed.dart';
 import 'package:ctrltask/core/router/app_router.dart';
 import 'package:ctrltask/core/theme/app_theme.dart';
 import 'package:ctrltask/core/theme/theme_mode_controller.dart';
+import 'package:ctrltask/features/data_transfer/data/drift_data_eraser.dart';
 import 'package:ctrltask/features/data_transfer/data/drift_export_source.dart';
 import 'package:ctrltask/features/data_transfer/data/share_plus_file_sharer.dart';
+import 'package:ctrltask/features/data_transfer/domain/data_eraser.dart';
 import 'package:ctrltask/features/data_transfer/domain/export_data.dart';
 import 'package:ctrltask/features/data_transfer/domain/file_sharer.dart';
 import 'package:ctrltask/features/focus/data/drift_focus_session_repository.dart';
@@ -77,6 +79,9 @@ List<Override> platformOverrides() => [
 /// The real implementations behind each repository. Wired here so screens
 /// never import `data/`.
 List<Override> appOverrides() => [
+  dataEraserProvider.overrideWith(
+    (ref) => DriftDataEraser(ref.watch(appDatabaseProvider)),
+  ),
   exportSourceProvider.overrideWith(
     (ref) => DriftExportSource(ref.watch(appDatabaseProvider)),
   ),

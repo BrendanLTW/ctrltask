@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:ctrltask/features/data_transfer/domain/data_eraser.dart';
 import 'package:ctrltask/features/data_transfer/domain/export_data.dart';
 import 'package:ctrltask/features/data_transfer/domain/file_sharer.dart';
 import 'package:ctrltask/features/focus/domain/focus_session_repository.dart';
@@ -105,6 +106,18 @@ class FakeFileSharer implements FileSharer {
   }) async {
     shared.add((fileName: fileName, mimeType: mimeType, contents: contents));
     return true;
+  }
+}
+
+/// Counts erases and runs [onErase], for tests to empty their fakes.
+class FakeDataEraser implements DataEraser {
+  int erased = 0;
+  Future<void> Function()? onErase;
+
+  @override
+  Future<void> eraseAll() async {
+    erased++;
+    await onErase?.call();
   }
 }
 
@@ -216,6 +229,7 @@ List<Override> emptyRepositories({
   FakeScheduler? scheduler,
   FakeFileSharer? sharer,
   FixedExportSource? exportSource,
+  FakeDataEraser? eraser,
   List<Project> projects = const [],
   List<Project> archived = const [],
 }) {
@@ -245,9 +259,8 @@ List<Override> emptyRepositories({
       scheduler ?? FakeScheduler(),
     ),
     fileSharerProvider.overrideWithValue(sharer ?? FakeFileSharer()),
-    exportSourceProvider.overrideWithValue(
-      exportSource ?? FixedExportSource(),
-    ),
+    dataEraserProvider.overrideWithValue(eraser ?? FakeDataEraser()),
+    exportSourceProvider.overrideWithValue(exportSource ?? FixedExportSource()),
     recentSearchesRepositoryProvider.overrideWithValue(
       recent ?? MemoryRecentSearches(),
     ),

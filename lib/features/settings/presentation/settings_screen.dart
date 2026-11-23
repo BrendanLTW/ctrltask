@@ -15,6 +15,7 @@ import 'package:ctrltask/core/widgets/name_avatar.dart';
 import 'package:ctrltask/core/widgets/priority_tag.dart';
 import 'package:ctrltask/core/widgets/section_header.dart';
 import 'package:ctrltask/core/widgets/sub_screen_bar.dart';
+import 'package:ctrltask/features/data_transfer/presentation/erase_all_data.dart';
 import 'package:ctrltask/features/focus/presentation/timer_settings_sheet.dart';
 import 'package:ctrltask/features/home/presentation/home_providers.dart';
 import 'package:ctrltask/features/notifications/presentation/notification_settings_screen.dart';
@@ -32,8 +33,7 @@ import 'package:go_router/go_router.dart';
 
 /// S35 Settings (PRD §5.10): the name card, the insights banner, and the
 /// rows whose screens exist so far.
-// shortcut: Erase all data (3.12) appears with its screen; Backup & restore
-// is v1.1.
+// shortcut: Backup & restore (S42) is v1.1, so its row is hidden.
 class SettingsScreen extends ConsumerWidget {
   const new({super.key});
 
@@ -264,6 +264,22 @@ class SettingsScreen extends ConsumerWidget {
                           size: IconTileSize.medium,
                         ),
                         onTap: () => open(Routes.export),
+                      ),
+                    ],
+                  ),
+                  SectionHeader(l10n.dataSection),
+                  ListGroup(
+                    children: [
+                      ListGroupRow(
+                        title: l10n.eraseAllData,
+                        titleColor: colors.negative,
+                        leading: const IconTile(
+                          icon: AppIcon.trash,
+                          color: ProjectColorKey.red,
+                          size: IconTileSize.medium,
+                        ),
+                        onTap: () =>
+                            unawaited(confirmAndEraseAllData(context, ref)),
                       ),
                     ],
                   ),
