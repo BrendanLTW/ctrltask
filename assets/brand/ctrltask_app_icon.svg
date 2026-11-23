@@ -1,0 +1,19 @@
+<!-- ctrlTask app icon: the keycap full-bleed with square corners (the OS rounds it), orange check (DESIGN §2), 120 grid. -->
+<svg xmlns="http://www.w3.org/2000/svg" width="120" height="120" viewBox="0 0 120 120">
+  <defs>
+    <linearGradient id="skirt" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#262A32"/>
+      <stop offset="1" stop-color="#191C22"/>
+    </linearGradient>
+    <linearGradient id="face" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#3B404B"/>
+      <stop offset="1" stop-color="#2C3038"/>
+    </linearGradient>
+  </defs>
+  <rect width="120" height="120" fill="#111318"/>
+  <rect width="120" height="114" fill="url(#skirt)"/>
+  <rect x="12" y="9" width="96" height="94" rx="22" fill="url(#face)" stroke="#FFFFFF" stroke-opacity="0.09" stroke-width="1"/>
+  <g transform="translate(60 56) scale(1.05) translate(-60.5 -54)">
+    <path d="M41 54 L54 67 L80 41" fill="none" stroke="#F26A21" stroke-width="11" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+</svg>

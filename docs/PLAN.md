@@ -15,7 +15,7 @@ Work top to bottom. Each task is sized for one Claude Code session and follows t
 - [ ] Export every canvas artboard to `docs/design/` as PNG, named after its canvas title (`Splash.png`, `Splash · Dark.png`, `Settings (full scroll).png`, …).
 - [ ] Copy the ctrlSpend `.claude/commands/` (`/next`) into the repo, if you use them there.
 - [ ] Add the three missing designs to the canvas, or accept the fallbacks in PRD §12: Custom repeat (S15), Export custom range (S41), the task picker behind **Change** on S30.
-- [ ] Draw the app icon and adaptive icon from the brand mark and save the SVGs in `assets/brand/`.
+- [x] Draw the app icon and adaptive icon from the brand mark and save the SVGs in `assets/brand/`.
 
 ---
 
