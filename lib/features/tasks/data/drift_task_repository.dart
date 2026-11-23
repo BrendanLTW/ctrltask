@@ -141,6 +141,12 @@ class DriftTaskRepository implements TaskRepository {
   }
 
   @override
+  Stream<List<Task>> watchForInsights() =>
+      (_db.select(_db.tasks)..orderBy([(t) => OrderingTerm.asc(t.id)]))
+          .watch()
+          .map((rows) => [for (final r in rows) r.toEntity()]);
+
+  @override
   Stream<Map<int, int>> watchTaskCounts() => _db
       .customSelect(
         'SELECT project_id, COUNT(*) AS n FROM tasks '

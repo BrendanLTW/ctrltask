@@ -3009,6 +3009,180 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'New tasks start at this priority. You can change it in quick add with one tap.'**
   String get defaultPriorityNote;
+
+  /// No description provided for @rangeLast7.
+  ///
+  /// In en, this message translates to:
+  /// **'Last 7 days'**
+  String get rangeLast7;
+
+  /// No description provided for @rangeThisMonth.
+  ///
+  /// In en, this message translates to:
+  /// **'This month'**
+  String get rangeThisMonth;
+
+  /// No description provided for @completionRateLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'COMPLETION RATE'**
+  String get completionRateLabel;
+
+  /// No description provided for @completionRateSemantics.
+  ///
+  /// In en, this message translates to:
+  /// **'Completion rate {rate}'**
+  String completionRateSemantics(String rate);
+
+  /// No description provided for @rateChangeWeek.
+  ///
+  /// In en, this message translates to:
+  /// **'{points} pts vs previous 7 days'**
+  String rateChangeWeek(String points);
+
+  /// No description provided for @rateChangeMonth.
+  ///
+  /// In en, this message translates to:
+  /// **'{points} pts vs same days last month'**
+  String rateChangeMonth(String points);
+
+  /// No description provided for @rateNoCompare.
+  ///
+  /// In en, this message translates to:
+  /// **'Nothing was due before to compare'**
+  String get rateNoCompare;
+
+  /// No description provided for @rateNothingDue.
+  ///
+  /// In en, this message translates to:
+  /// **'No tasks were due'**
+  String get rateNothingDue;
+
+  /// No description provided for @statCompleted.
+  ///
+  /// In en, this message translates to:
+  /// **'COMPLETED'**
+  String get statCompleted;
+
+  /// No description provided for @statFocus.
+  ///
+  /// In en, this message translates to:
+  /// **'FOCUS'**
+  String get statFocus;
+
+  /// No description provided for @completedSemantics.
+  ///
+  /// In en, this message translates to:
+  /// **'Completed, {count}'**
+  String completedSemantics(int count);
+
+  /// No description provided for @focusSemantics.
+  ///
+  /// In en, this message translates to:
+  /// **'Focus, {duration}'**
+  String focusSemantics(String duration);
+
+  /// No description provided for @tasksCompletedLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'TASKS COMPLETED'**
+  String get tasksCompletedLabel;
+
+  /// No description provided for @tasksCompletedName.
+  ///
+  /// In en, this message translates to:
+  /// **'Tasks completed'**
+  String get tasksCompletedName;
+
+  /// No description provided for @bestLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Best:'**
+  String get bestLabel;
+
+  /// No description provided for @bestValue.
+  ///
+  /// In en, this message translates to:
+  /// **'{day}, {count}'**
+  String bestValue(String day, int count);
+
+  /// No description provided for @focusTimeLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'FOCUS TIME'**
+  String get focusTimeLabel;
+
+  /// No description provided for @focusTimeName.
+  ///
+  /// In en, this message translates to:
+  /// **'Focus time'**
+  String get focusTimeName;
+
+  /// No description provided for @dailyAvgLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Daily avg'**
+  String get dailyAvgLabel;
+
+  /// No description provided for @trendLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'6-WEEK TREND'**
+  String get trendLabel;
+
+  /// No description provided for @trendName.
+  ///
+  /// In en, this message translates to:
+  /// **'6-week trend'**
+  String get trendName;
+
+  /// No description provided for @trendPoints.
+  ///
+  /// In en, this message translates to:
+  /// **'{points} pts'**
+  String trendPoints(int points);
+
+  /// No description provided for @trendThisWeek.
+  ///
+  /// In en, this message translates to:
+  /// **'This week · {rate}'**
+  String trendThisWeek(String rate);
+
+  /// No description provided for @trendWeekSemantics.
+  ///
+  /// In en, this message translates to:
+  /// **'week of {date} {rate}'**
+  String trendWeekSemantics(String date, String rate);
+
+  /// No description provided for @chartSemantics.
+  ///
+  /// In en, this message translates to:
+  /// **'{chart}: {values}'**
+  String chartSemantics(String chart, String values);
+
+  /// No description provided for @chartValue.
+  ///
+  /// In en, this message translates to:
+  /// **'{label} {value}'**
+  String chartValue(String label, String value);
+
+  /// No description provided for @powerDayTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'{weekday} is your power day'**
+  String powerDayTitle(String weekday);
+
+  /// No description provided for @powerDayBody.
+  ///
+  /// In en, this message translates to:
+  /// **'You finish {average} tasks on average, mostly {beforeNoon, select, true{before noon} other{after noon}}.'**
+  String powerDayBody(String average, String beforeNoon);
+
+  /// No description provided for @notEnoughData.
+  ///
+  /// In en, this message translates to:
+  /// **'Not enough data yet'**
+  String get notEnoughData;
 }
 
 class _AppLocalizationsDelegate

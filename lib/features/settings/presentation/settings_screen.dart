@@ -118,7 +118,6 @@ class SettingsScreen extends ConsumerWidget {
                     ),
                   ),
                   const SizedBox(height: AppSpacing.cardGap),
-                  // shortcut: opens the Insights placeholder until 3.10.
                   Material(
                     color: colors.ink,
                     borderRadius: BorderRadius.circular(AppRadius.r28),

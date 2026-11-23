@@ -112,7 +112,7 @@ Work top to bottom. Each task is sized for one Claude Code session and follows t
   Refs: S39, PRD §5.10, FR-12
 - [x] **3.9 Preferences screens.** S36 Theme (preview cards), S37 Week starts on, S38 Default priority. Changes apply at once everywhere.
   Refs: S36–S38, PRD §5.10, FR-15
-- [ ] **3.10 Insights.** S34 with the range segments, completion-rate hero and change, stat tiles, tasks and focus bar charts with text alternatives, 6-week trend, power day, and the not-enough-data state. Wire the S35 banner and the stats button on S30.
+- [x] **3.10 Insights.** S34 with the range segments, completion-rate hero and change, stat tiles, tasks and focus bar charts with text alternatives, 6-week trend, power day, and the not-enough-data state. Wire the S35 banner and the stats button on S30.
   Refs: S34, PRD §5.9, FR-14
 - [ ] **3.11 Export.** S41 format, range (custom range with From and To via S14), include toggles, totals and estimated size; `ctrltask-YYYY-MM-DD.csv|json` via the share sheet. Define the formats in `docs/export-format.md`. Round-trip test for JSON.
   Refs: S41, PRD §6.7, FR-17

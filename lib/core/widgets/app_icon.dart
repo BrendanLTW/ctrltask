@@ -64,7 +64,8 @@ enum AppIcon {
   timer('timer'),
   trash('trash-2'),
   user('user'),
-  warning('triangle-alert');
+  warning('triangle-alert'),
+  zap('zap');
 
   new(this.file);
 

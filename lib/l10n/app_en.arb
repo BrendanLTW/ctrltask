@@ -1456,5 +1456,140 @@
   "priorityHighDetail": "Orange ring, shows a tag",
   "priorityMediumDetail": "Blue ring",
   "priorityLowDetail": "Plain ring",
-  "defaultPriorityNote": "New tasks start at this priority. You can change it in quick add with one tap."
+  "defaultPriorityNote": "New tasks start at this priority. You can change it in quick add with one tap.",
+  "rangeLast7": "Last 7 days",
+  "rangeThisMonth": "This month",
+  "completionRateLabel": "COMPLETION RATE",
+  "completionRateSemantics": "Completion rate {rate}",
+  "@completionRateSemantics": {
+    "placeholders": {
+      "rate": {
+        "type": "String"
+      }
+    }
+  },
+  "rateChangeWeek": "{points} pts vs previous 7 days",
+  "@rateChangeWeek": {
+    "placeholders": {
+      "points": {
+        "type": "String"
+      }
+    }
+  },
+  "rateChangeMonth": "{points} pts vs same days last month",
+  "@rateChangeMonth": {
+    "placeholders": {
+      "points": {
+        "type": "String"
+      }
+    }
+  },
+  "rateNoCompare": "Nothing was due before to compare",
+  "rateNothingDue": "No tasks were due",
+  "statCompleted": "COMPLETED",
+  "statFocus": "FOCUS",
+  "completedSemantics": "Completed, {count}",
+  "@completedSemantics": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "focusSemantics": "Focus, {duration}",
+  "@focusSemantics": {
+    "placeholders": {
+      "duration": {
+        "type": "String"
+      }
+    }
+  },
+  "tasksCompletedLabel": "TASKS COMPLETED",
+  "tasksCompletedName": "Tasks completed",
+  "bestLabel": "Best:",
+  "bestValue": "{day}, {count}",
+  "@bestValue": {
+    "placeholders": {
+      "day": {
+        "type": "String"
+      },
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "focusTimeLabel": "FOCUS TIME",
+  "focusTimeName": "Focus time",
+  "dailyAvgLabel": "Daily avg",
+  "trendLabel": "6-WEEK TREND",
+  "trendName": "6-week trend",
+  "trendPoints": "{points} pts",
+  "@trendPoints": {
+    "placeholders": {
+      "points": {
+        "type": "int"
+      }
+    }
+  },
+  "trendThisWeek": "This week · {rate}",
+  "@trendThisWeek": {
+    "placeholders": {
+      "rate": {
+        "type": "String"
+      }
+    }
+  },
+  "trendWeekSemantics": "week of {date} {rate}",
+  "@trendWeekSemantics": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      },
+      "rate": {
+        "type": "String"
+      }
+    }
+  },
+  "chartSemantics": "{chart}: {values}",
+  "@chartSemantics": {
+    "placeholders": {
+      "chart": {
+        "type": "String"
+      },
+      "values": {
+        "type": "String"
+      }
+    }
+  },
+  "chartValue": "{label} {value}",
+  "@chartValue": {
+    "placeholders": {
+      "label": {
+        "type": "String"
+      },
+      "value": {
+        "type": "String"
+      }
+    }
+  },
+  "powerDayTitle": "{weekday} is your power day",
+  "@powerDayTitle": {
+    "placeholders": {
+      "weekday": {
+        "type": "String"
+      }
+    }
+  },
+  "powerDayBody": "You finish {average} tasks on average, mostly {beforeNoon, select, true{before noon} other{after noon}}.",
+  "@powerDayBody": {
+    "placeholders": {
+      "average": {
+        "type": "String"
+      },
+      "beforeNoon": {
+        "type": "String"
+      }
+    }
+  },
+  "notEnoughData": "Not enough data yet"
 }

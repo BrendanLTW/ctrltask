@@ -1963,4 +1963,121 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get defaultPriorityNote =>
       'New tasks start at this priority. You can change it in quick add with one tap.';
+
+  @override
+  String get rangeLast7 => 'Last 7 days';
+
+  @override
+  String get rangeThisMonth => 'This month';
+
+  @override
+  String get completionRateLabel => 'COMPLETION RATE';
+
+  @override
+  String completionRateSemantics(String rate) {
+    return 'Completion rate $rate';
+  }
+
+  @override
+  String rateChangeWeek(String points) {
+    return '$points pts vs previous 7 days';
+  }
+
+  @override
+  String rateChangeMonth(String points) {
+    return '$points pts vs same days last month';
+  }
+
+  @override
+  String get rateNoCompare => 'Nothing was due before to compare';
+
+  @override
+  String get rateNothingDue => 'No tasks were due';
+
+  @override
+  String get statCompleted => 'COMPLETED';
+
+  @override
+  String get statFocus => 'FOCUS';
+
+  @override
+  String completedSemantics(int count) {
+    return 'Completed, $count';
+  }
+
+  @override
+  String focusSemantics(String duration) {
+    return 'Focus, $duration';
+  }
+
+  @override
+  String get tasksCompletedLabel => 'TASKS COMPLETED';
+
+  @override
+  String get tasksCompletedName => 'Tasks completed';
+
+  @override
+  String get bestLabel => 'Best:';
+
+  @override
+  String bestValue(String day, int count) {
+    return '$day, $count';
+  }
+
+  @override
+  String get focusTimeLabel => 'FOCUS TIME';
+
+  @override
+  String get focusTimeName => 'Focus time';
+
+  @override
+  String get dailyAvgLabel => 'Daily avg';
+
+  @override
+  String get trendLabel => '6-WEEK TREND';
+
+  @override
+  String get trendName => '6-week trend';
+
+  @override
+  String trendPoints(int points) {
+    return '$points pts';
+  }
+
+  @override
+  String trendThisWeek(String rate) {
+    return 'This week · $rate';
+  }
+
+  @override
+  String trendWeekSemantics(String date, String rate) {
+    return 'week of $date $rate';
+  }
+
+  @override
+  String chartSemantics(String chart, String values) {
+    return '$chart: $values';
+  }
+
+  @override
+  String chartValue(String label, String value) {
+    return '$label $value';
+  }
+
+  @override
+  String powerDayTitle(String weekday) {
+    return '$weekday is your power day';
+  }
+
+  @override
+  String powerDayBody(String average, String beforeNoon) {
+    String _temp0 = intl.Intl.selectLogic(beforeNoon, {
+      'true': 'before noon',
+      'other': 'after noon',
+    });
+    return 'You finish $average tasks on average, mostly $_temp0.';
+  }
+
+  @override
+  String get notEnoughData => 'Not enough data yet';
 }

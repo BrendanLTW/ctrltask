@@ -14,6 +14,7 @@ void main() {
     expect(labels.date(d), 'Tue, 17 Nov');
     expect(labels.dateLong(d), 'Tue, 17 November');
     expect(labels.weekday(DateTime(2026, 11, 16)), 'Mon');
+    expect(labels.weekdayLong(DateTime(2026, 11, 19)), 'Thursday');
     expect(labels.dateYear(DateTime(2027, 2, 5)), 'Fri, 5 Feb 2027');
     expect(labels.dayMonth(DateTime(2026, 9, 2)), '2 Sep');
     expect(labels.clock(DateTime(2026, 11, 17, 14, 30)), '2:30');

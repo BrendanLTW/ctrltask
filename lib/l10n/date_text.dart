@@ -41,4 +41,14 @@ extension DateText on AppLocalizations {
     if (minutes == 0) return durationHours(hours);
     return durationHoursMinutes(hours, '$minutes'.padLeft(2, '0'));
   }
+
+  /// A duration as a stat value and its small last unit: "5h 25" + "m",
+  /// "2" + "h" or "25" + "m".
+  (String, String) durationParts(Duration duration) {
+    final hours = duration.inHours;
+    final minutes = duration.inMinutes % 60;
+    if (hours == 0) return ('$minutes', unitMinutes);
+    if (minutes == 0) return ('$hours', unitHours);
+    return ('$hours$unitHours ${'$minutes'.padLeft(2, '0')}', unitMinutes);
+  }
 }

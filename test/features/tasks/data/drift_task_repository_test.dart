@@ -520,6 +520,14 @@ void main() {
     });
   });
 
+  test('Insights sees every task, archived projects included', () async {
+    final old = await addProject('Old', archived: true);
+    await repo.add(TaskDraft(title: 'Archived', projectId: old));
+    final done = await repo.add(const TaskDraft(title: 'Done'));
+    await repo.complete(done.id);
+    expect(await titles(repo.watchForInsights()), ['Archived', 'Done']);
+  });
+
   test('counts every task per project, archived ones included', () async {
     final live = await addProject('Live');
     final old = await addProject('Old', archived: true);

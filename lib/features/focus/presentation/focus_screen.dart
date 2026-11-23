@@ -180,7 +180,6 @@ class _FocusScreenState extends ConsumerState<FocusScreen> {
                     ),
                   ),
                 ),
-                // shortcut: opens the Insights placeholder until 3.10.
                 headerButton(
                   AppIcon.chart,
                   l10n.focusStats,

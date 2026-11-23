@@ -13,6 +13,7 @@ class DateLabels {
       _dateYear = DateFormat('EEE, d MMM y', locale),
       _dayMonth = DateFormat('d MMM', locale),
       _weekday = DateFormat('EEE', locale),
+      _weekdayLong = DateFormat('EEEE', locale),
       _weekdayNarrow = DateFormat('EEEEE', locale),
       _time = DateFormat('h:mm a', locale),
       _clock = DateFormat('h:mm', locale),
@@ -24,6 +25,7 @@ class DateLabels {
   final DateFormat _dateYear;
   final DateFormat _dayMonth;
   final DateFormat _weekday;
+  final DateFormat _weekdayLong;
   final DateFormat _weekdayNarrow;
   final DateFormat _time;
   final DateFormat _clock;
@@ -51,6 +53,9 @@ class DateLabels {
 
   /// "Mon".
   String weekday(DateTime date) => _weekday.format(date);
+
+  /// "Monday": S34's power day and chart text.
+  String weekdayLong(DateTime date) => _weekdayLong.format(date);
 
   /// "10:00 AM" for a time stored as minutes after midnight (0–1439).
   String time(int minute) {

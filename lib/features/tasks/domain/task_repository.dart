@@ -36,6 +36,10 @@ abstract interface class TaskRepository {
   /// Ticked out of all subtasks, for every task that has any ("2/4").
   Stream<Map<int, Progress>> watchSubtaskProgress();
 
+  /// Every task, open or done, archived projects included: Insights still
+  /// counts them (PRD §5.7).
+  Stream<List<Task>> watchForInsights();
+
   /// How many tasks, open or done, each project has, archived ones
   /// included (S45). Projects without tasks are left out.
   Stream<Map<int, int>> watchTaskCounts();

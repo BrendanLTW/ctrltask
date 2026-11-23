@@ -6,6 +6,7 @@ import 'package:ctrltask/core/widgets/app_shell.dart';
 import 'package:ctrltask/core/widgets/app_shell_tab.dart';
 import 'package:ctrltask/features/focus/presentation/focus_screen.dart';
 import 'package:ctrltask/features/home/presentation/home_screen.dart';
+import 'package:ctrltask/features/insights/presentation/insights_screen.dart';
 import 'package:ctrltask/features/onboarding/presentation/splash_screen.dart';
 import 'package:ctrltask/features/onboarding/presentation/welcome_screen.dart';
 import 'package:ctrltask/features/projects/presentation/project_detail_screen.dart';
@@ -61,6 +62,7 @@ void main() {
     'Tasks' => find.byType(TasksScreen),
     'Settings' => find.byType(SettingsScreen),
     'Focus' => find.byType(FocusScreen),
+    'Insights' => find.byType(InsightsScreen),
     _ => find.descendant(of: find.byType(AppBar), matching: find.text(text)),
   };
 

@@ -204,6 +204,7 @@ class ProjectsApp {
     when(projects.watchActive).thenAnswer((_) => active.stream);
     when(projects.watchArchived).thenAnswer((_) => archived.stream);
     when(tasks.watchTaskCounts).thenAnswer((_) => counts.stream);
+    when(tasks.watchForInsights).thenAnswer((_) => taskList.stream);
     when(() => tasks.watchByProject(any())).thenAnswer(
       (i) => taskList.stream.map(
         (all) => [
