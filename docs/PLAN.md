@@ -108,7 +108,7 @@ Work top to bottom. Each task is sized for one Claude Code session and follows t
   Refs: S18, S46, PRD §5.5, §5.10, FR-13
 - [x] **3.7 Reminders and notifications.** A notification service using the spike findings: permission request from S05 and S39; task reminders from S16 (rescheduled on every change, cancelled on complete, archive and delete); daily plan; overdue nudge; focus session end with the soft bell; weekly review; quiet hours; silence while focusing. Keep at most 14 days of reminders scheduled; reschedule on launch and resume. Tests with a fake scheduler and an injected clock.
   Refs: S05, S16, S39, PRD §6.5, FR-12
-- [ ] **3.8 Notification settings.** S39 toggles, Timing rows (time pickers and the default reminder) and the permission-denied warning box with Open phone settings.
+- [x] **3.8 Notification settings.** S39 toggles, Timing rows (time pickers and the default reminder) and the permission-denied warning box with Open phone settings.
   Refs: S39, PRD §5.10, FR-12
 - [ ] **3.9 Preferences screens.** S36 Theme (preview cards), S37 Week starts on, S38 Default priority. Changes apply at once everywhere.
   Refs: S36–S38, PRD §5.10, FR-15

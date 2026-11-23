@@ -38,5 +38,9 @@ abstract class Preferences with _$Preferences {
     @Default(ReminderOffset.min30) ReminderOffset defaultReminder,
     @Default(23 * 60) int quietStartMinute,
     @Default(7 * 60) int quietEndMinute,
+
+    /// Whether ctrlTask has asked the phone for permission (S05, S39); the
+    /// OS can't tell "never asked" from "denied" on iOS.
+    @Default(false) bool notificationsAsked,
   }) = _Preferences;
 }

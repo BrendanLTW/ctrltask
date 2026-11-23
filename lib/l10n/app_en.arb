@@ -1390,5 +1390,43 @@
     }
   },
   "needsDueTime": "Needs a due time",
-  "done": "Done"
+  "done": "Done",
+  "notificationsTitle": "Notifications",
+  "notifyRemindersDetail": "At the time set on each task",
+  "notifyPlanDetail": "What's due today, each morning",
+  "notifyOverdueDetail": "6:00 PM, if anything slipped",
+  "focusSessionEnd": "Focus session end",
+  "notifyFocusDetail": "Soft bell when a session or break ends",
+  "weeklyReview": "Weekly review",
+  "notifyWeeklyDetail": "Sunday 8:00 PM, your week in numbers",
+  "timingSection": "TIMING",
+  "dailyPlanAtRow": "Daily plan at",
+  "defaultTaskReminder": "Default task reminder",
+  "quietHours": "Quiet hours",
+  "timeSpan": "{from} – {to}",
+  "@timeSpan": {
+    "placeholders": {
+      "from": {
+        "type": "String"
+      },
+      "to": {
+        "type": "String"
+      }
+    }
+  },
+  "quietFrom": "From",
+  "quietTo": "To",
+  "notificationsOffTitle": "Notifications are off for ctrlTask",
+  "notificationsOffBody": "Your choices below are saved. Turn notifications on so they can reach you.",
+  "notificationsNotAsked": "ctrlTask hasn't asked to send notifications yet.",
+  "openPhoneSettings": "Open phone settings",
+  "turnOn": "Turn on",
+  "notificationsOnCount": "{count} on",
+  "@notificationsOnCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  }
 }

@@ -59,6 +59,8 @@ void main() {
         '3-day streak · 3 tasks done',
         'PREFERENCES',
         'Default focus length',
+        'Notifications',
+        '4 on',
         '25 min',
         'MANAGE',
         'Archived projects',
@@ -71,7 +73,6 @@ void main() {
       // Hidden until their screens exist.
       for (final text in [
         'Theme',
-        'Notifications',
         'Export data',
         'Backup & restore',
         'Erase all data',

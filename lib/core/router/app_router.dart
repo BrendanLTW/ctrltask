@@ -4,6 +4,7 @@ import 'package:ctrltask/features/calendar/presentation/calendar_week_screen.dar
 import 'package:ctrltask/features/focus/presentation/focus_screen.dart';
 import 'package:ctrltask/features/home/presentation/home_screen.dart';
 import 'package:ctrltask/features/insights/presentation/insights_screen.dart';
+import 'package:ctrltask/features/notifications/presentation/notification_settings_screen.dart';
 import 'package:ctrltask/features/onboarding/presentation/all_set_screen.dart';
 import 'package:ctrltask/features/onboarding/presentation/first_task_screen.dart';
 import 'package:ctrltask/features/onboarding/presentation/name_screen.dart';
@@ -45,6 +46,7 @@ abstract final class Routes {
   static String editProject(String id) => '/project/$id/edit';
   static const archivedProjects = '/settings/archived';
   static const tags = '/settings/tags';
+  static const notifications = '/settings/notifications';
   static const search = '/search';
   static const insights = '/insights';
   static const settings = '/settings';
@@ -157,6 +159,10 @@ GoRouter appRouter(Ref ref) {
       GoRoute(
         path: Routes.editName,
         builder: (context, state) => const EditNameScreen(),
+      ),
+      GoRoute(
+        path: Routes.notifications,
+        builder: (context, state) => const NotificationSettingsScreen(),
       ),
       GoRoute(
         path: Routes.tags,

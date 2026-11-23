@@ -106,6 +106,11 @@ class FakeScheduler implements NotificationScheduler {
   @override
   Future<bool> isPermitted() async => permitted;
 
+  int openedSettings = 0;
+
+  @override
+  Future<void> openSystemSettings() async => openedSettings++;
+
   @override
   Future<void> scheduleOnce({
     required int id,

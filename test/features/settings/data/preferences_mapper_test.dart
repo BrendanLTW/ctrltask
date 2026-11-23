@@ -44,9 +44,10 @@ void main() {
       defaultReminder: ReminderOffset.dayBefore,
       quietStartMinute: 0,
       quietEndMinute: 1439,
+      notificationsAsked: true,
     );
     final values = preferencesToValues(prefs);
-    expect(values.keys, hasLength(21));
+    expect(values.keys, hasLength(22));
     expect(preferencesFromValues(values), prefs);
   });
 

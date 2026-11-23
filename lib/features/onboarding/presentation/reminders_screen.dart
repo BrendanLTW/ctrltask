@@ -5,7 +5,7 @@ import 'package:ctrltask/core/theme/app_typography.dart';
 import 'package:ctrltask/core/widgets/app_chip.dart';
 import 'package:ctrltask/core/widgets/list_group.dart';
 import 'package:ctrltask/core/widgets/onboarding_scaffold.dart';
-import 'package:ctrltask/features/notifications/domain/notification_scheduler.dart';
+import 'package:ctrltask/features/notifications/presentation/ask_permission.dart';
 import 'package:ctrltask/features/settings/domain/preferences.dart';
 import 'package:ctrltask/features/settings/domain/preferences_repository.dart';
 import 'package:ctrltask/l10n/l10n.dart';
@@ -59,7 +59,7 @@ class _RemindersScreenState extends ConsumerState<RemindersScreen> {
       subtitle: l10n.remindersBody,
       primaryLabel: l10n.allowNotifications,
       onPrimary: () async {
-        await ref.read(notificationSchedulerProvider).requestPermission();
+        await askForNotifications(ref);
         await _save();
       },
       secondaryLabel: l10n.notNow,

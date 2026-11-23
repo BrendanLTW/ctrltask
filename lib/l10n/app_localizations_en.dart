@@ -1835,4 +1835,73 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get done => 'Done';
+
+  @override
+  String get notificationsTitle => 'Notifications';
+
+  @override
+  String get notifyRemindersDetail => 'At the time set on each task';
+
+  @override
+  String get notifyPlanDetail => 'What\'s due today, each morning';
+
+  @override
+  String get notifyOverdueDetail => '6:00 PM, if anything slipped';
+
+  @override
+  String get focusSessionEnd => 'Focus session end';
+
+  @override
+  String get notifyFocusDetail => 'Soft bell when a session or break ends';
+
+  @override
+  String get weeklyReview => 'Weekly review';
+
+  @override
+  String get notifyWeeklyDetail => 'Sunday 8:00 PM, your week in numbers';
+
+  @override
+  String get timingSection => 'TIMING';
+
+  @override
+  String get dailyPlanAtRow => 'Daily plan at';
+
+  @override
+  String get defaultTaskReminder => 'Default task reminder';
+
+  @override
+  String get quietHours => 'Quiet hours';
+
+  @override
+  String timeSpan(String from, String to) {
+    return '$from – $to';
+  }
+
+  @override
+  String get quietFrom => 'From';
+
+  @override
+  String get quietTo => 'To';
+
+  @override
+  String get notificationsOffTitle => 'Notifications are off for ctrlTask';
+
+  @override
+  String get notificationsOffBody =>
+      'Your choices below are saved. Turn notifications on so they can reach you.';
+
+  @override
+  String get notificationsNotAsked =>
+      'ctrlTask hasn\'t asked to send notifications yet.';
+
+  @override
+  String get openPhoneSettings => 'Open phone settings';
+
+  @override
+  String get turnOn => 'Turn on';
+
+  @override
+  String notificationsOnCount(int count) {
+    return '$count on';
+  }
 }

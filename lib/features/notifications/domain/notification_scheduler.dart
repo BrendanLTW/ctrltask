@@ -11,6 +11,9 @@ abstract interface class NotificationScheduler {
   /// Whether ctrlTask may show notifications, without asking.
   Future<bool> isPermitted();
 
+  /// Opens ctrlTask's notification page in the phone's Settings (S39).
+  Future<void> openSystemSettings();
+
   /// Shows once at [at].
   Future<void> scheduleOnce({
     required int id,
@@ -22,6 +25,11 @@ abstract interface class NotificationScheduler {
   /// Cancels everything scheduled.
   Future<void> cancelAll();
 }
+
+/// Whether notifications are allowed; S39 refreshes it on resume.
+@riverpod
+Future<bool> notificationsPermitted(Ref ref) =>
+    ref.watch(notificationSchedulerProvider).isPermitted();
 
 /// Overridden in `main.dart` with the flutter_local_notifications one.
 @Riverpod(keepAlive: true)

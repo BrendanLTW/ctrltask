@@ -26,6 +26,7 @@ abstract final class PreferenceKeys {
   static const defaultReminder = 'defaultReminder';
   static const quietStartMinute = 'quietStartMinute';
   static const quietEndMinute = 'quietEndMinute';
+  static const notificationsAsked = 'notificationsAsked';
 }
 
 /// Builds [Preferences] from the table's key-value pairs. A missing,
@@ -84,6 +85,8 @@ Preferences preferencesFromValues(Map<String, String> values) {
       d.quietStartMinute,
     ),
     quietEndMinute: minute(PreferenceKeys.quietEndMinute, d.quietEndMinute),
+    notificationsAsked:
+        flag(PreferenceKeys.notificationsAsked) ?? d.notificationsAsked,
   );
 }
 
@@ -110,4 +113,5 @@ Map<String, String> preferencesToValues(Preferences prefs) => {
   PreferenceKeys.defaultReminder: prefs.defaultReminder.name,
   PreferenceKeys.quietStartMinute: '${prefs.quietStartMinute}',
   PreferenceKeys.quietEndMinute: '${prefs.quietEndMinute}',
+  PreferenceKeys.notificationsAsked: '${prefs.notificationsAsked}',
 };

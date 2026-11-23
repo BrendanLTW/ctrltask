@@ -22,7 +22,7 @@ Before building a screen, read its section in the PRD and look at both its light
 - Models: freezed + json_serializable
 - Formatting: intl · Icons: flutter_svg with bundled Lucide SVGs (`AppIcon`)
 - Links: url_launcher, to open a task's saved links (S12)
-- Notifications: flutter_local_notifications, timezone, flutter_timezone (P1)
+- Notifications: flutter_local_notifications, timezone, flutter_timezone, app_settings (Open phone settings on S39) (P1)
 - Export: `csv` package, share_plus, path_provider (P1)
 - Backup: file_picker (v1.1 only)
 - Testing: flutter_test, mocktail, integration_test

@@ -15,8 +15,10 @@ import 'package:ctrltask/core/widgets/section_header.dart';
 import 'package:ctrltask/core/widgets/sub_screen_bar.dart';
 import 'package:ctrltask/features/focus/presentation/timer_settings_sheet.dart';
 import 'package:ctrltask/features/home/presentation/home_providers.dart';
+import 'package:ctrltask/features/notifications/presentation/notification_settings_screen.dart';
 import 'package:ctrltask/features/projects/domain/project_keys.dart';
 import 'package:ctrltask/features/projects/presentation/project_providers.dart';
+import 'package:ctrltask/features/settings/domain/preferences.dart';
 import 'package:ctrltask/features/settings/domain/preferences_repository.dart';
 import 'package:ctrltask/features/tags/presentation/tag_providers.dart';
 import 'package:ctrltask/features/tasks/domain/task_calculations.dart';
@@ -28,7 +30,7 @@ import 'package:go_router/go_router.dart';
 /// S35 Settings (PRD §5.10): the name card, the insights banner, and the
 /// rows whose screens exist so far.
 // shortcut: the other Preferences (Theme, Week starts on, Default priority
-// 3.9, Notifications 3.8), Export data
+// 3.9), Export data
 // (3.11) and Erase all data (3.12) appear with their screens; Backup &
 // restore is v1.1.
 class SettingsScreen extends ConsumerWidget {
@@ -178,6 +180,18 @@ class SettingsScreen extends ConsumerWidget {
                           size: IconTileSize.medium,
                         ),
                         onTap: () => unawaited(showTimerSettings(context)),
+                      ),
+                      ListGroupRow(
+                        title: l10n.notificationsTitle,
+                        value: l10n.notificationsOnCount(
+                          notificationsOn(prefs ?? const Preferences()),
+                        ),
+                        leading: const IconTile(
+                          icon: AppIcon.bell,
+                          color: ProjectColorKey.yellow,
+                          size: IconTileSize.medium,
+                        ),
+                        onTap: () => open(Routes.notifications),
                       ),
                     ],
                   ),

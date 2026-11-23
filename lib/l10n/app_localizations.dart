@@ -2799,6 +2799,132 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Done'**
   String get done;
+
+  /// No description provided for @notificationsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Notifications'**
+  String get notificationsTitle;
+
+  /// No description provided for @notifyRemindersDetail.
+  ///
+  /// In en, this message translates to:
+  /// **'At the time set on each task'**
+  String get notifyRemindersDetail;
+
+  /// No description provided for @notifyPlanDetail.
+  ///
+  /// In en, this message translates to:
+  /// **'What\'s due today, each morning'**
+  String get notifyPlanDetail;
+
+  /// No description provided for @notifyOverdueDetail.
+  ///
+  /// In en, this message translates to:
+  /// **'6:00 PM, if anything slipped'**
+  String get notifyOverdueDetail;
+
+  /// No description provided for @focusSessionEnd.
+  ///
+  /// In en, this message translates to:
+  /// **'Focus session end'**
+  String get focusSessionEnd;
+
+  /// No description provided for @notifyFocusDetail.
+  ///
+  /// In en, this message translates to:
+  /// **'Soft bell when a session or break ends'**
+  String get notifyFocusDetail;
+
+  /// No description provided for @weeklyReview.
+  ///
+  /// In en, this message translates to:
+  /// **'Weekly review'**
+  String get weeklyReview;
+
+  /// No description provided for @notifyWeeklyDetail.
+  ///
+  /// In en, this message translates to:
+  /// **'Sunday 8:00 PM, your week in numbers'**
+  String get notifyWeeklyDetail;
+
+  /// No description provided for @timingSection.
+  ///
+  /// In en, this message translates to:
+  /// **'TIMING'**
+  String get timingSection;
+
+  /// No description provided for @dailyPlanAtRow.
+  ///
+  /// In en, this message translates to:
+  /// **'Daily plan at'**
+  String get dailyPlanAtRow;
+
+  /// No description provided for @defaultTaskReminder.
+  ///
+  /// In en, this message translates to:
+  /// **'Default task reminder'**
+  String get defaultTaskReminder;
+
+  /// No description provided for @quietHours.
+  ///
+  /// In en, this message translates to:
+  /// **'Quiet hours'**
+  String get quietHours;
+
+  /// No description provided for @timeSpan.
+  ///
+  /// In en, this message translates to:
+  /// **'{from} – {to}'**
+  String timeSpan(String from, String to);
+
+  /// No description provided for @quietFrom.
+  ///
+  /// In en, this message translates to:
+  /// **'From'**
+  String get quietFrom;
+
+  /// No description provided for @quietTo.
+  ///
+  /// In en, this message translates to:
+  /// **'To'**
+  String get quietTo;
+
+  /// No description provided for @notificationsOffTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Notifications are off for ctrlTask'**
+  String get notificationsOffTitle;
+
+  /// No description provided for @notificationsOffBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Your choices below are saved. Turn notifications on so they can reach you.'**
+  String get notificationsOffBody;
+
+  /// No description provided for @notificationsNotAsked.
+  ///
+  /// In en, this message translates to:
+  /// **'ctrlTask hasn\'t asked to send notifications yet.'**
+  String get notificationsNotAsked;
+
+  /// No description provided for @openPhoneSettings.
+  ///
+  /// In en, this message translates to:
+  /// **'Open phone settings'**
+  String get openPhoneSettings;
+
+  /// No description provided for @turnOn.
+  ///
+  /// In en, this message translates to:
+  /// **'Turn on'**
+  String get turnOn;
+
+  /// No description provided for @notificationsOnCount.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} on'**
+  String notificationsOnCount(int count);
 }
 
 class _AppLocalizationsDelegate

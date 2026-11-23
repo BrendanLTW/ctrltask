@@ -1,3 +1,4 @@
+import 'package:app_settings/app_settings.dart';
 import 'package:ctrltask/features/notifications/domain/notification_scheduler.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_timezone/flutter_timezone.dart';
@@ -71,6 +72,10 @@ class LocalNotificationScheduler implements NotificationScheduler {
         (await _ios?.checkPermissions())?.isEnabled ??
         false;
   }
+
+  @override
+  Future<void> openSystemSettings() =>
+      AppSettings.openAppSettings(type: AppSettingsType.notification);
 
   @override
   Future<void> scheduleOnce({
