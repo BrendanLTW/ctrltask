@@ -349,79 +349,97 @@ class _QuickAddSheetState extends ConsumerState<QuickAddSheet> {
           const SizedBox(height: 16),
           Row(
             children: [
-              Flexible(
-                child: AppChip(
-                  label: project?.name ?? l10n.inbox,
-                  small: true,
-                  leading: ProjectDot(
-                    project?.colorKey ?? ProjectColorKey.grey,
-                  ),
-                  onTap: () => unawaited(_pickProject()),
-                ),
-              ),
-              const SizedBox(width: 8),
-              IconButton(
-                onPressed: () => unawaited(_pickTags()),
-                tooltip: _tagIds.isEmpty
-                    ? l10n.tagsTitle
-                    : l10n.titleWithDetail(l10n.tagsTitle, '${_tagIds.length}'),
-                style: IconButton.styleFrom(
-                  fixedSize: const Size(44, 44),
-                  backgroundColor: _tagIds.isEmpty
-                      ? colors.fillSoft
-                      : colors.ink,
-                  foregroundColor: _tagIds.isEmpty ? colors.ink : colors.onInk,
-                ),
-                icon: const AppIconView(AppIcon.tag, size: 20),
-              ),
-              const SizedBox(width: 8),
-              () {
-                final reminder = _reminderFor(options[_when!]);
-                final on = reminder != ReminderOffset.none;
-                return IconButton(
-                  onPressed: () => unawaited(_pickReminder(options)),
-                  tooltip: on
-                      ? l10n.titleWithDetail(
-                          l10n.reminderTitle,
-                          l10n.reminderShort(reminder.name),
-                        )
-                      : l10n.reminderTitle,
-                  style: IconButton.styleFrom(
-                    fixedSize: const Size(44, 44),
-                    backgroundColor: on ? colors.ink : colors.fillSoft,
-                    foregroundColor: on ? colors.onInk : colors.ink,
-                  ),
-                  icon: const AppIconView(AppIcon.bell, size: 20),
-                );
-              }(),
-              const SizedBox(width: 8),
-              IconButton(
-                onPressed: () => unawaited(_pickRepeat(options)),
-                tooltip: _repeat == null
-                    ? l10n.repeatTitle
-                    : l10n.titleWithDetail(
-                        l10n.repeatTitle,
-                        repeatSummary(
-                          l10n,
-                          DateLabels(
-                            Localizations.localeOf(context).toLanguageTag(),
-                          ),
-                          _repeat,
-                          weekStart:
-                              ref.watch(preferencesProvider).value?.weekStart ??
-                              WeekStart.mon,
+              // Its own row, so the chip takes its full width before More.
+              Expanded(
+                child: Row(
+                  children: [
+                    Flexible(
+                      child: AppChip(
+                        label: project?.name ?? l10n.inbox,
+                        small: true,
+                        leading: ProjectDot(
+                          project?.colorKey ?? ProjectColorKey.grey,
                         ),
+                        onTap: () => unawaited(_pickProject()),
                       ),
-                style: IconButton.styleFrom(
-                  fixedSize: const Size(44, 44),
-                  backgroundColor: _repeat == null
-                      ? colors.fillSoft
-                      : colors.ink,
-                  foregroundColor: _repeat == null ? colors.ink : colors.onInk,
+                    ),
+                    const SizedBox(width: 8),
+                    IconButton(
+                      onPressed: () => unawaited(_pickTags()),
+                      tooltip: _tagIds.isEmpty
+                          ? l10n.tagsTitle
+                          : l10n.titleWithDetail(
+                              l10n.tagsTitle,
+                              '${_tagIds.length}',
+                            ),
+                      style: IconButton.styleFrom(
+                        fixedSize: const Size(44, 44),
+                        backgroundColor: _tagIds.isEmpty
+                            ? colors.fillSoft
+                            : colors.ink,
+                        foregroundColor: _tagIds.isEmpty
+                            ? colors.ink
+                            : colors.onInk,
+                      ),
+                      icon: const AppIconView(AppIcon.tag, size: 20),
+                    ),
+                    const SizedBox(width: 8),
+                    () {
+                      final reminder = _reminderFor(options[_when!]);
+                      final on = reminder != ReminderOffset.none;
+                      return IconButton(
+                        onPressed: () => unawaited(_pickReminder(options)),
+                        tooltip: on
+                            ? l10n.titleWithDetail(
+                                l10n.reminderTitle,
+                                l10n.reminderShort(reminder.name),
+                              )
+                            : l10n.reminderTitle,
+                        style: IconButton.styleFrom(
+                          fixedSize: const Size(44, 44),
+                          backgroundColor: on ? colors.ink : colors.fillSoft,
+                          foregroundColor: on ? colors.onInk : colors.ink,
+                        ),
+                        icon: const AppIconView(AppIcon.bell, size: 20),
+                      );
+                    }(),
+                    const SizedBox(width: 8),
+                    IconButton(
+                      onPressed: () => unawaited(_pickRepeat(options)),
+                      tooltip: _repeat == null
+                          ? l10n.repeatTitle
+                          : l10n.titleWithDetail(
+                              l10n.repeatTitle,
+                              repeatSummary(
+                                l10n,
+                                DateLabels(
+                                  Localizations.localeOf(context)
+                                      .toLanguageTag(),
+                                ),
+                                _repeat,
+                                weekStart:
+                                    ref
+                                        .watch(preferencesProvider)
+                                        .value
+                                        ?.weekStart ??
+                                    WeekStart.mon,
+                              ),
+                            ),
+                      style: IconButton.styleFrom(
+                        fixedSize: const Size(44, 44),
+                        backgroundColor: _repeat == null
+                            ? colors.fillSoft
+                            : colors.ink,
+                        foregroundColor: _repeat == null
+                            ? colors.ink
+                            : colors.onInk,
+                      ),
+                      icon: const AppIconView(AppIcon.repeat, size: 20),
+                    ),
+                  ],
                 ),
-                icon: const AppIconView(AppIcon.repeat, size: 20),
               ),
-              const Spacer(),
+              const SizedBox(width: 8),
               TextButton(
                 onPressed: () => _more(options),
                 style: TextButton.styleFrom(

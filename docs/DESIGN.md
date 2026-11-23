@@ -65,6 +65,7 @@ Reference them through tokens, never as raw hex in widgets.
 | `divider` | `#EEF1F6` | `#232C3A` | Lines between rows in a list group, timeline rails |
 | `fillSoft` | `#F2F4F7` | `#232C3A` | Small chips, steppers, segmented track and rows inside sheets |
 | `control` | `#D0D5DD` | `#475467` | Toggle off, radio border, unticked checkbox (Low), "today" ring in the calendar |
+| `toggleThumb` | `#FFFFFF` | `#FFFFFF` | A toggle's thumb when off (on: `onInk`) |
 | `buttonDisabled` | `#D0D5DD` | `#2A3444` | Disabled primary button fill (label `#FFFFFF` / `#667085`) |
 | `disabled` | `#98A2B3` | `#667085` | Past dates, placeholders, disabled text |
 | `chipText` | `#344054` | `#D0D5DD` | Unselected chip label, tag chip label, text in tinted boxes |

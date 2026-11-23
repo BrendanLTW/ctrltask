@@ -119,7 +119,7 @@ class SettingsScreen extends ConsumerWidget {
                   ),
                   const SizedBox(height: AppSpacing.cardGap),
                   Material(
-                    color: colors.ink,
+                    color: colors.hero,
                     borderRadius: BorderRadius.circular(AppRadius.r28),
                     child: InkWell(
                       onTap: () => open(Routes.insights),
@@ -131,7 +131,7 @@ class SettingsScreen extends ConsumerWidget {
                             AppIconView(
                               AppIcon.chart,
                               size: 26,
-                              color: colors.onInk,
+                              color: colors.onHero,
                             ),
                             const SizedBox(width: 16),
                             Expanded(
@@ -151,7 +151,7 @@ class SettingsScreen extends ConsumerWidget {
                                       done.length,
                                     ),
                                     style: text.cardTitle.copyWith(
-                                      color: colors.onInk,
+                                      color: colors.onHero,
                                     ),
                                   ),
                                 ],
@@ -160,7 +160,7 @@ class SettingsScreen extends ConsumerWidget {
                             AppIconView(
                               AppIcon.chevronRight,
                               size: 22,
-                              color: colors.onInk,
+                              color: colors.onHero,
                               stroke: AppIconStroke.chevron,
                             ),
                           ],

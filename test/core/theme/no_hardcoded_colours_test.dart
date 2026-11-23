@@ -4,11 +4,8 @@ import 'package:flutter_test/flutter_test.dart';
 
 /// Colours outside `core/theme/` that are deliberate, with how many times
 /// each file may use them and why. Anything else must come from the theme
-/// tokens (CLAUDE.md UI).
-const _allowed = {
-  // The toggle's thumb is white when off in both themes (DESIGN §7).
-  'lib/core/widgets/app_toggle.dart': 1,
-};
+/// tokens (CLAUDE.md UI). None so far.
+const _allowed = <String, int>{};
 
 final _literal = RegExp(
   r'\bColor\(0x|\bColor\.from(RGBO|ARGB)|\bColors\.(?!transparent\b)\w+',

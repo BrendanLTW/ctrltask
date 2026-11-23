@@ -40,6 +40,7 @@ class AppColors extends ThemeExtension<AppColors> {
     required this.onSuccessBox,
     required this.infoBox,
     required this.onInfoBox,
+    required this.toggleThumb,
   });
 
   static const light = AppColors(
@@ -79,6 +80,7 @@ class AppColors extends ThemeExtension<AppColors> {
     onSuccessBox: Color(0xFF05603A),
     infoBox: Color(0xFFEEF1F6),
     onInfoBox: Color(0xFF344054),
+    toggleThumb: Color(0xFFFFFFFF),
   );
 
   static const dark = AppColors(
@@ -118,6 +120,7 @@ class AppColors extends ThemeExtension<AppColors> {
     onSuccessBox: Color(0xFF75E0A7),
     infoBox: Color(0xFF232C3A),
     onInfoBox: Color(0xFFD0D5DD),
+    toggleThumb: Color(0xFFFFFFFF),
   );
 
   /// Screen background.
@@ -228,6 +231,9 @@ class AppColors extends ThemeExtension<AppColors> {
   /// Info message box text and icon.
   final Color onInfoBox;
 
+  /// A toggle's thumb when off: white in both themes (DESIGN §7).
+  final Color toggleThumb;
+
   /// Every token by name, so tests can check both palettes cover them all.
   @visibleForTesting
   Map<String, Color> get tokens => {
@@ -267,6 +273,7 @@ class AppColors extends ThemeExtension<AppColors> {
     'onSuccessBox': onSuccessBox,
     'infoBox': infoBox,
     'onInfoBox': onInfoBox,
+    'toggleThumb': toggleThumb,
   };
 
   @override
@@ -307,6 +314,7 @@ class AppColors extends ThemeExtension<AppColors> {
     Color? onSuccessBox,
     Color? infoBox,
     Color? onInfoBox,
+    Color? toggleThumb,
   }) {
     return AppColors(
       ground: ground ?? this.ground,
@@ -345,6 +353,7 @@ class AppColors extends ThemeExtension<AppColors> {
       onSuccessBox: onSuccessBox ?? this.onSuccessBox,
       infoBox: infoBox ?? this.infoBox,
       onInfoBox: onInfoBox ?? this.onInfoBox,
+      toggleThumb: toggleThumb ?? this.toggleThumb,
     );
   }
 
@@ -392,6 +401,7 @@ class AppColors extends ThemeExtension<AppColors> {
       onSuccessBox: Color.lerp(onSuccessBox, other.onSuccessBox, t)!,
       infoBox: Color.lerp(infoBox, other.infoBox, t)!,
       onInfoBox: Color.lerp(onInfoBox, other.onInfoBox, t)!,
+      toggleThumb: Color.lerp(toggleThumb, other.toggleThumb, t)!,
     );
   }
 }

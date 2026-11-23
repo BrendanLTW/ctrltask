@@ -1,4 +1,5 @@
 import 'package:ctrltask/core/router/app_router.dart';
+import 'package:ctrltask/core/theme/app_colors.dart';
 import 'package:ctrltask/core/widgets/name_avatar.dart';
 import 'package:ctrltask/features/home/presentation/home_screen.dart';
 import 'package:ctrltask/features/projects/presentation/archived_projects.dart';
@@ -161,6 +162,28 @@ void main() {
       );
     });
   });
+
+  for (final (brightness, colors) in [
+    (Brightness.light, AppColors.light),
+    (Brightness.dark, AppColors.dark),
+  ]) {
+    testWidgets('the insights banner is a hero card in ${brightness.name}', (
+      tester,
+    ) async {
+      await app.pump(tester, brightness: brightness);
+      app.router.push(Routes.settings).ignore();
+      await tester.pumpAndSettle();
+      final banner = find.ancestor(
+        of: find.text('PRODUCTIVITY INSIGHTS'),
+        matching: find.byType(Material),
+      );
+      expect(tester.widget<Material>(banner.first).color, colors.hero);
+      expect(
+        tester.widget<Text>(find.textContaining('-day streak')).style?.color,
+        colors.onHero,
+      );
+    });
+  }
 
   for (final brightness in Brightness.values) {
     testWidgets('lays out at 200% text in ${brightness.name}', (tester) async {

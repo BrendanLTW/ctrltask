@@ -118,7 +118,7 @@ Work top to bottom. Each task is sized for one Claude Code session and follows t
   Refs: S41, PRD §6.7, FR-17
 - [x] **3.12 Erase all data.** S44 dialog with Export a copy first; erase every table and preference in one transaction, cancel every notification and return to S01.
   Refs: S44, PRD §5.10, FR-17
-- [ ] **3.13 Dark mode audit.** Check every v1.0 screen against its dark design; make sure every screen's widget tests run in both themes; fix any hard-coded colours.
+- [x] **3.13 Dark mode audit.** Check every v1.0 screen against its dark design; make sure every screen's widget tests run in both themes; fix any hard-coded colours.
   Refs: FR-16, DESIGN §10
 
 ## Phase 4 — Ship v1.0

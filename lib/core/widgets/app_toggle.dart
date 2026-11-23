@@ -55,8 +55,7 @@ class AppToggle extends StatelessWidget {
                 width: 26,
                 height: 26,
                 decoration: BoxDecoration(
-                  // White when off in both themes (DESIGN §7).
-                  color: value ? colors.onInk : Colors.white,
+                  color: value ? colors.onInk : colors.toggleThumb,
                   shape: BoxShape.circle,
                   boxShadow: context.shadows.toggleKnob,
                 ),

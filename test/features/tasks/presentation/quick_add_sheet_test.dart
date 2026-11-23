@@ -13,6 +13,7 @@ import 'package:ctrltask/features/tasks/presentation/task_form_screen.dart';
 import 'package:ctrltask/l10n/l10n.dart';
 import 'package:ctrltask/main.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_riverpod/misc.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -258,6 +259,26 @@ void main() {
     testWidgets('lays out without overflow in $name', (tester) async {
       await pumpSheet(tester, title: 'Call dentist', theme: theme);
       expect(tester.takeException(), isNull);
+    });
+
+    testWidgets('the project chip shows its whole name in $name', (
+      tester,
+    ) async {
+      // A Pro Max width, where everything fits with the test font.
+      tester.view
+        ..physicalSize = const Size(430, 932)
+        ..devicePixelRatio = 1;
+      addTearDown(tester.view.reset);
+      await pumpSheet(tester, title: 'Call dentist', theme: theme);
+      final label = tester.renderObject<RenderParagraph>(
+        find.descendant(of: find.byType(AppChip), matching: find.text('Inbox')),
+      );
+      // On one line at its natural width: More used to squeeze it.
+      expect(
+        label.size.width,
+        closeTo(label.getMaxIntrinsicWidth(double.infinity), 0.5),
+      );
+      expect(label.didExceedMaxLines, isFalse);
     });
   }
 }
