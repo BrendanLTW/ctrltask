@@ -3183,6 +3183,108 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Not enough data yet'**
   String get notEnoughData;
+
+  /// No description provided for @exportTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Export data'**
+  String get exportTitle;
+
+  /// No description provided for @formatSection.
+  ///
+  /// In en, this message translates to:
+  /// **'FORMAT'**
+  String get formatSection;
+
+  /// No description provided for @rangeSection.
+  ///
+  /// In en, this message translates to:
+  /// **'RANGE'**
+  String get rangeSection;
+
+  /// No description provided for @includeSection.
+  ///
+  /// In en, this message translates to:
+  /// **'INCLUDE'**
+  String get includeSection;
+
+  /// No description provided for @rangeAllTime.
+  ///
+  /// In en, this message translates to:
+  /// **'All time'**
+  String get rangeAllTime;
+
+  /// No description provided for @rangeThisYear.
+  ///
+  /// In en, this message translates to:
+  /// **'This year'**
+  String get rangeThisYear;
+
+  /// No description provided for @rangeCustom.
+  ///
+  /// In en, this message translates to:
+  /// **'Custom range'**
+  String get rangeCustom;
+
+  /// No description provided for @fromLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'From'**
+  String get fromLabel;
+
+  /// No description provided for @toLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'To'**
+  String get toLabel;
+
+  /// No description provided for @includeCompleted.
+  ///
+  /// In en, this message translates to:
+  /// **'Completed tasks'**
+  String get includeCompleted;
+
+  /// No description provided for @includeFocus.
+  ///
+  /// In en, this message translates to:
+  /// **'Focus sessions'**
+  String get includeFocus;
+
+  /// No description provided for @projectCount.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{1 project} other{{count} projects}}'**
+  String projectCount(int count);
+
+  /// No description provided for @focusSessionCount.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{1 focus session} other{{count} focus sessions}}'**
+  String focusSessionCount(int count);
+
+  /// No description provided for @exportButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Export {format} · {size}'**
+  String exportButton(String format, String size);
+
+  /// No description provided for @sizeKb.
+  ///
+  /// In en, this message translates to:
+  /// **'{size} KB'**
+  String sizeKb(String size);
+
+  /// No description provided for @sizeMb.
+  ///
+  /// In en, this message translates to:
+  /// **'{size} MB'**
+  String sizeMb(String size);
+
+  /// No description provided for @exportSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'CSV or JSON'**
+  String get exportSubtitle;
 }
 
 class _AppLocalizationsDelegate

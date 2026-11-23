@@ -114,7 +114,7 @@ Work top to bottom. Each task is sized for one Claude Code session and follows t
   Refs: S36–S38, PRD §5.10, FR-15
 - [x] **3.10 Insights.** S34 with the range segments, completion-rate hero and change, stat tiles, tasks and focus bar charts with text alternatives, 6-week trend, power day, and the not-enough-data state. Wire the S35 banner and the stats button on S30.
   Refs: S34, PRD §5.9, FR-14
-- [ ] **3.11 Export.** S41 format, range (custom range with From and To via S14), include toggles, totals and estimated size; `ctrltask-YYYY-MM-DD.csv|json` via the share sheet. Define the formats in `docs/export-format.md`. Round-trip test for JSON.
+- [x] **3.11 Export.** S41 format, range (custom range with From and To via S14), include toggles, totals and estimated size; `ctrltask-YYYY-MM-DD.csv|json` via the share sheet. Define the formats in `docs/export-format.md`. Round-trip test for JSON.
   Refs: S41, PRD §6.7, FR-17
 - [ ] **3.12 Erase all data.** S44 dialog with Export a copy first; erase every table and preference in one transaction, cancel every notification and return to S01.
   Refs: S44, PRD §5.10, FR-17

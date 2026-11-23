@@ -2,8 +2,6 @@ import 'dart:async';
 
 import 'package:ctrltask/core/theme/app_colors.dart';
 import 'package:ctrltask/core/theme/app_spacing.dart';
-import 'package:ctrltask/core/theme/app_typography.dart';
-import 'package:ctrltask/core/widgets/app_radio.dart';
 import 'package:ctrltask/core/widgets/list_group.dart';
 import 'package:ctrltask/core/widgets/message_box.dart';
 import 'package:ctrltask/core/widgets/sub_screen_bar.dart';
@@ -33,7 +31,6 @@ class ChoiceScreen<T> extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colors = context.colors;
-    final text = context.text;
     return Scaffold(
       backgroundColor: colors.ground,
       body: SafeArea(
@@ -52,51 +49,12 @@ class ChoiceScreen<T> extends StatelessWidget {
                   ListGroup(
                     children: [
                       for (final c in choices)
-                        Semantics(
+                        ListGroupRadioRow(
+                          title: c.title,
+                          subtitle: c.detail,
+                          leading: c.leading,
                           selected: c.value == selected,
-                          button: true,
-                          child: InkWell(
-                            onTap: () => unawaited(onChanged(c.value)),
-                            child: Padding(
-                              padding: const EdgeInsets.fromLTRB(
-                                18,
-                                16,
-                                18,
-                                16,
-                              ),
-                              child: Row(
-                                children: [
-                                  if (c.leading case final leading?) ...[
-                                    leading,
-                                    const SizedBox(width: 16),
-                                  ],
-                                  Expanded(
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          c.title,
-                                          style: text.rowTitle.copyWith(
-                                            color: colors.ink,
-                                          ),
-                                        ),
-                                        if (c.detail case final detail?)
-                                          Text(
-                                            detail,
-                                            style: text.subline.copyWith(
-                                              color: colors.muted,
-                                            ),
-                                          ),
-                                      ],
-                                    ),
-                                  ),
-                                  const SizedBox(width: 12),
-                                  AppRadio(selected: c.value == selected),
-                                ],
-                              ),
-                            ),
-                          ),
+                          onTap: () => unawaited(onChanged(c.value)),
                         ),
                     ],
                   ),

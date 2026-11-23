@@ -32,8 +32,8 @@ import 'package:go_router/go_router.dart';
 
 /// S35 Settings (PRD §5.10): the name card, the insights banner, and the
 /// rows whose screens exist so far.
-// shortcut: Export data (3.11) and Erase all data (3.12) appear with their
-// screens; Backup & restore is v1.1.
+// shortcut: Erase all data (3.12) appears with its screen; Backup & restore
+// is v1.1.
 class SettingsScreen extends ConsumerWidget {
   const new({super.key});
 
@@ -254,6 +254,16 @@ class SettingsScreen extends ConsumerWidget {
                           size: IconTileSize.medium,
                         ),
                         onTap: () => open(Routes.tags),
+                      ),
+                      ListGroupRow(
+                        title: l10n.exportTitle,
+                        subtitle: l10n.exportSubtitle,
+                        leading: const IconTile(
+                          icon: AppIcon.download,
+                          color: ProjectColorKey.blue,
+                          size: IconTileSize.medium,
+                        ),
+                        onTap: () => open(Routes.export),
                       ),
                     ],
                   ),

@@ -1591,5 +1591,60 @@
       }
     }
   },
-  "notEnoughData": "Not enough data yet"
+  "notEnoughData": "Not enough data yet",
+  "exportTitle": "Export data",
+  "formatSection": "FORMAT",
+  "rangeSection": "RANGE",
+  "includeSection": "INCLUDE",
+  "rangeAllTime": "All time",
+  "rangeThisYear": "This year",
+  "rangeCustom": "Custom range",
+  "fromLabel": "From",
+  "toLabel": "To",
+  "includeCompleted": "Completed tasks",
+  "includeFocus": "Focus sessions",
+  "projectCount": "{count, plural, =1{1 project} other{{count} projects}}",
+  "@projectCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "focusSessionCount": "{count, plural, =1{1 focus session} other{{count} focus sessions}}",
+  "@focusSessionCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "exportButton": "Export {format} · {size}",
+  "@exportButton": {
+    "placeholders": {
+      "format": {
+        "type": "String"
+      },
+      "size": {
+        "type": "String"
+      }
+    }
+  },
+  "sizeKb": "{size} KB",
+  "@sizeKb": {
+    "placeholders": {
+      "size": {
+        "type": "String"
+      }
+    }
+  },
+  "sizeMb": "{size} MB",
+  "@sizeMb": {
+    "placeholders": {
+      "size": {
+        "type": "String"
+      }
+    }
+  },
+  "exportSubtitle": "CSV or JSON"
 }

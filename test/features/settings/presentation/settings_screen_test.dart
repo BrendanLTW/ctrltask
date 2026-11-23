@@ -72,13 +72,14 @@ void main() {
         'Archived projects',
         '2',
         'Tags',
+        'Export data',
+        'CSV or JSON',
         'ctrlTask 0.1 · by BrendanLTW',
       ]) {
         expect(find.text(text), findsOneWidget, reason: text);
       }
-      // Hidden until their screens exist.
+      // Hidden: v1.1, and until its screen exists.
       for (final text in [
-        'Export data',
         'Backup & restore',
         'Erase all data',
       ]) {

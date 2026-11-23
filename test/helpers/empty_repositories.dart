@@ -1,5 +1,7 @@
 import 'dart:async';
 
+import 'package:ctrltask/features/data_transfer/domain/export_data.dart';
+import 'package:ctrltask/features/data_transfer/domain/file_sharer.dart';
 import 'package:ctrltask/features/focus/domain/focus_session_repository.dart';
 import 'package:ctrltask/features/focus/domain/focus_timer.dart';
 import 'package:ctrltask/features/focus/domain/focus_timer_repository.dart';
@@ -89,6 +91,35 @@ class MemoryTags implements TagRepository {
     for (final u in value)
       if (u.tag.id != id) u,
   ]);
+}
+
+/// A share sheet that keeps what it was handed.
+class FakeFileSharer implements FileSharer {
+  final shared = <({String fileName, String mimeType, String contents})>[];
+
+  @override
+  Future<bool> shareText({
+    required String fileName,
+    required String mimeType,
+    required String contents,
+  }) async {
+    shared.add((fileName: fileName, mimeType: mimeType, contents: contents));
+    return true;
+  }
+}
+
+/// An [ExportSource] that returns [snapshot].
+class FixedExportSource implements ExportSource {
+  ExportSnapshot snapshot = const ExportSnapshot(
+    schemaVersion: 1,
+    tables: {},
+    tasks: [],
+    projects: [],
+    sessions: [],
+  );
+
+  @override
+  Future<ExportSnapshot> read() async => snapshot;
 }
 
 /// A scheduler that keeps what's scheduled, for tests to read.
@@ -183,6 +214,8 @@ List<Override> emptyRepositories({
   MemoryRecentSearches? recent,
   MemoryTags? tagRepo,
   FakeScheduler? scheduler,
+  FakeFileSharer? sharer,
+  FixedExportSource? exportSource,
   List<Project> projects = const [],
   List<Project> archived = const [],
 }) {
@@ -210,6 +243,10 @@ List<Override> emptyRepositories({
     tagRepositoryProvider.overrideWithValue(tags),
     notificationSchedulerProvider.overrideWithValue(
       scheduler ?? FakeScheduler(),
+    ),
+    fileSharerProvider.overrideWithValue(sharer ?? FakeFileSharer()),
+    exportSourceProvider.overrideWithValue(
+      exportSource ?? FixedExportSource(),
     ),
     recentSearchesRepositoryProvider.overrideWithValue(
       recent ?? MemoryRecentSearches(),

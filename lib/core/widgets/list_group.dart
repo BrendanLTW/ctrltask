@@ -4,6 +4,7 @@ import 'package:ctrltask/core/theme/app_colors.dart';
 import 'package:ctrltask/core/theme/app_radius.dart';
 import 'package:ctrltask/core/theme/app_typography.dart';
 import 'package:ctrltask/core/widgets/app_icon.dart';
+import 'package:ctrltask/core/widgets/app_radio.dart';
 import 'package:ctrltask/core/widgets/app_toggle.dart';
 import 'package:ctrltask/core/widgets/large_text.dart';
 import 'package:flutter/material.dart';
@@ -306,6 +307,69 @@ class ListGroupToggleRow extends StatelessWidget {
                 ),
               ],
             ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+/// A row with a radio on the right (S37, S38, S41), with an optional
+/// [leading] mark and [subtitle].
+class ListGroupRadioRow extends StatelessWidget {
+  const new({
+    required this.title,
+    required this.selected,
+    required this.onTap,
+    this.subtitle,
+    this.leading,
+    super.key,
+  });
+
+  final String title;
+  final String? subtitle;
+  final Widget? leading;
+  final bool selected;
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    final colors = context.colors;
+    final text = context.text;
+    return Semantics(
+      selected: selected,
+      button: true,
+      child: InkWell(
+        onTap: onTap,
+        highlightColor: colors.rowPressed,
+        splashFactory: NoSplash.splashFactory,
+        child: Padding(
+          padding: const EdgeInsets.fromLTRB(18, 16, 18, 16),
+          child: Row(
+            children: [
+              if (leading case final leading?) ...[
+                leading,
+                const SizedBox(width: 16),
+              ],
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      title,
+                      style: text.rowTitle.copyWith(color: colors.ink),
+                    ),
+                    if (subtitle case final subtitle?)
+                      Text(
+                        subtitle,
+                        style: text.subline.copyWith(color: colors.muted),
+                      ),
+                  ],
+                ),
+              ),
+              const SizedBox(width: 12),
+              AppRadio(selected: selected),
+            ],
           ),
         ),
       ),

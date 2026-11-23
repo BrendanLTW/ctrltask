@@ -21,6 +21,7 @@ enum AppIcon {
   check('check'),
   chevronLeft('chevron-left'),
   chevronRight('chevron-right'),
+  download('download'),
   clock('clock'),
   close('x'),
 

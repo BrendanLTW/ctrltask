@@ -193,6 +193,8 @@ class ProjectsApp {
   final timers = MemoryFocusTimers();
   final tags = MemoryTags();
   final scheduler = FakeScheduler();
+  final sharer = FakeFileSharer();
+  final exportSource = FixedExportSource();
 
   /// The app's clock; tests move it on.
   DateTime now = testNow;
@@ -290,6 +292,8 @@ class ProjectsApp {
           timers: timers,
           tagRepo: tags,
           scheduler: scheduler,
+          sharer: sharer,
+          exportSource: exportSource,
         ),
         clockProvider.overrideWithValue(() => now),
       ],

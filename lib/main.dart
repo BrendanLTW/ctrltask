@@ -4,6 +4,10 @@ import 'package:ctrltask/core/dev/demo_seed.dart';
 import 'package:ctrltask/core/router/app_router.dart';
 import 'package:ctrltask/core/theme/app_theme.dart';
 import 'package:ctrltask/core/theme/theme_mode_controller.dart';
+import 'package:ctrltask/features/data_transfer/data/drift_export_source.dart';
+import 'package:ctrltask/features/data_transfer/data/share_plus_file_sharer.dart';
+import 'package:ctrltask/features/data_transfer/domain/export_data.dart';
+import 'package:ctrltask/features/data_transfer/domain/file_sharer.dart';
 import 'package:ctrltask/features/focus/data/drift_focus_session_repository.dart';
 import 'package:ctrltask/features/focus/data/drift_focus_timer_repository.dart';
 import 'package:ctrltask/features/focus/domain/focus_session_repository.dart';
@@ -67,11 +71,15 @@ Future<void> main() async {
 /// the demo seed can run the app's data with a fake in their place.
 List<Override> platformOverrides() => [
   notificationSchedulerProvider.overrideWithValue(LocalNotificationScheduler()),
+  fileSharerProvider.overrideWithValue(SharePlusFileSharer()),
 ];
 
 /// The real implementations behind each repository. Wired here so screens
 /// never import `data/`.
 List<Override> appOverrides() => [
+  exportSourceProvider.overrideWith(
+    (ref) => DriftExportSource(ref.watch(appDatabaseProvider)),
+  ),
   taskRepositoryProvider.overrideWith(
     (ref) => DriftTaskRepository(
       ref.watch(appDatabaseProvider),

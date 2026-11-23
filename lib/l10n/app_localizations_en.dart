@@ -2080,4 +2080,77 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get notEnoughData => 'Not enough data yet';
+
+  @override
+  String get exportTitle => 'Export data';
+
+  @override
+  String get formatSection => 'FORMAT';
+
+  @override
+  String get rangeSection => 'RANGE';
+
+  @override
+  String get includeSection => 'INCLUDE';
+
+  @override
+  String get rangeAllTime => 'All time';
+
+  @override
+  String get rangeThisYear => 'This year';
+
+  @override
+  String get rangeCustom => 'Custom range';
+
+  @override
+  String get fromLabel => 'From';
+
+  @override
+  String get toLabel => 'To';
+
+  @override
+  String get includeCompleted => 'Completed tasks';
+
+  @override
+  String get includeFocus => 'Focus sessions';
+
+  @override
+  String projectCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count projects',
+      one: '1 project',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String focusSessionCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count focus sessions',
+      one: '1 focus session',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String exportButton(String format, String size) {
+    return 'Export $format · $size';
+  }
+
+  @override
+  String sizeKb(String size) {
+    return '$size KB';
+  }
+
+  @override
+  String sizeMb(String size) {
+    return '$size MB';
+  }
+
+  @override
+  String get exportSubtitle => 'CSV or JSON';
 }
