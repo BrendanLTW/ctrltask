@@ -3321,6 +3321,42 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Export a copy first'**
   String get exportCopyFirst;
+
+  /// No description provided for @boardView.
+  ///
+  /// In en, this message translates to:
+  /// **'Board'**
+  String get boardView;
+
+  /// No description provided for @groupedByStatus.
+  ///
+  /// In en, this message translates to:
+  /// **'Grouped by status'**
+  String get groupedByStatus;
+
+  /// No description provided for @columnName.
+  ///
+  /// In en, this message translates to:
+  /// **'{column, select, todo{To do} doing{In progress} other{Done}}'**
+  String columnName(String column);
+
+  /// No description provided for @moveToColumn.
+  ///
+  /// In en, this message translates to:
+  /// **'Move to {column}'**
+  String moveToColumn(String column);
+
+  /// No description provided for @columnSemantics.
+  ///
+  /// In en, this message translates to:
+  /// **'{column}, {count, plural, =1{1 task} other{{count} tasks}}'**
+  String columnSemantics(String column, int count);
+
+  /// No description provided for @boardViewLink.
+  ///
+  /// In en, this message translates to:
+  /// **'Board view'**
+  String get boardViewLink;
 }
 
 class _AppLocalizationsDelegate

@@ -21,6 +21,7 @@ import 'package:ctrltask/features/tasks/domain/task.dart';
 import 'package:ctrltask/features/tasks/presentation/quick_add_sheet.dart';
 import 'package:ctrltask/features/tasks/presentation/task_completion.dart';
 import 'package:ctrltask/features/tasks/presentation/task_tile_data.dart';
+import 'package:ctrltask/features/tasks/presentation/tasks_providers.dart';
 import 'package:ctrltask/l10n/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -115,8 +116,19 @@ class _ProjectDetailScreenState extends ConsumerState<ProjectDetailScreen> {
                       today: today,
                       labels: labels,
                     ),
-                    // shortcut: the Board view link comes with S20 (v1.1).
-                    SectionHeader(l10n.openCount(open.length).toUpperCase()),
+                    SectionHeader(
+                      l10n.openCount(open.length).toUpperCase(),
+                      linkLabel: l10n.boardViewLink,
+                      // S20 on this project.
+                      onLink: () {
+                        ref.read(boardProjectProvider.notifier).choice = (
+                          projectId: project.id,
+                        );
+                        ref.read(tasksViewModeProvider.notifier).view =
+                            TasksView.board;
+                        context.go(Routes.tasks);
+                      },
+                    ),
                     ListGroup(
                       children: [
                         ...open.map(row),

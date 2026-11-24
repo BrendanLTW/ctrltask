@@ -40,6 +40,7 @@ enum AppIcon {
   heart('heart'),
   home('house'),
   inbox('inbox'),
+  kanban('kanban'),
   info('info'),
   link('link'),
   list('list'),

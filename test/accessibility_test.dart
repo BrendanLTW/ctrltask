@@ -98,6 +98,19 @@ void main() {
         });
       }
 
+      testWidgets('board', (tester) async {
+        final semantics = tester.ensureSemantics();
+        await seeded().pump(
+          tester,
+          location: Routes.tasks,
+          brightness: brightness,
+        );
+        await tester.tap(find.text('Board'));
+        await tester.pumpAndSettle();
+        await meetsGuidelines(tester);
+        semantics.dispose();
+      });
+
       testWidgets('quick add', (tester) async {
         final semantics = tester.ensureSemantics();
         await seeded().pump(tester, brightness: brightness);

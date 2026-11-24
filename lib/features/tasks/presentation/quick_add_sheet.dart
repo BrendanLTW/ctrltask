@@ -40,10 +40,16 @@ Future<void> showQuickAdd(
   String? title,
   DateTime? date,
   int? projectId,
+  BoardColumn column = BoardColumn.todo,
 }) => showAppSheet<void>(
   context,
   title: context.l10n.newTask,
-  builder: (_) => QuickAddSheet(title: title, date: date, projectId: projectId),
+  builder: (_) => QuickAddSheet(
+    title: title,
+    date: date,
+    projectId: projectId,
+    column: column,
+  ),
 );
 
 typedef _When = ({String label, DateTime? date, int? minute});
@@ -51,11 +57,20 @@ typedef _When = ({String label, DateTime? date, int? minute});
 /// S10's content: a title and send, When, Priority, the project, and More.
 /// Only the title is required (PRD §5.3).
 class QuickAddSheet extends ConsumerStatefulWidget {
-  const new({this.title, this.date, this.projectId, super.key});
+  const new({
+    this.title,
+    this.date,
+    this.projectId,
+    this.column = BoardColumn.todo,
+    super.key,
+  });
 
   final String? title;
   final DateTime? date;
   final int? projectId;
+
+  /// The board column the task starts in (S20's Add task).
+  final BoardColumn column;
 
   @override
   ConsumerState<QuickAddSheet> createState() => _QuickAddSheetState();
@@ -166,6 +181,7 @@ class _QuickAddSheetState extends ConsumerState<QuickAddSheet> {
       repeat: _repeat,
       tagIds: _tagIds,
       reminder: _reminderFor(when),
+      column: widget.column,
     );
   }
 

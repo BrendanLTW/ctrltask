@@ -13,9 +13,15 @@ These belong to P2 (CLAUDE.md Scope) and come back with their features:
 
 | Design | Where | v1.1 feature |
 |---|---|---|
-| **Board** segment (S19) and **Board view ›** (S28) | Tasks, Project detail | Board view (S20) |
 | **Backup & restore** row (S35), S42, S43 | Settings | Backup and restore |
 | "Detected **tomorrow 9 AM** from your words" (S10) | Quick add | Quick-add hints (PRD §6.8) |
+
+## Board (S20, v1.1)
+
+- **No Add task under Done.** A task becomes done only by completing it (CLAUDE.md: one completion path), so Done has no Add task. To do and In progress each have one, which starts the task in that column.
+- **No filter button on the board.** The export shows it, but S20's spec has no board filters: the project chip chooses what's shown, and the button stays on the list.
+- **The Board segment's icon** is Lucide's `kanban` (three bars). The export draws outlined columns, which aren't in the bundled set.
+- **Dragging is one way to move a card.** Screen readers get "Move to To do / In progress / Done" actions on each card. Cards drop at the end of a column; there's no reordering within a column.
 
 ## Following the spec over one export
 

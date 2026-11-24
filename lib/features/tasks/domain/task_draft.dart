@@ -21,5 +21,9 @@ abstract class TaskDraft with _$TaskDraft {
     @Default(<String>[]) List<String> subtasks,
     @Default(<({String title, String url})>[])
     List<({String title, String url})> links,
+
+    /// The board column a new task starts in (S20's Add task): To do or In
+    /// progress, never Done.
+    @Default(BoardColumn.todo) BoardColumn column,
   }) = _TaskDraft;
 }

@@ -136,7 +136,7 @@ Work top to bottom. Each task is sized for one Claude Code session and follows t
 
 ## Phase 5 — v1.1
 
-- [ ] **5.1 Board view.** S20 with the project selector, three columns, counts, long-press drag between columns (Done completes, out of Done reopens), Add task per column. Wire the Board segment on S19 and the Board view link on S27.
+- [x] **5.1 Board view.** S20 with the project selector, three columns, counts, long-press drag between columns (Done completes, out of Done reopens), Add task per column. Wire the Board segment on S19 and the Board view link on S27.
   Refs: S20, PRD §5.6, FR-18
 - [ ] **5.2 Backup domain.** JSON backup of every table with `schemaVersion`; atomic write (temp file then rename); keep the newest N; restore validates the whole file, then replaces everything in one transaction. Unit tests, including a corrupt file and an older schema.
   Refs: PRD §5.10, §6.7, FR-19

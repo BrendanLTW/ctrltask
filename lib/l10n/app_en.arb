@@ -1662,5 +1662,35 @@
     }
   },
   "eraseEverything": "Erase everything",
-  "exportCopyFirst": "Export a copy first"
+  "exportCopyFirst": "Export a copy first",
+  "boardView": "Board",
+  "groupedByStatus": "Grouped by status",
+  "columnName": "{column, select, todo{To do} doing{In progress} other{Done}}",
+  "@columnName": {
+    "placeholders": {
+      "column": {
+        "type": "String"
+      }
+    }
+  },
+  "moveToColumn": "Move to {column}",
+  "@moveToColumn": {
+    "placeholders": {
+      "column": {
+        "type": "String"
+      }
+    }
+  },
+  "columnSemantics": "{column}, {count, plural, =1{1 task} other{{count} tasks}}",
+  "@columnSemantics": {
+    "placeholders": {
+      "column": {
+        "type": "String"
+      },
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "boardViewLink": "Board view"
 }

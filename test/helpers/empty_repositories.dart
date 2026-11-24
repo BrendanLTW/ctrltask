@@ -240,6 +240,7 @@ List<Override> emptyRepositories({
   when(t.watchSubtaskProgress).thenAnswer((_) => Stream.value(const {}));
   when(t.watchTaskCounts).thenAnswer((_) => Stream.value(const {}));
   when(t.watchForInsights).thenAnswer((_) => Stream.value(const []));
+  when(t.watchTagNames).thenAnswer((_) => Stream.value(const {}));
   when(() => t.watchByProject(any())).thenAnswer((_) => Stream.value(const []));
   final projectFake = projectRepo ?? EmptyProjects();
   when(projectFake.watchActive).thenAnswer((_) => Stream.value(projects));

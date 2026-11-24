@@ -36,6 +36,9 @@ abstract interface class TaskRepository {
   /// Ticked out of all subtasks, for every task that has any ("2/4").
   Stream<Map<int, Progress>> watchSubtaskProgress();
 
+  /// The tag names of every task that has any, A to Z (S20's cards).
+  Stream<Map<int, List<String>>> watchTagNames();
+
   /// Every task, open or done, archived projects included: Insights still
   /// counts them (PRD §5.7).
   Stream<List<Task>> watchForInsights();
@@ -64,8 +67,13 @@ abstract interface class TaskRepository {
   /// occurrence it created.
   Future<void> undoComplete(Completion completion);
 
-  /// Reopens a done task.
-  Future<void> uncomplete(int id);
+  /// Reopens a done task, into the To do column unless [into] says
+  /// otherwise (S20: dragged out of Done).
+  Future<void> uncomplete(int id, {BoardColumn into = BoardColumn.todo});
+
+  /// Moves an open task to the end of [column], To do or In progress (S20).
+  /// Done goes through [complete].
+  Future<void> moveToColumn(int id, BoardColumn column);
 
   /// Deletes the task with its subtasks, tags links and links, and returns
   /// it for [restore].

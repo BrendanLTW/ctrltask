@@ -554,6 +554,54 @@ void main() {
     expect(after.updatedAt, now.toUtc());
   });
 
+  test('tag names per task, A to Z', () async {
+    final work = await addTag('work');
+    final calls = await addTag('calls');
+    final task = await repo.add(TaskDraft(title: 'T', tagIds: {work, calls}));
+    await repo.add(const TaskDraft(title: 'Untagged'));
+    expect(await repo.watchTagNames().first, {
+      task.id: ['calls', 'work'],
+    });
+  });
+
+  group('board columns (S20)', () {
+    Future<Task> read(int id) async =>
+        (await repo.watchDetails(id).first)!.task;
+
+    test('a new task can start In progress, never Done', () async {
+      final task = await repo.add(
+        const TaskDraft(title: 'T', column: BoardColumn.doing),
+      );
+      expect(task.boardColumn, BoardColumn.doing);
+      expect(
+        () => repo.add(const TaskDraft(title: 'T', column: BoardColumn.done)),
+        throwsArgumentError,
+      );
+    });
+
+    test('moving goes to the end of the column', () async {
+      final a = await repo.add(const TaskDraft(title: 'A'));
+      final b = await repo.add(const TaskDraft(title: 'B'));
+      await repo.moveToColumn(a.id, BoardColumn.doing);
+      final moved = await read(a.id);
+      expect(moved.boardColumn, BoardColumn.doing);
+      expect(moved.status, TaskStatus.open);
+      expect(moved.sortOrder, greaterThan((await read(b.id)).sortOrder));
+    });
+
+    test('a done task only leaves Done by reopening', () async {
+      final task = await repo.add(const TaskDraft(title: 'T'));
+      await repo.complete(task.id);
+      await repo.moveToColumn(task.id, BoardColumn.doing);
+      expect((await read(task.id)).boardColumn, BoardColumn.done);
+
+      await repo.uncomplete(task.id, into: BoardColumn.doing);
+      final after = await read(task.id);
+      expect(after.status, TaskStatus.open);
+      expect(after.boardColumn, BoardColumn.doing);
+    });
+  });
+
   group('delete and restore', () {
     test('delete removes everything attached and returns it', () async {
       final tag = await addTag('work');

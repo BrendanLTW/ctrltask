@@ -44,6 +44,25 @@ void main() {
         expect(colorOf('TODAY'), colors.muted);
       });
 
+      testWidgets('a link wraps rather than overflow at 200%', (tester) async {
+        await pumpThemed(
+          tester,
+          MediaQuery(
+            data: const MediaQueryData(textScaler: TextScaler.linear(2)),
+            child: SizedBox(
+              width: 358,
+              child: SectionHeader(
+                'OPEN · 3',
+                linkLabel: 'Board view',
+                onLink: () {},
+              ),
+            ),
+          ),
+          theme: theme,
+        );
+        expect(tester.takeException(), isNull);
+      });
+
       testWidgets('a long detail wraps rather than overflow', (tester) async {
         await pumpThemed(
           tester,

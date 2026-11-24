@@ -15,7 +15,9 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$TaskDraft {
 
- String get title; String? get description; DateTime? get dueDate; int? get dueMinute; TaskPriority get priority; int? get projectId; ReminderOffset get reminder; RepeatRule? get repeat; Set<int> get tagIds; List<String> get subtasks; List<({String title, String url,})> get links;
+ String get title; String? get description; DateTime? get dueDate; int? get dueMinute; TaskPriority get priority; int? get projectId; ReminderOffset get reminder; RepeatRule? get repeat; Set<int> get tagIds; List<String> get subtasks; List<({String title, String url,})> get links;/// The board column a new task starts in (S20's Add task): To do or In
+/// progress, never Done.
+ BoardColumn get column;
 /// Create a copy of TaskDraft
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -27,20 +29,20 @@ $TaskDraftCopyWith<TaskDraft> get copyWith => _$TaskDraftCopyWithImpl<TaskDraft>
 @override
 bool operator ==(Object other) {
   final _this = this as TaskDraft;
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is TaskDraft&&(identical(other.title, _this.title) || other.title == _this.title)&&(identical(other.description, _this.description) || other.description == _this.description)&&(identical(other.dueDate, _this.dueDate) || other.dueDate == _this.dueDate)&&(identical(other.dueMinute, _this.dueMinute) || other.dueMinute == _this.dueMinute)&&(identical(other.priority, _this.priority) || other.priority == _this.priority)&&(identical(other.projectId, _this.projectId) || other.projectId == _this.projectId)&&(identical(other.reminder, _this.reminder) || other.reminder == _this.reminder)&&(identical(other.repeat, _this.repeat) || other.repeat == _this.repeat)&&const DeepCollectionEquality().equals(other.tagIds, _this.tagIds)&&const DeepCollectionEquality().equals(other.subtasks, _this.subtasks)&&const DeepCollectionEquality().equals(other.links, _this.links));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is TaskDraft&&(identical(other.title, _this.title) || other.title == _this.title)&&(identical(other.description, _this.description) || other.description == _this.description)&&(identical(other.dueDate, _this.dueDate) || other.dueDate == _this.dueDate)&&(identical(other.dueMinute, _this.dueMinute) || other.dueMinute == _this.dueMinute)&&(identical(other.priority, _this.priority) || other.priority == _this.priority)&&(identical(other.projectId, _this.projectId) || other.projectId == _this.projectId)&&(identical(other.reminder, _this.reminder) || other.reminder == _this.reminder)&&(identical(other.repeat, _this.repeat) || other.repeat == _this.repeat)&&const DeepCollectionEquality().equals(other.tagIds, _this.tagIds)&&const DeepCollectionEquality().equals(other.subtasks, _this.subtasks)&&const DeepCollectionEquality().equals(other.links, _this.links)&&(identical(other.column, _this.column) || other.column == _this.column));
 }
 
 
 @override
 int get hashCode {
   final _this = this as TaskDraft;
-  return Object.hash(runtimeType,_this.title,_this.description,_this.dueDate,_this.dueMinute,_this.priority,_this.projectId,_this.reminder,_this.repeat,const DeepCollectionEquality().hash(_this.tagIds),const DeepCollectionEquality().hash(_this.subtasks),const DeepCollectionEquality().hash(_this.links));
+  return Object.hash(runtimeType,_this.title,_this.description,_this.dueDate,_this.dueMinute,_this.priority,_this.projectId,_this.reminder,_this.repeat,const DeepCollectionEquality().hash(_this.tagIds),const DeepCollectionEquality().hash(_this.subtasks),const DeepCollectionEquality().hash(_this.links),_this.column);
 }
 
 @override
 String toString() {
   final _this = this as TaskDraft;
-  return 'TaskDraft(title: ${_this.title}, description: ${_this.description}, dueDate: ${_this.dueDate}, dueMinute: ${_this.dueMinute}, priority: ${_this.priority}, projectId: ${_this.projectId}, reminder: ${_this.reminder}, repeat: ${_this.repeat}, tagIds: ${_this.tagIds}, subtasks: ${_this.subtasks}, links: ${_this.links})';
+  return 'TaskDraft(title: ${_this.title}, description: ${_this.description}, dueDate: ${_this.dueDate}, dueMinute: ${_this.dueMinute}, priority: ${_this.priority}, projectId: ${_this.projectId}, reminder: ${_this.reminder}, repeat: ${_this.repeat}, tagIds: ${_this.tagIds}, subtasks: ${_this.subtasks}, links: ${_this.links}, column: ${_this.column})';
 }
 
 
@@ -51,7 +53,7 @@ abstract mixin class $TaskDraftCopyWith<$Res>  {
   factory $TaskDraftCopyWith(TaskDraft value, $Res Function(TaskDraft) _then) = _$TaskDraftCopyWithImpl;
 @useResult
 $Res call({
- String title, String? description, DateTime? dueDate, int? dueMinute, TaskPriority priority, int? projectId, ReminderOffset reminder, RepeatRule? repeat, Set<int> tagIds, List<String> subtasks, List<({String title, String url,})> links
+ String title, String? description, DateTime? dueDate, int? dueMinute, TaskPriority priority, int? projectId, ReminderOffset reminder, RepeatRule? repeat, Set<int> tagIds, List<String> subtasks, List<({String title, String url,})> links, BoardColumn column
 });
 
 
@@ -68,7 +70,7 @@ class _$TaskDraftCopyWithImpl<$Res>
 
 /// Create a copy of TaskDraft
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? title = null,Object? description = freezed,Object? dueDate = freezed,Object? dueMinute = freezed,Object? priority = null,Object? projectId = freezed,Object? reminder = null,Object? repeat = freezed,Object? tagIds = null,Object? subtasks = null,Object? links = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? title = null,Object? description = freezed,Object? dueDate = freezed,Object? dueMinute = freezed,Object? priority = null,Object? projectId = freezed,Object? reminder = null,Object? repeat = freezed,Object? tagIds = null,Object? subtasks = null,Object? links = null,Object? column = null,}) {
   return _then(TaskDraft(
 title: null == title ? _self.title : title // ignore: cast_nullable_to_non_nullable
 as String,description: freezed == description ? _self.description : description // ignore: cast_nullable_to_non_nullable
@@ -81,7 +83,8 @@ as ReminderOffset,repeat: freezed == repeat ? _self.repeat : repeat // ignore: c
 as RepeatRule?,tagIds: null == tagIds ? _self.tagIds : tagIds // ignore: cast_nullable_to_non_nullable
 as Set<int>,subtasks: null == subtasks ? _self.subtasks : subtasks // ignore: cast_nullable_to_non_nullable
 as List<String>,links: null == links ? _self.links : links // ignore: cast_nullable_to_non_nullable
-as List<({String title, String url,})>,
+as List<({String title, String url,})>,column: null == column ? _self.column : column // ignore: cast_nullable_to_non_nullable
+as BoardColumn,
   ));
 }
 /// Create a copy of TaskDraft
@@ -178,10 +181,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String title,  String? description,  DateTime? dueDate,  int? dueMinute,  TaskPriority priority,  int? projectId,  ReminderOffset reminder,  RepeatRule? repeat,  Set<int> tagIds,  List<String> subtasks,  List<({String title, String url,})> links)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String title,  String? description,  DateTime? dueDate,  int? dueMinute,  TaskPriority priority,  int? projectId,  ReminderOffset reminder,  RepeatRule? repeat,  Set<int> tagIds,  List<String> subtasks,  List<({String title, String url,})> links,  BoardColumn column)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _TaskDraft() when $default != null:
-return $default(_that.title,_that.description,_that.dueDate,_that.dueMinute,_that.priority,_that.projectId,_that.reminder,_that.repeat,_that.tagIds,_that.subtasks,_that.links);case _:
+return $default(_that.title,_that.description,_that.dueDate,_that.dueMinute,_that.priority,_that.projectId,_that.reminder,_that.repeat,_that.tagIds,_that.subtasks,_that.links,_that.column);case _:
   return orElse();
 
 }
@@ -199,10 +202,10 @@ return $default(_that.title,_that.description,_that.dueDate,_that.dueMinute,_tha
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String title,  String? description,  DateTime? dueDate,  int? dueMinute,  TaskPriority priority,  int? projectId,  ReminderOffset reminder,  RepeatRule? repeat,  Set<int> tagIds,  List<String> subtasks,  List<({String title, String url,})> links)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String title,  String? description,  DateTime? dueDate,  int? dueMinute,  TaskPriority priority,  int? projectId,  ReminderOffset reminder,  RepeatRule? repeat,  Set<int> tagIds,  List<String> subtasks,  List<({String title, String url,})> links,  BoardColumn column)  $default,) {final _that = this;
 switch (_that) {
 case _TaskDraft():
-return $default(_that.title,_that.description,_that.dueDate,_that.dueMinute,_that.priority,_that.projectId,_that.reminder,_that.repeat,_that.tagIds,_that.subtasks,_that.links);case _:
+return $default(_that.title,_that.description,_that.dueDate,_that.dueMinute,_that.priority,_that.projectId,_that.reminder,_that.repeat,_that.tagIds,_that.subtasks,_that.links,_that.column);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -219,10 +222,10 @@ return $default(_that.title,_that.description,_that.dueDate,_that.dueMinute,_tha
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String title,  String? description,  DateTime? dueDate,  int? dueMinute,  TaskPriority priority,  int? projectId,  ReminderOffset reminder,  RepeatRule? repeat,  Set<int> tagIds,  List<String> subtasks,  List<({String title, String url,})> links)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String title,  String? description,  DateTime? dueDate,  int? dueMinute,  TaskPriority priority,  int? projectId,  ReminderOffset reminder,  RepeatRule? repeat,  Set<int> tagIds,  List<String> subtasks,  List<({String title, String url,})> links,  BoardColumn column)?  $default,) {final _that = this;
 switch (_that) {
 case _TaskDraft() when $default != null:
-return $default(_that.title,_that.description,_that.dueDate,_that.dueMinute,_that.priority,_that.projectId,_that.reminder,_that.repeat,_that.tagIds,_that.subtasks,_that.links);case _:
+return $default(_that.title,_that.description,_that.dueDate,_that.dueMinute,_that.priority,_that.projectId,_that.reminder,_that.repeat,_that.tagIds,_that.subtasks,_that.links,_that.column);case _:
   return null;
 
 }
@@ -234,7 +237,7 @@ return $default(_that.title,_that.description,_that.dueDate,_that.dueMinute,_tha
 
 
 class _TaskDraft implements TaskDraft {
-  const _TaskDraft({required this.title, this.description, this.dueDate, this.dueMinute, this.priority = TaskPriority.medium, this.projectId, this.reminder = ReminderOffset.none, this.repeat,  Set<int> tagIds = const <int>{},  List<String> subtasks = const <String>[],  List<({String title, String url,})> links = const <({String title, String url})>[]}): _tagIds = tagIds,_subtasks = subtasks,_links = links;
+  const _TaskDraft({required this.title, this.description, this.dueDate, this.dueMinute, this.priority = TaskPriority.medium, this.projectId, this.reminder = ReminderOffset.none, this.repeat,  Set<int> tagIds = const <int>{},  List<String> subtasks = const <String>[],  List<({String title, String url,})> links = const <({String title, String url})>[], this.column = BoardColumn.todo}): _tagIds = tagIds,_subtasks = subtasks,_links = links;
   
 
 @override final  String title;
@@ -266,6 +269,9 @@ class _TaskDraft implements TaskDraft {
   return EqualUnmodifiableListView(_links);
 }
 
+/// The board column a new task starts in (S20's Add task): To do or In
+/// progress, never Done.
+@override@JsonKey() final  BoardColumn column;
 
 /// Create a copy of TaskDraft
 /// with the given fields replaced by the non-null parameter values.
@@ -277,18 +283,18 @@ _$TaskDraftCopyWith<_TaskDraft> get copyWith => __$TaskDraftCopyWithImpl<_TaskDr
 
 @override
 bool operator ==(Object other) {
-    return identical(this, other) || (other.runtimeType == runtimeType&&other is _TaskDraft&&(identical(other.title, title) || other.title == title)&&(identical(other.description, description) || other.description == description)&&(identical(other.dueDate, dueDate) || other.dueDate == dueDate)&&(identical(other.dueMinute, dueMinute) || other.dueMinute == dueMinute)&&(identical(other.priority, priority) || other.priority == priority)&&(identical(other.projectId, projectId) || other.projectId == projectId)&&(identical(other.reminder, reminder) || other.reminder == reminder)&&(identical(other.repeat, repeat) || other.repeat == repeat)&&const DeepCollectionEquality().equals(other.tagIds, _tagIds)&&const DeepCollectionEquality().equals(other.subtasks, _subtasks)&&const DeepCollectionEquality().equals(other.links, _links));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _TaskDraft&&(identical(other.title, title) || other.title == title)&&(identical(other.description, description) || other.description == description)&&(identical(other.dueDate, dueDate) || other.dueDate == dueDate)&&(identical(other.dueMinute, dueMinute) || other.dueMinute == dueMinute)&&(identical(other.priority, priority) || other.priority == priority)&&(identical(other.projectId, projectId) || other.projectId == projectId)&&(identical(other.reminder, reminder) || other.reminder == reminder)&&(identical(other.repeat, repeat) || other.repeat == repeat)&&const DeepCollectionEquality().equals(other.tagIds, _tagIds)&&const DeepCollectionEquality().equals(other.subtasks, _subtasks)&&const DeepCollectionEquality().equals(other.links, _links)&&(identical(other.column, column) || other.column == column));
 }
 
 
 @override
 int get hashCode {
-    return Object.hash(runtimeType,title,description,dueDate,dueMinute,priority,projectId,reminder,repeat,const DeepCollectionEquality().hash(_tagIds),const DeepCollectionEquality().hash(_subtasks),const DeepCollectionEquality().hash(_links));
+    return Object.hash(runtimeType,title,description,dueDate,dueMinute,priority,projectId,reminder,repeat,const DeepCollectionEquality().hash(_tagIds),const DeepCollectionEquality().hash(_subtasks),const DeepCollectionEquality().hash(_links),column);
 }
 
 @override
 String toString() {
-    return 'TaskDraft(title: $title, description: $description, dueDate: $dueDate, dueMinute: $dueMinute, priority: $priority, projectId: $projectId, reminder: $reminder, repeat: $repeat, tagIds: $tagIds, subtasks: $subtasks, links: $links)';
+    return 'TaskDraft(title: $title, description: $description, dueDate: $dueDate, dueMinute: $dueMinute, priority: $priority, projectId: $projectId, reminder: $reminder, repeat: $repeat, tagIds: $tagIds, subtasks: $subtasks, links: $links, column: $column)';
 }
 
 
@@ -299,7 +305,7 @@ abstract mixin class _$TaskDraftCopyWith<$Res> implements $TaskDraftCopyWith<$Re
   factory _$TaskDraftCopyWith(_TaskDraft value, $Res Function(_TaskDraft) _then) = __$TaskDraftCopyWithImpl;
 @override @useResult
 $Res call({
- String title, String? description, DateTime? dueDate, int? dueMinute, TaskPriority priority, int? projectId, ReminderOffset reminder, RepeatRule? repeat, Set<int> tagIds, List<String> subtasks, List<({String title, String url,})> links
+ String title, String? description, DateTime? dueDate, int? dueMinute, TaskPriority priority, int? projectId, ReminderOffset reminder, RepeatRule? repeat, Set<int> tagIds, List<String> subtasks, List<({String title, String url,})> links, BoardColumn column
 });
 
 
@@ -316,7 +322,7 @@ class __$TaskDraftCopyWithImpl<$Res>
 
 /// Create a copy of TaskDraft
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? title = null,Object? description = freezed,Object? dueDate = freezed,Object? dueMinute = freezed,Object? priority = null,Object? projectId = freezed,Object? reminder = null,Object? repeat = freezed,Object? tagIds = null,Object? subtasks = null,Object? links = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? title = null,Object? description = freezed,Object? dueDate = freezed,Object? dueMinute = freezed,Object? priority = null,Object? projectId = freezed,Object? reminder = null,Object? repeat = freezed,Object? tagIds = null,Object? subtasks = null,Object? links = null,Object? column = null,}) {
   return _then(_TaskDraft(
 title: null == title ? _self.title : title // ignore: cast_nullable_to_non_nullable
 as String,description: freezed == description ? _self.description : description // ignore: cast_nullable_to_non_nullable
@@ -329,7 +335,8 @@ as ReminderOffset,repeat: freezed == repeat ? _self.repeat : repeat // ignore: c
 as RepeatRule?,tagIds: null == tagIds ? _self._tagIds : tagIds // ignore: cast_nullable_to_non_nullable
 as Set<int>,subtasks: null == subtasks ? _self._subtasks : subtasks // ignore: cast_nullable_to_non_nullable
 as List<String>,links: null == links ? _self._links : links // ignore: cast_nullable_to_non_nullable
-as List<({String title, String url,})>,
+as List<({String title, String url,})>,column: null == column ? _self.column : column // ignore: cast_nullable_to_non_nullable
+as BoardColumn,
   ));
 }
 

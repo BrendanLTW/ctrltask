@@ -179,6 +179,22 @@ class DriftTaskRepository implements TaskRepository {
       );
 
   @override
+  Stream<Map<int, List<String>>> watchTagNames() => _db
+      .customSelect(
+        'SELECT tt.task_id, t.name FROM task_tags tt '
+        'JOIN tags t ON t.id = tt.tag_id ORDER BY t.name',
+        readsFrom: {_db.taskTags, _db.tags},
+      )
+      .watch()
+      .map((rows) {
+        final names = <int, List<String>>{};
+        for (final r in rows) {
+          (names[r.read<int>('task_id')] ??= []).add(r.read<String>('name'));
+        }
+        return names;
+      });
+
+  @override
   Stream<TaskDetails?> watchDetails(int id) => _db
       .customSelect(
         'SELECT 1',
@@ -247,6 +263,9 @@ class DriftTaskRepository implements TaskRepository {
       subtaskTitles: draft.subtasks,
       urls: [for (final l in draft.links) l.url],
     );
+    if (draft.column == BoardColumn.done) {
+      throw ArgumentError.value(draft.column, 'column', 'a new task is open');
+    }
     return _db.transaction(() async {
       final ruleId = draft.repeat == null
           ? null
@@ -267,7 +286,7 @@ class DriftTaskRepository implements TaskRepository {
               priority: draft.priority.name,
               projectId: Value(draft.projectId),
               status: TaskStatus.open.name,
-              boardColumn: BoardColumn.todo.name,
+              boardColumn: draft.column.name,
               createdAt: now,
               updatedAt: now,
               sortOrder: await _nextSortOrder(),
@@ -465,17 +484,33 @@ class DriftTaskRepository implements TaskRepository {
   });
 
   @override
-  Future<void> uncomplete(int id) =>
-      (_db.update(
-        _db.tasks,
-      )..where((t) => t.id.equals(id) & t.status.equals('done'))).write(
-        TasksCompanion(
-          status: Value(TaskStatus.open.name),
-          boardColumn: Value(BoardColumn.todo.name),
-          completedAt: const Value(null),
-          updatedAt: Value(_nowUtc),
-        ),
-      );
+  Future<void> uncomplete(int id, {BoardColumn into = BoardColumn.todo}) {
+    assert(into != BoardColumn.done, 'a reopened task is not done');
+    return (_db.update(
+      _db.tasks,
+    )..where((t) => t.id.equals(id) & t.status.equals('done'))).write(
+      TasksCompanion(
+        status: Value(TaskStatus.open.name),
+        boardColumn: Value(into.name),
+        completedAt: const Value(null),
+        updatedAt: Value(_nowUtc),
+      ),
+    );
+  }
+
+  @override
+  Future<void> moveToColumn(int id, BoardColumn column) async {
+    assert(column != BoardColumn.done, 'Done goes through complete');
+    await (_db.update(
+      _db.tasks,
+    )..where((t) => t.id.equals(id) & t.status.equals('open'))).write(
+      TasksCompanion(
+        boardColumn: Value(column.name),
+        sortOrder: Value(await _nextSortOrder()),
+        updatedAt: Value(_nowUtc),
+      ),
+    );
+  }
 
   @override
   Future<TaskDetails> delete(int id) => _db.transaction(() async {

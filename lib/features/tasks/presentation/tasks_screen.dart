@@ -22,6 +22,7 @@ import 'package:ctrltask/features/projects/presentation/project_providers.dart';
 import 'package:ctrltask/features/settings/domain/preferences_repository.dart';
 import 'package:ctrltask/features/tasks/domain/task.dart';
 import 'package:ctrltask/features/tasks/domain/task_list.dart';
+import 'package:ctrltask/features/tasks/presentation/board/board_view.dart';
 import 'package:ctrltask/features/tasks/presentation/list/filter_sort_sheet.dart';
 import 'package:ctrltask/features/tasks/presentation/list/task_list_group.dart';
 import 'package:ctrltask/features/tasks/presentation/quick_add_sheet.dart';
@@ -42,7 +43,6 @@ class TasksScreen extends ConsumerStatefulWidget {
 }
 
 class _TasksScreenState extends ConsumerState<TasksScreen> {
-  // shortcut: the Board segment (P2) comes with 5.1.
   @override
   Widget build(BuildContext context) {
     final colors = context.colors;
@@ -112,6 +112,11 @@ class _TasksScreenState extends ConsumerState<TasksScreen> {
                     label: l10n.calendar,
                     icon: AppIcon.calendar,
                   ),
+                  (
+                    value: TasksView.board,
+                    label: l10n.boardView,
+                    icon: AppIcon.kanban,
+                  ),
                 ],
                 selected: view,
                 onChanged: (view) =>
@@ -119,10 +124,11 @@ class _TasksScreenState extends ConsumerState<TasksScreen> {
               ),
             ),
             const SizedBox(height: 12),
-            if (view == TasksView.list)
-              const _TaskList()
-            else
-              const CalendarMonthView(),
+            switch (view) {
+              TasksView.list => const _TaskList(),
+              TasksView.calendar => const CalendarMonthView(),
+              TasksView.board => const BoardView(),
+            },
           ],
         ),
       ),

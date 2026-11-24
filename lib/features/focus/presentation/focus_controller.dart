@@ -50,9 +50,7 @@ class FocusController extends _$FocusController {
     // the app was closed. A suspended app's timers don't count down, so
     // check again on return too (CLAUDE.md: never rely on a timer
     // surviving the background).
-    final lifecycle = AppLifecycleListener(
-      onResume: () => _schedule(_timer),
-    );
+    final lifecycle = AppLifecycleListener(onResume: () => _schedule(_timer));
     ref
       ..listen(focusTimerProvider, (_, timer) => _schedule(timer))
       ..onDispose(() {

@@ -2173,4 +2173,39 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get exportCopyFirst => 'Export a copy first';
+
+  @override
+  String get boardView => 'Board';
+
+  @override
+  String get groupedByStatus => 'Grouped by status';
+
+  @override
+  String columnName(String column) {
+    String _temp0 = intl.Intl.selectLogic(column, {
+      'todo': 'To do',
+      'doing': 'In progress',
+      'other': 'Done',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String moveToColumn(String column) {
+    return 'Move to $column';
+  }
+
+  @override
+  String columnSemantics(String column, int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count tasks',
+      one: '1 task',
+    );
+    return '$column, $_temp0';
+  }
+
+  @override
+  String get boardViewLink => 'Board view';
 }

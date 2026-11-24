@@ -73,30 +73,36 @@ class SectionHeader extends StatelessWidget {
                   ),
                 ),
               ),
+            // Shares the row with the label, wrapping with large text.
             if ((linkLabel, onLink) case (final link?, final onTap?))
-              TextButton(
-                onPressed: onTap,
-                style: TextButton.styleFrom(
-                  minimumSize: const Size(44, 44),
-                  padding: const EdgeInsets.only(left: 12, right: 4),
-                  foregroundColor: colors.ink,
-                  overlayColor: colors.raised,
-                ),
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Text(
-                      link,
-                      style: text.rowTitle.copyWith(color: colors.ink),
-                    ),
-                    const SizedBox(width: 2),
-                    AppIconView(
-                      AppIcon.chevronRight,
-                      size: 18,
-                      color: colors.ink,
-                      stroke: AppIconStroke.chevron,
-                    ),
-                  ],
+              Flexible(
+                child: TextButton(
+                  onPressed: onTap,
+                  style: TextButton.styleFrom(
+                    minimumSize: const Size(44, 44),
+                    padding: const EdgeInsets.only(left: 12, right: 4),
+                    foregroundColor: colors.ink,
+                    overlayColor: colors.raised,
+                  ),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Flexible(
+                        child: Text(
+                          link,
+                          textAlign: TextAlign.end,
+                          style: text.rowTitle.copyWith(color: colors.ink),
+                        ),
+                      ),
+                      const SizedBox(width: 2),
+                      AppIconView(
+                        AppIcon.chevronRight,
+                        size: 18,
+                        color: colors.ink,
+                        stroke: AppIconStroke.chevron,
+                      ),
+                    ],
+                  ),
                 ),
               ),
           ],

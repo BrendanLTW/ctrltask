@@ -29,6 +29,7 @@ void registerProjectFallbacks() {
   registerFallbackValue(const TaskDraft(title: ''));
   registerFallbackValue(testProject(0, ''));
   registerFallbackValue(ProjectColorKey.grey);
+  registerFallbackValue(BoardColumn.todo);
   registerFallbackValue(ProjectIconKey.globe);
   registerFallbackValue((
     kind: FocusKind.focus,
@@ -98,7 +99,7 @@ class ProjectsApp {
         900 + taskList.value.length,
         draft.title,
         projectId: draft.projectId,
-      );
+      ).copyWith(boardColumn: draft.column);
       taskList.value = [...taskList.value, task];
       return task;
     });
@@ -117,6 +118,25 @@ class ProjectsApp {
     when(() => tasks.undoComplete(any())).thenAnswer((i) async {
       _replaceTask((i.positionalArguments.single as Completion).before.task);
     });
+    when(() => tasks.moveToColumn(any(), any())).thenAnswer((i) async {
+      final [id as int, column as BoardColumn] = i.positionalArguments;
+      final task = taskList.value.firstWhere((t) => t.id == id);
+      if (task.status == TaskStatus.done) return;
+      _replaceTask(task.copyWith(boardColumn: column, sortOrder: 1000 + id));
+    });
+    when(() => tasks.uncomplete(any(), into: any(named: 'into')))
+        .thenAnswer((i) async {
+          final id = i.positionalArguments.single as int;
+          _replaceTask(
+            taskList.value
+                .firstWhere((t) => t.id == id)
+                .copyWith(
+                  status: TaskStatus.open,
+                  boardColumn: i.namedArguments[#into] as BoardColumn,
+                  completedAt: null,
+                ),
+          );
+        });
 
     when(
       () => projects.add(
@@ -187,6 +207,7 @@ class ProjectsApp {
   final active = Live<List<Project>>(const []);
   final archived = Live<List<Project>>(const []);
   final taskList = Live<List<Task>>(const []);
+  final tagNames = Live<Map<int, List<String>>>(const {});
   final counts = Live<Map<int, int>>(const {});
   final focused = Live<int>(0);
   final sessions = Live<List<FocusSession>>(const []);
@@ -219,6 +240,7 @@ class ProjectsApp {
     when(projects.watchArchived).thenAnswer((_) => archived.stream);
     when(tasks.watchTaskCounts).thenAnswer((_) => counts.stream);
     when(tasks.watchForInsights).thenAnswer((_) => taskList.stream);
+    when(tasks.watchTagNames).thenAnswer((_) => tagNames.stream);
     when(() => tasks.watchByProject(any())).thenAnswer(
       (i) => taskList.stream.map(
         (all) => [

@@ -228,3 +228,198 @@ abstract class _$TasksFilter extends $Notifier<TaskFilter> {
     return element.handleCreate(ref, build);
   }
 }
+
+/// S20's project: chosen on the board or from Board view on S27, for as
+/// long as the app is open. Null until chosen; `(projectId: null)` is the
+/// Inbox.
+
+@ProviderFor(BoardProject)
+final boardProjectProvider = BoardProjectProvider._();
+
+/// S20's project: chosen on the board or from Board view on S27, for as
+/// long as the app is open. Null until chosen; `(projectId: null)` is the
+/// Inbox.
+final class BoardProjectProvider
+    extends $NotifierProvider<BoardProject, ({int? projectId})?> {
+  /// S20's project: chosen on the board or from Board view on S27, for as
+  /// long as the app is open. Null until chosen; `(projectId: null)` is the
+  /// Inbox.
+  BoardProjectProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'boardProjectProvider',
+        isAutoDispose: false,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$boardProjectHash();
+
+  @$internal
+  @override
+  BoardProject create() => BoardProject();
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(({int? projectId})? value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<({int? projectId})?>(value),
+    );
+  }
+}
+
+String _$boardProjectHash() => r'cc4d863e2e54c84a2977c70cf092e3db02bf58cd';
+
+/// S20's project: chosen on the board or from Board view on S27, for as
+/// long as the app is open. Null until chosen; `(projectId: null)` is the
+/// Inbox.
+
+abstract class _$BoardProject extends $Notifier<({int? projectId})?> {
+  ({int? projectId})? build();
+  @$mustCallSuper
+  @override
+  WhenComplete runBuild() {
+    final ref = this.ref as $Ref<({int? projectId})?, ({int? projectId})?>;
+    final element =
+        ref.element
+            as $ClassProviderElement<
+              AnyNotifier<({int? projectId})?, ({int? projectId})?>,
+              ({int? projectId})?,
+              Object?,
+              Object?
+            >;
+    return element.handleCreate(ref, build);
+  }
+}
+
+/// Every task in [projectId] (the Inbox when null), open and done.
+
+@ProviderFor(boardTasks)
+final boardTasksProvider = BoardTasksFamily._();
+
+/// Every task in [projectId] (the Inbox when null), open and done.
+
+final class BoardTasksProvider
+    extends
+        $FunctionalProvider<
+          AsyncValue<List<Task>>,
+          List<Task>,
+          Stream<List<Task>>
+        >
+    with $FutureModifier<List<Task>>, $StreamProvider<List<Task>> {
+  /// Every task in [projectId] (the Inbox when null), open and done.
+  BoardTasksProvider._({
+    required BoardTasksFamily super.from,
+    required int? super.argument,
+  }) : super(
+         retry: null,
+         name: r'boardTasksProvider',
+         isAutoDispose: true,
+         dependencies: null,
+         $allTransitiveDependencies: null,
+       );
+
+  @override
+  String debugGetCreateSourceHash() => _$boardTasksHash();
+
+  @override
+  String toString() {
+    return r'boardTasksProvider'
+        ''
+        '($argument)';
+  }
+
+  @$internal
+  @override
+  $StreamProviderElement<List<Task>> $createElement($ProviderPointer pointer) =>
+      $StreamProviderElement(pointer);
+
+  @override
+  Stream<List<Task>> create(Ref ref) {
+    final argument = this.argument as int?;
+    return boardTasks(ref, argument);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is BoardTasksProvider && other.argument == argument;
+  }
+
+  @override
+  int get hashCode {
+    return argument.hashCode;
+  }
+}
+
+String _$boardTasksHash() => r'4905ecf33b68935514d040679a28077f769684ca';
+
+/// Every task in [projectId] (the Inbox when null), open and done.
+
+final class BoardTasksFamily extends $Family
+    with $FunctionalFamilyOverride<Stream<List<Task>>, int?> {
+  BoardTasksFamily._()
+    : super(
+        retry: null,
+        name: r'boardTasksProvider',
+        dependencies: null,
+        $allTransitiveDependencies: null,
+        isAutoDispose: true,
+      );
+
+  /// Every task in [projectId] (the Inbox when null), open and done.
+
+  BoardTasksProvider call(int? projectId) =>
+      BoardTasksProvider._(argument: projectId, from: this);
+
+  @override
+  String toString() => r'boardTasksProvider';
+}
+
+/// Each task's tag names, for S20's cards.
+
+@ProviderFor(taskTagNames)
+final taskTagNamesProvider = TaskTagNamesProvider._();
+
+/// Each task's tag names, for S20's cards.
+
+final class TaskTagNamesProvider
+    extends
+        $FunctionalProvider<
+          AsyncValue<Map<int, List<String>>>,
+          Map<int, List<String>>,
+          Stream<Map<int, List<String>>>
+        >
+    with
+        $FutureModifier<Map<int, List<String>>>,
+        $StreamProvider<Map<int, List<String>>> {
+  /// Each task's tag names, for S20's cards.
+  TaskTagNamesProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'taskTagNamesProvider',
+        isAutoDispose: true,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$taskTagNamesHash();
+
+  @$internal
+  @override
+  $StreamProviderElement<Map<int, List<String>>> $createElement(
+    $ProviderPointer pointer,
+  ) => $StreamProviderElement(pointer);
+
+  @override
+  Stream<Map<int, List<String>>> create(Ref ref) {
+    return taskTagNames(ref);
+  }
+}
+
+String _$taskTagNamesHash() => r'bf61dd5a3878dcb1106de00ae83a579ce129da68';
