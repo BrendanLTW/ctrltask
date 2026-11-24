@@ -67,10 +67,7 @@ class HomeHeader extends StatelessWidget {
                   header: true,
                   child: Text(
                     greeting,
-                    style: text.header.copyWith(
-                      color: colors.ink,
-                      fontSize: text.detailTitle.fontSize,
-                    ),
+                    style: text.header.copyWith(color: colors.ink),
                   ),
                 ),
               ],

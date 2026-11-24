@@ -1,6 +1,7 @@
 import 'dart:math' as math;
 
 import 'package:ctrltask/core/theme/app_colors.dart';
+import 'package:ctrltask/core/theme/app_radius.dart';
 import 'package:ctrltask/core/theme/app_typography.dart';
 import 'package:flutter/material.dart';
 
@@ -68,7 +69,7 @@ class BarChart extends StatelessWidget {
                         height: math.max(8, top == 0 ? 0 : height * v / top),
                         decoration: BoxDecoration(
                           color: i == best ? bestColor : color,
-                          borderRadius: BorderRadius.circular(10),
+                          borderRadius: BorderRadius.circular(AppRadius.r10),
                         ),
                       ),
                     ),

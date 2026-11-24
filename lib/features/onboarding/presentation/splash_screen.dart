@@ -1,5 +1,6 @@
 import 'package:ctrltask/core/router/app_router.dart';
 import 'package:ctrltask/core/theme/app_colors.dart';
+import 'package:ctrltask/core/theme/app_radius.dart';
 import 'package:ctrltask/core/theme/app_typography.dart';
 import 'package:ctrltask/core/theme/brand_colors.dart';
 import 'package:ctrltask/core/widgets/brand_mark.dart';
@@ -122,7 +123,7 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
                         value: _progress.value,
                         color: BrandColors.orange,
                         backgroundColor: colors.heroTrack,
-                        borderRadius: BorderRadius.circular(2),
+                        borderRadius: BorderRadius.circular(AppRadius.pill),
                       ),
                     ),
                   ),

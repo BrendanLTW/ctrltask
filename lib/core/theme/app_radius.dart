@@ -3,6 +3,9 @@ abstract final class AppRadius {
   /// 28 px icon tiles.
   static const double r9 = 9;
 
+  /// Bar chart bars.
+  static const double r10 = 10;
+
   /// 40 px icon tiles.
   static const double r13 = 13;
 

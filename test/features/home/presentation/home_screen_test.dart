@@ -1,6 +1,7 @@
 import 'package:ctrltask/core/dates/clock.dart';
 import 'package:ctrltask/core/haptics/haptics.dart';
 import 'package:ctrltask/core/theme/app_theme.dart';
+import 'package:ctrltask/core/theme/app_typography.dart';
 import 'package:ctrltask/core/widgets/alert_banner.dart';
 import 'package:ctrltask/core/widgets/app_chip.dart';
 import 'package:ctrltask/core/widgets/app_sheet.dart';
@@ -255,6 +256,12 @@ void main() {
 
       expect(find.text('TUE, 17 NOVEMBER'), findsOneWidget);
       expect(find.text('Good morning, Alex'), findsOneWidget);
+      // `header` (DESIGN §4): at 24 px it wrapped beside the buttons.
+      final greeting = find.text('Good morning, Alex');
+      expect(
+        tester.widget<Text>(greeting).style?.fontSize,
+        tester.element(greeting).text.header.fontSize,
+      );
       expect(find.text('1 of 3 done', findRichText: true), findsOneWidget);
       expect(
         find.text('2 left · next: Review homepage wireframes, 10:00 AM'),

@@ -173,6 +173,7 @@ The hero value shows its unit smaller and muted: "2" at 32/700 and " of 6 done" 
 | Token | Value | Use |
 |---|---|---|
 | `r9` | 9 | 28 px icon tiles |
+| `r10` | 10 | Bar chart bars |
 | `r13` | 13 | 40 px icon tiles |
 | `r14` | 14 | Calendar day cells, stepper keys |
 | `r16` | 16 | 48 px icon tiles |
