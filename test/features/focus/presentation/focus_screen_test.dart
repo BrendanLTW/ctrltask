@@ -178,6 +178,29 @@ void main() {
     await tap(tester, 'Pause');
   });
 
+  testWidgets('back from the background after it ran out, it finishes', (
+    tester,
+  ) async {
+    await pump(tester);
+    await tap(tester, 'Start');
+    // The phone sleeps: the clock moves on but the app's timers don't.
+    app.now = app.now.add(const Duration(minutes: 30));
+    expect(app.sessions.value, isEmpty);
+    [
+      AppLifecycleState.inactive,
+      AppLifecycleState.hidden,
+      AppLifecycleState.paused,
+      AppLifecycleState.hidden,
+      AppLifecycleState.inactive,
+      AppLifecycleState.resumed,
+    ].forEach(tester.binding.handleAppLifecycleStateChanged);
+    await tester.pump();
+    final session = app.sessions.value.single;
+    expect((session.elapsedSec, session.completed), (1500, true));
+    expect(saved().kind, FocusKind.short);
+    await tap(tester, 'Pause');
+  });
+
   testWidgets('Reset starts the session over and saves nothing', (
     tester,
   ) async {

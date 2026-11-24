@@ -143,7 +143,7 @@ final class FocusControllerProvider
   }
 }
 
-String _$focusControllerHash() => r'8d79c9ceafcc0233dfc3a2984796e2cb27c750e9';
+String _$focusControllerHash() => r'cb615260bcab1549459cbe95c34cdc7bdf5d8a5e';
 
 /// Runs the focus timer (PRD §5.8, §6.6): every change is saved, and a
 /// session that reaches its end is saved and followed by the next phase,

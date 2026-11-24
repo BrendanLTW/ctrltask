@@ -7,6 +7,7 @@ import 'package:ctrltask/features/focus/domain/focus_timer.dart';
 import 'package:ctrltask/features/focus/domain/focus_timer_repository.dart';
 import 'package:ctrltask/features/settings/domain/preferences.dart';
 import 'package:ctrltask/features/settings/domain/preferences_repository.dart';
+import 'package:flutter/widgets.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'focus_controller.g.dart';
@@ -46,10 +47,18 @@ class FocusController extends _$FocusController {
   @override
   void build() {
     // Finish a running session on time, or at once if it ran out while
-    // the app was closed.
+    // the app was closed. A suspended app's timers don't count down, so
+    // check again on return too (CLAUDE.md: never rely on a timer
+    // surviving the background).
+    final lifecycle = AppLifecycleListener(
+      onResume: () => _schedule(_timer),
+    );
     ref
       ..listen(focusTimerProvider, (_, timer) => _schedule(timer))
-      ..onDispose(() => _end?.cancel());
+      ..onDispose(() {
+        _end?.cancel();
+        lifecycle.dispose();
+      });
   }
 
   DateTime get _now => ref.read(clockProvider)().toUtc();

@@ -129,7 +129,7 @@ Work top to bottom. Each task is sized for one Claude Code session and follows t
   Refs: DESIGN §13
 - [ ] **4.3 Performance.** A debug-only generator for 2,000 tasks across 10 projects and a year of focus sessions; measure cold start and list scrolling on a mid-range Android device; fix anything below target.
   Refs: PRD §10
-- [ ] **4.4 End-to-end test.** Integration test: onboarding → quick add → complete → undo → start and finish a focus session.
+- [x] **4.4 End-to-end test.** Integration test: onboarding → quick add → complete → undo → start and finish a focus session.
   Refs: PRD §10
 - [ ] **4.5 README and release.** README with screenshots in both themes, an architecture diagram and key decisions (offline-first, navy over purple, timer from timestamps). Build the release APK, attach it to a GitHub Release and tag `v1.0.0`.
   Refs: PRD §2
