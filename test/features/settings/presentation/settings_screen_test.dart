@@ -77,7 +77,7 @@ void main() {
         'CSV or JSON',
         'DATA',
         'Erase all data',
-        'ctrlTask 0.1 · by BrendanLTW',
+        'ctrlTask 1.0 · by BrendanLTW',
       ]) {
         expect(find.text(text), findsOneWidget, reason: text);
       }

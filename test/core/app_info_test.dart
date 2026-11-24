@@ -14,6 +14,6 @@ void main() {
   });
 
   test('the short form is major.minor', () {
-    expect(appVersionShort, '0.1');
+    expect(appVersionShort, '1.0');
   });
 }

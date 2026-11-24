@@ -152,6 +152,7 @@ class MainApp extends ConsumerWidget {
       // The one owner of notification scheduling (§6.5).
       ..watch(notificationSyncProvider);
     return MaterialApp.router(
+      debugShowCheckedModeBanner: false,
       onGenerateTitle: (context) => context.l10n.appName,
       localizationsDelegates: AppLocalizations.localizationsDelegates,
       supportedLocales: AppLocalizations.supportedLocales,

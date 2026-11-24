@@ -45,7 +45,7 @@ The results are written to `build/perf_summary.json`, under `home_scroll` and `t
 
 ## Results
 
-Not measured yet: no mid-range Android device was available when the tools were built (Nov 2026). PLAN 4.3 stays open until this table is filled in.
+Not measured yet: no mid-range Android device was available when the tools were built (Nov 2026), and v1.0.0 shipped before the measurements. PLAN 4.3 stays open until this table is filled in.
 
 | Device | Cold start (median) | Home scroll p90 build / raster | Tasks scroll p90 build / raster | Missed frames |
 |---|---|---|---|---|
