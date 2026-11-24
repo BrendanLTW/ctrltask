@@ -115,7 +115,7 @@ class _SubtaskSectionState extends State<SubtaskSection> {
                   cursorColor: colors.ink,
                   decoration: InputDecoration.collapsed(
                     hintText: l10n.subtaskHint,
-                    hintStyle: style.copyWith(color: colors.disabled),
+                    hintStyle: style.copyWith(color: colors.muted),
                   ).copyWith(counterText: ''),
                 ),
               )

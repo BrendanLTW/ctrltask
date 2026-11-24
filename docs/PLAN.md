@@ -123,7 +123,7 @@ Work top to bottom. Each task is sized for one Claude Code session and follows t
 
 ## Phase 4 — Ship v1.0
 
-- [ ] **4.1 Accessibility pass.** Screen-reader labels, ring and chart text alternatives, 44 px targets, contrast in both themes, reduced motion, and 200% text scale on every screen.
+- [x] **4.1 Accessibility pass.** Screen-reader labels, ring and chart text alternatives, 44 px targets, contrast in both themes, reduced motion, and 200% text scale on every screen.
   Refs: DESIGN §11, PRD §9
 - [ ] **4.2 Design fidelity pass.** Run the DESIGN §13 checklist for every v1.0 screen in light and dark; fix differences or log intentional ones in `docs/design-notes.md`.
   Refs: DESIGN §13

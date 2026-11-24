@@ -49,94 +49,98 @@ class WelcomePreview extends StatelessWidget {
       ),
     );
 
+    // A picture of the app, hidden from screen readers: drawn at normal
+    // text size so 200% text can't overflow its fixed height.
     return ExcludeSemantics(
-      child: Container(
-        height: 400,
-        padding: const EdgeInsets.all(14),
-        decoration: BoxDecoration(
-          color: colors.hero,
-          borderRadius: BorderRadius.circular(AppRadius.r36),
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            // The chips shrink on narrow phones rather than overflow.
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Flexible(
-                  child: chip(
-                    Container(
-                      width: 28,
-                      height: 28,
-                      decoration: BoxDecoration(
-                        color: colors.ink,
-                        shape: BoxShape.circle,
-                      ),
-                      child: AppIconView(
-                        AppIcon.check,
-                        size: 15,
-                        color: colors.onInk,
-                        stroke: 3,
-                      ),
-                    ),
-                    l10n.welcomeDoneChip,
-                  ),
-                ),
-                const SizedBox(width: 8),
-                Flexible(
-                  child: chip(
-                    const IconTile(
-                      icon: AppIcon.timer,
-                      color: ProjectColorKey.purple,
-                      size: IconTileSize.small,
-                    ),
-                    l10n.welcomeFocusChip,
-                  ),
-                ),
-              ],
-            ),
-            Expanded(
-              child: Center(
-                child: ProgressRing(
-                  value: 4 / 6,
-                  size: 158,
-                  stroke: 18,
-                  color: colors.onHero,
-                  trackColor: colors.heroTrack,
-                  semanticLabel: '',
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Text(
-                        l10n.welcomeRingValue,
-                        style: text.heroValue.copyWith(color: colors.onHero),
-                      ),
-                      Text(
-                        l10n.welcomeRingLabel,
-                        style: text.chip.copyWith(
-                          color: colors.heroLabel,
-                          fontWeight: FontWeight.w500,
+      child: MediaQuery.withNoTextScaling(
+        child: Container(
+          height: 400,
+          padding: const EdgeInsets.all(14),
+          decoration: BoxDecoration(
+            color: colors.hero,
+            borderRadius: BorderRadius.circular(AppRadius.r36),
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              // The chips shrink on narrow phones rather than overflow.
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Flexible(
+                    child: chip(
+                      Container(
+                        width: 28,
+                        height: 28,
+                        decoration: BoxDecoration(
+                          color: colors.ink,
+                          shape: BoxShape.circle,
+                        ),
+                        child: AppIconView(
+                          AppIcon.check,
+                          size: 15,
+                          color: colors.onInk,
+                          stroke: 3,
                         ),
                       ),
-                    ],
+                      l10n.welcomeDoneChip,
+                    ),
+                  ),
+                  const SizedBox(width: 8),
+                  Flexible(
+                    child: chip(
+                      const IconTile(
+                        icon: AppIcon.timer,
+                        color: ProjectColorKey.purple,
+                        size: IconTileSize.small,
+                      ),
+                      l10n.welcomeFocusChip,
+                    ),
+                  ),
+                ],
+              ),
+              Expanded(
+                child: Center(
+                  child: ProgressRing(
+                    value: 4 / 6,
+                    size: 158,
+                    stroke: 18,
+                    color: colors.onHero,
+                    trackColor: colors.heroTrack,
+                    semanticLabel: '',
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Text(
+                          l10n.welcomeRingValue,
+                          style: text.heroValue.copyWith(color: colors.onHero),
+                        ),
+                        Text(
+                          l10n.welcomeRingLabel,
+                          style: text.chip.copyWith(
+                            color: colors.heroLabel,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),
-            ),
-            IgnorePointer(
-              child: TaskCard(
-                data: TaskTileData(
-                  title: l10n.welcomeTaskTitle,
-                  priority: TaskPriority.urgent,
-                  done: false,
-                  timeLabel: l10n.welcomeTaskTime,
+              IgnorePointer(
+                child: TaskCard(
+                  data: TaskTileData(
+                    title: l10n.welcomeTaskTitle,
+                    priority: TaskPriority.urgent,
+                    done: false,
+                    timeLabel: l10n.welcomeTaskTime,
+                  ),
+                  onToggle: (_) {},
+                  onTap: () {},
                 ),
-                onToggle: (_) {},
-                onTap: () {},
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

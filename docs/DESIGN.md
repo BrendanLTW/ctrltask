@@ -49,7 +49,7 @@ The app icon and splash use the keycap. The Android adaptive icon is the check o
 | `ink` | `#101828` | `#F2F4F7` | Primary text **and** primary accent (buttons, selected states, filled checkboxes, quick-add button, avatar) |
 | `onInk` | `#FFFFFF` | `#0B1018` | Text and icons on `ink` fills |
 | `inkPressed` | `#1D2939` | `#D0D5DD` | Pressed state of `ink` fills |
-| `muted` | `#5B6B86` | `#98A2B3` | Secondary text, captions, labels, unselected segments, done task titles |
+| `muted` | `#5B6B86` | `#98A2B3` | Secondary text, captions, labels, unselected segments, done task titles, placeholders (they must reach 4.5:1, §11) |
 | `positive` | `#067647` | `#47CD89` | Success, "Backed up", positive changes ("▲ 17 pts") |
 | `negative` | `#D92D20` | `#F97066` | Overdue dates, destructive actions, error outlines |
 | `warning` | `#B54708` | `#FDB022` | Warnings |
@@ -67,7 +67,7 @@ Reference them through tokens, never as raw hex in widgets.
 | `control` | `#D0D5DD` | `#475467` | Toggle off, radio border, unticked checkbox (Low), "today" ring in the calendar |
 | `toggleThumb` | `#FFFFFF` | `#FFFFFF` | A toggle's thumb when off (on: `onInk`) |
 | `buttonDisabled` | `#D0D5DD` | `#2A3444` | Disabled primary button fill (label `#FFFFFF` / `#667085`) |
-| `disabled` | `#98A2B3` | `#667085` | Past dates, placeholders, disabled text |
+| `disabled` | `#98A2B3` | `#667085` | Past dates, disabled text |
 | `chipText` | `#344054` | `#D0D5DD` | Unselected chip label, tag chip label, text in tinted boxes |
 | `navSelected` | `#EEF1F6` | `#2A3444` | Active tab pill in the bottom bar |
 | `rowPressed` | `#FAFBFC` | `#1B2331` | Pressed list row |

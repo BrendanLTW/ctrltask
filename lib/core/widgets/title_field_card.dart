@@ -38,7 +38,7 @@ class TitleFieldCard extends StatelessWidget {
     );
     final body = text.body.copyWith(color: colors.ink);
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 16),
+      padding: const EdgeInsets.fromLTRB(18, 12, 18, 12),
       decoration: BoxDecoration(
         color: colors.surface,
         borderRadius: BorderRadius.circular(AppRadius.r22),
@@ -52,7 +52,8 @@ class TitleFieldCard extends StatelessWidget {
               style: text.labelSm.copyWith(color: colors.muted),
             ),
           ),
-          const SizedBox(height: 6),
+          // The gaps around the fields are part of them, so each is at least
+          // 44 px tall to tap; the card looks the same.
           TextField(
             controller: titleController,
             autofocus: autofocus,
@@ -62,12 +63,15 @@ class TitleFieldCard extends StatelessWidget {
             textInputAction: TextInputAction.next,
             style: title,
             cursorColor: colors.ink,
-            decoration: InputDecoration.collapsed(
-              hintText: titleHint,
-              hintStyle: title.copyWith(color: colors.disabled),
-            ).copyWith(counterText: ''),
+            decoration:
+                InputDecoration.collapsed(
+                  hintText: titleHint,
+                  hintStyle: title.copyWith(color: colors.muted),
+                ).copyWith(
+                  counterText: '',
+                  contentPadding: const EdgeInsets.only(top: 10, bottom: 10),
+                ),
           ),
-          const SizedBox(height: 10),
           TextField(
             controller: descriptionController,
             maxLength: descriptionMaxLength,
@@ -76,10 +80,14 @@ class TitleFieldCard extends StatelessWidget {
             textCapitalization: TextCapitalization.sentences,
             style: body,
             cursorColor: colors.ink,
-            decoration: InputDecoration.collapsed(
-              hintText: descriptionHint,
-              hintStyle: body.copyWith(color: colors.disabled),
-            ).copyWith(counterText: ''),
+            decoration:
+                InputDecoration.collapsed(
+                  hintText: descriptionHint,
+                  hintStyle: body.copyWith(color: colors.muted),
+                ).copyWith(
+                  counterText: '',
+                  contentPadding: const EdgeInsets.only(bottom: 4),
+                ),
           ),
         ],
       ),

@@ -70,9 +70,6 @@ class _AppTextInputState extends State<AppTextInput> {
       mainAxisSize: MainAxisSize.min,
       children: [
         Container(
-          constraints: const BoxConstraints(minHeight: 56),
-          padding: const EdgeInsets.symmetric(horizontal: 18),
-          alignment: Alignment.centerLeft,
           decoration: BoxDecoration(
             color: colors.surface,
             borderRadius: BorderRadius.circular(AppRadius.r18),
@@ -89,10 +86,19 @@ class _AppTextInputState extends State<AppTextInput> {
             onSubmitted: widget.onSubmitted,
             style: style,
             cursorColor: colors.ink,
-            decoration: InputDecoration.collapsed(
-              hintText: widget.hint,
-              hintStyle: style.copyWith(color: colors.disabled),
-            ).copyWith(counterText: ''),
+            // The padding is the field's own, so the whole 56 px box takes
+            // the tap and is one target for screen readers.
+            decoration:
+                InputDecoration.collapsed(
+                  hintText: widget.hint,
+                  hintStyle: style.copyWith(color: colors.muted),
+                ).copyWith(
+                  counterText: '',
+                  contentPadding: const EdgeInsets.symmetric(
+                    horizontal: 18,
+                    vertical: 15,
+                  ),
+                ),
           ),
         ),
         if (widget.helper case final helper?) ...[

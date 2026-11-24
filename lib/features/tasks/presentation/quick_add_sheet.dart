@@ -293,7 +293,7 @@ class _QuickAddSheetState extends ConsumerState<QuickAddSheet> {
                     cursorColor: colors.ink,
                     decoration: InputDecoration.collapsed(
                       hintText: l10n.taskTitleHint,
-                      hintStyle: titleStyle.copyWith(color: colors.disabled),
+                      hintStyle: titleStyle.copyWith(color: colors.muted),
                     ).copyWith(counterText: ''),
                   ),
                 ),
