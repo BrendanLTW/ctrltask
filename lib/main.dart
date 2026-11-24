@@ -1,6 +1,7 @@
 import 'package:ctrltask/core/dates/clock.dart';
 import 'package:ctrltask/core/db/app_database.dart';
 import 'package:ctrltask/core/dev/demo_seed.dart';
+import 'package:ctrltask/core/dev/perf_seed.dart';
 import 'package:ctrltask/core/router/app_router.dart';
 import 'package:ctrltask/core/theme/app_theme.dart';
 import 'package:ctrltask/core/theme/theme_mode_controller.dart';
@@ -30,6 +31,7 @@ import 'package:ctrltask/features/tasks/domain/recent_searches_repository.dart';
 import 'package:ctrltask/features/tasks/domain/task_repository.dart';
 import 'package:ctrltask/l10n/l10n.dart';
 import 'package:drift/native.dart';
+import 'package:drift_flutter/drift_flutter.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -39,7 +41,32 @@ import 'package:flutter_riverpod/misc.dart';
 /// in-memory database. Debug builds only; release builds drop it.
 const bool _demo = bool.fromEnvironment('DEMO') && kDebugMode;
 
+/// `flutter run --profile --dart-define=PERF=true` runs on its own on-disk
+/// database of 2,000 tasks and a year of focus (PLAN 4.3, docs/performance.md),
+/// seeded on the first launch only, so later launches time a real cold
+/// start. Profile builds too, since timings mean nothing in debug; never in
+/// release.
+const bool _perf = bool.fromEnvironment('PERF') && !kReleaseMode;
+
 Future<void> main() async {
+  if (_perf) {
+    WidgetsFlutterBinding.ensureInitialized();
+    final db = AppDatabase(driftDatabase(name: 'ctrltask_perf'));
+    final empty =
+        await (db.select(db.tasks)..limit(1)).getSingleOrNull() == null;
+    if (empty) await seedPerf(db, today: DateTime.now());
+    runApp(
+      ProviderScope(
+        overrides: [
+          ...appOverrides(),
+          ...platformOverrides(),
+          appDatabaseProvider.overrideWithValue(db),
+        ],
+        child: const MainApp(),
+      ),
+    );
+    return;
+  }
   if (_demo) {
     WidgetsFlutterBinding.ensureInitialized();
     final db = AppDatabase(NativeDatabase.memory());
