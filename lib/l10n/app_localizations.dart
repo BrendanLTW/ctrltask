@@ -3579,6 +3579,30 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'{day, select, today{today} yesterday{yesterday} other{{date}}}, {time}'**
   String backupWhen(String day, String date, String time);
+
+  /// No description provided for @detectedPrefix.
+  ///
+  /// In en, this message translates to:
+  /// **'Detected'**
+  String get detectedPrefix;
+
+  /// No description provided for @detectedSuffix.
+  ///
+  /// In en, this message translates to:
+  /// **'from your words'**
+  String get detectedSuffix;
+
+  /// No description provided for @hintToday.
+  ///
+  /// In en, this message translates to:
+  /// **'today'**
+  String get hintToday;
+
+  /// No description provided for @hintTomorrow.
+  ///
+  /// In en, this message translates to:
+  /// **'tomorrow'**
+  String get hintTomorrow;
 }
 
 class _AppLocalizationsDelegate

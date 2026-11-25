@@ -3,6 +3,8 @@ import 'package:ctrltask/core/theme/app_theme.dart';
 import 'package:ctrltask/core/widgets/app_chip.dart';
 import 'package:ctrltask/core/widgets/app_sheet.dart';
 import 'package:ctrltask/core/widgets/app_shell_tab.dart';
+import 'package:ctrltask/features/projects/domain/project.dart';
+import 'package:ctrltask/features/projects/domain/project_keys.dart';
 import 'package:ctrltask/features/settings/domain/preferences.dart';
 import 'package:ctrltask/features/settings/domain/preferences_repository.dart';
 import 'package:ctrltask/features/tasks/domain/task.dart';
@@ -37,7 +39,20 @@ void main() {
     registerFallbackValue(const TaskDraft(title: ''));
   });
 
-  setUp(() {
+  late MemoryTags tagRepo;
+  late int designTag;
+  final website = Project(
+    id: 7,
+    name: 'Website redesign',
+    colorKey: ProjectColorKey.blue,
+    iconKey: ProjectIconKey.globe,
+    createdAt: DateTime.utc(2026),
+    sortOrder: 0,
+  );
+
+  setUp(() async {
+    tagRepo = MemoryTags();
+    designTag = (await tagRepo.create('design')).id;
     // Tue 17 Nov 2026, 9:41 AM.
     now = DateTime(2026, 11, 17, 9, 41);
     tasks = EmptyTasks();
@@ -57,7 +72,7 @@ void main() {
 
   List<Override> overrides() => [
     preferencesRepositoryProvider.overrideWithValue(prefs),
-    ...emptyRepositories(tasks: tasks),
+    ...emptyRepositories(tasks: tasks, tagRepo: tagRepo, projects: [website]),
     clockProvider.overrideWithValue(() => now),
   ];
 
@@ -281,4 +296,76 @@ void main() {
       expect(label.didExceedMaxLines, isFalse);
     });
   }
+
+  group('hints (PRD §6.8)', () {
+    Future<void> type(WidgetTester tester, String title) async {
+      await tester.enterText(find.byType(EditableText), title);
+      await tester.pump();
+    }
+
+    testWidgets('tomorrow 9am: shown, chosen and stripped', (tester) async {
+      await pumpSheet(tester);
+      await type(tester, 'Call dentist tomorrow 9am');
+      expect(
+        find.text('Detected tomorrow 9 AM from your words', findRichText: true),
+        findsOneWidget,
+      );
+      expect(selected(tester, 'Tomorrow · 9 AM'), isTrue);
+      await send(tester);
+      final draft = sent();
+      expect(draft.title, 'Call dentist');
+      expect((draft.dueDate, draft.dueMinute), (DateTime(2026, 11, 18), 540));
+    });
+
+    testWidgets('priority, tag and project follow the title', (tester) async {
+      await pumpSheet(tester);
+      await type(tester, 'Ship it !urgent #Design @website redesign');
+      expect(
+        find.text(
+          'Detected Urgent · #Design · Website redesign from your words',
+          findRichText: true,
+        ),
+        findsOneWidget,
+      );
+      expect(selected(tester, 'Urgent'), isTrue);
+      expect(find.text('Website redesign'), findsOneWidget);
+      await send(tester);
+      final draft = sent();
+      expect(draft.title, 'Ship it');
+      expect(draft.priority, TaskPriority.urgent);
+      expect(draft.projectId, 7);
+      expect(draft.tagIds, {designTag});
+    });
+
+    testWidgets('a new #tag is created when sent', (tester) async {
+      await pumpSheet(tester);
+      await type(tester, 'Buy bulbs #errands');
+      await send(tester);
+      final errands = tagRepo.value.firstWhere((u) => u.tag.name == 'errands');
+      expect(sent().tagIds, {errands.tag.id});
+    });
+
+    testWidgets('a chip tapped after a hint stands', (tester) async {
+      await pumpSheet(tester);
+      await type(tester, 'Gym tomorrow');
+      expect(selected(tester, 'Today'), isFalse);
+      await tester.tap(find.text('Today'));
+      await tester.pump();
+      await type(tester, 'Gym tomorrow, legs');
+      expect(selected(tester, 'Today'), isTrue, reason: 'same hint');
+      await send(tester);
+      expect(sent().dueDate, DateTime(2026, 11, 17));
+    });
+
+    testWidgets('a hint that is deleted puts its chip back', (tester) async {
+      await pumpSheet(tester);
+      await type(tester, 'Gym !urgent');
+      expect(selected(tester, 'Urgent'), isTrue);
+      await type(tester, 'Gym');
+      // Back to the default priority, High in this file's settings.
+      expect(selected(tester, 'Urgent'), isFalse);
+      expect(selected(tester, 'High'), isTrue);
+      expect(find.textContaining('Detected', findRichText: true), findsNothing);
+    });
+  });
 }

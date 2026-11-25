@@ -1804,5 +1804,9 @@
         "type": "String"
       }
     }
-  }
+  },
+  "detectedPrefix": "Detected",
+  "detectedSuffix": "from your words",
+  "hintToday": "today",
+  "hintTomorrow": "tomorrow"
 }

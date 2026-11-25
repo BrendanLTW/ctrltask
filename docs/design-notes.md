@@ -7,13 +7,11 @@ Where v1.0 knowingly differs from the exports in `docs/design/`, and why. Each s
 - **Counts, names and dates** come from the demo seed (`lib/core/dev/demo_seed.dart`), so they differ from the canvas wherever the canvas used made-up numbers. Examples are "342 tasks done", "6 inbox tasks" and Insights' bars.
 - **Optional parts appear only when there's data.** For example, Project detail adds "· 3h 20m focused" only when the project has focus time, and S25 shows "Did you mean …?" only when a near match exists.
 
-## v1.1 entry points, hidden
+## Quick-add hints (S10, v1.1)
 
-These belong to P2 (CLAUDE.md Scope) and come back with their features:
-
-| Design | Where | v1.1 feature |
-|---|---|---|
-| "Detected **tomorrow 9 AM** from your words" (S10) | Quick add | Quick-add hints (PRD §6.8) |
+- **The detected words stay in the field while you type** and are removed when the task is saved (PRD §6.8). The export shows the title without them, as it will be saved.
+- **Weekdays are full names only** ("friday"). Short forms such as "sun", "sat" and "mon" are ordinary words ("sun cream"), so they aren't read as days. A weekday means the next one, as the Saturday chip does.
+- **An `@` that names no project stays in the title,** so "@sam" or an email address isn't swallowed. A new `#tag` is created when the task is saved.
 
 ## Board (S20, v1.1)
 

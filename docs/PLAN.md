@@ -142,7 +142,7 @@ Work top to bottom. Each task is sized for one Claude Code session and follows t
   Refs: PRD §5.10, §6.7, FR-19
 - [x] **5.3 Backup screens.** S42 (status, automatic backup, folder, keep, Back up now, Restore with confirmation) and S43 (error box, Try again, Choose another folder). Nightly automatic backup while charging. Unhide the Settings row.
   Refs: S42, S43, FR-19
-- [ ] **5.4 Quick-add hints.** Parse dates, times, `!priority`, `#tag` and `@project` in the S10 title, show what was detected, and strip it on save. Unit tests for the parser.
+- [x] **5.4 Quick-add hints.** Parse dates, times, `!priority`, `#tag` and `@project` in the S10 title, show what was detected, and strip it on save. Unit tests for the parser.
   Refs: S10, PRD §6.8, FR-20
 - [ ] **5.5 Drag to reschedule.** Long-press a task in the S21 agenda and drop it on a day; the date changes and the time stays.
   Refs: S21, PRD §5.6, FR-20

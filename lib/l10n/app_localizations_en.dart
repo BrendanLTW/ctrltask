@@ -2348,4 +2348,16 @@ class AppLocalizationsEn extends AppLocalizations {
     });
     return '$_temp0, $time';
   }
+
+  @override
+  String get detectedPrefix => 'Detected';
+
+  @override
+  String get detectedSuffix => 'from your words';
+
+  @override
+  String get hintToday => 'today';
+
+  @override
+  String get hintTomorrow => 'tomorrow';
 }

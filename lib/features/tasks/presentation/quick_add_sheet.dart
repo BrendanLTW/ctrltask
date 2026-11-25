@@ -17,10 +17,13 @@ import 'package:ctrltask/core/widgets/priority_tag.dart';
 import 'package:ctrltask/core/widgets/project_dot.dart';
 import 'package:ctrltask/features/home/presentation/home_providers.dart';
 import 'package:ctrltask/features/notifications/domain/notification_plan.dart';
+import 'package:ctrltask/features/projects/domain/project.dart';
 import 'package:ctrltask/features/projects/domain/project_keys.dart';
 import 'package:ctrltask/features/projects/presentation/move_to_project_sheet.dart';
 import 'package:ctrltask/features/settings/domain/preferences_repository.dart';
+import 'package:ctrltask/features/tags/domain/tag_repository.dart';
 import 'package:ctrltask/features/tags/presentation/tags_sheet.dart';
+import 'package:ctrltask/features/tasks/domain/quick_add_hints.dart';
 import 'package:ctrltask/features/tasks/domain/task.dart';
 import 'package:ctrltask/features/tasks/domain/task_draft.dart';
 import 'package:ctrltask/features/tasks/domain/task_priority.dart';
@@ -78,7 +81,43 @@ class QuickAddSheet extends ConsumerStatefulWidget {
 
 class _QuickAddSheetState extends ConsumerState<QuickAddSheet> {
   late final _title = TextEditingController(text: widget.title)
-    ..addListener(() => setState(() {}));
+    ..addListener(() => setState(_readHints));
+
+  /// What the title says (PRD §6.8), read as it's typed.
+  QuickAddHints? _hints;
+
+  /// Applies what changed since the last read, so a chip tapped after a
+  /// hint stands until the hint changes. A hint that's gone puts its chip
+  /// back.
+  void _readHints() {
+    final now = ref.read(clockProvider)();
+    final hints = parseQuickAddHints(
+      _title.text,
+      today: DateTime(now.year, now.month, now.day),
+      projects: [
+        for (final p
+            in ref.read(activeProjectsProvider).value ?? const <Project>[])
+          (id: p.id, name: p.name),
+      ],
+    );
+    final before = _hints;
+    _hints = hints;
+    if (hints.date != before?.date || hints.minute != before?.minute) {
+      if (hints.date case final date?) {
+        _pickedDue = (date: date, minute: hints.minute);
+        _when = _options(
+          DateLabels(Localizations.localeOf(context).toLanguageTag()),
+        ).indexWhere((o) => o.date == date && o.minute == hints.minute);
+      } else {
+        _pickedDue = null;
+        _when = null;
+      }
+    }
+    if (hints.priority != before?.priority) _picked = hints.priority;
+    if (hints.projectId != before?.projectId) {
+      _projectId = hints.projectId ?? widget.projectId;
+    }
+  }
 
   /// The user's pick; until then the default priority, live, so it's
   /// right even if settings load after the sheet opens.
@@ -170,16 +209,17 @@ class _QuickAddSheetState extends ConsumerState<QuickAddSheet> {
     return options.indexWhere((o) => o.date == preset && o.minute == null);
   }
 
-  TaskDraft _draft(List<_When> options) {
+  /// [tagIds] adds the title's #tags (see [_hintedTagIds]).
+  TaskDraft _draft(List<_When> options, {Set<int> tagIds = const {}}) {
     final when = options[_when!];
     return TaskDraft(
-      title: _title.text.trim(),
+      title: _hints?.title ?? _title.text.trim(),
       dueDate: when.date,
       dueMinute: when.minute,
       priority: _priority(),
       projectId: _projectId,
       repeat: _repeat,
-      tagIds: _tagIds,
+      tagIds: {..._tagIds, ...tagIds},
       reminder: _reminderFor(when),
       column: widget.column,
     );
@@ -231,15 +271,36 @@ class _QuickAddSheetState extends ConsumerState<QuickAddSheet> {
     if (pick != null && mounted) setState(() => _projectId = pick.projectId);
   }
 
+  /// The ids of the title's #tags, any case. With [create], a name that's
+  /// new becomes a tag (on Send); without, it's left for New task.
+  Future<Set<int>> _hintedTagIds({required bool create}) async {
+    final names = _hints?.tags ?? const <String>[];
+    if (names.isEmpty) return const {};
+    final existing = {
+      for (final u in await ref.read(tagRepositoryProvider).watch().first)
+        u.tag.name.toLowerCase(): u.tag.id,
+    };
+    final repo = ref.read(tagRepositoryProvider);
+    return {
+      for (final name in names)
+        if (existing[name.toLowerCase()] case final id?)
+          id
+        else if (create)
+          (await repo.create(name)).id,
+    };
+  }
+
   Future<void> _send(List<_When> options) async {
     if (!_valid) return;
     setState(() => _sending = true);
-    await ref.read(taskRepositoryProvider).add(_draft(options));
+    final tagIds = await _hintedTagIds(create: true);
+    await ref.read(taskRepositoryProvider).add(_draft(options, tagIds: tagIds));
     if (mounted) Navigator.of(context).pop();
   }
 
-  void _more(List<_When> options) {
-    final draft = _draft(options);
+  Future<void> _more(List<_When> options) async {
+    final draft = _draft(options, tagIds: await _hintedTagIds(create: false));
+    if (!mounted) return;
     final router = GoRouter.of(context);
     Navigator.of(context).pop();
     unawaited(router.push(Routes.newTask, extra: draft));
@@ -329,6 +390,13 @@ class _QuickAddSheetState extends ConsumerState<QuickAddSheet> {
               ),
             ],
           ),
+          if (_hints case final hints? when hints.spans.isNotEmpty)
+            _Detected(
+              hints: hints,
+              labels: labels,
+              projects: projects,
+              today: ref.read(clockProvider)(),
+            ),
           label(l10n.whenLabel),
           chipRow([
             for (final (i, option) in options.indexed)
@@ -457,7 +525,7 @@ class _QuickAddSheetState extends ConsumerState<QuickAddSheet> {
               ),
               const SizedBox(width: 8),
               TextButton(
-                onPressed: () => _more(options),
+                onPressed: () => unawaited(_more(options)),
                 style: TextButton.styleFrom(
                   minimumSize: const Size(44, 44),
                   foregroundColor: colors.ink,
@@ -483,6 +551,72 @@ class _QuickAddSheetState extends ConsumerState<QuickAddSheet> {
             ],
           ),
         ],
+      ),
+    );
+  }
+}
+
+/// "Detected **tomorrow 9 AM · Urgent · #design** from your words" (S10).
+class _Detected extends StatelessWidget {
+  const new({
+    required this.hints,
+    required this.labels,
+    required this.projects,
+    required this.today,
+  });
+
+  final QuickAddHints hints;
+  final DateLabels labels;
+  final List<Project> projects;
+  final DateTime today;
+
+  @override
+  Widget build(BuildContext context) {
+    final colors = context.colors;
+    final text = context.text;
+    final l10n = context.l10n;
+    final day = hints.date == null
+        ? null
+        : DateLabels.relativeDay(hints.date!, today);
+    final parts = [
+      if (hints.date case final date?)
+        [
+          switch (day) {
+            RelativeDay.today => l10n.hintToday,
+            RelativeDay.tomorrow => l10n.hintTomorrow,
+            _ => labels.weekdayLong(date),
+          },
+          if (hints.minute case final m?) labels.timeShort(m),
+        ].join(' '),
+      if (hints.priority case final p?) priorityLabel(context, p),
+      for (final tag in hints.tags) '#$tag',
+      if (projects.where((p) => p.id == hints.projectId).firstOrNull
+          case final project?)
+        project.name,
+    ];
+    final plain = text.subline.copyWith(color: colors.muted);
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(
+        AppSpacing.textX - AppSpacing.screenX,
+        10,
+        0,
+        0,
+      ),
+      child: Text.rich(
+        TextSpan(
+          style: plain,
+          children: [
+            TextSpan(text: '${l10n.detectedPrefix} '),
+            TextSpan(
+              text: parts.join(' · '),
+              style: plain.copyWith(
+                color: colors.ink,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+            TextSpan(text: ' ${l10n.detectedSuffix}'),
+          ],
+        ),
       ),
     );
   }

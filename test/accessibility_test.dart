@@ -117,6 +117,12 @@ void main() {
         await seeded().pump(tester, brightness: brightness);
         await tester.tap(find.byTooltip('Quick add task'));
         await tester.pumpAndSettle();
+        // With the detected-hints line showing.
+        await tester.enterText(
+          find.byType(EditableText),
+          'Call dentist tomorrow 9am !urgent',
+        );
+        await tester.pumpAndSettle();
         await meetsGuidelines(tester);
         semantics.dispose();
       });
