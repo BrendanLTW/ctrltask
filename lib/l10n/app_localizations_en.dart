@@ -2143,12 +2143,12 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String sizeKb(String size) {
-    return '$size KB';
+    return '$size KB';
   }
 
   @override
   String sizeMb(String size) {
-    return '$size MB';
+    return '$size MB';
   }
 
   @override
@@ -2208,4 +2208,144 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get boardViewLink => 'Board view';
+
+  @override
+  String get backupTitle => 'Backup & restore';
+
+  @override
+  String backupLast(String when) {
+    return 'Last backup $when';
+  }
+
+  @override
+  String get backupNone => 'No backups yet';
+
+  @override
+  String backedUpAt(String when) {
+    return 'Backed up $when';
+  }
+
+  @override
+  String backupDetail(String tasks, String projects, String size) {
+    return '$tasks · $projects · $size';
+  }
+
+  @override
+  String get backupNoneBody =>
+      'Back up now to keep a copy of everything on this phone.';
+
+  @override
+  String get autoBackup => 'Automatic backup';
+
+  @override
+  String get autoBackupDetail => 'Every night while charging';
+
+  @override
+  String get saveBackupsTo => 'Save backups to';
+
+  @override
+  String get backupFolderName => 'Files · ctrlTask';
+
+  @override
+  String get backupFolderIos =>
+      'Backups are in the Files app, under On My iPhone › ctrlTask › backups. Copy them anywhere from there, such as iCloud Drive.';
+
+  @override
+  String get backupFolderAndroid =>
+      'Backups are kept inside ctrlTask on this phone. To keep a copy somewhere else, use Export data and choose JSON.';
+
+  @override
+  String get keepLabel => 'Keep';
+
+  @override
+  String keepValue(int count) {
+    return 'Last $count backups';
+  }
+
+  @override
+  String get backupNote =>
+      'Backups stay on your phone or in the folder you choose. ctrlTask has no account and no server.';
+
+  @override
+  String get backUpNow => 'Back up now';
+
+  @override
+  String get restoreFromBackup => 'Restore from a backup';
+
+  @override
+  String get tryAgain => 'Try again';
+
+  @override
+  String get chooseAnotherFolder => 'Choose another folder';
+
+  @override
+  String get backupFailedNightly => 'Last night\'s backup failed';
+
+  @override
+  String get backupFailedManual => 'The last backup failed';
+
+  @override
+  String backupNoSpace(String size) {
+    return 'Not enough space in Files. Free up $size or choose another folder.';
+  }
+
+  @override
+  String get backupOtherError => 'The backup couldn\'t be saved.';
+
+  @override
+  String lastGoodBackup(String date) {
+    return 'Last good backup: $date.';
+  }
+
+  @override
+  String get chooseFile => 'Choose a file…';
+
+  @override
+  String get restoreTitle => 'Restore this backup?';
+
+  @override
+  String restoreBody(String date) {
+    return 'This replaces everything on this phone with the backup from $date. It can\'t be undone.';
+  }
+
+  @override
+  String get restoreConfirm => 'Restore';
+
+  @override
+  String restoreDone(String date) {
+    return 'Restored the backup from $date';
+  }
+
+  @override
+  String get restoreFailedTitle => 'Can\'t restore this file';
+
+  @override
+  String get restoreDamaged => 'The file is damaged or incomplete.';
+
+  @override
+  String get restoreNotBackup => 'This isn\'t a ctrlTask backup.';
+
+  @override
+  String get restoreNewer =>
+      'This backup is from a newer version of ctrlTask. Update the app to restore it.';
+
+  @override
+  String get restoreTooOld =>
+      'This backup is from a version of ctrlTask too old to restore.';
+
+  @override
+  String get backupsInFolder => 'BACKUPS';
+
+  @override
+  String get ok => 'OK';
+
+  @override
+  String backupWhen(String day, String date, String time) {
+    String _temp0 = intl.Intl.selectLogic(day, {
+      'today': 'today',
+      'yesterday': 'yesterday',
+      'other': '$date',
+    });
+    return '$_temp0, $time';
+  }
 }

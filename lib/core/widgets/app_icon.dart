@@ -24,6 +24,7 @@ enum AppIcon {
   download('download'),
   clock('clock'),
   close('x'),
+  cloudUpload('cloud-upload'),
 
   /// ••• (S27).
   ellipsis('ellipsis'),

@@ -13,7 +13,6 @@ These belong to P2 (CLAUDE.md Scope) and come back with their features:
 
 | Design | Where | v1.1 feature |
 |---|---|---|
-| **Backup & restore** row (S35), S42, S43 | Settings | Backup and restore |
 | "Detected **tomorrow 9 AM** from your words" (S10) | Quick add | Quick-add hints (PRD §6.8) |
 
 ## Board (S20, v1.1)
@@ -22,6 +21,13 @@ These belong to P2 (CLAUDE.md Scope) and come back with their features:
 - **No filter button on the board.** The export shows it, but S20's spec has no board filters: the project chip chooses what's shown, and the button stays on the list.
 - **The Board segment's icon** is Lucide's `kanban` (three bars). The export draws outlined columns, which aren't in the bundled set.
 - **Dragging is one way to move a card.** Screen readers get "Move to To do / In progress / Done" actions on each card. Cards drop at the end of a column; there's no reordering within a column.
+
+## Backup & restore (S42, S43, v1.1)
+
+- **Backups go to the app's own folder.** On iOS it shows in Files as On My iPhone › ctrlTask › backups, so the design's "Files · ctrlTask" is accurate there. Writing to a folder of your choice needs native code on both platforms (security-scoped bookmarks on iOS, the Storage Access Framework on Android), so v1.1 doesn't. "Save backups to" and S43's **Choose another folder** explain where backups are instead. On Android they stay inside the app; Export (JSON) takes a copy off the phone.
+- **Restore** offers the backups in the folder and **Choose a file…** for any backup elsewhere, such as iCloud Drive. It asks before replacing everything.
+- **"Every night while charging"** runs when Android's WorkManager or iOS's BGTaskScheduler allows. iOS decides when, so on iOS it's a best effort.
+- **The status box's text is `ink` and `chipText`** on the tinted box, as in the designs. A size never breaks between number and unit.
 
 ## Following the spec over one export
 

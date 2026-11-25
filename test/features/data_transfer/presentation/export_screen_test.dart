@@ -109,7 +109,7 @@ void main() {
     await app.pump(tester, location: Routes.export);
     // Archived projects are off; CSV holds tasks only.
     expect(find.text('3 tasks · 1 project'), findsOneWidget);
-    expect(find.text('Export CSV · 1 KB'), findsOneWidget);
+    expect(find.text('Export CSV · 1\u00a0KB'), findsOneWidget);
     await export(tester);
     final file = app.sharer.shared.single;
     expect(file.fileName, 'ctrltask-2026-11-17.csv');

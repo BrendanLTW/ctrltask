@@ -53,3 +53,45 @@ final class BackupStoreProvider
 }
 
 String _$backupStoreHash() => r'f6c41f47a0771f8208f20118bcae641923c64c40';
+
+@ProviderFor(backupScheduler)
+final backupSchedulerProvider = BackupSchedulerProvider._();
+
+final class BackupSchedulerProvider
+    extends
+        $FunctionalProvider<BackupScheduler, BackupScheduler, BackupScheduler>
+    with $Provider<BackupScheduler> {
+  BackupSchedulerProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'backupSchedulerProvider',
+        isAutoDispose: false,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$backupSchedulerHash();
+
+  @$internal
+  @override
+  $ProviderElement<BackupScheduler> $createElement($ProviderPointer pointer) =>
+      $ProviderElement(pointer);
+
+  @override
+  BackupScheduler create(Ref ref) {
+    return backupScheduler(ref);
+  }
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(BackupScheduler value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<BackupScheduler>(value),
+    );
+  }
+}
+
+String _$backupSchedulerHash() => r'7042f2c6842bdcc06c7d9ee4282551816d0af5d5';

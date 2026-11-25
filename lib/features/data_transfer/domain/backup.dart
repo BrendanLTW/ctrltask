@@ -8,14 +8,39 @@ part 'backup.g.dart';
 /// A backup on disk (S42): where it is, when it was made and its size.
 typedef BackupFile = ({String path, DateTime at, int bytes});
 
+/// The newest backup with what's in it, for S42's status box.
+typedef BackupSummary = ({BackupFile file, int tasks, int projects});
+
+enum BackupFailureReason {
+  /// The folder's storage is full.
+  noSpace,
+  other,
+}
+
+/// The last backup that failed (S43), kept until one succeeds.
+/// `neededBytes` is the backup's size when space ran out.
+typedef BackupFailure = ({
+  DateTime at,
+  BackupFailureReason reason,
+  int? neededBytes,
+  bool automatic,
+});
+
 /// Backups (PRD §6.7, v1.1): every table as JSON, like the full export.
 abstract interface class BackupStore {
   /// Writes a backup of everything now, then deletes all but the newest
-  /// [keep].
-  Future<BackupFile> backUp({required int keep});
+  /// [keep]. A failure is recorded for [lastFailure] and rethrown; a
+  /// success clears it. [automatic] marks the nightly one.
+  Future<BackupFile> backUp({required int keep, bool automatic = false});
 
   /// The backups in the folder, newest first.
   Future<List<BackupFile>> list();
+
+  /// The newest backup and its counts, or null with none.
+  Future<BackupSummary?> latest();
+
+  /// The last failure since the last good backup.
+  Future<BackupFailure?> lastFailure();
 
   /// Checks the whole of [file] first, then replaces everything on the phone
   /// with it in one transaction. Throws [BackupException], leaving the data
@@ -138,3 +163,13 @@ Map<String, TableRows> parseBackup(
   }
   throw const BackupException(BackupProblem.notBackup);
 }
+
+/// Runs [BackupStore.backUp] nightly while charging (S42's Automatic
+/// backup). Overridden in `main.dart` with the workmanager one.
+abstract interface class BackupScheduler {
+  Future<void> setNightly({required bool on});
+}
+
+@Riverpod(keepAlive: true)
+BackupScheduler backupScheduler(Ref ref) =>
+    throw UnimplementedError('Override backupSchedulerProvider');

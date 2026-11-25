@@ -3271,13 +3271,13 @@ abstract class AppLocalizations {
   /// No description provided for @sizeKb.
   ///
   /// In en, this message translates to:
-  /// **'{size} KB'**
+  /// **'{size} KB'**
   String sizeKb(String size);
 
   /// No description provided for @sizeMb.
   ///
   /// In en, this message translates to:
-  /// **'{size} MB'**
+  /// **'{size} MB'**
   String sizeMb(String size);
 
   /// No description provided for @exportSubtitle.
@@ -3357,6 +3357,228 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Board view'**
   String get boardViewLink;
+
+  /// No description provided for @backupTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Backup & restore'**
+  String get backupTitle;
+
+  /// No description provided for @backupLast.
+  ///
+  /// In en, this message translates to:
+  /// **'Last backup {when}'**
+  String backupLast(String when);
+
+  /// No description provided for @backupNone.
+  ///
+  /// In en, this message translates to:
+  /// **'No backups yet'**
+  String get backupNone;
+
+  /// No description provided for @backedUpAt.
+  ///
+  /// In en, this message translates to:
+  /// **'Backed up {when}'**
+  String backedUpAt(String when);
+
+  /// No description provided for @backupDetail.
+  ///
+  /// In en, this message translates to:
+  /// **'{tasks} · {projects} · {size}'**
+  String backupDetail(String tasks, String projects, String size);
+
+  /// No description provided for @backupNoneBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Back up now to keep a copy of everything on this phone.'**
+  String get backupNoneBody;
+
+  /// No description provided for @autoBackup.
+  ///
+  /// In en, this message translates to:
+  /// **'Automatic backup'**
+  String get autoBackup;
+
+  /// No description provided for @autoBackupDetail.
+  ///
+  /// In en, this message translates to:
+  /// **'Every night while charging'**
+  String get autoBackupDetail;
+
+  /// No description provided for @saveBackupsTo.
+  ///
+  /// In en, this message translates to:
+  /// **'Save backups to'**
+  String get saveBackupsTo;
+
+  /// No description provided for @backupFolderName.
+  ///
+  /// In en, this message translates to:
+  /// **'Files · ctrlTask'**
+  String get backupFolderName;
+
+  /// No description provided for @backupFolderIos.
+  ///
+  /// In en, this message translates to:
+  /// **'Backups are in the Files app, under On My iPhone › ctrlTask › backups. Copy them anywhere from there, such as iCloud Drive.'**
+  String get backupFolderIos;
+
+  /// No description provided for @backupFolderAndroid.
+  ///
+  /// In en, this message translates to:
+  /// **'Backups are kept inside ctrlTask on this phone. To keep a copy somewhere else, use Export data and choose JSON.'**
+  String get backupFolderAndroid;
+
+  /// No description provided for @keepLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Keep'**
+  String get keepLabel;
+
+  /// No description provided for @keepValue.
+  ///
+  /// In en, this message translates to:
+  /// **'Last {count} backups'**
+  String keepValue(int count);
+
+  /// No description provided for @backupNote.
+  ///
+  /// In en, this message translates to:
+  /// **'Backups stay on your phone or in the folder you choose. ctrlTask has no account and no server.'**
+  String get backupNote;
+
+  /// No description provided for @backUpNow.
+  ///
+  /// In en, this message translates to:
+  /// **'Back up now'**
+  String get backUpNow;
+
+  /// No description provided for @restoreFromBackup.
+  ///
+  /// In en, this message translates to:
+  /// **'Restore from a backup'**
+  String get restoreFromBackup;
+
+  /// No description provided for @tryAgain.
+  ///
+  /// In en, this message translates to:
+  /// **'Try again'**
+  String get tryAgain;
+
+  /// No description provided for @chooseAnotherFolder.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose another folder'**
+  String get chooseAnotherFolder;
+
+  /// No description provided for @backupFailedNightly.
+  ///
+  /// In en, this message translates to:
+  /// **'Last night\'s backup failed'**
+  String get backupFailedNightly;
+
+  /// No description provided for @backupFailedManual.
+  ///
+  /// In en, this message translates to:
+  /// **'The last backup failed'**
+  String get backupFailedManual;
+
+  /// No description provided for @backupNoSpace.
+  ///
+  /// In en, this message translates to:
+  /// **'Not enough space in Files. Free up {size} or choose another folder.'**
+  String backupNoSpace(String size);
+
+  /// No description provided for @backupOtherError.
+  ///
+  /// In en, this message translates to:
+  /// **'The backup couldn\'t be saved.'**
+  String get backupOtherError;
+
+  /// No description provided for @lastGoodBackup.
+  ///
+  /// In en, this message translates to:
+  /// **'Last good backup: {date}.'**
+  String lastGoodBackup(String date);
+
+  /// No description provided for @chooseFile.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose a file…'**
+  String get chooseFile;
+
+  /// No description provided for @restoreTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Restore this backup?'**
+  String get restoreTitle;
+
+  /// No description provided for @restoreBody.
+  ///
+  /// In en, this message translates to:
+  /// **'This replaces everything on this phone with the backup from {date}. It can\'t be undone.'**
+  String restoreBody(String date);
+
+  /// No description provided for @restoreConfirm.
+  ///
+  /// In en, this message translates to:
+  /// **'Restore'**
+  String get restoreConfirm;
+
+  /// No description provided for @restoreDone.
+  ///
+  /// In en, this message translates to:
+  /// **'Restored the backup from {date}'**
+  String restoreDone(String date);
+
+  /// No description provided for @restoreFailedTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Can\'t restore this file'**
+  String get restoreFailedTitle;
+
+  /// No description provided for @restoreDamaged.
+  ///
+  /// In en, this message translates to:
+  /// **'The file is damaged or incomplete.'**
+  String get restoreDamaged;
+
+  /// No description provided for @restoreNotBackup.
+  ///
+  /// In en, this message translates to:
+  /// **'This isn\'t a ctrlTask backup.'**
+  String get restoreNotBackup;
+
+  /// No description provided for @restoreNewer.
+  ///
+  /// In en, this message translates to:
+  /// **'This backup is from a newer version of ctrlTask. Update the app to restore it.'**
+  String get restoreNewer;
+
+  /// No description provided for @restoreTooOld.
+  ///
+  /// In en, this message translates to:
+  /// **'This backup is from a version of ctrlTask too old to restore.'**
+  String get restoreTooOld;
+
+  /// No description provided for @backupsInFolder.
+  ///
+  /// In en, this message translates to:
+  /// **'BACKUPS'**
+  String get backupsInFolder;
+
+  /// No description provided for @ok.
+  ///
+  /// In en, this message translates to:
+  /// **'OK'**
+  String get ok;
+
+  /// No description provided for @backupWhen.
+  ///
+  /// In en, this message translates to:
+  /// **'{day, select, today{today} yesterday{yesterday} other{{date}}}, {time}'**
+  String backupWhen(String day, String date, String time);
 }
 
 class _AppLocalizationsDelegate

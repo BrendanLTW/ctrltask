@@ -15,6 +15,8 @@ import 'package:ctrltask/core/widgets/name_avatar.dart';
 import 'package:ctrltask/core/widgets/priority_tag.dart';
 import 'package:ctrltask/core/widgets/section_header.dart';
 import 'package:ctrltask/core/widgets/sub_screen_bar.dart';
+import 'package:ctrltask/features/data_transfer/presentation/backup_providers.dart';
+import 'package:ctrltask/features/data_transfer/presentation/backup_screen.dart';
 import 'package:ctrltask/features/data_transfer/presentation/erase_all_data.dart';
 import 'package:ctrltask/features/focus/presentation/timer_settings_sheet.dart';
 import 'package:ctrltask/features/home/presentation/home_providers.dart';
@@ -33,7 +35,6 @@ import 'package:go_router/go_router.dart';
 
 /// S35 Settings (PRD §5.10): the name card, the insights banner, and the
 /// rows whose screens exist so far.
-// shortcut: Backup & restore (S42) is v1.1, so its row is hidden.
 class SettingsScreen extends ConsumerWidget {
   const new({super.key});
 
@@ -47,6 +48,7 @@ class SettingsScreen extends ConsumerWidget {
     final done = ref.watch(doneTasksProvider).value ?? const [];
     final archived = ref.watch(archivedProjectsProvider).value ?? const [];
     final tags = ref.watch(tagUsagesProvider).value ?? const [];
+    final backup = ref.watch(backupSummaryProvider).value;
     final now = ref.watch(clockProvider)();
     final today = DateTime(now.year, now.month, now.day);
     void open(String route) => unawaited(context.push(route));
@@ -264,6 +266,21 @@ class SettingsScreen extends ConsumerWidget {
                           size: IconTileSize.medium,
                         ),
                         onTap: () => open(Routes.export),
+                      ),
+                      ListGroupRow(
+                        title: l10n.backupTitle,
+                        subtitle: switch (backup) {
+                          final b? => l10n.backupLast(
+                            backupWhen(context, b.file.at, today),
+                          ),
+                          null => l10n.backupNone,
+                        },
+                        leading: const IconTile(
+                          icon: AppIcon.cloudUpload,
+                          color: ProjectColorKey.blue,
+                          size: IconTileSize.medium,
+                        ),
+                        onTap: () => open(Routes.backup),
                       ),
                     ],
                   ),

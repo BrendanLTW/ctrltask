@@ -57,6 +57,36 @@ void main() {
     expect([for (final b in await store.list()) b.at.day], [13, 12, 11]);
   });
 
+  test('latest counts what the newest backup holds', () async {
+    expect(await store.latest(), isNull);
+    await store.backUp(keep: 7);
+    final latest = (await store.latest())!;
+    final data = await tables();
+    expect(latest.file.at, now);
+    expect(latest.tasks, (data['tasks']! as List).length);
+    expect(latest.projects, (data['projects']! as List).length);
+  });
+
+  test('a failure is kept until the next good backup', () async {
+    expect(await store.lastFailure(), isNull);
+    // The backup's name is taken by a folder, so the rename fails.
+    Directory('${folder.path}/ctrltask-backup-2026-11-17-0214.json')
+        .createSync();
+    await expectLater(
+      store.backUp(keep: 7, automatic: true),
+      throwsA(isA<FileSystemException>()),
+    );
+    final failure = (await store.lastFailure())!;
+    expect(failure.at, now);
+    expect(failure.reason, BackupFailureReason.other);
+    expect(failure.automatic, isTrue);
+    expect(folder.listSync().where((f) => f.path.endsWith('.tmp')), isEmpty);
+
+    now = DateTime(2026, 11, 17, 3);
+    await store.backUp(keep: 7);
+    expect(await store.lastFailure(), isNull);
+  });
+
   test('a damaged file is refused and changes nothing', () async {
     final before = await tables();
     final backup = await store.backUp(keep: 7);

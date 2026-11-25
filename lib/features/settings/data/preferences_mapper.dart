@@ -27,6 +27,8 @@ abstract final class PreferenceKeys {
   static const quietStartMinute = 'quietStartMinute';
   static const quietEndMinute = 'quietEndMinute';
   static const notificationsAsked = 'notificationsAsked';
+  static const autoBackup = 'autoBackup';
+  static const backupKeep = 'backupKeep';
 }
 
 /// Builds [Preferences] from the table's key-value pairs. A missing,
@@ -87,6 +89,11 @@ Preferences preferencesFromValues(Map<String, String> values) {
     quietEndMinute: minute(PreferenceKeys.quietEndMinute, d.quietEndMinute),
     notificationsAsked:
         flag(PreferenceKeys.notificationsAsked) ?? d.notificationsAsked,
+    autoBackup: flag(PreferenceKeys.autoBackup) ?? d.autoBackup,
+    backupKeep: switch (int.tryParse(values[PreferenceKeys.backupKeep] ?? '')) {
+      final n? when backupKeepChoices.contains(n) => n,
+      _ => d.backupKeep,
+    },
   );
 }
 
@@ -114,4 +121,6 @@ Map<String, String> preferencesToValues(Preferences prefs) => {
   PreferenceKeys.quietStartMinute: '${prefs.quietStartMinute}',
   PreferenceKeys.quietEndMinute: '${prefs.quietEndMinute}',
   PreferenceKeys.notificationsAsked: '${prefs.notificationsAsked}',
+  PreferenceKeys.autoBackup: '${prefs.autoBackup}',
+  PreferenceKeys.backupKeep: '${prefs.backupKeep}',
 };

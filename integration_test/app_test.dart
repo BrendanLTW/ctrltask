@@ -1,6 +1,7 @@
 import 'package:ctrltask/core/dates/clock.dart';
 import 'package:ctrltask/core/db/app_database.dart';
 import 'package:ctrltask/core/widgets/app_shell_tab.dart';
+import 'package:ctrltask/features/data_transfer/domain/backup.dart';
 import 'package:ctrltask/features/notifications/domain/notification_scheduler.dart';
 import 'package:ctrltask/main.dart';
 import 'package:drift/native.dart';
@@ -31,6 +32,7 @@ void main() {
           appDatabaseProvider.overrideWithValue(db),
           clockProvider.overrideWithValue(() => now),
           notificationSchedulerProvider.overrideWithValue(_NoNotifications()),
+          backupSchedulerProvider.overrideWithValue(_NoNightlyBackup()),
         ],
         child: const MainApp(),
       ),
@@ -122,6 +124,12 @@ void main() {
     );
     semantics.dispose();
   });
+}
+
+/// No background work booked on the simulator.
+class _NoNightlyBackup implements BackupScheduler {
+  @override
+  Future<void> setNightly({required bool on}) async {}
 }
 
 /// No permission prompt and nothing scheduled on the simulator.

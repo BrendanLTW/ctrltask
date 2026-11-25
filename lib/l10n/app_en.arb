@@ -1630,7 +1630,7 @@
       }
     }
   },
-  "sizeKb": "{size} KB",
+  "sizeKb": "{size} KB",
   "@sizeKb": {
     "placeholders": {
       "size": {
@@ -1638,7 +1638,7 @@
       }
     }
   },
-  "sizeMb": "{size} MB",
+  "sizeMb": "{size} MB",
   "@sizeMb": {
     "placeholders": {
       "size": {
@@ -1692,5 +1692,117 @@
       }
     }
   },
-  "boardViewLink": "Board view"
+  "boardViewLink": "Board view",
+  "backupTitle": "Backup & restore",
+  "backupLast": "Last backup {when}",
+  "@backupLast": {
+    "placeholders": {
+      "when": {
+        "type": "String"
+      }
+    }
+  },
+  "backupNone": "No backups yet",
+  "backedUpAt": "Backed up {when}",
+  "@backedUpAt": {
+    "placeholders": {
+      "when": {
+        "type": "String"
+      }
+    }
+  },
+  "backupDetail": "{tasks} · {projects} · {size}",
+  "@backupDetail": {
+    "placeholders": {
+      "tasks": {
+        "type": "String"
+      },
+      "projects": {
+        "type": "String"
+      },
+      "size": {
+        "type": "String"
+      }
+    }
+  },
+  "backupNoneBody": "Back up now to keep a copy of everything on this phone.",
+  "autoBackup": "Automatic backup",
+  "autoBackupDetail": "Every night while charging",
+  "saveBackupsTo": "Save backups to",
+  "backupFolderName": "Files · ctrlTask",
+  "backupFolderIos": "Backups are in the Files app, under On My iPhone › ctrlTask › backups. Copy them anywhere from there, such as iCloud Drive.",
+  "backupFolderAndroid": "Backups are kept inside ctrlTask on this phone. To keep a copy somewhere else, use Export data and choose JSON.",
+  "keepLabel": "Keep",
+  "keepValue": "Last {count} backups",
+  "@keepValue": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "backupNote": "Backups stay on your phone or in the folder you choose. ctrlTask has no account and no server.",
+  "backUpNow": "Back up now",
+  "restoreFromBackup": "Restore from a backup",
+  "tryAgain": "Try again",
+  "chooseAnotherFolder": "Choose another folder",
+  "backupFailedNightly": "Last night's backup failed",
+  "backupFailedManual": "The last backup failed",
+  "backupNoSpace": "Not enough space in Files. Free up {size} or choose another folder.",
+  "@backupNoSpace": {
+    "placeholders": {
+      "size": {
+        "type": "String"
+      }
+    }
+  },
+  "backupOtherError": "The backup couldn't be saved.",
+  "lastGoodBackup": "Last good backup: {date}.",
+  "@lastGoodBackup": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "chooseFile": "Choose a file…",
+  "restoreTitle": "Restore this backup?",
+  "restoreBody": "This replaces everything on this phone with the backup from {date}. It can't be undone.",
+  "@restoreBody": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "restoreConfirm": "Restore",
+  "restoreDone": "Restored the backup from {date}",
+  "@restoreDone": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "restoreFailedTitle": "Can't restore this file",
+  "restoreDamaged": "The file is damaged or incomplete.",
+  "restoreNotBackup": "This isn't a ctrlTask backup.",
+  "restoreNewer": "This backup is from a newer version of ctrlTask. Update the app to restore it.",
+  "restoreTooOld": "This backup is from a version of ctrlTask too old to restore.",
+  "backupsInFolder": "BACKUPS",
+  "ok": "OK",
+  "backupWhen": "{day, select, today{today} yesterday{yesterday} other{{date}}}, {time}",
+  "@backupWhen": {
+    "placeholders": {
+      "day": {
+        "type": "String"
+      },
+      "date": {
+        "type": "String"
+      },
+      "time": {
+        "type": "String"
+      }
+    }
+  }
 }

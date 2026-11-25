@@ -19,9 +19,9 @@ import 'package:ctrltask/features/settings/domain/preferences_repository.dart';
 import 'package:ctrltask/features/tasks/presentation/due_date_picker.dart';
 import 'package:ctrltask/features/tasks/presentation/repeat_sheet.dart';
 import 'package:ctrltask/l10n/l10n.dart';
+import 'package:ctrltask/l10n/size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:intl/intl.dart';
 
 enum ExportRange { allTime, thisYear, custom }
 
@@ -110,18 +110,6 @@ class _ExportScreenState extends ConsumerState<ExportScreen> {
         mimeType: _format == ExportFormat.csv ? 'text/csv' : 'application/json',
         contents: contents,
       );
-
-  String _size(int bytes) {
-    final locale = Localizations.localeOf(context).toLanguageTag();
-    final l10n = context.l10n;
-    if (bytes >= 1024 * 1024) {
-      return l10n.sizeMb(
-        NumberFormat('0.#', locale).format(bytes / (1024 * 1024)),
-      );
-    }
-    // Rounded up, so a small file never reads "0 KB".
-    return l10n.sizeKb('${(bytes / 1024).ceil()}');
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -246,7 +234,10 @@ class _ExportScreenState extends ConsumerState<ExportScreen> {
                       csv ? 'CSV' : 'JSON',
                       contents == null
                           ? '…'
-                          : _size(utf8.encode(contents).length),
+                          : l10n.fileSize(
+                              utf8.encode(contents).length,
+                              Localizations.localeOf(context).toLanguageTag(),
+                            ),
                     ),
                     onPressed: contents == null
                         ? null

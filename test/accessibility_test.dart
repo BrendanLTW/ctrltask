@@ -48,6 +48,7 @@ void main() {
     Routes.weekStart,
     Routes.defaultPriority,
     Routes.editName,
+    Routes.backup,
   ];
   final onboarding = [
     Routes.onboarding,

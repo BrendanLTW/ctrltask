@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:ctrltask/core/dates/clock.dart';
@@ -41,46 +42,126 @@ class DriftBackupStore implements BackupStore {
 
   static String _name(String path) => path.split(Platform.pathSeparator).last;
 
+  /// Where the last failure is kept, beside the backups so a restore or
+  /// an erase can't touch it.
+  static const _statusFile = '.backup-status.json';
+
+  /// ENOSPC: no space left on the device.
+  static const _noSpace = 28;
+
   @override
-  Future<BackupFile> backUp({required int keep}) async {
+  Future<BackupFile> backUp({required int keep, bool automatic = false}) async {
     final now = _clock();
-    final snapshot = await DriftExportSource(_db).read();
-    final json = exportJson(
-      snapshot,
-      selectForExport(snapshot, (
-        from: null,
-        to: null,
-        completed: true,
-        archived: true,
-        focus: true,
-      )),
-      exportedAt: now,
-    );
     final folder = await _folder();
-    await folder.create(recursive: true);
-    final file = File(_inFolder(folder, backupFileName(now)));
-    // Written aside, then renamed into place: a crash or a full disk never
-    // leaves a half backup under a backup's name.
-    final temp = File('${file.path}.tmp');
+    final status = File(_inFolder(folder, _statusFile));
+    String? json;
     try {
-      await temp.writeAsString(json, flush: true);
-      await temp.rename(file.path);
-    } catch (_) {
-      if (temp.existsSync()) await temp.delete();
+      final snapshot = await DriftExportSource(_db).read();
+      json = exportJson(
+        snapshot,
+        selectForExport(snapshot, (
+          from: null,
+          to: null,
+          completed: true,
+          archived: true,
+          focus: true,
+        )),
+        exportedAt: now,
+      );
+      await folder.create(recursive: true);
+      final file = File(_inFolder(folder, backupFileName(now)));
+      // Written aside, then renamed into place: a crash or a full disk
+      // never leaves a half backup under a backup's name.
+      final temp = File('${file.path}.tmp');
+      try {
+        await temp.writeAsString(json, flush: true);
+        await temp.rename(file.path);
+      } catch (_) {
+        if (temp.existsSync()) await temp.delete();
+        rethrow;
+      }
+      final names = [
+        await for (final f in folder.list())
+          if (f is File) _name(f.path),
+      ];
+      for (final old in backupsToDelete(names, keep: keep)) {
+        await File(_inFolder(folder, old)).delete();
+      }
+      if (status.existsSync()) await status.delete();
+      return (
+        path: file.path,
+        at: backupTime(_name(file.path))!,
+        bytes: await file.length(),
+      );
+    } on Object catch (e) {
+      final noSpace =
+          e is FileSystemException && e.osError?.errorCode == _noSpace;
+      try {
+        await status.writeAsString(
+          jsonEncode({
+            'at': now.toUtc().toIso8601String(),
+            'reason':
+                (noSpace
+                        ? BackupFailureReason.noSpace
+                        : BackupFailureReason.other)
+                    .name,
+            'neededBytes': noSpace && json != null
+                ? utf8.encode(json).length
+                : null,
+            'automatic': automatic,
+          }),
+        );
+      } on Object {
+        // A full disk may refuse this too; the error still reaches the caller.
+      }
       rethrow;
     }
-    final names = [
-      await for (final f in folder.list())
-        if (f is File) _name(f.path),
-    ];
-    for (final old in backupsToDelete(names, keep: keep)) {
-      await File(_inFolder(folder, old)).delete();
+  }
+
+  @override
+  Future<BackupFailure?> lastFailure() async {
+    final status = File(_inFolder(await _folder(), _statusFile));
+    if (!status.existsSync()) return null;
+    try {
+      final json = jsonDecode(await status.readAsString());
+      if (json case {
+        'at': final String at,
+        'reason': final String reason,
+        'automatic': final bool automatic,
+      }) {
+        return (
+          at: DateTime.parse(at).toLocal(),
+          reason:
+              BackupFailureReason.values.asNameMap()[reason] ??
+              BackupFailureReason.other,
+          neededBytes: json['neededBytes'] as int?,
+          automatic: automatic,
+        );
+      }
+    } on FormatException {
+      // An unreadable status is no status.
     }
-    return (
-      path: file.path,
-      at: backupTime(_name(file.path))!,
-      bytes: await file.length(),
-    );
+    return null;
+  }
+
+  @override
+  Future<BackupSummary?> latest() async {
+    final newest = (await list()).firstOrNull;
+    if (newest == null) return null;
+    try {
+      final json = jsonDecode(await File(newest.path).readAsString());
+      if (json case {
+        'tables': {
+          'tasks': final List<Object?> tasks,
+          'projects': final List<Object?> projects,
+        },
+      }) {
+        return (file: newest, tasks: tasks.length, projects: projects.length);
+      }
+    } on FormatException {
+      // Counted as nothing; restore says why it can't be read.
+    }
+    return (file: newest, tasks: 0, projects: 0);
   }
 
   @override

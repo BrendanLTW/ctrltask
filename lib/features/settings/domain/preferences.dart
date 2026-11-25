@@ -42,5 +42,13 @@ abstract class Preferences with _$Preferences {
     /// Whether ctrlTask has asked the phone for permission (S05, S39); the
     /// OS can't tell "never asked" from "denied" on iOS.
     @Default(false) bool notificationsAsked,
+
+    // Backups (S42, v1.1). Their status lives with the backups, not here,
+    // so a restore can't bring back an old one.
+    @Default(true) bool autoBackup,
+    @Default(7) int backupKeep,
   }) = _Preferences;
 }
+
+/// S42's Keep choices.
+const backupKeepChoices = [3, 7, 14, 30];

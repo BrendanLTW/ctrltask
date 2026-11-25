@@ -1,6 +1,7 @@
 import 'package:ctrltask/core/widgets/app_shell.dart';
 import 'package:ctrltask/features/calendar/presentation/calendar_providers.dart';
 import 'package:ctrltask/features/calendar/presentation/calendar_week_screen.dart';
+import 'package:ctrltask/features/data_transfer/presentation/backup_screen.dart';
 import 'package:ctrltask/features/data_transfer/presentation/export_screen.dart';
 import 'package:ctrltask/features/focus/presentation/focus_screen.dart';
 import 'package:ctrltask/features/home/presentation/home_screen.dart';
@@ -51,6 +52,7 @@ abstract final class Routes {
   static const tags = '/settings/tags';
   static const notifications = '/settings/notifications';
   static const export = '/settings/export';
+  static const backup = '/settings/backup';
   static const theme = '/settings/theme';
   static const weekStart = '/settings/week-start';
   static const defaultPriority = '/settings/priority';
@@ -178,6 +180,10 @@ GoRouter appRouter(Ref ref) {
       GoRoute(
         path: Routes.defaultPriority,
         builder: (context, state) => const DefaultPriorityScreen(),
+      ),
+      GoRoute(
+        path: Routes.backup,
+        builder: (context, state) => const BackupScreen(),
       ),
       GoRoute(
         path: Routes.export,

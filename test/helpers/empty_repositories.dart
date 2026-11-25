@@ -1,8 +1,10 @@
 import 'dart:async';
 
+import 'package:ctrltask/features/data_transfer/domain/backup.dart';
 import 'package:ctrltask/features/data_transfer/domain/data_eraser.dart';
 import 'package:ctrltask/features/data_transfer/domain/export_data.dart';
 import 'package:ctrltask/features/data_transfer/domain/file_sharer.dart';
+import 'package:ctrltask/features/data_transfer/presentation/backup_providers.dart';
 import 'package:ctrltask/features/focus/domain/focus_session_repository.dart';
 import 'package:ctrltask/features/focus/domain/focus_timer.dart';
 import 'package:ctrltask/features/focus/domain/focus_timer_repository.dart';
@@ -121,6 +123,65 @@ class FakeDataEraser implements DataEraser {
   }
 }
 
+/// Backups in memory: what's there, the last failure, what was restored.
+class FakeBackupStore implements BackupStore {
+  final backups = <BackupSummary>[];
+  BackupFailure? failure;
+  final restored = <BackupFile>[];
+
+  /// Set to make the next backUp or restore fail.
+  Exception? fail;
+  DateTime now = DateTime(2026, 11, 17, 2, 14);
+
+  @override
+  Future<BackupFile> backUp({required int keep, bool automatic = false}) async {
+    if (fail case final error?) {
+      fail = null;
+      failure = (
+        at: now,
+        reason: BackupFailureReason.other,
+        neededBytes: null,
+        automatic: automatic,
+      );
+      throw error;
+    }
+    final file = (
+      path: '/backups/${backupFileName(now)}',
+      at: now,
+      bytes: 1258291,
+    );
+    backups.insert(0, (file: file, tasks: 342, projects: 8));
+    failure = null;
+    return file;
+  }
+
+  @override
+  Future<List<BackupFile>> list() async => [for (final b in backups) b.file];
+
+  @override
+  Future<BackupSummary?> latest() async => backups.firstOrNull;
+
+  @override
+  Future<BackupFailure?> lastFailure() async => failure;
+
+  @override
+  Future<void> restore(BackupFile file) async {
+    if (fail case final error?) {
+      fail = null;
+      throw error;
+    }
+    restored.add(file);
+  }
+}
+
+/// Records what the nightly backup was set to.
+class FakeBackupScheduler implements BackupScheduler {
+  final calls = <bool>[];
+
+  @override
+  Future<void> setNightly({required bool on}) async => calls.add(on);
+}
+
 /// An [ExportSource] that returns [snapshot].
 class FixedExportSource implements ExportSource {
   ExportSnapshot snapshot = const ExportSnapshot(
@@ -230,6 +291,9 @@ List<Override> emptyRepositories({
   FakeFileSharer? sharer,
   FixedExportSource? exportSource,
   FakeDataEraser? eraser,
+  FakeBackupStore? backupStore,
+  FakeBackupScheduler? backupScheduler,
+  PickBackupFile? pickBackupFile,
   List<Project> projects = const [],
   List<Project> archived = const [],
 }) {
@@ -261,6 +325,13 @@ List<Override> emptyRepositories({
     ),
     fileSharerProvider.overrideWithValue(sharer ?? FakeFileSharer()),
     dataEraserProvider.overrideWithValue(eraser ?? FakeDataEraser()),
+    backupStoreProvider.overrideWithValue(backupStore ?? FakeBackupStore()),
+    backupSchedulerProvider.overrideWithValue(
+      backupScheduler ?? FakeBackupScheduler(),
+    ),
+    pickBackupFileProvider.overrideWithValue(
+      pickBackupFile ?? () async => null,
+    ),
     exportSourceProvider.overrideWithValue(exportSource ?? FixedExportSource()),
     recentSearchesRepositoryProvider.overrideWithValue(
       recent ?? MemoryRecentSearches(),

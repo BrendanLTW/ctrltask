@@ -21,6 +21,7 @@ Future<DialogChoice> showAppDialog(
   required String confirmLabel,
   String? secondaryLabel,
   bool destructive = false,
+  bool cancel = true,
 }) async {
   final motion = AppMotion.of(context);
   final choice = await showGeneralDialog<DialogChoice>(
@@ -48,6 +49,7 @@ Future<DialogChoice> showAppDialog(
       body: body,
       confirmLabel: confirmLabel,
       secondaryLabel: secondaryLabel,
+      cancel: cancel,
       destructive: destructive,
     ),
   );
@@ -65,6 +67,7 @@ class AppDialog extends StatelessWidget {
     required this.confirmLabel,
     this.secondaryLabel,
     this.destructive = false,
+    this.cancel = true,
     super.key,
   });
 
@@ -74,6 +77,9 @@ class AppDialog extends StatelessWidget {
   final String confirmLabel;
   final String? secondaryLabel;
   final bool destructive;
+
+  /// Whether Cancel shows; off for a message with just OK.
+  final bool cancel;
 
   @override
   Widget build(BuildContext context) {
@@ -143,12 +149,14 @@ class AppDialog extends StatelessWidget {
                   onPressed: () => pop(DialogChoice.secondary),
                 ),
               ],
-              const SizedBox(height: 4),
-              TextLink(
-                label: context.l10n.cancel,
-                muted: true,
-                onPressed: () => pop(DialogChoice.cancel),
-              ),
+              if (cancel) ...[
+                const SizedBox(height: 4),
+                TextLink(
+                  label: context.l10n.cancel,
+                  muted: true,
+                  onPressed: () => pop(DialogChoice.cancel),
+                ),
+              ],
             ],
           ),
         ),

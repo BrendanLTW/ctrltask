@@ -216,6 +216,11 @@ class ProjectsApp {
   final scheduler = FakeScheduler();
   final sharer = FakeFileSharer();
   final exportSource = FixedExportSource();
+  final backupStore = FakeBackupStore();
+  final backupScheduler = FakeBackupScheduler();
+
+  /// What Restore → Choose a file returns.
+  String? pickedFile;
 
   /// Erasing empties the live data and resets settings, as Drift would.
   late final eraser = FakeDataEraser()
@@ -329,6 +334,9 @@ class ProjectsApp {
           sharer: sharer,
           exportSource: exportSource,
           eraser: eraser,
+          backupStore: backupStore,
+          backupScheduler: backupScheduler,
+          pickBackupFile: () async => pickedFile,
         ),
         clockProvider.overrideWithValue(() => now),
       ],

@@ -45,9 +45,11 @@ void main() {
       quietStartMinute: 0,
       quietEndMinute: 1439,
       notificationsAsked: true,
+      autoBackup: false,
+      backupKeep: 30,
     );
     final values = preferencesToValues(prefs);
-    expect(values.keys, hasLength(22));
+    expect(values.keys, hasLength(24));
     expect(preferencesFromValues(values), prefs);
   });
 
@@ -66,6 +68,8 @@ void main() {
       PreferenceKeys.quietStartMinute: '-1',
       PreferenceKeys.quietEndMinute: 'seven',
       PreferenceKeys.defaultReminder: 'min45',
+      PreferenceKeys.autoBackup: 'sometimes',
+      PreferenceKeys.backupKeep: '5', // not a Keep choice
     });
     expect(prefs, d);
   });

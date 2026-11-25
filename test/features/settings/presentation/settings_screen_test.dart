@@ -75,14 +75,14 @@ void main() {
         'Tags',
         'Export data',
         'CSV or JSON',
+        'Backup & restore',
+        'No backups yet',
         'DATA',
         'Erase all data',
         'ctrlTask 1.0 · by BrendanLTW',
       ]) {
         expect(find.text(text), findsOneWidget, reason: text);
       }
-      // Hidden: v1.1.
-      expect(find.text('Backup & restore'), findsNothing);
     });
 
     testWidgets('without a name, offers to add one', (tester) async {
