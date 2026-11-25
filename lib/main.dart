@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:ctrltask/core/dates/clock.dart';
 import 'package:ctrltask/core/db/app_database.dart';
 import 'package:ctrltask/core/dev/demo_seed.dart';
@@ -5,9 +7,11 @@ import 'package:ctrltask/core/dev/perf_seed.dart';
 import 'package:ctrltask/core/router/app_router.dart';
 import 'package:ctrltask/core/theme/app_theme.dart';
 import 'package:ctrltask/core/theme/theme_mode_controller.dart';
+import 'package:ctrltask/features/data_transfer/data/drift_backup_store.dart';
 import 'package:ctrltask/features/data_transfer/data/drift_data_eraser.dart';
 import 'package:ctrltask/features/data_transfer/data/drift_export_source.dart';
 import 'package:ctrltask/features/data_transfer/data/share_plus_file_sharer.dart';
+import 'package:ctrltask/features/data_transfer/domain/backup.dart';
 import 'package:ctrltask/features/data_transfer/domain/data_eraser.dart';
 import 'package:ctrltask/features/data_transfer/domain/export_data.dart';
 import 'package:ctrltask/features/data_transfer/domain/file_sharer.dart';
@@ -36,6 +40,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_riverpod/misc.dart';
+import 'package:path_provider/path_provider.dart';
 
 /// `flutter run --dart-define=DEMO=true` opens the canvas sample data in an
 /// in-memory database. Debug builds only; release builds drop it.
@@ -106,6 +111,16 @@ List<Override> platformOverrides() => [
 /// The real implementations behind each repository. Wired here so screens
 /// never import `data/`.
 List<Override> appOverrides() => [
+  backupStoreProvider.overrideWith(
+    (ref) => DriftBackupStore(
+      ref.watch(appDatabaseProvider),
+      () async => Directory(
+        '${(await getApplicationDocumentsDirectory()).path}'
+        '${Platform.pathSeparator}backups',
+      ),
+      ref.watch(clockProvider),
+    ),
+  ),
   dataEraserProvider.overrideWith(
     (ref) => DriftDataEraser(ref.watch(appDatabaseProvider)),
   ),

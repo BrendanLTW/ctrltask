@@ -63,4 +63,14 @@ There's one header row, then one row per task, in the order the tasks were creat
 - **Preferences** are key-value pairs, with each value stored as text.
 - **Partial exports** still load: repeat rules, subtasks, links and tag links come only with their tasks. A focus session whose task isn't exported keeps its time, with `taskId` set to `null`.
 
-With everything included and All time, the JSON is an exact copy of the database. `test/features/data_transfer/data/drift_export_source_test.dart` loads it into an empty database and checks that every table matches. Restoring from a file is v1.1 (Backup & restore, S42).
+With everything included and All time, the JSON is an exact copy of the database. `test/features/data_transfer/data/drift_export_source_test.dart` loads it into an empty database and checks that every table matches. Restore uses the same loader.
+
+## Backups (v1.1)
+
+Backups (S42) are this JSON with everything included, named `ctrltask-backup-YYYY-MM-DD-HHmm.json` in local time. Only the newest **Keep** are kept, and other files in the folder are left alone. Each backup is written to `….json.tmp` and then renamed, so an interrupted backup never sits under a backup's name.
+
+Restore checks the whole file before touching anything:
+- **The file:** valid JSON with a `schemaVersion` and every table, and every row of the right type.
+- **Older versions:** a file from an older version is upgraded step by step to the current schema. A newer version, or one older than any upgrade, is refused.
+
+It then replaces everything in one transaction. If any row can't go in, for example a broken reference, nothing changes.

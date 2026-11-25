@@ -3,15 +3,15 @@ import 'dart:convert';
 import 'package:ctrltask/core/db/app_database.dart';
 import 'package:ctrltask/core/dev/demo_seed.dart';
 import 'package:ctrltask/core/repeat/repeat_rule.dart';
+import 'package:ctrltask/features/data_transfer/data/drift_backup_store.dart';
 import 'package:ctrltask/features/data_transfer/data/drift_export_source.dart';
 import 'package:ctrltask/features/data_transfer/domain/export_data.dart';
 import 'package:ctrltask/features/tasks/data/drift_task_repository.dart';
 import 'package:ctrltask/features/tasks/domain/task_draft.dart';
-import 'package:drift/drift.dart' show Insertable;
 import 'package:drift/native.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-/// Loads an export into [db]: what a v1.1 restore will do.
+/// Loads an export into [db], row by row as a restore does.
 Future<void> load(AppDatabase db, String json) async {
   final tables =
       (jsonDecode(json) as Map<String, Object?>)['tables']!
@@ -20,19 +20,7 @@ Future<void> load(AppDatabase db, String json) async {
   await db.batch((b) {
     for (final MapEntry(key: name, value: rows) in tables.entries) {
       for (final row in (rows! as List).cast<Map<String, Object?>>()) {
-        final insertable = switch (name) {
-          'projects' => ProjectRow.fromJson(row),
-          'repeat_rules' => RepeatRuleRow.fromJson(row),
-          'tasks' => TaskRow.fromJson(row),
-          'subtasks' => SubtaskRow.fromJson(row),
-          'tags' => TagRow.fromJson(row),
-          'task_tags' => TaskTagRow.fromJson(row),
-          'links' => LinkRow.fromJson(row),
-          'focus_sessions' => FocusSessionRow.fromJson(row),
-          'preferences' => Preference.fromJson(row),
-          _ => throw StateError('unknown table $name'),
-        };
-        b.insert(byName[name]!, insertable as Insertable<Object?>);
+        b.insert(byName[name]!, rowFromJson(name, row));
       }
     }
   });
