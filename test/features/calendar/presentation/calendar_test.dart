@@ -89,7 +89,42 @@ void main() {
       for (final text in ['Pending', 'Completed', 'Overdue']) {
         expect(find.text(text), findsOneWidget);
       }
-      expect(find.textContaining('Hold & drag'), findsNothing);
+      expect(find.text('Hold & drag to move'), findsOneWidget);
+    });
+
+    Finder day(String number) => find.descendant(
+      of: find.byType(MonthCalendar),
+      matching: find.text(number),
+    );
+
+    Future<void> drag(WidgetTester tester, String title, String to) async {
+      final gesture = await tester.startGesture(
+        tester.getCenter(find.text(title)),
+      );
+      await tester.pump(const Duration(milliseconds: 600));
+      await gesture.moveTo(tester.getCenter(day(to).first));
+      await tester.pump();
+      await gesture.up();
+      await tester.pumpAndSettle();
+    }
+
+    testWidgets('drag a task onto a day: new day, same time', (tester) async {
+      when(() => app.tasks.update(any())).thenAnswer((_) async {});
+      await pumpMonth(tester);
+      await drag(tester, 'Review wireframes', '19');
+      final details =
+          verify(() => app.tasks.update(captureAny())).captured.single
+              as TaskDetails;
+      expect(details.task.id, 2);
+      expect(details.task.dueDate, DateTime(2026, 11, 19));
+      expect(details.task.dueMinute, 600);
+    });
+
+    testWidgets('dropped on its own day, nothing changes', (tester) async {
+      when(() => app.tasks.update(any())).thenAnswer((_) async {});
+      await pumpMonth(tester);
+      await drag(tester, 'Read chapter', '17');
+      verifyNever(() => app.tasks.update(any()));
     });
 
     testWidgets("the agenda shows the picked day's tasks", (tester) async {

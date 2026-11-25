@@ -3603,6 +3603,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'tomorrow'**
   String get hintTomorrow;
+
+  /// No description provided for @holdToMove.
+  ///
+  /// In en, this message translates to:
+  /// **'Hold & drag to move'**
+  String get holdToMove;
 }
 
 class _AppLocalizationsDelegate

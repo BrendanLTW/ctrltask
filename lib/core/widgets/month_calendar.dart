@@ -24,6 +24,7 @@ class MonthCalendar extends StatelessWidget {
     required this.onMonthChanged,
     this.selected,
     this.dotsFor,
+    this.onDrop,
     super.key,
   });
 
@@ -40,6 +41,10 @@ class MonthCalendar extends StatelessWidget {
   /// Up to three status dots per day (S21). Overdue days also get a red
   /// number.
   final Set<CalendarDot> Function(DateTime day)? dotsFor;
+
+  /// Something dragged onto a day (S21's drag to reschedule). Days take
+  /// drops only when set, and ring in `ink` while one hovers.
+  final void Function(DateTime day, Object data)? onDrop;
 
   @override
   Widget build(BuildContext context) {
@@ -143,6 +148,16 @@ class _Day extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final onDrop = calendar.onDrop;
+    if (onDrop == null) return _cell(context, hovering: false);
+    return DragTarget<Object>(
+      onAcceptWithDetails: (d) => onDrop(date, d.data),
+      builder: (context, candidates, _) =>
+          _cell(context, hovering: candidates.isNotEmpty),
+    );
+  }
+
+  Widget _cell(BuildContext context, {required bool hovering}) {
     final colors = context.colors;
     final palette = context.projectColors;
     final today = calendar.today;
@@ -179,7 +194,9 @@ class _Day extends StatelessWidget {
             decoration: BoxDecoration(
               color: isSelected ? colors.ink : null,
               borderRadius: BorderRadius.circular(AppRadius.r14),
-              border: isToday && !isSelected
+              border: hovering
+                  ? Border.all(color: colors.ink, width: 2)
+                  : isToday && !isSelected
                   ? Border.all(color: colors.control, width: 2)
                   : null,
             ),

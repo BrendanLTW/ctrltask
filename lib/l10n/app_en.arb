@@ -1808,5 +1808,6 @@
   "detectedPrefix": "Detected",
   "detectedSuffix": "from your words",
   "hintToday": "today",
-  "hintTomorrow": "tomorrow"
+  "hintTomorrow": "tomorrow",
+  "holdToMove": "Hold & drag to move"
 }

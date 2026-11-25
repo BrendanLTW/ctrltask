@@ -29,9 +29,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 /// S21 Calendar · Month (PRD §5.6): the month with status dots, the
-/// legend, and the picked day's agenda.
-// shortcut: "Hold & drag to move" and drag to reschedule come with 5.5
-// (v1.1).
+/// legend, and the picked day's agenda, whose tasks drag onto a day to
+/// move there at the same time (v1.1).
 class CalendarMonthView extends ConsumerStatefulWidget {
   const new({super.key});
 
@@ -116,6 +115,13 @@ class _CalendarMonthState extends ConsumerState<CalendarMonthView> {
                     },
                     null => const {},
                   },
+                  // Same time, new day; dropped on its own day, nothing.
+                  onDrop: (to, data) {
+                    if (data is! Task || data.dueDate == to) return;
+                    unawaited(
+                      setTaskDue(ref, data, date: to, minute: data.dueMinute),
+                    );
+                  },
                 ),
               ],
             ),
@@ -138,6 +144,10 @@ class _CalendarMonthState extends ConsumerState<CalendarMonthView> {
                 legend(
                   context.projectColors.of(ProjectColorKey.red).solid,
                   l10n.legendOverdue,
+                ),
+                Text(
+                  l10n.holdToMove,
+                  style: text.subline.copyWith(color: colors.muted),
                 ),
               ],
             ),
@@ -167,6 +177,7 @@ class _CalendarMonthState extends ConsumerState<CalendarMonthView> {
             )
           else
             TaskListGroup(
+              draggable: true,
               tasks: agenda,
               now: now,
               labels: labels,

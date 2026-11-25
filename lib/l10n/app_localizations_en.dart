@@ -2360,4 +2360,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get hintTomorrow => 'tomorrow';
+
+  @override
+  String get holdToMove => 'Hold & drag to move';
 }

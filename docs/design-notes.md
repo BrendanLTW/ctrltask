@@ -27,6 +27,12 @@ Where v1.0 knowingly differs from the exports in `docs/design/`, and why. Each s
 - **"Every night while charging"** runs when Android's WorkManager or iOS's BGTaskScheduler allows. iOS decides when, so on iOS it's a best effort.
 - **The status box's text is `ink` and `chipText`** on the tinted box, as in the designs. A size never breaks between number and unit.
 
+## Drag to reschedule (S21, v1.1)
+
+- **"Hold & drag to move" sits on its own line under the legend.** The export fits it to the legend's right by drawing the legend smaller; at the app's legend size, sharing the row pushed Overdue onto a second line.
+- **Drops land on the month on screen.** Hovering over the arrows doesn't turn the month while dragging; for another month, Reschedule (swipe the row) opens the date picker, which is also the way for screen readers.
+- **The time stays,** and dropping a task on its own day changes nothing.
+
 ## Following the spec over one export
 
 - **Priority tag flag and clock icon in Tasks rows (S19).** The Tasks · List view export leaves out the 12 px flag in the priority tag and the clock before the time. DESIGN §7 specifies both, and the Home export shows them, so every list uses one task row. As a result, a long title beside a tag wraps a little sooner in the list.
