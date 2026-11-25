@@ -79,7 +79,7 @@ void main() {
         'No backups yet',
         'DATA',
         'Erase all data',
-        'ctrlTask 1.0 · by BrendanLTW',
+        'ctrlTask 1.1 · by BrendanLTW',
       ]) {
         expect(find.text(text), findsOneWidget, reason: text);
       }

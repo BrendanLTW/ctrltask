@@ -11,6 +11,13 @@ Built in Flutter as a portfolio project, where architecture, tests and design fi
 | **Light** | <img src="docs/screenshots/home-light.png" width="120"> | <img src="docs/screenshots/tasks-light.png" width="120"> | <img src="docs/screenshots/calendar-light.png" width="120"> | <img src="docs/screenshots/projects-light.png" width="120"> | <img src="docs/screenshots/project-light.png" width="120"> | <img src="docs/screenshots/task-light.png" width="120"> | <img src="docs/screenshots/focus-light.png" width="120"> | <img src="docs/screenshots/insights-light.png" width="120"> |
 | **Dark** | <img src="docs/screenshots/home-dark.png" width="120"> | <img src="docs/screenshots/tasks-dark.png" width="120"> | <img src="docs/screenshots/calendar-dark.png" width="120"> | <img src="docs/screenshots/projects-dark.png" width="120"> | <img src="docs/screenshots/project-dark.png" width="120"> | <img src="docs/screenshots/task-dark.png" width="120"> | <img src="docs/screenshots/focus-dark.png" width="120"> | <img src="docs/screenshots/insights-dark.png" width="120"> |
 
+New in v1.1:
+
+| | Board | Quick add | Backup | Backup failed |
+|---|---|---|---|---|
+| **Light** | <img src="docs/screenshots/board-light.png" width="120"> | <img src="docs/screenshots/quick-add-light.png" width="120"> | <img src="docs/screenshots/backup-light.png" width="120"> | <img src="docs/screenshots/backup-failed-light.png" width="120"> |
+| **Dark** | <img src="docs/screenshots/board-dark.png" width="120"> | <img src="docs/screenshots/quick-add-dark.png" width="120"> | <img src="docs/screenshots/backup-dark.png" width="120"> | <img src="docs/screenshots/backup-failed-dark.png" width="120"> |
+
 ## Features
 
 - **Today at a glance.** Home shows a progress ring, your streak, focus time and what's done this week, an overdue banner, and today's tasks in order.
@@ -23,10 +30,14 @@ Built in Flutter as a portfolio project, where architecture, tests and design fi
 - **Insights:** completion rate and its change, tasks and focus by day, a 6-week trend and your power day.
 - **Local notifications:** task reminders, a daily plan, overdue nudges, session ends and a weekly review, with quiet hours.
 - **Export** to CSV or JSON for a range, light, dark or system theme, your week's start day, a default priority, and Erase all data.
+- **Board** *(v1.1)*. A project's tasks in To do, In progress and Done. Long-press to drag a card; into Done completes it with Undo, out of Done reopens it.
+- **Quick-add hints** *(v1.1)*. Type "tomorrow 9am", "friday", "!urgent", "#design" or "@Website redesign" in the title and quick add picks them up, then removes them from the title on save.
+- **Backup & restore** *(v1.1)*. A nightly backup while charging, Back up now, the newest few kept, and a restore that checks the whole file first and changes nothing if it can't use it.
+- **Drag to reschedule** *(v1.1)*. Hold a task on the month calendar and drop it on a day; its time stays.
 
 ## Tech stack
 
-Flutter (stable, Dart 3) · Riverpod 3 with code generation · Drift (SQLite) with versioned migrations · go_router with a `StatefulShellRoute` · freezed · intl · flutter_local_notifications with timezone · flutter_svg with bundled Lucide icons · share_plus and csv for export · very_good_analysis. Charts are drawn with `CustomPainter`, with no chart package.
+Flutter (stable, Dart 3) · Riverpod 3 with code generation · Drift (SQLite) with versioned migrations · go_router with a `StatefulShellRoute` · freezed · intl · flutter_local_notifications with timezone · workmanager (nightly backup) and file_picker (restore) · flutter_svg with bundled Lucide icons · share_plus and csv for export · very_good_analysis. Charts are drawn with `CustomPainter`, with no chart package.
 
 ## Architecture
 
@@ -101,7 +112,7 @@ CI runs codegen, analyze and the tests on every push.
 - [PRD](docs/PRD.md): requirements, screens and acceptance criteria
 - [DESIGN](docs/DESIGN.md): tokens and components
 - [Design notes](docs/design-notes.md): where the app knowingly differs from the designs
-- [Export formats](docs/export-format.md)
+- [Export and backup formats](docs/export-format.md)
 - [Performance](docs/performance.md)
 - [PLAN](docs/PLAN.md): the build, task by task
 

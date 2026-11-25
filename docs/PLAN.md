@@ -146,5 +146,5 @@ Work top to bottom. Each task is sized for one Claude Code session and follows t
   Refs: S10, PRD §6.8, FR-20
 - [x] **5.5 Drag to reschedule.** Long-press a task in the S21 agenda and drop it on a day; the date changes and the time stays.
   Refs: S21, PRD §5.6, FR-20
-- [ ] **5.6 v1.1 release.** Run the accessibility and fidelity checklists for the new screens, update the README, and tag `v1.1.0`.
+- [x] **5.6 v1.1 release.** Run the accessibility and fidelity checklists for the new screens, update the README, and tag `v1.1.0`.
   Refs: PRD §11

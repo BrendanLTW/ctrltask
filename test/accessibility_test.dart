@@ -1,5 +1,7 @@
 import 'package:ctrltask/core/router/app_router.dart';
+import 'package:ctrltask/features/data_transfer/domain/backup.dart';
 import 'package:ctrltask/features/settings/domain/preferences_repository.dart';
+import 'package:ctrltask/features/tasks/presentation/tasks_providers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -98,6 +100,32 @@ void main() {
           semantics.dispose();
         });
       }
+
+      testWidgets('S21 month calendar with drag hint', (tester) async {
+        final semantics = tester.ensureSemantics();
+        final app = seeded();
+        await app.pump(tester, brightness: brightness);
+        app.container.read(tasksViewModeProvider.notifier).view =
+            TasksView.calendar;
+        app.router.go(Routes.tasks);
+        await tester.pumpAndSettle();
+        await meetsGuidelines(tester);
+        semantics.dispose();
+      });
+
+      testWidgets('S43 backup failed', (tester) async {
+        final semantics = tester.ensureSemantics();
+        final app = seeded();
+        app.backupStore.failure = (
+          at: DateTime(2026, 11, 17, 2),
+          reason: BackupFailureReason.noSpace,
+          neededBytes: 1258291,
+          automatic: true,
+        );
+        await app.pump(tester, location: Routes.backup, brightness: brightness);
+        await meetsGuidelines(tester);
+        semantics.dispose();
+      });
 
       testWidgets('board', (tester) async {
         final semantics = tester.ensureSemantics();
